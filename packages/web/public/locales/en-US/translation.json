@@ -7,6 +7,7 @@
     "quickJump": "Quick Jump",
     "quickJumpTooltip": "Quickly jump to a subpage through the dropdown options.",
     "lang": "Language",
+    "langTooltip": "Switch language (not all pages are available in Traditional Chinese or English)",
     "curApp": "Current App",
     "curPage": "Current page",
     "csd": "Canvas simulates device",

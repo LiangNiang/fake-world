@@ -7,6 +7,7 @@
     "quickJump": "快速跳轉",
     "quickJumpTooltip": "通過下拉選項快速跳轉到子頁面",
     "lang": "語言",
+    "langTooltip": "切換語言（不是所有頁面都有繁體中文或者英語）",
     "curApp": "當前應用",
     "curPage": "當前頁面",
     "csd": "畫布模擬設備",
