@@ -1,0 +1,1 @@
+{"formatName":"dexie","formatVersion":1,"data":{"databaseName":"fakeWorldDB","databaseVersion":1,"tables":[{"name":"images","schema":"id","rowCount":0}],"data":[{"tableName":"images","inbound":true,"rows":[]}]}}

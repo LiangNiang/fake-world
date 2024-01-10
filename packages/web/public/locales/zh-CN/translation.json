@@ -1,0 +1,189 @@
+{
+  "base": {
+    "mode": "模式",
+    "modeTooltip": "shift + Z 键快速切换",
+    "modeEdit": "编辑",
+    "modePreview": "预览",
+    "quickJump": "快速跳转",
+    "quickJumpTooltip": "通过下拉选项快速跳转到子页面",
+    "lang": "语言",
+    "curApp": "当前应用",
+    "curPage": "当前页面",
+    "csd": "画布模拟设备",
+    "save": "保存",
+    "he": "他",
+    "she": "她",
+    "his": "他的",
+    "her": "她的",
+    "safeNavigateNotice": "退出编辑模式进行页面跳转"
+  },
+  "menu": {
+    "main": "主页",
+    "trees": "可编辑节点大纲",
+    "code": "编辑元数据",
+    "treesBlock": {
+      "editLabel": "（编辑模式中）",
+      "previewLabel": "（shift + Z 进入编辑模式）"
+    }
+  },
+  "quickJump": {
+    "wechat": {
+      "index": "微信首页",
+      "profileEdit": "个人信息编辑",
+      "services": "服务",
+      "balance": "钱包 - 零钱",
+      "moments": "朋友圈",
+      "trans": "账单详情-二维码转账"
+    }
+  },
+  "app": {
+    "wechat": "微信"
+  },
+  "bottomNavbar": {
+    "wechat": "微信",
+    "contacts": "通讯录",
+    "discover": "发现",
+    "me": "我"
+  },
+  "routerLabel": {
+    "wechat": {
+      "index": "首页",
+      "cHistory": "聊天记录",
+      "my": "我的",
+      "profileEdit": "个人信息编辑",
+      "services": "服务",
+      "wallet": "钱包",
+      "balance": "零钱",
+      "discover": "发现",
+      "moments": "朋友圈",
+      "personalMoments": "个人朋友圈",
+      "momentDetail": "单条朋友圈详情",
+      "user": "用户",
+      "transaction": "账单详情"
+    }
+  },
+  "transactionType": {
+    "qr": "二维码转账",
+    "transfer": "好友转账",
+    "payReward": "赞赏码",
+    "redPacket": "红包",
+    "creditCard": "信用卡还款"
+  },
+  "wechatPage": {
+    "main": {
+      "title": "微信 ({{totalUnreadCount}})",
+      "search": "搜索"
+    },
+    "discover": {
+      "title": "发现",
+      "moments": "朋友圈",
+      "channels": "视频号",
+      "live": "直播",
+      "scan": "扫一扫",
+      "topStories": "看一看",
+      "search": "搜一搜",
+      "nearby": "附近",
+      "games": "游戏",
+      "mp": "小程序"
+    },
+    "my": {
+      "wid": "微信号",
+      "status": "状态",
+      "services": "服务",
+      "favorites": "收藏",
+      "moments": "朋友圈",
+      "cards": "卡包",
+      "stickers": "表情",
+      "settings": "设置",
+      "profile": {
+        "title": "个人信息",
+        "photo": "头像",
+        "name": "名字",
+        "tickle": "拍一拍",
+        "wid": "微信号",
+        "qr": "我的二维码",
+        "more": "更多",
+        "icr": "来电铃声",
+        "weBeans": "微信豆",
+        "address": "我的地址"
+      }
+    },
+    "services": {
+      "title": "服务",
+      "money": "收付款",
+      "wallet": "钱包",
+      "financialServices": "金融理财",
+      "cardRepay": "信用卡还款",
+      "wealth": "理财通",
+      "insurance": "保险服务",
+      "dailyServices": "生活服务",
+      "mobile": "手机充值",
+      "utilities": "生活缴费",
+      "qqCoin": "Q币充值",
+      "public": "城市服务",
+      "charity": "腾讯公益",
+      "health": "医疗健康",
+      "travel": "交通出行",
+      "mobility": "出行服务",
+      "r&f": "火车票机票",
+      "didi": "滴滴出行",
+      "hotels": "酒店",
+      "shopping": "购物消费",
+      "brandMall": "品牌发现",
+      "jd": "京东购物",
+      "meituan": "美团外卖",
+      "eventTickets": "电影演出娱乐",
+      "meituan2": "美团特价",
+      "pdd": "拼多多",
+      "wph": "唯品会特卖",
+      "zz": "转转二手",
+      "bk": "贝壳找房"
+    },
+    "wallet": {
+      "title": "钱包",
+      "transactions": "账单",
+      "balance": "零钱",
+      "mf": "零钱通",
+      "cards": "银行卡",
+      "relativeCard": "亲属卡",
+      "payScore": "支付分",
+      "protection": "消费者保护",
+      "eCNY": "数字人民币",
+      "idInfo": "身份信息",
+      "settings": "支付设置",
+      "yield": "收益率",
+      "balancePage": {
+        "transactions": "零钱明细",
+        "my": "我的零钱",
+        "ad": "转入零钱通，能赚又能花",
+        "topUp": "充值",
+        "withdraw": "提现",
+        "provided": "本服务由财付通提供"
+      }
+    },
+    "friend": {
+      "wid": "微信号 :",
+      "nickname": "昵称 :",
+      "region": "地区 :",
+      "editContact": "设置备注和标签",
+      "tags": "标签",
+      "desc": "描述",
+      "mobile": "电话",
+      "moments": "朋友圈",
+      "privacy": "朋友权限",
+      "privacyChatsOnly": "仅聊天",
+      "privacyHideMy": "不让{{title}}看朋友圈和状态",
+      "privacyHideFriend": "不看{{title}}朋友圈和状态",
+      "more": "更多信息",
+      "sendMessage": "发消息",
+      "call": "音视频通话"
+    },
+    "moments": {
+      "title": "朋友圈",
+      "changeCover": "换封面",
+      "like": "赞",
+      "comment": "评论",
+      "cancel": "取消"
+    }
+  }
+}

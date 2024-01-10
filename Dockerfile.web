@@ -1,0 +1,16 @@
+FROM node:18-alpine as builder
+
+ENV PROJECT_ENV=production
+
+WORKDIR /code
+
+ADD package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc /code/
+ADD packages/web/package.json /code/packages/web/
+RUN npm i -g pnpm && cd ./packages/web && pnpm install
+
+ADD . /code
+RUN pnpm run build:web
+
+FROM nginx:alpine
+ADD ./packages/web/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder code/packages/web/dist /usr/share/nginx/html

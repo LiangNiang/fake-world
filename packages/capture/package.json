@@ -1,0 +1,21 @@
+{
+  "name": "@fake-world/capture",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "bun --watch run index.ts"
+  },
+  "devDependencies": {
+    "@types/lodash-es": "^4.17.10",
+    "bun": "^1.0.7",
+    "bun-types": "latest",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "chrome-launcher": "^1.1.0",
+    "lodash-es": "^4.17.21",
+    "puppeteer": "^21.4.1"
+  }
+}

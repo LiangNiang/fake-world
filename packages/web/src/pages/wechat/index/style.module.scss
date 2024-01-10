@@ -1,0 +1,6 @@
+.chat-item {
+  &::after {
+    left: calc(theme('width.10') + theme('margin.3') + theme('padding.4'));
+    width: calc(100% - theme('width.10') - theme('margin.3') - theme('padding.4'));
+  }
+}
