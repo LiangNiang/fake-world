@@ -1,0 +1,19 @@
+{
+  "name": "@fake-world/api",
+  "private": true,
+  "scripts": {
+    "dev": "bun run --watch src/index.ts"
+  },
+  "dependencies": {
+    "@elysiajs/cors": "^0.7.1",
+    "@fake-world/capture": "workspace:^",
+    "elysia": "^0.7.24"
+  },
+  "devDependencies": {
+    "@sinclair/typebox": "^0.31.23",
+    "bun": "^1.0.11",
+    "bun-types": "^1.0.11",
+    "typescript": "^5.2.2"
+  },
+  "module": "src/index.js"
+}

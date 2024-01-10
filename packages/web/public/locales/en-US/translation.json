@@ -1,0 +1,189 @@
+{
+  "base": {
+    "mode": "Mode",
+    "modeTooltip": "Shift + Z key for quick switching",
+    "modeEdit": "Edit",
+    "modePreview": "Preview",
+    "quickJump": "Quick Jump",
+    "quickJumpTooltip": "Quickly jump to a subpage through the dropdown options.",
+    "lang": "Language",
+    "curApp": "Current App",
+    "curPage": "Current page",
+    "csd": "Canvas simulates device",
+    "save": "Save",
+    "he": "He",
+    "she": "She",
+    "his": "His",
+    "her": "Her",
+    "safeNavigateNotice": "Exit edit mode to jump to another page"
+  },
+  "menu": {
+    "main": "Main Page",
+    "trees": "Editable Node Outline",
+    "code": "Edit Metadata",
+    "treesBlock": {
+      "editLabel": " (In Edit Mode)",
+      "previewLabel": " (Enter Edit Mode with shift + Z)"
+    }
+  },
+  "quickJump": {
+    "wechat": {
+      "index": "WeChat homepage",
+      "profileEdit": "Edit personal information",
+      "services": "Services",
+      "balance": "Wallet - Balance",
+      "moments": "Moments",
+      "trans": "Transaction Details - QR code transfer"
+    }
+  },
+  "app": {
+    "wechat": "Weixin"
+  },
+  "bottomNavbar": {
+    "wechat": "chats",
+    "contacts": "Contacts",
+    "discover": "Discover",
+    "me": "Me"
+  },
+  "routerLabel": {
+    "wechat": {
+      "index": "WeChat homepage",
+      "cHistory": "Chat History",
+      "my": "Me",
+      "profileEdit": "Edit personal information",
+      "services": "Services",
+      "wallet": "Wallet",
+      "balance": "Balance",
+      "discover": "Discover",
+      "moments": "Moments",
+      "personalMoments": "Personal Moments",
+      "momentDetail": "Details of a Moment",
+      "user": "User",
+      "transaction": "Transaction Details"
+    }
+  },
+  "transactionType": {
+    "qr": "QR Code Transfer",
+    "transfer": "Friend Transfer",
+    "payReward": "Pay Reward",
+    "redPacket": "Red Packet",
+    "creditCard": "Credit Card Repayment"
+  },
+  "wechatPage": {
+    "main": {
+      "title": "Weixin ({{totalUnreadCount}})",
+      "search": "Search"
+    },
+    "discover": {
+      "title": "Discover",
+      "moments": "Moments",
+      "channels": "Channels",
+      "live": "Live Stream",
+      "scan": "Scan",
+      "topStories": "Top Stories",
+      "search": "Search",
+      "nearby": "Nearby",
+      "games": "Games",
+      "mp": "Mini Programs"
+    },
+    "my": {
+      "wid": "Weixin ID",
+      "status": "Status",
+      "services": "Services",
+      "favorites": "Favorites",
+      "moments": "Moments",
+      "cards": "Cards & Offers",
+      "stickers": "Sticker Gallery",
+      "settings": "Settings",
+      "profile": {
+        "title": "My Profile",
+        "photo": "Profile Photo",
+        "name": "Name",
+        "tickle": "Tickle",
+        "wid": "Weixin ID",
+        "qr": "My QR Code",
+        "more": "More",
+        "icr": "Incoming Call Ringtones",
+        "weBeans": "WeBeans",
+        "address": "My Address"
+      }
+    },
+    "services": {
+      "title": "Services",
+      "money": "Money",
+      "wallet": "Wallet",
+      "financialServices": "Financial Services",
+      "cardRepay": "Card Repay",
+      "wealth": "Wealth",
+      "insurance": "Insurance",
+      "dailyServices": "Daily Services",
+      "mobile": "Mobile Top Up",
+      "utilities": "Utilities",
+      "qqCoin": "QQ Coins",
+      "public": "Public Services",
+      "charity": "Tencent Charity",
+      "health": "Health",
+      "travel": "Travel & Transportation",
+      "mobility": "Mobility",
+      "r&f": "Rail & Flights",
+      "didi": "Ride Hailing",
+      "hotels": "Hotels",
+      "shopping": "Shopping & Entertainment",
+      "brandMall": "Brand Mall",
+      "jd": "Specials",
+      "meituan": "Food Delivery",
+      "eventTickets": "Event Tickets",
+      "meituan2": "Lifestyle & Retail",
+      "pdd": "Buy Together",
+      "wph": "Flash Sales",
+      "zz": "User Goods",
+      "bk": "Housing"
+    },
+    "wallet": {
+      "title": "Wallet",
+      "transactions": "Transactions",
+      "balance": "Balance",
+      "mf": "Mini Fund",
+      "cards": "Cards",
+      "relativeCard": "Relative Cards",
+      "payScore": "WeChat Pay Score",
+      "protection": "Consumer Protection",
+      "eCNY": "e-CNY",
+      "idInfo": "ID Info",
+      "settings": "Payment Settings",
+      "yield": "Yield",
+      "balancePage": {
+        "transactions": "Transactions",
+        "my": "My Balance",
+        "ad": "Transfer to Mini Fund for Return",
+        "topUp": "Top Up",
+        "withdraw": "Withdraw",
+        "provided": "Provided by Tenpay"
+      }
+    },
+    "friend": {
+      "wid": "Weixin ID:",
+      "nickname": "Name:",
+      "region": "Region:",
+      "editContact": "Edit Contact",
+      "tags": "Tags",
+      "desc": "Remark",
+      "mobile": "Mobile",
+      "moments": "Moments",
+      "privacy": "Privacy",
+      "privacyChatsOnly": "Chats Only",
+      "privacyHideMy": "Hide My Moments and Status",
+      "privacyHideFriend": "Hide {{title}} Moments and Status",
+      "more": "More",
+      "sendMessage": "Send Message",
+      "call": "Voice or Video Call"
+    },
+    "moments": {
+      "title": "Moments",
+      "changeCover": "Change Cover",
+      "like": "Like",
+      "comment": "Comment",
+      "cancel": "Cancel"
+    }
+  }
+}

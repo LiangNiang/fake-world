@@ -1,0 +1,129 @@
+import { autoUpdate, detectOverflow, FloatingOverlay, FloatingPortal, Middleware, size, useFloating } from '@floating-ui/react';
+import cn from 'classnames';
+import { useMemo } from 'react';
+import { useRecoilValue } from 'recoil';
+
+import TopOperations from '@/components/TopOperations';
+import { activatedNodeState, hoverdNodeState } from '@/state/detectedNode';
+
+type ActivatedBorderProps = {
+  element: Element;
+  type: 'hover' | 'activated';
+  nodeId: string;
+};
+
+const screenOverflow: Middleware = {
+  name: 'screenOverflow',
+  fn: async (state) => {
+    const boundary = document.getElementById('screen')!;
+    const overflow = await detectOverflow(state, {
+      boundary,
+      elementContext: 'reference',
+    });
+    const { top, bottom } = overflow;
+    const topClipped = top >= 0;
+    const bottomClipped = bottom >= 0;
+    const allClipped = topClipped && bottomClipped;
+    const unClipped = !topClipped && !bottomClipped;
+
+    return {
+      data: {
+        overflow,
+        topClipped,
+        bottomClipped,
+        allClipped,
+        unClipped,
+        offsetTop: boundary.offsetTop,
+        screenHeight: boundary.clientHeight,
+        completelyHidden: bottom > boundary.offsetTop,
+      },
+    };
+  },
+};
+
+const DetectedOverlay = ({ element, type, nodeId }: ActivatedBorderProps) => {
+  const { floatingStyles, refs, elements } = useFloating({
+    elements: {
+      reference: element,
+    },
+    placement: 'top-start',
+    middleware: [
+      screenOverflow,
+      size({
+        apply: ({ elements, middlewareData }) => {
+          const { overflow } = middlewareData.screenOverflow;
+          const clipTop = overflow.top;
+          const clipBottom = overflow.bottom;
+          const needClip = clipTop > 0 || clipBottom > 0;
+          Object.assign(elements.floating.style, {
+            clipPath: needClip ? `inset(${clipTop > 0 ? clipTop : -28}px 0 ${clipBottom}px 0)` : 'unset',
+          });
+        },
+      }),
+    ],
+    whileElementsMounted: autoUpdate,
+  });
+
+  const elementRect = elements.reference!.getBoundingClientRect();
+
+  const operaionsElement = useMemo(() => {
+    return <TopOperations nodeId={nodeId} />;
+  }, [nodeId]);
+
+  return (
+    <FloatingPortal>
+      <FloatingOverlay
+        className={cn('pointer-events-none h-screen w-screen !overflow-hidden', {
+          'z-50': type === 'activated',
+          'z-40': type === 'hover',
+        })}
+      >
+        <div
+          ref={refs.setFloating}
+          className={cn('outline outline-2 -outline-offset-2', {
+            'outline-antDaybreakBlue-6': type === 'activated',
+            'outline-dashed outline-antDaybreakBlue-3': type === 'hover',
+          })}
+          style={{
+            ...floatingStyles,
+            width: elementRect.width,
+            height: elementRect.height,
+            top: elementRect.height,
+          }}
+        >
+          {type === 'activated' && operaionsElement}
+        </div>
+      </FloatingOverlay>
+    </FloatingPortal>
+  );
+};
+
+const DetectedOverall = () => {
+  const activatedNode = useRecoilValue(activatedNodeState);
+  const hoverdNode = useRecoilValue(hoverdNodeState);
+
+  const activatedBorder = useMemo(() => {
+    if (activatedNode) {
+      const element = document.getElementById(activatedNode);
+      if (!element) return null;
+      return <DetectedOverlay type="activated" element={element} nodeId={activatedNode} />;
+    }
+  }, [activatedNode]);
+
+  const hoverdBorder = useMemo(() => {
+    if (hoverdNode && hoverdNode !== activatedNode) {
+      const element = document.getElementById(hoverdNode);
+      if (!element) return null;
+      return <DetectedOverlay type="hover" element={element} nodeId={hoverdNode} />;
+    }
+  }, [hoverdNode]);
+
+  return (
+    <>
+      {activatedBorder}
+      {hoverdBorder}
+    </>
+  );
+};
+
+export default DetectedOverall;
