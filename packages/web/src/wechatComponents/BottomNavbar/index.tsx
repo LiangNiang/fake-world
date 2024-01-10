@@ -67,12 +67,15 @@ const BottomNavbar = () => {
         <span className={cn('text-xs', { 'text-[#07C160]': WECHAT.activated })}>{t('bottomNavbar.wechat')}</span>
       </canBeDetected.div>
       <canBeDetected.div
-        className="flex flex-col items-center justify-center space-y-1 py-2"
+        className="flex cursor-pointer flex-col items-center justify-center space-y-1 py-2"
         metaData={{
           type: MetaDataType.NavigationBar,
           index: BottomNavBars.ADDRESS_BOOK,
           treeItemDisplayName: '通讯录',
           operations: commonOperations,
+        }}
+        onClick={() => {
+          navigate('/wechat/contacts');
         }}
       >
         <Badge

@@ -60,7 +60,8 @@
       "personalMoments": "個人朋友圈",
       "momentDetail": "單條朋友圈詳情",
       "user": "用戶",
-      "transaction": "賬單詳情"
+      "transaction": "賬單詳情",
+      "contacts": "通訊錄"
     }
   },
   "transactionType": {

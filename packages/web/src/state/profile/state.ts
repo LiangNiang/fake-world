@@ -36,7 +36,7 @@ export const myProfileState = atom<IProfile>({
 
 export const friendsIdsState = atom<IProfile['id'][]>({
   key: 'friendsIdState',
-  default: INIT_FRIENDS.map((v) => v.id),
+  default: [MYSELF_ID, ...INIT_FRIENDS.map((v) => v.id)],
   effects_UNSTABLE: [persistAtom],
 });
 

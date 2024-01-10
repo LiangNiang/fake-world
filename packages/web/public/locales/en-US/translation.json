@@ -60,7 +60,8 @@
       "personalMoments": "Personal Moments",
       "momentDetail": "Details of a Moment",
       "user": "User",
-      "transaction": "Transaction Details"
+      "transaction": "Transaction Details",
+      "contacts": "Contacts"
     }
   },
   "transactionType": {

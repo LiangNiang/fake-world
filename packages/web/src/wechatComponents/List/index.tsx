@@ -8,6 +8,7 @@ import { canBeDetected } from '@/components/NodeDetected';
 type ListItemProps = {
   withJump?: boolean;
   icon?: ReactNode;
+  textPrev?: ReactNode;
 };
 
 export const List = ({ children, className }: ComponentPropsWithRef<'div'>) => {
@@ -18,10 +19,13 @@ const ListItemPrev = ({ children, className }: ComponentPropsWithRef<'div'>) => 
   return <div className={cn('ml-3', className)}>{children}</div>;
 };
 
-export const ListItem = ({ children, className, withJump, icon, ...rest }: ComponentPropsWithRef<'div'> & ListItemProps) => {
+export const ListItem = ({ children, className, withJump, icon, textPrev, ...rest }: ComponentPropsWithRef<'div'> & ListItemProps) => {
   const renderTextPrevNode = () => {
     if (icon) {
       return <ListItemPrev className="mr-4 flex h-6 w-6 items-center justify-center">{icon}</ListItemPrev>;
+    }
+    if (textPrev) {
+      return <ListItemPrev>{textPrev}</ListItemPrev>;
     }
     return <ListItemPrev />;
   };
