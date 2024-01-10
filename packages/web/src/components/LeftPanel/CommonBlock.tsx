@@ -63,7 +63,11 @@ const CommonBlock = () => {
         </div>
       </div>
       <div className="grid grid-cols-2 gap-1">
-        <div className="col-span-1">{t('base.lang')}</div>
+        <div className="col-span-1">
+          <Tooltip title={t('base.langTooltip')}>
+            {t('base.lang')} <InfoCircleOutlined className="cursor-pointer" />
+          </Tooltip>
+        </div>
         <div className="col-span-1">
           <Radio.Group
             value={i18n.language}
