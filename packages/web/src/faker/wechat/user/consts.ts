@@ -32,6 +32,7 @@ export const INIT_FRIENDS: IProfile[] = [
     signature: '塞尔达的朋友圈签名',
     area: 'Hyrule',
     remark: '老婆',
+    isStarred: true,
   },
   {
     id: '2',

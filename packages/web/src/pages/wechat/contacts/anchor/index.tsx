@@ -1,6 +1,8 @@
 import { memo, useState } from 'react';
 
-import { generateNameAnchorGroup, otherS, starS, topS } from '../utils';
+import SearchOutlinedSVG from '@/assets/search-outlined.svg?react';
+
+import { generateNameAnchorGroup, otherS, searchS, starS } from '../utils';
 import AnchorItem from './AnchorItem';
 
 type Props = {
@@ -9,13 +11,18 @@ type Props = {
 
 const Anchor = ({ data }: Props) => {
   const [activeKey, setActiveKey] = useState<string | null | symbol>(null);
+  console.log(data);
 
   return (
-    <div className="absolute right-2 top-1/2 flex -translate-y-1/2 flex-col items-center space-y-[2px] text-xs">
+    <div className="absolute right-2 top-1/2 flex -translate-y-1/2 select-none flex-col items-center text-xs">
       {Array.from(data, ([k]) => {
-        if (k === topS) {
-          return <AnchorItem key="top">&#8593;</AnchorItem>;
-        }
+        if (k === searchS)
+          return (
+            <AnchorItem key="search">
+              <SearchOutlinedSVG width={14} fill="black" />
+            </AnchorItem>
+          );
+        if (data.get(k)?.length === 0) return null;
         if (k === starS) {
           return (
             <AnchorItem key="star" active={activeKey === starS} onClick={() => setActiveKey(starS)}>

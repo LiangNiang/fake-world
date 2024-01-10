@@ -2,13 +2,17 @@ import { pinyin } from 'pinyin-pro';
 
 import { IProfile } from '@/state/profile';
 
+export const searchS = Symbol('search');
 export const topS = Symbol('top');
 export const starS = Symbol('star');
 export const otherS = Symbol('other');
 
-export function generateNameAnchorGroup(data: { id: IProfile['id']; name: string }[]) {
-  const ANCHOR_DATA = new Map<string | symbol, any[]>([
-    [topS, []],
+export type TNeedGroupDataItem = { id: IProfile['id']; name: string; isStarred?: boolean };
+
+export function generateNameAnchorGroup(data: TNeedGroupDataItem[]) {
+  const ANCHOR_DATA = new Map<string | symbol, TNeedGroupDataItem[]>([
+    [searchS, []],
+    // [topS, []],
     [starS, []],
     ['A', []],
     ['B', []],
@@ -39,6 +43,9 @@ export function generateNameAnchorGroup(data: { id: IProfile['id']; name: string
     [otherS, []],
   ]);
   for (const d of data) {
+    if (d.isStarred) {
+      ANCHOR_DATA.get(starS)!.push(d);
+    }
     const firstLetter = pinyin(d.name, { pattern: 'first', toneType: 'none' })[0].toUpperCase();
     if (ANCHOR_DATA.has(firstLetter)) {
       ANCHOR_DATA.get(firstLetter)!.push(d);
