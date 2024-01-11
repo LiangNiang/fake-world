@@ -2,19 +2,20 @@ import { css } from '@emotion/react';
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import List from '@/wechatComponents/List';
+
 import GroupChatIMG from './assets/group-chat.png';
 import NewIMG from './assets/new.png';
 import OfficialIMG from './assets/official.png';
 import OnlyChatIMG from './assets/only-chat.png';
 import TagIMG from './assets/tag.png';
-import { UniversalList } from './FriendList/UniversalComponent';
 
 const TopMenus = () => {
   const { t } = useTranslation();
 
   return (
-    <UniversalList>
-      <UniversalList.Item
+    <List className='after:border-black/10" relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1px] after:origin-top-left after:scale-y-50 after:border-t'>
+      <List.Item
         textPrev={
           <div
             className="mr-3 h-9 w-9 rounded bg-cover bg-repeat-round"
@@ -25,8 +26,8 @@ const TopMenus = () => {
         }
       >
         {t('wechatPage.contacts.new')}
-      </UniversalList.Item>
-      <UniversalList.Item
+      </List.Item>
+      <List.Item
         textPrev={
           <div
             className="mr-3 h-9 w-9 rounded bg-cover bg-repeat-round"
@@ -37,8 +38,8 @@ const TopMenus = () => {
         }
       >
         {t('wechatPage.contacts.chatsOnly')}
-      </UniversalList.Item>
-      <UniversalList.Item
+      </List.Item>
+      <List.Item
         textPrev={
           <div
             className="mr-3 h-9 w-9 rounded bg-cover bg-repeat-round"
@@ -49,8 +50,8 @@ const TopMenus = () => {
         }
       >
         {t('wechatPage.contacts.group')}
-      </UniversalList.Item>
-      <UniversalList.Item
+      </List.Item>
+      <List.Item
         textPrev={
           <div
             className="mr-3 h-9 w-9 rounded bg-cover bg-repeat-round"
@@ -61,8 +62,8 @@ const TopMenus = () => {
         }
       >
         {t('wechatPage.contacts.tags')}
-      </UniversalList.Item>
-      <UniversalList.Item
+      </List.Item>
+      <List.Item
         textPrev={
           <div
             className="mr-3 h-9 w-9 rounded bg-cover bg-repeat-round"
@@ -73,8 +74,8 @@ const TopMenus = () => {
         }
       >
         {t('wechatPage.contacts.official')}
-      </UniversalList.Item>
-    </UniversalList>
+      </List.Item>
+    </List>
   );
 };
 

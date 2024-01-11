@@ -2,25 +2,28 @@ import { isSymbol } from 'lodash-es';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilValue } from 'recoil';
-import { twJoin } from 'tailwind-merge';
+import { twMerge } from 'tailwind-merge';
 
 import AddFriendSVG from '@/assets/add-friend-outlined.svg?react';
 import SearchOutlinedSVG from '@/assets/search-outlined.svg?react';
+import useModeNavigate from '@/components/useModeNavigate';
+import { MYSELF_ID } from '@/faker/wechat/user';
 import { BottomNavBars } from '@/state/btmNavbarsState';
 import { MetaDataType } from '@/state/detectedNode';
-import { allFriendsAnchorDataState, otherS, starS, TGroupedDataItem } from '@/state/profile';
+import { allFriendsAnchorDataState, otherS, starS } from '@/state/profile';
 import BottomNavbar, { useToggleNavbarActivated } from '@/wechatComponents/BottomNavbar';
+import List from '@/wechatComponents/List';
 import UserAvatar from '@/wechatComponents/User/UserAvatar';
 
-import { UniversalList } from './FriendList/UniversalComponent';
 import Anchor from './RightAnchor';
 import TopMenus from './TopMenus';
 import Total from './Total';
-import { groupedMapToRenderArray } from './utils';
+import { findLastStuckKey, groupedMapToRenderArray } from './utils';
 
 const Contacts = () => {
   useToggleNavbarActivated(BottomNavBars.ADDRESS_BOOK);
   const { t } = useTranslation();
+  const navigate = useModeNavigate();
 
   const anchorData = useRecoilValue(allFriendsAnchorDataState);
 
@@ -33,6 +36,18 @@ const Contacts = () => {
   };
 
   const [stuckInfo, setStuckInfo] = useState<Map<string, boolean>>(() => getStuckInfo());
+  const [quickJump, setQuickJump] = useState<[boolean, string]>([false, '']);
+
+  useEffect(() => {
+    const [isQuickJump, key] = quickJump;
+    if (isQuickJump) {
+      const el = document.getElementById(key);
+      if (el) {
+        el.scrollIntoView();
+      }
+      setQuickJump([false, '']);
+    }
+  }, [quickJump]);
 
   useEffect(() => {
     setStuckInfo(getStuckInfo());
@@ -105,41 +120,57 @@ const Contacts = () => {
         </div>
         <TopMenus />
         {renderArray.map((v, i) => {
-          if ('type' in v && v.type === 'title') {
-            const isStuck = !!stuckInfo.get(v.title.toString());
+          const { type, _key } = v;
+          if (type === 'anchor') {
+            const { title } = v;
+            const isStuck = findLastStuckKey(stuckInfo) === _key;
             return (
               <div
-                data-key={v.title.toString()}
-                key={v.title.toString()}
-                className={twJoin(
-                  'sticky top-0 z-10 mb-1 ml-3 mt-4 bg-white py-1 text-black/60',
+                data-key={_key}
+                key={_key}
+                className={twMerge(
+                  'sticky top-0 z-10 mb-1 ml-3 mt-4 bg-white py-[2px] text-sm font-medium text-black/60',
                   isStuck &&
-                    'after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1px] after:origin-top-left after:scale-y-50 after:border-t after:border-black/10'
+                    'after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1px] after:origin-top-left after:scale-y-50 after:border-t after:border-black/10',
+                  quickJump[0] && 'static'
                 )}
                 ref={(el) => {
                   groupRef.current[i] = el as HTMLDivElement;
                 }}
+                id={_key}
               >
-                {renderTitle(v.title)}
+                {renderTitle(title)}
               </div>
             );
           } else {
-            const { id, name, __key } = v as TGroupedDataItem;
+            const { id, name } = v;
             return (
-              <UniversalList.CanBeDetectedItem
+              <List.CanBeDetectedItem
                 textPrev={<UserAvatar size="small" id={id} className="mr-3" />}
-                metaData={{ type: MetaDataType.FirendProfile, index: id }}
-                key={__key}
+                metaData={
+                  id === MYSELF_ID
+                    ? { type: MetaDataType.MyProfile, treeItemDisplayName: '我自己' }
+                    : { type: MetaDataType.FirendProfile, index: id, treeItemDisplayName: () => `好友（${name}）` }
+                }
+                key={_key}
+                className="cursor-pointer"
+                onClick={() => navigate(`/wechat/friend/${id}`)}
               >
                 {name}
-              </UniversalList.CanBeDetectedItem>
+              </List.CanBeDetectedItem>
             );
           }
         })}
         <Total />
       </div>
 
-      <Anchor data={anchorData} stuckInfo={stuckInfo} />
+      <Anchor
+        data={anchorData}
+        stuckInfo={stuckInfo}
+        handleQuickJump={(key) => {
+          setQuickJump([true, key]);
+        }}
+      />
       <BottomNavbar />
     </>
   );
