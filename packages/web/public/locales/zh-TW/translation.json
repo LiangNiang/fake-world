@@ -193,7 +193,8 @@
       "chatsOnly": "僅聊天的朋友",
       "group": "群組",
       "tags": "標籤",
-      "official": "官方賬號"
+      "official": "官方賬號",
+      "starred": "超級好友"
     }
   }
 }

@@ -193,7 +193,8 @@
       "chatsOnly": "Chats Only Friends",
       "group": "Group Chats",
       "tags": "Tags",
-      "official": "Official Accounts"
+      "official": "Official Accounts",
+      "starred": "Starred"
     }
   }
 }

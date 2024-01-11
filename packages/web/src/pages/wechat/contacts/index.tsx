@@ -90,7 +90,7 @@ const Contacts = () => {
     if (isSymbol(title)) {
       switch (title) {
         case starS:
-          return <span>&#x2606; 星标朋友</span>;
+          return <span>&#x2606; {t('wechatPage.contacts.starred')}</span>;
         case otherS:
           return <span>#</span>;
         default:
@@ -129,7 +129,7 @@ const Contacts = () => {
                 data-key={_key}
                 key={_key}
                 className={twMerge(
-                  'sticky top-0 z-10 mb-1 ml-3 mt-4 bg-white py-[2px] text-sm font-medium text-black/60',
+                  'sticky top-0 z-10 mb-1 ml-4 mt-4 bg-white py-[2px] text-sm font-medium text-black/60',
                   isStuck &&
                     'after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1px] after:origin-top-left after:scale-y-50 after:border-t after:border-black/10',
                   quickJump[0] && 'static'
@@ -152,6 +152,7 @@ const Contacts = () => {
                     ? { type: MetaDataType.MyProfile, treeItemDisplayName: '我自己' }
                     : { type: MetaDataType.FirendProfile, index: id, treeItemDisplayName: () => `好友（${name}）` }
                 }
+                listItemClassName="ml-4"
                 key={_key}
                 className="cursor-pointer"
                 onClick={() => navigate(`/wechat/friend/${id}`)}

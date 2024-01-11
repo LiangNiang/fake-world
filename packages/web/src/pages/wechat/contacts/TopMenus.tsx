@@ -16,6 +16,7 @@ const TopMenus = () => {
   return (
     <List className='after:border-black/10" relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1px] after:origin-top-left after:scale-y-50 after:border-t'>
       <List.Item
+        listItemClassName="ml-4"
         textPrev={
           <div
             className="mr-3 h-9 w-9 rounded bg-cover bg-repeat-round"
@@ -28,6 +29,7 @@ const TopMenus = () => {
         {t('wechatPage.contacts.new')}
       </List.Item>
       <List.Item
+        listItemClassName="ml-4"
         textPrev={
           <div
             className="mr-3 h-9 w-9 rounded bg-cover bg-repeat-round"
@@ -40,6 +42,7 @@ const TopMenus = () => {
         {t('wechatPage.contacts.chatsOnly')}
       </List.Item>
       <List.Item
+        listItemClassName="ml-4"
         textPrev={
           <div
             className="mr-3 h-9 w-9 rounded bg-cover bg-repeat-round"
@@ -52,6 +55,7 @@ const TopMenus = () => {
         {t('wechatPage.contacts.group')}
       </List.Item>
       <List.Item
+        listItemClassName="ml-4"
         textPrev={
           <div
             className="mr-3 h-9 w-9 rounded bg-cover bg-repeat-round"
@@ -64,6 +68,7 @@ const TopMenus = () => {
         {t('wechatPage.contacts.tags')}
       </List.Item>
       <List.Item
+        listItemClassName="ml-4"
         textPrev={
           <div
             className="mr-3 h-9 w-9 rounded bg-cover bg-repeat-round"
