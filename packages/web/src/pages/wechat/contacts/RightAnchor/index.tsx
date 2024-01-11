@@ -9,9 +9,8 @@ type Props = {
   data: ReturnType<typeof generateNameAnchorGroup>;
 };
 
-const Anchor = ({ data }: Props) => {
+const RightAnchor = ({ data }: Props) => {
   const [activeKey, setActiveKey] = useState<string | null | symbol>(null);
-  console.log(data);
 
   return (
     <div className="absolute right-2 top-1/2 flex -translate-y-1/2 select-none flex-col items-center text-xs">
@@ -47,4 +46,4 @@ const Anchor = ({ data }: Props) => {
   );
 };
 
-export default memo(Anchor);
+export default memo(RightAnchor);

@@ -9,7 +9,7 @@ import { BottomNavBars } from '@/state/btmNavbarsState';
 import { friendsIdsState, friendState } from '@/state/profile';
 import BottomNavbar, { useToggleNavbarActivated } from '@/wechatComponents/BottomNavbar';
 
-import Anchor from './anchor';
+import Anchor from './RightAnchor';
 import TopMenus from './TopMenus';
 import { generateNameAnchorGroup } from './utils';
 

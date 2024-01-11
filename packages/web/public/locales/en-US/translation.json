@@ -186,6 +186,14 @@
       "like": "Like",
       "comment": "Comment",
       "cancel": "Cancel"
+    },
+    "contacts": {
+      "title": "Contacts",
+      "new": "New Friends",
+      "chatsOnly": "Chats Only Friends",
+      "group": "Group Chats",
+      "tags": "Tags",
+      "official": "Official Accounts"
     }
   }
 }

@@ -1,19 +1,20 @@
 import { css } from '@emotion/react';
 import { memo } from 'react';
-
-import List from '@/wechatComponents/List';
+import { useTranslation } from 'react-i18next';
 
 import GroupChatIMG from './assets/group-chat.png';
 import NewIMG from './assets/new.png';
 import OfficialIMG from './assets/official.png';
 import OnlyChatIMG from './assets/only-chat.png';
 import TagIMG from './assets/tag.png';
+import { UniversalList } from './FriendList/UniversalComponent';
 
 const TopMenus = () => {
+  const { t } = useTranslation();
+
   return (
-    <List className="relative ml-3 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1px] after:origin-top-left after:scale-y-50 after:border-t after:border-black/10">
-      <List.Item
-        listItemClassName="ml-0"
+    <UniversalList>
+      <UniversalList.Item
         textPrev={
           <div
             className="mr-3 h-9 w-9 rounded bg-cover bg-repeat-round"
@@ -23,10 +24,9 @@ const TopMenus = () => {
           />
         }
       >
-        新的朋友
-      </List.Item>
-      <List.Item
-        listItemClassName="ml-0"
+        {t('wechatPage.contacts.new')}
+      </UniversalList.Item>
+      <UniversalList.Item
         textPrev={
           <div
             className="mr-3 h-9 w-9 rounded bg-cover bg-repeat-round"
@@ -36,10 +36,9 @@ const TopMenus = () => {
           />
         }
       >
-        仅聊天的朋友
-      </List.Item>
-      <List.Item
-        listItemClassName="ml-0"
+        {t('wechatPage.contacts.chatsOnly')}
+      </UniversalList.Item>
+      <UniversalList.Item
         textPrev={
           <div
             className="mr-3 h-9 w-9 rounded bg-cover bg-repeat-round"
@@ -49,10 +48,9 @@ const TopMenus = () => {
           />
         }
       >
-        群聊
-      </List.Item>
-      <List.Item
-        listItemClassName="ml-0"
+        {t('wechatPage.contacts.group')}
+      </UniversalList.Item>
+      <UniversalList.Item
         textPrev={
           <div
             className="mr-3 h-9 w-9 rounded bg-cover bg-repeat-round"
@@ -62,10 +60,9 @@ const TopMenus = () => {
           />
         }
       >
-        标签
-      </List.Item>
-      <List.Item
-        listItemClassName="ml-0"
+        {t('wechatPage.contacts.tags')}
+      </UniversalList.Item>
+      <UniversalList.Item
         textPrev={
           <div
             className="mr-3 h-9 w-9 rounded bg-cover bg-repeat-round"
@@ -75,9 +72,9 @@ const TopMenus = () => {
           />
         }
       >
-        公众号
-      </List.Item>
-    </List>
+        {t('wechatPage.contacts.official')}
+      </UniversalList.Item>
+    </UniversalList>
   );
 };
 
