@@ -1,43 +1,52 @@
-import { memo, useState } from 'react';
+import { memo } from 'react';
 
 import SearchOutlinedSVG from '@/assets/search-outlined.svg?react';
+import { generateNameAnchorGroup, otherS, searchS, starS } from '@/state/profile';
 
-import { generateNameAnchorGroup, otherS, searchS, starS } from '../utils';
 import AnchorItem from './AnchorItem';
 
 type Props = {
   data: ReturnType<typeof generateNameAnchorGroup>;
+  stuckInfo: Map<string, boolean>;
 };
 
-const RightAnchor = ({ data }: Props) => {
-  const [activeKey, setActiveKey] = useState<string | null | symbol>(null);
+function findLastTrueKey(stuckInfo: Props['stuckInfo']) {
+  let lastTrueKey = '';
+  for (const [k, v] of stuckInfo) {
+    if (v) lastTrueKey = k;
+  }
+  return lastTrueKey;
+}
+
+const RightAnchor = ({ data, stuckInfo }: Props) => {
+  const lastTrueKey = findLastTrueKey(stuckInfo);
 
   return (
-    <div className="absolute right-2 top-1/2 flex -translate-y-1/2 select-none flex-col items-center text-xs">
-      {Array.from(data, ([k]) => {
+    <div className="absolute right-2 top-1/2 z-20 flex -translate-y-1/2 select-none flex-col items-center text-xs">
+      {Array.from(data, ([k, v]) => {
         if (k === searchS)
           return (
             <AnchorItem key="search">
               <SearchOutlinedSVG width={14} fill="black" />
             </AnchorItem>
           );
-        if (data.get(k)?.length === 0) return null;
+        if (v.length === 0) return null;
         if (k === starS) {
           return (
-            <AnchorItem key="star" active={activeKey === starS} onClick={() => setActiveKey(starS)}>
+            <AnchorItem key="star" active={lastTrueKey === starS.toString()}>
               &#x2606;
             </AnchorItem>
           );
         }
         if (k === otherS) {
           return (
-            <AnchorItem key="other" active={activeKey === otherS} onClick={() => setActiveKey(otherS)}>
+            <AnchorItem key="other" active={lastTrueKey === otherS.toString()}>
               #
             </AnchorItem>
           );
         }
         return (
-          <AnchorItem className="font-mono" key={k as string} active={activeKey === k} onClick={() => setActiveKey(k)}>
+          <AnchorItem className="font-mono" key={k as string} active={lastTrueKey === k}>
             {k as string}
           </AnchorItem>
         );

@@ -1,10 +1,11 @@
 import { TFunction } from 'i18next';
-import { atom, atomFamily, DefaultValue, selectorFamily } from 'recoil';
+import { atom, atomFamily, DefaultValue, selector, selectorFamily } from 'recoil';
 
 import { generaterFakeUser, INIT_FRIENDS, INIT_MY_PROFILE, MYSELF_ID } from '@/faker/wechat/user';
 
 import { persistAtom } from '../effects';
 import { IProfile } from './typing';
+import { generateNameAnchorGroup } from './utils';
 
 export const PRIVACY_TEXT_MAP: Record<IProfile['privacy'], string | ((gender: NonNullable<IProfile['gender']>, t: TFunction) => string)> = {
   all: '',
@@ -69,4 +70,21 @@ export const friendState = selectorFamily<IProfile, IProfile['id']>({
         }
       }
     },
+});
+
+export const allFriendsAnchorDataState = selector({
+  key: 'allFriendsGroupState',
+  get: ({ get }) => {
+    const allFriendsIds = get(friendsIdsState);
+    const preGroupData = [];
+    for (const id of allFriendsIds) {
+      const { remark, nickname, isStarred } = get(friendState(id));
+      preGroupData.push({
+        id,
+        name: remark ?? nickname,
+        isStarred,
+      });
+    }
+    return generateNameAnchorGroup(preGroupData);
+  },
 });

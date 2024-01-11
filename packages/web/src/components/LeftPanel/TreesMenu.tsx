@@ -13,7 +13,9 @@ const TreesMenu = () => {
         {t('menu.trees')}
         {isPreview ? t('menu.treesBlock.previewLabel') : t('menu.treesBlock.editLabel')}
       </div>
-      <NodeTree />
+      <div className="overflow-y-auto">
+        <NodeTree />
+      </div>
     </>
   );
 };
