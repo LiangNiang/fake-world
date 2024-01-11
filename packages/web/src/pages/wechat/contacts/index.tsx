@@ -1,3 +1,4 @@
+import { useMount, useScroll } from 'ahooks';
 import { isSymbol } from 'lodash-es';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -20,6 +21,8 @@ import TopMenus from './TopMenus';
 import Total from './Total';
 import { findLastStuckKey, groupedMapToRenderArray } from './utils';
 
+const DATA_WHEEL_ID = 'contactsLayout';
+
 const Contacts = () => {
   useToggleNavbarActivated(BottomNavBars.ADDRESS_BOOK);
   const { t } = useTranslation();
@@ -27,7 +30,28 @@ const Contacts = () => {
 
   const anchorData = useRecoilValue(allFriendsAnchorDataState);
 
+  const scrollRef = useRef<HTMLDivElement>(null);
   const groupRef = useRef<HTMLDivElement[]>([]);
+
+  const scroll = useScroll(scrollRef);
+
+  const getScrollDataAndSave = () => {
+    if (scroll) {
+      const { top } = scroll;
+      localStorage.setItem(DATA_WHEEL_ID, JSON.stringify({ top }));
+    }
+  };
+
+  useMount(() => {
+    const { top } = JSON.parse(localStorage.getItem(DATA_WHEEL_ID) || '{}');
+    if (top) {
+      scrollRef.current?.scrollTo({ top });
+    }
+  });
+
+  useEffect(() => {
+    getScrollDataAndSave();
+  }, [scroll]);
 
   const getStuckInfo = () => {
     const newMap = new Map();
@@ -111,7 +135,7 @@ const Contacts = () => {
           <AddFriendSVG height={20} width={20} fill="black" className="cursor-pointer" />
         </div>
       </div>
-      <div className="flex flex-1 flex-col overflow-y-auto bg-white" id="contacts-container">
+      <div className="flex flex-1 flex-col overflow-y-auto bg-white" id="contacts-container" ref={scrollRef} data-wheel-id={DATA_WHEEL_ID}>
         <div className="flex bg-[rgba(237,237,237,1)] px-2 pb-3">
           <div className="flex flex-1 items-center justify-center rounded-[4px] bg-white p-2 text-xs">
             <SearchOutlinedSVG fill="rgba(0, 0, 0, 0.5)" width={17} height={16} />
