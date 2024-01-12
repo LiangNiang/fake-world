@@ -3,7 +3,7 @@ import { isSymbol } from 'lodash-es';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilValue } from 'recoil';
-import { twMerge } from 'tailwind-merge';
+import { twJoin, twMerge } from 'tailwind-merge';
 
 import AddFriendSVG from '@/assets/add-friend-outlined.svg?react';
 import SearchOutlinedSVG from '@/assets/search-outlined.svg?react';
@@ -167,7 +167,8 @@ const Contacts = () => {
               </div>
             );
           } else {
-            const { id, name } = v;
+            const { id, name, description, _isLastInAnchorGroup } = v;
+            const withDescription = !!description;
             return (
               <List.CanBeDetectedItem
                 textPrev={<UserAvatar size="small" id={id} className="mr-3" />}
@@ -176,12 +177,16 @@ const Contacts = () => {
                     ? { type: MetaDataType.MyProfile, treeItemDisplayName: '我自己' }
                     : { type: MetaDataType.FirendProfile, index: id, treeItemDisplayName: () => `好友（${name}）` }
                 }
-                listItemClassName="ml-4"
+                textPrevClassName="ml-0"
                 key={_key}
-                className="cursor-pointer"
                 onClick={() => navigate(`/wechat/friend/${id}`)}
+                className={twJoin('ml-4', _isLastInAnchorGroup && 'border-b border-black/5')}
+                rightClassName={twJoin(withDescription && 'py-0 pb-1', _isLastInAnchorGroup && 'border-none')}
               >
-                {name}
+                <div className="flex flex-col">
+                  <span>{name}</span>
+                  <span className="text-sm text-black/60">{description}</span>
+                </div>
               </List.CanBeDetectedItem>
             );
           }

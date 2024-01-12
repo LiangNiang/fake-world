@@ -9,6 +9,7 @@ type TRenderAnchor = {
 type TRenderUser = TNeedGroupDataItem & {
   type: 'user';
   _key: string;
+  _isLastInAnchorGroup: boolean;
 };
 
 export type TRenderArrayItem = TRenderAnchor | TRenderUser;
@@ -23,9 +24,10 @@ export function groupedMapToRenderArray(data: Map<string | symbol, TNeedGroupDat
       });
     }
     result.push(
-      ...v.map((item) => {
+      ...v.map((item, index) => {
+        const isLast = index === v.length - 1;
         const k = i === starS ? `${starS.toString()}-${item.id}` : item.id;
-        return { ...item, type: 'user', _key: k } as TRenderUser;
+        return { ...item, type: 'user', _key: k, _isLastInAnchorGroup: isLast } as TRenderUser;
       })
     );
   });

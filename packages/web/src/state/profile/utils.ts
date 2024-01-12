@@ -8,7 +8,7 @@ export const starS = Symbol('star');
 export const otherS = Symbol('other');
 export const NOT_SHOW_ANCHOR: (string | symbol)[] = [searchS];
 
-export type TNeedGroupDataItem = { id: IProfile['id']; name: string; isStarred?: boolean };
+export type TNeedGroupDataItem = { id: IProfile['id']; name: string; isStarred?: boolean; description?: string };
 
 export function generateNameAnchorGroup(data: TNeedGroupDataItem[]) {
   const ANCHOR_DATA = new Map<string | symbol, TNeedGroupDataItem[]>([
