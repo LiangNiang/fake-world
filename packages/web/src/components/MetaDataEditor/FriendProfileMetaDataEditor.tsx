@@ -71,6 +71,9 @@ const FriendProfileMetaDataEditor = ({ data, index }: EditorProps<IProfile, IPro
           <Radio value="female">女</Radio>
         </Radio.Group>
       </Form.Item>
+      <Form.Item<IProfile> name="isStarred" label="是否是星标好友" valuePropName="checked">
+        <Switch />
+      </Form.Item>
       <Form.Item<IProfile> name="hideGender" label="是否隐藏性别" valuePropName="checked">
         <Switch />
       </Form.Item>

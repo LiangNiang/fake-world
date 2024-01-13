@@ -3,6 +3,7 @@ import { Navigate, RouteObject, UIMatch } from 'react-router-dom';
 
 import App from '@/App';
 import ScreenshotApp from '@/pages/screenshot';
+import Contacts from '@/pages/wechat/contacts';
 import Conversation from '@/pages/wechat/conversation';
 import Discover from '@/pages/wechat/discover';
 import Friend from '@/pages/wechat/friend';
@@ -106,6 +107,18 @@ export const routes: RouteObject[] = [
               {
                 index: true,
                 element: <Discover />,
+              },
+            ],
+          },
+          {
+            path: 'contacts',
+            handle: {
+              label: 'routerLabel.wechat.contacts',
+            },
+            children: [
+              {
+                index: true,
+                element: <Contacts />,
               },
             ],
           },

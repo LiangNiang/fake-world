@@ -1,7 +1,8 @@
 import type { DataNode } from 'antd/es/tree';
-import { getRecoil } from 'recoil-nexus';
+import { isEmpty } from 'lodash-es';
+import { getRecoil, setRecoil } from 'recoil-nexus';
 
-import { activatedNodeState, INodeState } from './nodeState';
+import { activatedNodeState, allNodesState, INodeState } from './nodeState';
 import { allNodesTreeState } from './treeState';
 
 export interface TreeNode extends DataNode {
@@ -11,7 +12,58 @@ export interface TreeNode extends DataNode {
   nodeTreeSort: boolean;
 }
 
+type Task = {
+  key: string;
+  payload: any;
+};
+
+class SetListManager {
+  insertTasks: Record<Task['key'], Task['payload']> = {};
+  deleteTasks: Task['key'][] = [];
+  private timer: NodeJS.Timeout | null = null;
+  private readonly delay = 50;
+
+  addInsertTask(task: Task) {
+    const { key, payload } = task;
+    this.insertTasks[key] = payload;
+    this.resetTimer();
+  }
+
+  addDeleteTask(key: string) {
+    delete this.insertTasks[key];
+    this.deleteTasks.push(key);
+    this.resetTimer();
+  }
+
+  private onNoChange() {
+    if (isEmpty(this.insertTasks) && isEmpty(this.deleteTasks)) return;
+
+    setRecoil(allNodesState, (prev) => {
+      const newData = { ...prev };
+      this.deleteTasks.forEach((key) => {
+        delete newData[key];
+      });
+      return {
+        ...newData,
+        ...this.insertTasks,
+      };
+    });
+    this.insertTasks = {};
+    this.deleteTasks = [];
+  }
+
+  private resetTimer() {
+    if (this.timer) {
+      clearTimeout(this.timer);
+    }
+    this.timer = setTimeout(() => this.onNoChange(), this.delay);
+  }
+}
+
+export const slm = new SetListManager();
+
 export function buildTree(nodes: INodeState[]): TreeNode[] {
+  console.log(123123123, nodes);
   const idToTreeNodeAndNodeState: { [id: string]: [TreeNode, INodeState] } = {};
   const childToParent: { [id: string]: string } = {};
 

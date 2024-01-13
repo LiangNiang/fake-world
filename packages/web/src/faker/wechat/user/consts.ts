@@ -32,6 +32,7 @@ export const INIT_FRIENDS: IProfile[] = [
     signature: '塞尔达的朋友圈签名',
     area: 'Hyrule',
     remark: '老婆',
+    isStarred: true,
   },
   {
     id: '2',
@@ -56,6 +57,7 @@ export const INIT_FRIENDS: IProfile[] = [
     momentsBackgroundInfo: 'https://cdn-fakeworld.azureedge.net/fakeworld/pnqz5x.jpg',
     momentsBackgroundLike: false,
     momentsPrivacy: 'all',
+    description: '水管工',
   },
   {
     id: '4',

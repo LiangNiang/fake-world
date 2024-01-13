@@ -17,6 +17,8 @@ export interface IProfile {
   wechat: string;
   /** 微信豆个数 */
   coin?: number;
+  /** 是否是星标好友 */
+  isStarred?: boolean;
   gender?: 'male' | 'female';
   /** 是否隐藏性别 */
   hideGender?: boolean;
