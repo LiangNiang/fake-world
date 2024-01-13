@@ -60,7 +60,8 @@
       "personalMoments": "Personal Moments",
       "momentDetail": "Details of a Moment",
       "user": "User",
-      "transaction": "Transaction Details"
+      "transaction": "Transaction Details",
+      "contacts": "Contacts"
     }
   },
   "transactionType": {
@@ -185,6 +186,15 @@
       "like": "Like",
       "comment": "Comment",
       "cancel": "Cancel"
+    },
+    "contacts": {
+      "title": "Contacts",
+      "new": "New Friends",
+      "chatsOnly": "Chats Only Friends",
+      "group": "Group Chats",
+      "tags": "Tags",
+      "official": "Official Accounts",
+      "starred": "Starred"
     }
   }
 }

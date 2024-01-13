@@ -130,7 +130,7 @@ const Friend = () => {
               </div>
             )}
             {!isEmpty(description) && (
-              <div className="flex cursor-pointer bg-white py-3 pl-5">
+              <div className="flex cursor-pointer border-b border-black/5 bg-white py-3 pl-5">
                 <div className="w-20">{t('wechatPage.friend.desc')}</div>
                 <div className="flex flex-1 pr-3">
                   <div className="text-black/50">{description}</div>

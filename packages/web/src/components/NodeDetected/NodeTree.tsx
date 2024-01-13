@@ -71,7 +71,7 @@ const NodeTree = () => {
           const element = document.getElementById(v[0] as string);
           element?.scrollIntoView({
             behavior: 'smooth',
-            block: 'nearest',
+            block: 'center',
           });
           if (getRecoil(modeState) !== ModeState.EDIT) return;
           element?.dispatchEvent(new MouseEvent('click', { bubbles: true }));

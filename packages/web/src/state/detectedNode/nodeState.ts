@@ -1,7 +1,7 @@
-import { isArray, isEmpty, omit } from 'lodash-es';
+import { isArray, isEmpty } from 'lodash-es';
 import { atom, atomFamily, DefaultValue, selectorFamily } from 'recoil';
 
-import { nodeRuntimeState } from '.';
+import { nodeRuntimeState, slm } from '.';
 import { OverallMetaData, StaticMetaData } from './typing';
 
 export interface IAllNodeState {
@@ -63,20 +63,18 @@ export const nodeDataState = selectorFamily<INodeState | null, INodeState['id']>
         injectMetaData,
       };
     },
-  set:
-    (param) =>
-    ({ set }, newValue) => {
-      if (param) {
-        if (newValue instanceof DefaultValue) {
-          set(allNodesState, (prev) => omit(prev, param));
-        } else {
-          set(allNodesState, (prev) => ({
-            ...prev,
-            [param]: newValue!,
-          }));
-        }
+  set: (param) => (_, newValue) => {
+    if (param) {
+      if (newValue instanceof DefaultValue) {
+        slm.addDeleteTask(param);
+      } else {
+        slm.addInsertTask({
+          key: param,
+          payload: newValue,
+        });
       }
-    },
+    }
+  },
 });
 
 export const hoverdNodeState = atom<string | null>({

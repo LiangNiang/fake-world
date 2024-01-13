@@ -60,7 +60,8 @@
       "personalMoments": "个人朋友圈",
       "momentDetail": "单条朋友圈详情",
       "user": "用户",
-      "transaction": "账单详情"
+      "transaction": "账单详情",
+      "contacts": "通讯录"
     }
   },
   "transactionType": {
@@ -185,6 +186,15 @@
       "like": "赞",
       "comment": "评论",
       "cancel": "取消"
+    },
+    "contacts": {
+      "title": "通讯录",
+      "new": "新的朋友",
+      "chatsOnly": "仅聊天的朋友",
+      "group": "群聊",
+      "tags": "标签",
+      "official": "公众号",
+      "starred": "星标朋友"
     }
   }
 }

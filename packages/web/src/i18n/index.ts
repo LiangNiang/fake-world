@@ -9,13 +9,7 @@ export const ALL_LANGUAGES = [
   { label: 'English', value: 'en-US' },
 ];
 
-i18n
-  .use(Backend)
-  .use(LanguageDetector)
-  .use(initReactI18next)
-  .init({
-    debug: import.meta.env.DEV,
-  });
+i18n.use(Backend).use(LanguageDetector).use(initReactI18next).init();
 
 export function getCurrentLanguage() {
   return i18n.language || localStorage.getItem('i18nextLng') || 'zh-CN';
