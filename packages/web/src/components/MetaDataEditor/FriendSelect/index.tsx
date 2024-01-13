@@ -26,13 +26,16 @@ export const FriendItem = ({ id, className }: { id: IProfile['id']; className?: 
 const FriendSelect = ({ value, onChange, filterExisting, withQuickAdd, withMyself, ...rest }: Props) => {
   const [quickAddNickname, setQuickAddNickname] = useState('');
   const friendIds = useRecoilValue(friendsIdsState);
+  const usedIds = [...friendIds];
+  if (!withMyself) {
+    usedIds.splice(friendIds.indexOf(MYSELF_ID), 1);
+  }
   const existingFriends = useRecoilValue(dialogueListState).map((v) => v.friendId);
-  const selectOptions: DefaultOptionType[] = friendIds.map((friend) => ({
+  const selectOptions: DefaultOptionType[] = usedIds.map((friend) => ({
     label: <FriendItem id={friend} />,
     value: friend,
     disabled: filterExisting && existingFriends.includes(friend),
   }));
-  if (withMyself) selectOptions.unshift({ label: <FriendItem id={MYSELF_ID} />, value: MYSELF_ID });
 
   const quickAddFriend = () => {
     if (!quickAddNickname) return;
