@@ -1,17 +1,20 @@
 import { useMount, useScroll } from 'ahooks';
+import { Modal } from 'antd';
 import { isSymbol } from 'lodash-es';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilValue } from 'recoil';
+import { setRecoil } from 'recoil-nexus';
 import { twJoin, twMerge } from 'tailwind-merge';
 
 import AddFriendSVG from '@/assets/add-friend-outlined.svg?react';
 import SearchOutlinedSVG from '@/assets/search-outlined.svg?react';
+import TopOperations from '@/components/TopOperations';
 import useModeNavigate from '@/components/useModeNavigate';
 import { MYSELF_ID } from '@/faker/wechat/user';
 import { BottomNavBars } from '@/state/btmNavbarsState';
 import { MetaDataType } from '@/state/detectedNode';
-import { allFriendsAnchorDataState, otherS, starS } from '@/state/profile';
+import { allFriendsAnchorDataState, friendsIdsState, IProfile, otherS, starS } from '@/state/profile';
 import BottomNavbar, { useToggleNavbarActivated } from '@/wechatComponents/BottomNavbar';
 import List from '@/wechatComponents/List';
 import UserAvatar from '@/wechatComponents/User/UserAvatar';
@@ -124,6 +127,16 @@ const Contacts = () => {
     return <span>{title}</span>;
   };
 
+  const handleOperationDelete = (id: IProfile['id']) => {
+    Modal.confirm({
+      title: '是否删除该好友',
+      onOk: () => {
+        console.log(id);
+        setRecoil(friendsIdsState, (pv) => pv.filter((v) => v !== id));
+      },
+    });
+  };
+
   const renderArray = groupedMapToRenderArray(anchorData);
 
   return (
@@ -175,7 +188,17 @@ const Contacts = () => {
                 metaData={
                   id === MYSELF_ID
                     ? { type: MetaDataType.MyProfile, treeItemDisplayName: '我自己' }
-                    : { type: MetaDataType.FirendProfile, index: id, treeItemDisplayName: () => `好友（${name}）` }
+                    : {
+                        type: MetaDataType.FirendProfile,
+                        index: id,
+                        treeItemDisplayName: () => `好友（${name}）`,
+                        operations: [
+                          {
+                            element: <TopOperations.OperaionDeleteBase />,
+                            onClick: handleOperationDelete.bind(null, id),
+                          },
+                        ],
+                      }
                 }
                 textPrevClassName="ml-0"
                 key={_key}

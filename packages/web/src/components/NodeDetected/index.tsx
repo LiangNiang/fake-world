@@ -3,7 +3,7 @@ import { useUpdateEffect } from 'ahooks';
 import { isArray, omit } from 'lodash-es';
 import { HTMLAttributes, memo, MouseEvent, ReactNode, Ref, useCallback, useEffect, useId, useRef } from 'react';
 import { useSetRecoilState } from 'recoil';
-import { resetRecoil, setRecoil } from 'recoil-nexus';
+import { getRecoil, resetRecoil, setRecoil } from 'recoil-nexus';
 import Sortable from 'sortablejs';
 
 import { activatedNodeState, hoverdNodeState, nodeDataState, nodeInjectMetaState } from '@/state/detectedNode';
@@ -56,10 +56,9 @@ function canBeDetected<T extends object>(
       return () => {
         setTimeout(() => {
           resetRecoil(nodeDataState(id));
-          resetRecoil(nodeInjectMetaState(id));
-          // if (activateNode === id) {
-          //   resetRecoil(activatedNodeState);
-          // }
+          if (getRecoil(activatedNodeState) === id) {
+            resetRecoil(activatedNodeState);
+          }
         });
       };
     }, []);

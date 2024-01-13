@@ -24,14 +24,12 @@ class SetListManager {
   private readonly delay = 50;
 
   addInsertTask(task: Task) {
-    console.log('addInsertTask');
     const { key, payload } = task;
     this.insertTasks[key] = payload;
     this.resetTimer();
   }
 
   addDeleteTask(key: string) {
-    console.log('addDeleteTask');
     delete this.insertTasks[key];
     this.deleteTasks.push(key);
     this.resetTimer();
