@@ -74,6 +74,7 @@
   "wechatPage": {
     "main": {
       "title": "Weixin ({{totalUnreadCount}})",
+      "title2": "Weixin",
       "search": "Search"
     },
     "discover": {

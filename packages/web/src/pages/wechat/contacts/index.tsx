@@ -4,7 +4,7 @@ import { isSymbol } from 'lodash-es';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilValue } from 'recoil';
-import { setRecoil } from 'recoil-nexus';
+import { getRecoil, resetRecoil, setRecoil } from 'recoil-nexus';
 import { twJoin, twMerge } from 'tailwind-merge';
 
 import AddFriendSVG from '@/assets/add-friend-outlined.svg?react';
@@ -14,7 +14,9 @@ import useModeNavigate from '@/components/useModeNavigate';
 import { MYSELF_ID } from '@/faker/wechat/user';
 import { BottomNavBars } from '@/state/btmNavbarsState';
 import { MetaDataType } from '@/state/detectedNode';
-import { allFriendsAnchorDataState, friendsIdsState, IProfile, otherS, starS } from '@/state/profile';
+import { dialogueListState } from '@/state/dialogueState';
+import { allFeedsState, feedState } from '@/state/moments';
+import { allFriendsAnchorDataState, friendsIdsState, friendState, IProfile, otherS, starS } from '@/state/profile';
 import BottomNavbar, { useToggleNavbarActivated } from '@/wechatComponents/BottomNavbar';
 import List from '@/wechatComponents/List';
 import UserAvatar from '@/wechatComponents/User/UserAvatar';
@@ -130,9 +132,15 @@ const Contacts = () => {
   const handleOperationDelete = (id: IProfile['id']) => {
     Modal.confirm({
       title: '是否删除该好友',
+      content: '删除好友会同时删除与该好友的对话、该好友的朋友圈',
       onOk: () => {
         console.log(id);
         setRecoil(friendsIdsState, (pv) => pv.filter((v) => v !== id));
+        resetRecoil(friendState(id));
+        setRecoil(dialogueListState, (pv) => pv.filter((v) => v.friendId !== id));
+        const allFeeds = getRecoil(allFeedsState);
+        allFeeds.filter((v) => v.userId === id).forEach((v) => resetRecoil(feedState(v.id)));
+        setRecoil(allFeedsState, (pv) => pv.filter((v) => v.userId !== id));
       },
     });
   };

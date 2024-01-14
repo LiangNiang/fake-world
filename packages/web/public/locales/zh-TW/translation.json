@@ -74,6 +74,7 @@
   "wechatPage": {
     "main": {
       "title": "微信 ({{totalUnreadCount}})",
+      "title2": "微信",
       "search": "搜尋"
     },
     "discover": {
