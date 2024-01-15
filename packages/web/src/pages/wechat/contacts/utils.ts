@@ -41,3 +41,14 @@ export function findLastStuckKey(stuckInfo: Map<string, boolean>) {
   }
   return lastTrueKey;
 }
+
+export function isBefore(map: Map<string, any>, k1: string, k2: string) {
+  for (const key of map.keys()) {
+    if (key === k1) {
+      return true;
+    } else if (key === k2) {
+      return false;
+    }
+  }
+  return false;
+}
