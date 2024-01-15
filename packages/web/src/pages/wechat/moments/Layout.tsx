@@ -14,6 +14,7 @@ import CameraFilledSVG from '@/assets/camera-filled.svg?react';
 import CameraOutlinedSVG from '@/assets/camera-outlined.svg?react';
 import { h } from '@/components/HashAssets';
 import { canBeDetected } from '@/components/NodeDetected';
+import { useMemoScrollPos } from '@/components/useMemoScrollPos';
 import useModeNavigate from '@/components/useModeNavigate';
 import { IStatusBar, statusBarHideState, statusBarMountNodeState, statusBarState } from '@/state/statusBarState';
 
@@ -40,6 +41,8 @@ const setStatusBarWhenNeeded = (newValue: Partial<IStatusBar>) => {
   }
 };
 
+const DATA_WHEEL_ID = 'wechatMomentsLayout';
+
 const MomentsLayout = () => {
   const portalRef = useRef<HTMLDivElement>(null);
   const divWrapperRef = useRef<HTMLDivElement>(null);
@@ -54,6 +57,7 @@ const MomentsLayout = () => {
   const { momentsBackgroundInfo } = useProfile();
   const setStatusBarMountNode = useSetRecoilState(statusBarMountNodeState);
   const scroll = useScroll(divWrapperRef);
+  const { getScrollDataAndSave } = useMemoScrollPos(DATA_WHEEL_ID, divWrapperRef);
   const { t } = useTranslation();
 
   const barUseBlack = scroll && scroll.top >= SCROLL_HEIGHT_THRESHOLD.COMPLETELY_DISAPPEARED;
@@ -70,6 +74,7 @@ const MomentsLayout = () => {
   }, []);
 
   useEffect(() => {
+    getScrollDataAndSave(scroll);
     if (scroll) {
       const { top } = scroll;
       if (bgExpand) {
@@ -180,7 +185,7 @@ const MomentsLayout = () => {
             setBgExpand(false);
           }
         }}
-        data-wheel-id="wechatMomentsLayout"
+        data-wheel-id={DATA_WHEEL_ID}
       >
         <canBeDetected.div
           className={cn('cursor-pointer transition-all duration-300', {

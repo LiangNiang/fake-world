@@ -1,7 +1,6 @@
-import { useMount, useScroll } from 'ahooks';
 import { Modal } from 'antd';
 import { isSymbol } from 'lodash-es';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilValue } from 'recoil';
 import { getRecoil, resetRecoil, setRecoil } from 'recoil-nexus';
@@ -10,6 +9,7 @@ import { twJoin, twMerge } from 'tailwind-merge';
 import AddFriendSVG from '@/assets/add-friend-outlined.svg?react';
 import SearchOutlinedSVG from '@/assets/search-outlined.svg?react';
 import TopOperations from '@/components/TopOperations';
+import { useMemoScrollPos } from '@/components/useMemoScrollPos';
 import useModeNavigate from '@/components/useModeNavigate';
 import { MYSELF_ID } from '@/faker/wechat/user';
 import { BottomNavBars } from '@/state/btmNavbarsState';
@@ -35,28 +35,8 @@ const Contacts = () => {
 
   const anchorData = useRecoilValue(allFriendsAnchorDataState);
 
-  const scrollRef = useRef<HTMLDivElement>(null);
   const groupRef = useRef<HTMLDivElement[]>([]);
-
-  const scroll = useScroll(scrollRef);
-
-  const getScrollDataAndSave = () => {
-    if (scroll) {
-      const { top } = scroll;
-      localStorage.setItem(DATA_WHEEL_ID, JSON.stringify({ top }));
-    }
-  };
-
-  useMount(() => {
-    const { top } = JSON.parse(localStorage.getItem(DATA_WHEEL_ID) || '{}');
-    if (top) {
-      scrollRef.current?.scrollTo({ top });
-    }
-  });
-
-  useEffect(() => {
-    getScrollDataAndSave();
-  }, [scroll]);
+  const { scrollRef } = useMemoScrollPos(DATA_WHEEL_ID);
 
   const getStuckInfo = () => {
     const newMap = new Map();
@@ -145,7 +125,67 @@ const Contacts = () => {
     });
   };
 
-  const renderArray = groupedMapToRenderArray(anchorData);
+  const userListEle = useMemo(() => {
+    const renderArray = groupedMapToRenderArray(anchorData);
+    return renderArray.map((v, i) => {
+      const { type, _key } = v;
+      if (type === 'anchor') {
+        const { title } = v;
+        const isStuck = findLastStuckKey(stuckInfo) === _key;
+        return (
+          <div
+            data-key={_key}
+            key={_key}
+            className={twMerge(
+              'sticky top-0 z-10 mb-1 ml-4 mt-4 bg-white py-[2px] text-sm font-medium text-black/60',
+              isStuck &&
+                'after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1px] after:origin-top-left after:scale-y-50 after:border-t after:border-black/10',
+              quickJump[0] && 'static'
+            )}
+            ref={(el) => {
+              groupRef.current[i] = el as HTMLDivElement;
+            }}
+            id={_key}
+          >
+            {renderTitle(title)}
+          </div>
+        );
+      } else {
+        const { id, name, description, _isLastInAnchorGroup } = v;
+        const withDescription = !!description;
+        return (
+          <List.CanBeDetectedItem
+            textPrev={<UserAvatar size="small" id={id} className="mr-3" />}
+            metaData={
+              id === MYSELF_ID
+                ? { type: MetaDataType.MyProfile, treeItemDisplayName: '我自己' }
+                : {
+                    type: MetaDataType.FirendProfile,
+                    index: id,
+                    treeItemDisplayName: () => `好友（${name}）`,
+                    operations: [
+                      {
+                        element: <TopOperations.OperaionDeleteBase />,
+                        onClick: handleOperationDelete.bind(null, id),
+                      },
+                    ],
+                  }
+            }
+            textPrevClassName="ml-0"
+            key={_key}
+            onClick={() => navigate(`/wechat/friend/${id}`)}
+            className={twJoin('ml-4', _isLastInAnchorGroup && 'border-b border-black/5')}
+            rightClassName={twJoin(withDescription && 'py-0 pb-1', _isLastInAnchorGroup && 'border-none')}
+          >
+            <div className="flex flex-col">
+              <span>{name}</span>
+              <span className="text-sm text-black/60">{description}</span>
+            </div>
+          </List.CanBeDetectedItem>
+        );
+      }
+    });
+  }, [anchorData, quickJump[0]]);
 
   return (
     <>
@@ -164,64 +204,7 @@ const Contacts = () => {
           </div>
         </div>
         <TopMenus />
-        {renderArray.map((v, i) => {
-          const { type, _key } = v;
-          if (type === 'anchor') {
-            const { title } = v;
-            const isStuck = findLastStuckKey(stuckInfo) === _key;
-            return (
-              <div
-                data-key={_key}
-                key={_key}
-                className={twMerge(
-                  'sticky top-0 z-10 mb-1 ml-4 mt-4 bg-white py-[2px] text-sm font-medium text-black/60',
-                  isStuck &&
-                    'after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1px] after:origin-top-left after:scale-y-50 after:border-t after:border-black/10',
-                  quickJump[0] && 'static'
-                )}
-                ref={(el) => {
-                  groupRef.current[i] = el as HTMLDivElement;
-                }}
-                id={_key}
-              >
-                {renderTitle(title)}
-              </div>
-            );
-          } else {
-            const { id, name, description, _isLastInAnchorGroup } = v;
-            const withDescription = !!description;
-            return (
-              <List.CanBeDetectedItem
-                textPrev={<UserAvatar size="small" id={id} className="mr-3" />}
-                metaData={
-                  id === MYSELF_ID
-                    ? { type: MetaDataType.MyProfile, treeItemDisplayName: '我自己' }
-                    : {
-                        type: MetaDataType.FirendProfile,
-                        index: id,
-                        treeItemDisplayName: () => `好友（${name}）`,
-                        operations: [
-                          {
-                            element: <TopOperations.OperaionDeleteBase />,
-                            onClick: handleOperationDelete.bind(null, id),
-                          },
-                        ],
-                      }
-                }
-                textPrevClassName="ml-0"
-                key={_key}
-                onClick={() => navigate(`/wechat/friend/${id}`)}
-                className={twJoin('ml-4', _isLastInAnchorGroup && 'border-b border-black/5')}
-                rightClassName={twJoin(withDescription && 'py-0 pb-1', _isLastInAnchorGroup && 'border-none')}
-              >
-                <div className="flex flex-col">
-                  <span>{name}</span>
-                  <span className="text-sm text-black/60">{description}</span>
-                </div>
-              </List.CanBeDetectedItem>
-            );
-          }
-        })}
+        {userListEle}
         <Total />
       </div>
 
