@@ -16,7 +16,7 @@ const RightAnchor = ({ data, stuckInfo, handleQuickJump }: Props) => {
   const lastTrueKey = findLastStuckKey(stuckInfo);
 
   return (
-    <div className="z-100 absolute right-2 top-1/2 flex -translate-y-1/2 select-none flex-col items-center text-xs">
+    <div className="absolute right-2 top-1/2 z-100 flex -translate-y-1/2 select-none flex-col items-center text-xs">
       {Array.from(data, ([k, v]) => {
         if (k === searchS)
           return (

@@ -6,11 +6,17 @@ type TRenderAnchor = {
   _key: string;
 };
 
-type TRenderUser = TNeedGroupDataItem & {
+export type TRenderUser = TNeedGroupDataItem & {
   type: 'user';
   _key: string;
   _isLastInAnchorGroup: boolean;
 };
+
+export function getStuckInfo(anchorData: Map<string | symbol, TNeedGroupDataItem[]>) {
+  const newMap = new Map();
+  anchorData.forEach((_, k) => newMap.set(k.toString(), false));
+  return newMap;
+}
 
 export type TRenderArrayItem = TRenderAnchor | TRenderUser;
 export function groupedMapToRenderArray(data: Map<string | symbol, TNeedGroupDataItem[]>) {
