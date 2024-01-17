@@ -26,8 +26,8 @@ function canBeDetected<T extends object>(
   componentName = component.displayName ?? component.name
 ) {
   const NodeDetected = (props: InjectProps & T & HTMLAttributes<void> & { innerRef?: Ref<any> }) => {
-    const { metaData: injectMetaData, innerRef } = props;
-    const id = useId();
+    const { metaData: injectMetaData, innerRef, id: preId } = props;
+    const id = preId ?? useId();
     const divRef = useRef<Element>(null);
     const mergedRef = useMergeRefs([divRef, innerRef]);
     const { isPreview } = useMode();
