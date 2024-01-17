@@ -6,7 +6,7 @@ import { useSetRecoilState } from 'recoil';
 import { MYSELF_ID } from '@/faker/wechat/user';
 import { friendState, IProfile, MOMENTS_PRIVACY_TEXT_MAP } from '@/state/profile';
 
-import LocalImageUploadWithPreview from './LocalImageUpload';
+import LocalImageUploadWithPreview from '../LocalImageUpload';
 
 const FriendProfileMetaDataEditor = ({ data, index }: EditorProps<IProfile, IProfile['id']>) => {
   const setFriendProfile = useSetRecoilState(friendState(index));

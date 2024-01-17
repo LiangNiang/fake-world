@@ -4,8 +4,10 @@ import { useRecoilValue } from 'recoil';
 
 import AddFriendSVG from '@/assets/add-friend-outlined.svg?react';
 import SearchOutlinedSVG from '@/assets/search-outlined.svg?react';
+import { canBeDetected } from '@/components/NodeDetected';
 import { useMemoScrollPos } from '@/components/useMemoScrollPos';
 import { BottomNavBars } from '@/state/btmNavbarsState';
+import { MetaDataType } from '@/state/detectedNode';
 import { allFriendsAnchorDataState } from '@/state/profile';
 import BottomNavbar, { useToggleNavbarActivated } from '@/wechatComponents/BottomNavbar';
 
@@ -36,7 +38,16 @@ const Contacts = () => {
           <AddFriendSVG height={20} width={20} fill="black" className="cursor-pointer" />
         </div>
       </div>
-      <div className="flex flex-1 flex-col overflow-y-auto bg-white" id="contacts-container" ref={scrollRef} data-wheel-id={DATA_WHEEL_ID}>
+      <canBeDetected.div
+        className="flex flex-1 flex-col overflow-y-auto bg-white"
+        id="contacts-container"
+        innerRef={scrollRef}
+        data-wheel-id={DATA_WHEEL_ID}
+        metaData={{
+          type: MetaDataType.ContactsContainer,
+          treeItemDisplayName: (data) => `通讯录（${data.length}位好友）`,
+        }}
+      >
         <div className="flex bg-[rgba(237,237,237,1)] px-2 pb-3">
           <div className="flex flex-1 items-center justify-center rounded-[4px] bg-white p-2 text-xs">
             <SearchOutlinedSVG fill="rgba(0, 0, 0, 0.5)" width={17} height={16} />
@@ -46,7 +57,7 @@ const Contacts = () => {
         <TopMenus />
         <ContactsList anchorData={anchorData} stuckInfo={stuckInfo} setStuckInfo={setStuckInfo} />
         <Total />
-      </div>
+      </canBeDetected.div>
 
       <Anchor
         data={anchorData}

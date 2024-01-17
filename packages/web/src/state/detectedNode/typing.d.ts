@@ -142,6 +142,12 @@ declare namespace OverallMetaData {
     treeItemDisplayName: string | ((data: TTransactionDataWithType, t: TFunction) => string);
   }
 
+  interface IMetaDataContactsContainer extends Base {
+    type: MetaDataType.ContactsContainer;
+    data: string[];
+    treeItemDisplayName: string | ((data: string[]) => string);
+  }
+
   interface IMetaDataSimple extends Base {
     treeItemDisplayName: string;
   }
@@ -165,6 +171,7 @@ declare namespace OverallMetaData {
     | IMetaDataFeedCommentsItem
     | IMetaDataFeedCommentsList
     | IMetaDataTransactionRecord
+    | IMetaDataContactsContainer
     | IMetaDataSimple;
 
   type OverallIndex = GetTypeInUnion<Overall, 'index'>;

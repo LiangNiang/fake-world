@@ -50,6 +50,10 @@ const UserItem = ({ id, name, description, _isLastInAnchorGroup, _key }: TRender
                   element: <TopOperations.OperaionDeleteBase />,
                   onClick: handleOperationDelete,
                 },
+                {
+                  element: <TopOperations.OperationNewBase />,
+                  onClick: TopOperations.OperationSelectParent.selectParentNode,
+                },
               ],
             }
       }
