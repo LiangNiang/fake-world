@@ -152,9 +152,10 @@ export function findNodeInTree(nodeId: string, nodeTree: TreeNode[]) {
   return targetNode;
 }
 
-export function getActivatedNodeParent() {
+export async function getActivatedNodeParent() {
   const activatedNode = getRecoil(activatedNodeState);
+  const allNodesTree = await getRecoil(allNodesTreeState);
   if (activatedNode) {
-    return findNodeInTree(activatedNode, getRecoil(allNodesTreeState))?.parent;
+    return findNodeInTree(activatedNode, allNodesTree)?.parent;
   }
 }

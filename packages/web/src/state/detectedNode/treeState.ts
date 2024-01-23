@@ -4,7 +4,7 @@ import { atom, DefaultValue, selector } from 'recoil';
 import { sleep } from '@/utils';
 
 import { allNodesState } from '.';
-import { buildTree } from './utils';
+import { buildTree, TreeNode } from './utils';
 
 export const flag2State = atom({
   key: 'flag2State',
@@ -12,7 +12,7 @@ export const flag2State = atom({
 });
 
 /** allNodesState 派生为树结构 */
-export const allNodesTreeState = selector({
+export const allNodesTreeState = selector<Promise<TreeNode[]>>({
   key: 'allNodesTreeState',
   get: async ({ get }) => {
     const flag2 = get(flag2State);
