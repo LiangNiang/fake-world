@@ -63,7 +63,6 @@ class SetListManager {
 export const slm = new SetListManager();
 
 export function buildTree(nodes: INodeState[]): TreeNode[] {
-  console.log(123123123, nodes);
   const idToTreeNodeAndNodeState: { [id: string]: [TreeNode, INodeState] } = {};
   const childToParent: { [id: string]: string } = {};
 

@@ -1,54 +1,31 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Tree } from 'antd';
-import { isArray, isFunction, isNil, isString } from 'lodash-es';
-import { nanoid } from 'nanoid';
-import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { isArray } from 'lodash-es';
+import { memo, useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { getRecoil } from 'recoil-nexus';
 
-import { activatedNodeState, allNodesTreeState, nodeDataState, nodeInjectMetaState, TreeNode } from '@/state/detectedNode';
-import { StaticMetaData } from '@/state/detectedNode/typing';
+import { activatedNodeState, allNodesTreeState, nodeInjectMetaState, TreeNode } from '@/state/detectedNode';
 import { ModeState, modeState } from '@/state/globalConfig';
 
-import { doChangeOrder } from './utils';
-
-const NodeTreeTitle = ({ item }: { item: TreeNode }) => {
-  const { t } = useTranslation();
-  const node = useRecoilValue(nodeDataState(item.id));
-  if (!node) return <></>;
-
-  const { injectMetaData, freshData } = node;
-  if (!injectMetaData) return <div>{item.id}</div>;
-
-  const renderTitleFunctional = (treeItemDisplayName: StaticMetaData.InjectMetaData['treeItemDisplayName'], freshDataIndex?: number) => {
-    if (isString(treeItemDisplayName)) return <div>{treeItemDisplayName}</div>;
-    if (isFunction(treeItemDisplayName) && freshData !== undefined) {
-      if (Array.isArray(freshData) && freshDataIndex !== undefined && !isNil(freshData[freshDataIndex])) {
-        // @ts-ignore
-        return <div>{treeItemDisplayName(freshData[freshDataIndex], t)}</div>;
-      } else {
-        // @ts-ignore
-        return <div>{treeItemDisplayName(freshData, t)}</div>;
-      }
-    } else {
-      return <div>{item.id}</div>;
-    }
-  };
-
-  if (Array.isArray(injectMetaData)) {
-    const hasTreeItemDisplayNameIndex = injectMetaData.findIndex((v) => !!v.treeItemDisplayName);
-    if (hasTreeItemDisplayNameIndex === -1) return <div>{item.id}</div>;
-    return renderTitleFunctional(injectMetaData[hasTreeItemDisplayNameIndex].treeItemDisplayName, hasTreeItemDisplayNameIndex);
-  } else {
-    return injectMetaData.treeItemDisplayName ? renderTitleFunctional(injectMetaData.treeItemDisplayName) : <div>{item.id}</div>;
-  }
-};
+import { doChangeOrder } from '../utils';
+import NodeTreeTitle from './Title';
 
 const NodeTree = () => {
   const [currentSelected, setCurrentSelected] = useState<string>();
   const activatedNode = useRecoilValue(activatedNodeState);
   const allNodeTree = useRecoilValue(allNodesTreeState);
+  const [expandKeys, setExpandKeys] = useState<string[]>([]);
+
+  useEffect(() => {
+    const res = [];
+    for (const item of allNodeTree) {
+      if (item.children.length > 0) {
+        res.push(item.id);
+      }
+    }
+    setExpandKeys(res);
+  }, [allNodeTree]);
+
   useEffect(() => {
     if (activatedNode) {
       setCurrentSelected(activatedNode);
@@ -61,10 +38,11 @@ const NodeTree = () => {
 
   return (
     <Tree<TreeNode>
-      key={nanoid(2)}
       treeData={allNodeTree}
-      defaultExpandAll
       blockNode
+      expandedKeys={expandKeys}
+      autoExpandParent
+      onExpand={(expandedKeysValue) => setExpandKeys(expandedKeysValue as string[])}
       onSelect={(v) => {
         if (v.length === 1) {
           setCurrentSelected(v[0] as string);
@@ -106,4 +84,4 @@ const NodeTree = () => {
   );
 };
 
-export default NodeTree;
+export default memo(NodeTree);
