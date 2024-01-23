@@ -35,7 +35,7 @@ const AnchorLabel = forwardRef<HTMLDivElement, Props>(({ labelKey, labelTitle, i
       <div
         data-key={labelKey}
         className={twJoin(
-          'sticky top-0 z-40 mb-1 ml-4 h-6 bg-white py-[2px] text-sm font-medium text-black/60',
+          'sticky top-0 z-40 mb-1 ml-4 mt-4 h-6 bg-white py-[2px] text-sm font-medium text-black/60',
           isStuck && 'z-50 border-b border-black/5',
           isBeforeStuck && 'border-b border-black/5'
         )}

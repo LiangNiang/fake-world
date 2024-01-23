@@ -1,3 +1,4 @@
+import { useSize } from 'ahooks';
 import { Tree } from 'antd';
 import { isArray } from 'lodash-es';
 import { memo, useEffect, useState } from 'react';
@@ -15,6 +16,7 @@ const NodeTree = () => {
   const activatedNode = useRecoilValue(activatedNodeState);
   const allNodeTree = useRecoilValue(allNodesTreeState);
   const [expandKeys, setExpandKeys] = useState<string[]>([]);
+  const size = useSize(document.querySelector('#tree-container'));
 
   useEffect(() => {
     const res = [];
@@ -33,13 +35,14 @@ const NodeTree = () => {
   }, [activatedNode]);
 
   if (allNodeTree?.length === 0) {
-    return <></>;
+    return null;
   }
 
   return (
     <Tree<TreeNode>
       treeData={allNodeTree}
       blockNode
+      height={size?.height}
       expandedKeys={expandKeys}
       autoExpandParent
       onExpand={(expandedKeysValue) => setExpandKeys(expandedKeysValue as string[])}
