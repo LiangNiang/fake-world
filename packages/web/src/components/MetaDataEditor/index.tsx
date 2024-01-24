@@ -17,12 +17,11 @@ import FeedCommentItemMetaDataEditor from './FeedCommentItemMetaDataEditor';
 import FeedCommentsListMetaDataEditor from './FeedCommentsListMetaDataEditor';
 import FeedLikeMetaDataEditor from './FeedLikeMetaDataEditor';
 import FeedMetaDataEditor from './FeedMetaDataEditor';
-import FriendProfileMetaDataEditor from './FriendProfileMetaDataEditor';
-import MyProfileMetaDataEditor from './MyProfileMetaDataEditor';
 import NavigationBarMetaDataEditor from './NavigationBarMetaDataEditor';
 import StatusBarMetaDataEditor from './StatusBarMetaDataEditor';
 import TotalUnreadMetaDataEditor from './TotalUnreadMetaDataEditor';
 import TransactionRecordMetaDataEditor from './TransactionRecordMetaDataEditor';
+import { FriendProfileMetaDataEditor, FriendsTotlaMetaDataEditor, MyProfileMetaDataEditor, NewUserMetaDataEditor } from './UserProfileMetaDataEditor';
 import WalletMetaDataEditor from './WalletMetaDataEditor';
 
 const TYPE_MAP_COMPONENT = {
@@ -44,6 +43,8 @@ const TYPE_MAP_COMPONENT = {
   [MetaDataType.FeedCommentsList]: FeedCommentsListMetaDataEditor,
   [MetaDataType.UserAllFeeds]: AllFeedsMetaDataEditor,
   [MetaDataType.TransactionRecord]: TransactionRecordMetaDataEditor,
+  [MetaDataType.ContactsContainer]: NewUserMetaDataEditor,
+  [MetaDataType.FriendsTotalCount]: FriendsTotlaMetaDataEditor,
 };
 
 export const MetaDataEditor = () => {

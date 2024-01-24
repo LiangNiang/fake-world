@@ -49,7 +49,7 @@ const TotalUnreadMetaDataEditor = ({ data }: EditorProps<ITotalUnreadCountState>
         </Radio.Group>
       </Form.Item>
       <Form.Item<ITotalUnreadCountState> name="count" label="通知数量">
-        <InputNumber disabled={calcuateTypeValue === CalcuateType.AUTO} />
+        <InputNumber disabled={calcuateTypeValue === CalcuateType.AUTO} min={0} />
       </Form.Item>
     </Form>
   );

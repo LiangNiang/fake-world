@@ -14,7 +14,7 @@ import DialogueList from './DialogueList';
 import StateEffect from './StateEffect';
 
 const WechatIndex = () => {
-  const totalUnreadCount = useRecoilValue(totalUnreadCountState);
+  const { count } = useRecoilValue(totalUnreadCountState);
   const { t } = useTranslation();
   useToggleNavbarActivated(BottomNavBars.WECHAT);
 
@@ -27,9 +27,11 @@ const WechatIndex = () => {
           className="flex items-center justify-center font-medium"
           metaData={{ type: MetaDataType.TotalUnreadCount, treeItemDisplayName: (d) => `顶栏 ${d.count} 个未读消息` }}
         >
-          {t('wechatPage.main.title', {
-            totalUnreadCount: totalUnreadCount.count,
-          })}
+          {count > 0
+            ? t('wechatPage.main.title', {
+                totalUnreadCount: count,
+              })
+            : t('wechatPage.main.title2')}
         </canBeDetected.span>
         <div className="flex items-center justify-end">
           <PlusCircleSVG width={16} fill="black" className="cursor-pointer" />

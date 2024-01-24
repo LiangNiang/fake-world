@@ -4,7 +4,7 @@ import { useSetRecoilState } from 'recoil';
 
 import { IProfile, MOMENTS_PRIVACY_TEXT_MAP, myProfileState } from '@/state/profile';
 
-import LocalImageUploadWithPreview from './LocalImageUpload';
+import LocalImageUploadWithPreview from '../LocalImageUpload';
 
 const MyProfileMetaDataEditor = ({ data }: EditorProps<IProfile>) => {
   const setMyProfile = useSetRecoilState(myProfileState);

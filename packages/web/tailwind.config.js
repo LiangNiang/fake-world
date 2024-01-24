@@ -90,6 +90,10 @@ export default {
       saturate: {
         60: '.60',
       },
+      zIndex: {
+        100: '100',
+        200: '200',
+      },
     },
   },
   plugins: [require('@tailwindcss/aspect-ratio'), require('tailwindcss-animated')],
