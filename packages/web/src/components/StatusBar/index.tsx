@@ -1,5 +1,5 @@
 import { ClockCircleOutlined } from '@ant-design/icons';
-import { useUpdate } from 'ahooks';
+import { useInterval, useUpdate } from 'ahooks';
 import { Tooltip } from 'antd';
 import cn from 'classnames';
 import dayjs from 'dayjs';
@@ -21,6 +21,10 @@ const StatusBar = () => {
   const hidden = useRecoilValue(statusBarHideState);
   const update = useUpdate();
   const divRef = useRef<HTMLDivElement>(null);
+
+  useInterval(() => {
+    update();
+  }, 1000);
 
   const fromSiblingNodeSetColor = (sibling: Element) => {
     if (mountNode !== null || !sibling) return;

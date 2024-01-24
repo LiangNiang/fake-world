@@ -74,7 +74,7 @@ const DetectedOverlay = ({ element, type, nodeId }: ActivatedBorderProps) => {
     <FloatingPortal>
       <FloatingOverlay
         className={cn('pointer-events-none h-screen w-screen !overflow-hidden', {
-          'z-50': type === 'activated',
+          'z-200': type === 'activated',
           'z-40': type === 'hover',
         })}
       >

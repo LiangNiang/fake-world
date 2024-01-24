@@ -5,7 +5,7 @@ import { HTMLAttributes, memo, MouseEvent, ReactNode, Ref, useCallback, useEffec
 import { getRecoil, resetRecoil, setRecoil } from 'recoil-nexus';
 import Sortable from 'sortablejs';
 
-import { activatedNodeState, hoverdNodeState, nodeDataState, nodeInjectMetaState } from '@/state/detectedNode';
+import { activatedNodeState, flag2State, hoverdNodeState, nodeDataState, nodeInjectMetaState } from '@/state/detectedNode';
 import { StaticMetaData } from '@/state/detectedNode/typing';
 
 import useMode from '../useMode';
@@ -26,8 +26,8 @@ function canBeDetected<T extends object>(
   componentName = component.displayName ?? component.name
 ) {
   const NodeDetected = (props: InjectProps & T & HTMLAttributes<void> & { innerRef?: Ref<any> }) => {
-    const { metaData: injectMetaData, innerRef } = props;
-    const id = useId();
+    const { metaData: injectMetaData, innerRef, id: preId } = props;
+    const id = preId ?? useId();
     const divRef = useRef<Element>(null);
     const mergedRef = useMergeRefs([divRef, innerRef]);
     const { isPreview } = useMode();
@@ -40,6 +40,7 @@ function canBeDetected<T extends object>(
     const comparedInjectMetaData = isArray(injectMetaData) ? injectMetaData.map(mapCompared) : mapCompared(injectMetaData);
 
     useEffect(() => {
+      setRecoil(flag2State, false);
       setTimeout(() => {
         if (divRef.current) {
           setRecoil(nodeInjectMetaState(id), injectMetaData);
@@ -51,6 +52,7 @@ function canBeDetected<T extends object>(
         }
       });
       return () => {
+        setRecoil(flag2State, false);
         setTimeout(() => {
           resetRecoil(nodeDataState(id));
           if (getRecoil(activatedNodeState) === id) {

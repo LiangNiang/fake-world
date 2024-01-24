@@ -4,7 +4,7 @@ import btmNavbarsState, { BottomNavBars } from '../btmNavbarsState';
 import { conversationInputState, conversationState } from '../conversationState';
 import { dialogueItemState } from '../dialogueState';
 import { feedState } from '../moments';
-import { friendState, myProfileState } from '../profile';
+import { friendsIdsState, friendState, friendsTotalCountState, myProfileState } from '../profile';
 import { statusBarHideState } from '../statusBarState';
 import totalUnreadCountState from '../totalUnreadCountState';
 import { TTransactionType, USED_STATE_MAP } from '../transaction';
@@ -42,6 +42,8 @@ const handlerMap: HandlerMap = {
     ...get(USED_STATE_MAP[index as TTransactionType]),
     type: index,
   }),
+  [MetaDataType.ContactsContainer]: (get) => get(friendsIdsState),
+  [MetaDataType.FriendsTotalCount]: (get) => get(friendsTotalCountState),
 };
 
 export const nodeRuntimeState = selectorFamily<OverallMetaData.OverallData, ParamsType>({

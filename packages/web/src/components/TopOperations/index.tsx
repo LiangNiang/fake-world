@@ -27,7 +27,7 @@ const TopOperations = ({ nodeId }: Props) => {
   if (operationsData.length === 0) return null;
 
   return (
-    <div className="pointer-events-auto absolute -top-7 right-0 z-20 flex h-7 items-center bg-antDaybreakBlue-6 text-sm">
+    <div className="pointer-events-auto absolute -top-7 right-0 flex h-7 items-center bg-antDaybreakBlue-6 text-sm">
       {operationsData.map((v, key) => (
         <div
           onClick={v.onClick}

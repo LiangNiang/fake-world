@@ -74,6 +74,7 @@
   "wechatPage": {
     "main": {
       "title": "Weixin ({{totalUnreadCount}})",
+      "title2": "Weixin",
       "search": "Search"
     },
     "discover": {
@@ -194,7 +195,8 @@
       "group": "Group Chats",
       "tags": "Tags",
       "official": "Official Accounts",
-      "starred": "Starred"
+      "starred": "Starred",
+      "total": "{{num}} friends"
     }
   }
 }

@@ -37,3 +37,8 @@ export interface IProfile {
   hideThumbnail?: boolean;
   createdByFaker?: boolean;
 }
+
+export interface IFriendsTotalCountDisplay {
+  calcuateType: 'auto' | 'static';
+  count?: number;
+}

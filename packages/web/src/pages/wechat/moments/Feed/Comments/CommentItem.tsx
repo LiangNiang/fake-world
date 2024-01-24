@@ -2,12 +2,11 @@ import { Modal } from 'antd';
 import dayjs from 'dayjs';
 import { memo } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { setRecoil } from 'recoil-nexus';
 
 import { canBeDetected } from '@/components/NodeDetected';
 import TopOperations from '@/components/TopOperations';
 import useModeNavigate from '@/components/useModeNavigate';
-import { activatedNodeState, getActivatedNodeParent, MetaDataType } from '@/state/detectedNode';
+import { MetaDataType } from '@/state/detectedNode';
 import { StaticMetaData } from '@/state/detectedNode/typing';
 import { feedState, IFeed, IFeedComment } from '@/state/moments';
 import { friendState, IProfile } from '@/state/profile';
@@ -69,13 +68,6 @@ const CommentItem = ({
     });
   };
 
-  const handleNew = () => {
-    const parent = getActivatedNodeParent();
-    if (parent) {
-      setRecoil(activatedNodeState, parent.id);
-    }
-  };
-
   const metaData: StaticMetaData.InjectMetaData[] = [
     {
       type: MetaDataType.FeedCommentsItem,
@@ -87,7 +79,7 @@ const CommentItem = ({
           element: <TopOperations.OperaionDeleteBase tooltipProps={{ title: '删除该评论' }} />,
         },
         {
-          onClick: handleNew,
+          onClick: TopOperations.OperationSelectParent.selectParentNode,
           element: <TopOperations.OperationNewBase tooltipProps={{ title: '新增评论' }} />,
         },
       ],

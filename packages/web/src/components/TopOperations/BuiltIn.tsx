@@ -27,8 +27,8 @@ export const OperationNewBase = ({ onClick, tooltipProps }: CommonOperationBaseP
   </Tooltip>
 );
 
-const selectParentNode = () => {
-  const parent = getActivatedNodeParent();
+const selectParentNode = async () => {
+  const parent = await getActivatedNodeParent();
   if (parent) {
     setRecoil(activatedNodeState, parent.id);
   }

@@ -3,7 +3,7 @@ import { isEmpty } from 'lodash-es';
 import { getRecoil, setRecoil } from 'recoil-nexus';
 
 import { activatedNodeState, allNodesState, INodeState } from './nodeState';
-import { allNodesTreeState } from './treeState';
+import { allNodesTreeState, flag2State } from './treeState';
 
 export interface TreeNode extends DataNode {
   id: string;
@@ -36,6 +36,7 @@ class SetListManager {
   }
 
   private onNoChange() {
+    console.log('onNoChange');
     if (isEmpty(this.insertTasks) && isEmpty(this.deleteTasks)) return;
 
     setRecoil(allNodesState, (prev) => {
@@ -48,6 +49,7 @@ class SetListManager {
         ...this.insertTasks,
       };
     });
+    setRecoil(flag2State, true);
     this.insertTasks = {};
     this.deleteTasks = [];
   }
@@ -62,8 +64,7 @@ class SetListManager {
 
 export const slm = new SetListManager();
 
-export function buildTree(nodes: INodeState[]): TreeNode[] {
-  console.log(123123123, nodes);
+export async function buildTree(nodes: INodeState[]): Promise<TreeNode[]> {
   const idToTreeNodeAndNodeState: { [id: string]: [TreeNode, INodeState] } = {};
   const childToParent: { [id: string]: string } = {};
 
@@ -151,9 +152,10 @@ export function findNodeInTree(nodeId: string, nodeTree: TreeNode[]) {
   return targetNode;
 }
 
-export function getActivatedNodeParent() {
+export async function getActivatedNodeParent() {
   const activatedNode = getRecoil(activatedNodeState);
+  const allNodesTree = await getRecoil(allNodesTreeState);
   if (activatedNode) {
-    return findNodeInTree(activatedNode, getRecoil(allNodesTreeState))?.parent;
+    return findNodeInTree(activatedNode, allNodesTree)?.parent;
   }
 }
