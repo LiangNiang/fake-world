@@ -12,7 +12,7 @@ export const flag2State = atom({
 });
 
 /** allNodesState 派生为树结构 */
-export const allNodesTreeState = selector<Promise<TreeNode[]>>({
+export const allNodesTreeState = selector<TreeNode[]>({
   key: 'allNodesTreeState',
   get: async ({ get }) => {
     const flag2 = get(flag2State);
