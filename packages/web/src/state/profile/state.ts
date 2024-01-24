@@ -4,7 +4,7 @@ import { atom, atomFamily, DefaultValue, selector, selectorFamily } from 'recoil
 import { generaterFakeUser, INIT_FRIENDS, INIT_MY_PROFILE, MYSELF_ID } from '@/faker/wechat/user';
 
 import { persistAtom } from '../effects';
-import { IProfile } from './typing';
+import { IFriendsTotalCountDisplay, IProfile } from './typing';
 import { generateNameAnchorGroup } from './utils';
 
 export const PRIVACY_TEXT_MAP: Record<IProfile['privacy'], string | ((gender: NonNullable<IProfile['gender']>, t: TFunction) => string)> = {
@@ -87,5 +87,38 @@ export const allFriendsAnchorDataState = selector({
       });
     }
     return generateNameAnchorGroup(preGroupData);
+  },
+});
+
+const __friendsTotalCountState = atom<IFriendsTotalCountDisplay>({
+  key: '__friendsTotalCountCalcuateTypeState',
+  default: {
+    calcuateType: 'auto',
+  },
+  effects_UNSTABLE: [persistAtom],
+});
+
+export const friendsTotalCountState = selector<IFriendsTotalCountDisplay>({
+  key: 'friendsTotalCountState',
+  get: ({ get }) => {
+    const { calcuateType, count } = get(__friendsTotalCountState);
+    if (calcuateType === 'static') {
+      return {
+        calcuateType,
+        count,
+      };
+    } else {
+      return {
+        calcuateType,
+        count: get(friendsIdsState).length - 1,
+      };
+    }
+  },
+  set: ({ set, reset }, newValue) => {
+    if (newValue instanceof DefaultValue) {
+      reset(__friendsTotalCountState);
+    } else {
+      set(__friendsTotalCountState, newValue);
+    }
   },
 });

@@ -195,7 +195,8 @@
       "group": "Group Chats",
       "tags": "Tags",
       "official": "Official Accounts",
-      "starred": "Starred"
+      "starred": "Starred",
+      "total": "{{num}} friends"
     }
   }
 }

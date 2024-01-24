@@ -45,7 +45,7 @@ const Contacts = () => {
         data-wheel-id={DATA_WHEEL_ID}
         metaData={{
           type: MetaDataType.ContactsContainer,
-          treeItemDisplayName: (data) => `通讯录（${data.length}位好友）`,
+          treeItemDisplayName: (data) => `通讯录（${data.length - 1}位好友）`,
         }}
       >
         <div className="flex bg-[rgba(237,237,237,1)] px-2 pb-3">

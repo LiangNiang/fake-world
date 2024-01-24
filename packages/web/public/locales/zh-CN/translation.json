@@ -195,7 +195,8 @@
       "group": "群聊",
       "tags": "标签",
       "official": "公众号",
-      "starred": "星标朋友"
+      "starred": "星标朋友",
+      "total": "{{num}} 个朋友"
     }
   }
 }

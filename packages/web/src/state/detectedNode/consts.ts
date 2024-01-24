@@ -37,4 +37,6 @@ export enum MetaDataType {
   TransactionRecord = 'transactionRecord',
   /** 通讯录列表 */
   ContactsContainer = 'contactsContainer',
+  /** 好友总数 */
+  FriendsTotalCount = 'friendsTotalCount',
 }

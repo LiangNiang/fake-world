@@ -195,7 +195,8 @@
       "group": "群組",
       "tags": "標籤",
       "official": "官方賬號",
-      "starred": "超級好友"
+      "starred": "超級好友",
+      "total": "{{num}} 個聯絡人"
     }
   }
 }

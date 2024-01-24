@@ -21,7 +21,7 @@ import NavigationBarMetaDataEditor from './NavigationBarMetaDataEditor';
 import StatusBarMetaDataEditor from './StatusBarMetaDataEditor';
 import TotalUnreadMetaDataEditor from './TotalUnreadMetaDataEditor';
 import TransactionRecordMetaDataEditor from './TransactionRecordMetaDataEditor';
-import { FriendProfileMetaDataEditor, MyProfileMetaDataEditor, NewUserMetaDataEditor } from './UserProfileMetaDataEditor';
+import { FriendProfileMetaDataEditor, FriendsTotlaMetaDataEditor, MyProfileMetaDataEditor, NewUserMetaDataEditor } from './UserProfileMetaDataEditor';
 import WalletMetaDataEditor from './WalletMetaDataEditor';
 
 const TYPE_MAP_COMPONENT = {
@@ -44,6 +44,7 @@ const TYPE_MAP_COMPONENT = {
   [MetaDataType.UserAllFeeds]: AllFeedsMetaDataEditor,
   [MetaDataType.TransactionRecord]: TransactionRecordMetaDataEditor,
   [MetaDataType.ContactsContainer]: NewUserMetaDataEditor,
+  [MetaDataType.FriendsTotalCount]: FriendsTotlaMetaDataEditor,
 };
 
 export const MetaDataEditor = () => {
