@@ -17,11 +17,19 @@ type Task = {
   payload: any;
 };
 
-class SetListManager {
+export class ListTaskManager {
   insertTasks: Record<Task['key'], Task['payload']> = {};
   deleteTasks: Task['key'][] = [];
   private timer: NodeJS.Timeout | null = null;
-  private readonly delay = 50;
+  private readonly delay = 100;
+  static instance: ListTaskManager | null = null;
+
+  static getInstace() {
+    if (!this.instance) {
+      this.instance = new ListTaskManager();
+    }
+    return this.instance;
+  }
 
   addInsertTask(task: Task) {
     const { key, payload } = task;
@@ -36,7 +44,6 @@ class SetListManager {
   }
 
   private onNoChange() {
-    console.log('onNoChange');
     if (isEmpty(this.insertTasks) && isEmpty(this.deleteTasks)) return;
 
     setRecoil(allNodesState, (prev) => {
@@ -62,9 +69,8 @@ class SetListManager {
   }
 }
 
-export const slm = new SetListManager();
-
 export async function buildTree(nodes: INodeState[]): Promise<TreeNode[]> {
+  console.time('buildTree');
   const idToTreeNodeAndNodeState: { [id: string]: [TreeNode, INodeState] } = {};
   const childToParent: { [id: string]: string } = {};
 
@@ -114,7 +120,7 @@ export async function buildTree(nodes: INodeState[]): Promise<TreeNode[]> {
     }
   }
 
-  return Object.values(idToTreeNodeAndNodeState)
+  const finalRes = Object.values(idToTreeNodeAndNodeState)
     .map(([treeNode]) => treeNode)
     .filter((treeNode) => !(treeNode.id in childToParent))
     .sort((a, b) => {
@@ -129,6 +135,10 @@ export async function buildTree(nodes: INodeState[]): Promise<TreeNode[]> {
         return 0;
       }
     });
+
+  console.timeEnd('buildTree');
+
+  return finalRes;
 }
 
 export function findNodeInTree(nodeId: string, nodeTree: TreeNode[]) {

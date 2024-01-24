@@ -8,11 +8,11 @@ const QuickOperations = () => {
     <div className="flex space-x-1">
       <Button
         onClick={() => {
-          quickAddFakeUser(20);
+          quickAddFakeUser(50);
           message.success('添加成功');
         }}
       >
-        随机添加20个好友
+        随机添加50个好友
       </Button>
       <Button
         onClick={() => {
