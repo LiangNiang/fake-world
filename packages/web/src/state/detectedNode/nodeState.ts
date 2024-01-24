@@ -1,7 +1,7 @@
 import { isArray, isEmpty } from 'lodash-es';
 import { atom, atomFamily, DefaultValue, selectorFamily } from 'recoil';
 
-import { nodeRuntimeState, slm } from '.';
+import { ListTaskManager, nodeRuntimeState } from '.';
 import { OverallMetaData, StaticMetaData } from './typing';
 
 export interface IAllNodeState {
@@ -65,10 +65,11 @@ export const nodeDataState = selectorFamily<INodeState | null, INodeState['id']>
     },
   set: (param) => (_, newValue) => {
     if (param) {
+      const listTaskManager = ListTaskManager.getInstace();
       if (newValue instanceof DefaultValue) {
-        slm.addDeleteTask(param);
+        listTaskManager.addDeleteTask(param);
       } else {
-        slm.addInsertTask({
+        listTaskManager.addInsertTask({
           key: param,
           payload: newValue,
         });
