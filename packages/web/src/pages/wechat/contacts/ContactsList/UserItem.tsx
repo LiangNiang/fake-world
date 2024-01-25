@@ -3,6 +3,7 @@ import { memo } from 'react';
 import { getRecoil, resetRecoil, setRecoil } from 'recoil-nexus';
 import { twJoin } from 'tailwind-merge';
 
+import { h } from '@/components/HashAssets';
 import TopOperations from '@/components/TopOperations';
 import useModeNavigate from '@/components/useModeNavigate';
 import { MYSELF_ID } from '@/faker/wechat/user';
@@ -11,11 +12,10 @@ import { dialogueListState } from '@/state/dialogueState';
 import { allFeedsState, feedState } from '@/state/moments';
 import { friendsIdsState, friendState } from '@/state/profile';
 import List from '@/wechatComponents/List';
-import UserAvatar from '@/wechatComponents/User/UserAvatar';
 
 import { TRenderUser } from '../utils';
 
-const UserItem = ({ id, name, description, _isLastInAnchorGroup, _key }: TRenderUser) => {
+const UserItem = ({ id, name, description, avatarInfo, _isLastInAnchorGroup, _key }: TRenderUser) => {
   const navigate = useModeNavigate();
 
   const withDescription = !!description;
@@ -37,7 +37,7 @@ const UserItem = ({ id, name, description, _isLastInAnchorGroup, _key }: TRender
 
   return (
     <List.CanBeDetectedItem
-      textPrev={<UserAvatar size="small" id={id} className="mr-3" />}
+      textPrev={<h.img src={avatarInfo} className="mr-3 h-9 w-9 rounded object-cover object-center" />}
       metaData={
         id === MYSELF_ID
           ? { type: MetaDataType.MyProfile, treeItemDisplayName: '我自己' }
