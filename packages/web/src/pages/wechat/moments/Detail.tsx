@@ -6,11 +6,11 @@ import BackFilledSVG from '@/assets/back-filled.svg?react';
 import MoreFilledSVG from '@/assets/more-filled.svg?react';
 import StickerOutlinedSVG from '@/assets/sticker-outlined.svg?react';
 import useModeNavigate from '@/components/useModeNavigate';
+import { generateInitFeedComment } from '@/faker/wechat/moments';
 import { ModeState, modeState } from '@/state/globalConfig';
 import { feedState } from '@/state/moments';
 
 import Feed from './Feed';
-import { selectFeedCommentsListNode } from './Feed/utils';
 
 const feedClassNames = {
   container: 'border-none p-3 flex-1 overflow-auto',
@@ -36,7 +36,10 @@ const MomentDetail = () => {
         className="flex cursor-pointer space-x-1 bg-wechatBG-3 py-2 pb-2 pl-1 pr-3"
         onClick={() => {
           setRecoil(modeState, ModeState.EDIT);
-          selectFeedCommentsListNode(feedId ?? '');
+          setRecoil(feedState(feedId as string), (prev) => ({
+            ...prev,
+            comments: [...(prev.comments ?? []), generateInitFeedComment()],
+          }));
         }}
       >
         <div className="flex h-8 flex-1 items-center rounded bg-white px-3 py-2 text-sm text-gray-400">评论</div>
