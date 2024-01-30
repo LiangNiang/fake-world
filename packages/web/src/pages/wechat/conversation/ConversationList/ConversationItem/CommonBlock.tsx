@@ -61,7 +61,7 @@ const CommonBlock = ({ upperText, senderId, children, innerBlockClassName, block
             }
           `}
           className={twMerge(
-            'relative max-w-[85%] break-words rounded p-2 before:absolute before:top-[6px] before:h-7 before:w-7 before:rounded-sm group-[.friend]:before:-left-[1px] group-[.mine]:before:-right-[1px] group-[.friend]:before:rotate-45 group-[.mine]:before:-rotate-[135deg]',
+            'relative max-w-[85%] break-words rounded p-[10px] before:absolute before:top-[6px] before:h-7 before:w-7 before:rounded-sm group-[.friend]:before:-left-[1px] group-[.mine]:before:-right-[1px] group-[.friend]:before:rotate-45 group-[.mine]:before:-rotate-[135deg]',
             innerBlockClassName
           )}
         >
