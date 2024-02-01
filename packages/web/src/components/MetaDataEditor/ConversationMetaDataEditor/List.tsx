@@ -2,9 +2,8 @@ import { Button, Form, Input, InputNumber, Radio, Switch } from 'antd';
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
 import { useSetRecoilState } from 'recoil';
-import { getRecoil } from 'recoil-nexus';
 
-import { conversationState, EConversationRole, EConversationType, fromLastGenerateUpperText, TConversationItem } from '@/state/conversationState';
+import { conversationState, EConversationRole, EConversationType, TConversationItem } from '@/state/conversationState';
 import { IFeed } from '@/state/moments';
 import { SLATE_INITIAL_VALUE } from '@/wechatComponents/SlateText/utils';
 
@@ -57,8 +56,7 @@ const ConversationListMetaDataEditor = ({ index }: EditorProps<unknown, IFeed['i
           suffix={
             <Button
               onClick={() => {
-                const conversationList = getRecoil(conversationState(index));
-                form.setFieldValue('upperText', fromLastGenerateUpperText(conversationList));
+                form.setFieldValue('upperText', dayjs().format('HH:mm'));
               }}
             >
               自动生成时间文本
