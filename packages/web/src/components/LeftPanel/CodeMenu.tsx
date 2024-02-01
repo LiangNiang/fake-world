@@ -1,5 +1,6 @@
-import { SaveOutlined } from '@ant-design/icons';
+import { DatabaseOutlined, SaveOutlined } from '@ant-design/icons';
 import Editor from '@monaco-editor/react';
+import { useKeyPress } from 'ahooks';
 import { App, Button } from 'antd';
 import { isNull } from 'lodash-es';
 import { editor } from 'monaco-editor';
@@ -34,6 +35,15 @@ const CodeMenu = () => {
     };
   }, []);
 
+  useKeyPress(
+    'ctrl.s',
+    (ev) => {
+      ev.preventDefault();
+      save();
+    },
+    { exactMatch: true }
+  );
+
   const save = () => {
     try {
       const newStorageData = JSON.parse(v);
@@ -50,9 +60,12 @@ const CodeMenu = () => {
       <div className="mb-4 flex items-center justify-between">
         <span className="font-bold">{t('menu.code')}</span>
         <div>
-          <Button icon={<SaveOutlined />} onClick={save}>
-            {t('base.save')}
-          </Button>
+          <Button.Group>
+            <Button icon={<DatabaseOutlined />}>{t('menu.dataSource')}</Button>
+            <Button type="primary" icon={<SaveOutlined />} onClick={save}>
+              {t('base.save')}
+            </Button>
+          </Button.Group>
         </div>
       </div>
       <Editor

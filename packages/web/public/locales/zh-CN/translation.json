@@ -22,6 +22,7 @@
     "main": "主页",
     "trees": "可编辑节点大纲",
     "code": "编辑元数据",
+    "dataSource": "数据源",
     "settings": "设置",
     "treesBlock": {
       "editLabel": "（编辑模式中）",

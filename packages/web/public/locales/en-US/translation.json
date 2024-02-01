@@ -22,6 +22,7 @@
     "main": "Main Page",
     "trees": "Editable Node Outline",
     "code": "Edit Metadata",
+    "dataSource": "Data Source",
     "settings": "Settings",
     "treesBlock": {
       "editLabel": " (In Edit Mode)",
