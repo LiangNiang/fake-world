@@ -22,6 +22,7 @@
     "main": "Main Page",
     "trees": "Editable Node Outline",
     "code": "Edit Metadata",
+    "settings": "Settings",
     "treesBlock": {
       "editLabel": " (In Edit Mode)",
       "previewLabel": " (Enter Edit Mode with shift + Z)"
