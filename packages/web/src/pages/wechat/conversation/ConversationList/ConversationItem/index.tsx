@@ -55,7 +55,17 @@ const ConversationItem = ({ data }: Props) => {
     case EConversationType.video:
       return <Image role={role} imageInfo={data.videoInfo} upperText={upperText} senderId={senderId} isVideo />;
     case EConversationType.voice:
-      return <Voice senderId={senderId} upperText={upperText} duration={data.duration} isRead={data.isRead} role={role} />;
+      return (
+        <Voice
+          senderId={senderId}
+          upperText={upperText}
+          duration={data.duration}
+          isRead={data.isRead}
+          role={role}
+          showStt={data.showStt}
+          stt={data.stt}
+        />
+      );
     case EConversationType.redPacketAcceptedReply:
       return <RedPacketAcceptedReply id={data.id} redPacketId={data.redPacketId} upperText={upperText} />;
     default:

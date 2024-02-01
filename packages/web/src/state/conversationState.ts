@@ -87,6 +87,10 @@ export interface IConversationTypeVoice extends IConversationItemBase {
   type: EConversationType.voice;
   duration: number;
   isRead?: boolean;
+  /** 是否显示语音转文字内容 */
+  showStt?: boolean;
+  /** 语音转文字内容 */
+  stt?: string;
 }
 
 export type TConversationItem =
@@ -149,6 +153,8 @@ const MOCK_INIT_CONVERSATION_LIST: TConversationItem[] = [
     role: EConversationRole.friend,
     upperText: '17:20',
     duration: 5,
+    showStt: false,
+    stt: '我要给你发一个大红包！！',
   },
   {
     id: '6',

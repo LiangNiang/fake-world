@@ -102,6 +102,12 @@ const ConversationItemMetaDataEditor = ({ data, index }: EditorProps<TConversati
                 >
                   <Switch />
                 </Form.Item>
+                <Form.Item<TConversationItem> name="showStt" label="是否跟随显示语音转文字内容" valuePropName="checked">
+                  <Switch />
+                </Form.Item>
+                <Form.Item<TConversationItem> name="stt" label="语音转文字内容">
+                  <Input />
+                </Form.Item>
               </>
             );
           }
