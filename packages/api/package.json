@@ -8,9 +8,11 @@
   },
   "dependencies": {
     "@elysiajs/cors": "^0.8.0",
+    "@elysiajs/static": "^0.8.1",
     "@fake-world/capture": "workspace:^",
     "@prisma/client": "5.9.1",
     "elysia": "^0.8.15",
+    "nanoid": "^5.0.5",
     "prisma": "^5.9.1"
   },
   "devDependencies": {

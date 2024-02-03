@@ -13,10 +13,10 @@ model User {
 }
 
 model ShareInstance {
-  id         String @id @default(uuid())
-  data       String @default("{}")
-  dbName     String? @unique
-  fromUser   User?   @relation(fields: [fromUserId], references: [id])
+  id         String   @id @default(uuid())
+  data       Json @db.Json
+  dbName     String?  @unique
+  fromUser   User?    @relation(fields: [fromUserId], references: [id])
   fromUserId String?
-  updatedAt DateTime @updatedAt
+  updatedAt  DateTime @updatedAt
 }

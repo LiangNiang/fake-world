@@ -8,7 +8,7 @@ CREATE TABLE `User` (
 -- CreateTable
 CREATE TABLE `ShareInstance` (
     `id` VARCHAR(191) NOT NULL,
-    `data` VARCHAR(191) NOT NULL DEFAULT '{}',
+    `data` JSON NOT NULL,
     `dbName` VARCHAR(191) NULL,
     `fromUserId` VARCHAR(191) NULL,
     `updatedAt` DATETIME(3) NOT NULL,

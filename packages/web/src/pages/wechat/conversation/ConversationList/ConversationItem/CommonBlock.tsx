@@ -63,7 +63,11 @@ const CommonBlock = ({
         )}
         style={blockStyle}
       >
-        <h.img src={avatarInfo} className={twJoin('h-10 w-10 cursor-pointer rounded', hideAvatar && 'invisible')} onClick={debouncedHandleClick} />
+        <h.img
+          src={avatarInfo}
+          className={twJoin('h-10 w-10 min-w-10 cursor-pointer rounded object-cover object-center', hideAvatar && 'invisible')}
+          onClick={debouncedHandleClick}
+        />
         <div
           css={css`
             &::before {
