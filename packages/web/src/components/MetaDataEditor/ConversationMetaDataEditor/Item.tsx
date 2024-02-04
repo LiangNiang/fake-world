@@ -188,7 +188,7 @@ const ConversationItemMetaDataEditor = ({ data, index }: EditorProps<TConversati
           };
         }}
       >
-        <Input bordered={false} readOnly />
+        <Input variant="borderless" readOnly />
       </Form.Item>
     </Form>
   );

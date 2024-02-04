@@ -1,7 +1,7 @@
 import { useUpdate } from 'ahooks';
 import { useEffect } from 'react';
 
-import { initDBImagesCacheStore } from '@/db';
+import { initDBImagesCacheStore } from '@/dataSource/db';
 
 export function useAsyncAssetsCache(run?: boolean) {
   const update = useUpdate();

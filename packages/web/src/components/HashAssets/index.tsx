@@ -2,7 +2,7 @@ import { Image, ImageProps } from 'antd';
 import { omit } from 'lodash-es';
 import { AllHTMLAttributes, ComponentType, memo } from 'react';
 
-import { IMAGES_CACHE } from '@/db';
+import { IMAGES_CACHE } from '@/dataSource';
 import { isMD5 } from '@/utils';
 
 import { useAsyncAssetsCache } from '../useAssetsCache';

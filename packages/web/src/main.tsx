@@ -9,7 +9,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import RecoilNexus from 'recoil-nexus';
 
-import { initDBBridge, initDBImagesCacheStore } from './db.ts';
+import { initDBBridge, initDBImagesCacheStore } from './dataSource/db.ts';
 import { routes } from './router/index.tsx';
 import { initDayjs } from './time.ts';
 

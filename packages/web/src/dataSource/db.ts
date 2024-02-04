@@ -1,31 +1,38 @@
-import Dexie, { Table } from 'dexie';
 import { isUndefined } from 'lodash-es';
 
-export interface DBImage {
-  id: string;
-  file: File;
-}
+import { IDataSourceItem } from '@/state/globalConfig';
 
-export class FakeWorldDB extends Dexie {
-  images!: Table<DBImage>;
+import { FakeWorldImageDB } from './dbInstance';
+import { getCurrentStorageKey, IMAGES_CACHE } from './utils';
+
+export class DBManager {
+  dbs: Record<IDataSourceItem['id'], FakeWorldImageDB> = {};
+  static instance: DBManager | null = null;
 
   constructor() {
-    super('fakeWorldDB');
-    this.version(1).stores({
-      images: '&id',
-    });
-    this.images.hook('creating', (_, obj) => {
-      if (obj.file) {
-        const url = URL.createObjectURL(obj.file);
-        IMAGES_CACHE.set(obj.id, url);
-      }
-    });
+    const storageKey = getCurrentStorageKey();
+    const db = new FakeWorldImageDB(storageKey);
+    this.dbs[storageKey] = db;
+  }
+
+  getCurrentDBInstance() {
+    const storageKey = getCurrentStorageKey();
+    return this.dbs[storageKey];
+  }
+
+  getDBInstanceByKey(key: string) {
+    return this.dbs[key];
+  }
+
+  static getInstace() {
+    if (!this.instance) {
+      this.instance = new DBManager();
+    }
+    return this.instance;
   }
 }
 
-export const db = new FakeWorldDB();
-
-export const IMAGES_CACHE = new Map<string, string>();
+export const db = DBManager.getInstace().getCurrentDBInstance();
 
 export function initDBImagesCacheStore() {
   if (isUndefined(window.__INIT_IMAGE_DB_PROMISE__)) {
@@ -45,7 +52,6 @@ export function initDBImagesCacheStore() {
 export function initDBBridge() {
   if (window.isOpenedByPuppeteer) {
     window.importDB = async function (dbFile: { data: number[] }) {
-      console.log(dbFile);
       const b = new Blob([new Uint8Array(dbFile.data)], { type: 'text/json' });
       return await db.import(b);
     };

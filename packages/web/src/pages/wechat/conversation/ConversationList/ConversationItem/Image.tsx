@@ -3,7 +3,7 @@ import { twJoin } from 'tailwind-merge';
 
 import PlayFilledSVG from '@/assets/play-filled.svg?react';
 import { h } from '@/components/HashAssets';
-import { IMAGES_CACHE, initDBImagesCacheStore } from '@/db';
+import { IMAGES_CACHE, initDBImagesCacheStore } from '@/dataSource';
 import { EConversationRole, IConversationTypeImage } from '@/state/conversationState';
 import { IProfile } from '@/state/profile';
 import { isMD5 } from '@/utils';

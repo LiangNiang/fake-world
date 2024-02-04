@@ -5,7 +5,7 @@ import { ChangeEvent, useMemo, useState } from 'react';
 import { ReactSortable } from 'react-sortablejs';
 
 import HashAssets from '@/components/HashAssets';
-import { db } from '@/db';
+import { db } from '@/dataSource';
 import { getFileMD5 } from '@/utils';
 
 type Props = {

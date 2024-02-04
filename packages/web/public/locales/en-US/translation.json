@@ -21,7 +21,7 @@
   "menu": {
     "main": "Main Page",
     "trees": "Editable Node Outline",
-    "code": "Edit Metadata",
+    "code": "Edit Current Metadata",
     "dataSource": "Data Source",
     "settings": "Settings",
     "treesBlock": {

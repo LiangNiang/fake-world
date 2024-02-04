@@ -1,6 +1,6 @@
 import { exportDB } from 'dexie-export-import';
 
-import { db } from '@/db';
+import { db } from '@/dataSource';
 
 interface IScrolledElements {
   element: Element;
