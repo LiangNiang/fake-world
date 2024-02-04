@@ -1,7 +1,8 @@
-import { Modal } from 'antd';
+import { Divider, Modal } from 'antd';
 import { Dispatch, SetStateAction } from 'react';
 
 import CurrentDataSource from './CurrentDataSource';
+import NewDataSource from './NewDataSource';
 
 type Props = {
   isModalOpen: boolean;
@@ -24,6 +25,8 @@ const DataSourceManagerModal = ({ isModalOpen, setIsModalOpen }: Props) => {
     >
       <div className="flex flex-col">
         <CurrentDataSource />
+        <Divider />
+        <NewDataSource />
       </div>
     </Modal>
   );
