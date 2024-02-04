@@ -1,4 +1,4 @@
-import { BarsOutlined, CodepenOutlined, HomeOutlined, SettingOutlined } from '@ant-design/icons';
+import { BarsOutlined, CodepenOutlined, HomeOutlined } from '@ant-design/icons';
 import { Menu, MenuProps } from 'antd';
 import Marquee from 'react-fast-marquee';
 import { useTranslation } from 'react-i18next';
@@ -30,11 +30,6 @@ const LeftPanel = () => {
       key: EMenus.Code,
       icon: <CodepenOutlined />,
       title: t('menu.code'),
-    },
-    {
-      key: EMenus.Settings,
-      icon: <SettingOutlined />,
-      title: t('menu.settings'),
     },
   ];
 

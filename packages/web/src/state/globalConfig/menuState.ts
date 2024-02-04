@@ -6,7 +6,6 @@ export enum EMenus {
   Main = 'main',
   Trees = 'trees',
   Code = 'code',
-  Settings = 'settings',
 }
 
 interface IGlobalConfig {

@@ -48,7 +48,8 @@
     "slate-react": "^0.101.6",
     "sortablejs": "^1.15.2",
     "spark-md5": "^3.0.2",
-    "tailwind-merge": "^2.2.1"
+    "tailwind-merge": "^2.2.1",
+    "ua-parser-js": "^1.0.37"
   },
   "devDependencies": {
     "@emotion/babel-plugin": "^11.11.0",
@@ -61,6 +62,7 @@
     "@types/react-transition-group": "^4.4.10",
     "@types/sortablejs": "^1.15.7",
     "@types/spark-md5": "^3.0.4",
+    "@types/ua-parser-js": "^0.7.39",
     "@vitejs/plugin-react-swc": "^3.6.0",
     "autoprefixer": "^10.4.17",
     "code-inspector-plugin": "^0.6.4",
