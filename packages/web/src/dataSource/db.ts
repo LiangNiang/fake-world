@@ -3,16 +3,18 @@ import { isUndefined } from 'lodash-es';
 import { IDataSourceItem } from '@/state/globalConfig';
 
 import { FakeWorldImageDB } from './dbInstance';
-import { getCurrentStorageKey, IMAGES_CACHE } from './utils';
+import { getAllStorageKey, getCurrentStorageKey, IMAGES_CACHE } from './utils';
 
 export class DBManager {
   dbs: Record<IDataSourceItem['id'], FakeWorldImageDB> = {};
   static instance: DBManager | null = null;
 
   constructor() {
-    const storageKey = getCurrentStorageKey();
-    const db = new FakeWorldImageDB(storageKey);
-    this.dbs[storageKey] = db;
+    const storageKeys = getAllStorageKey();
+    for (const key of storageKeys) {
+      const db = new FakeWorldImageDB(key);
+      this.dbs[key] = db;
+    }
   }
 
   getCurrentDBInstance() {
@@ -22,6 +24,15 @@ export class DBManager {
 
   getDBInstanceByKey(key: string) {
     return this.dbs[key];
+  }
+
+  createDBInstance(key: string) {
+    if (this.dbs[key]) {
+      return this.dbs[key];
+    }
+    const db = new FakeWorldImageDB(key);
+    this.dbs[key] = db;
+    return db;
   }
 
   static getInstace() {

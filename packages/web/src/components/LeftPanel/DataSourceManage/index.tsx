@@ -13,8 +13,8 @@ const DataSourceManage = () => {
   return (
     <>
       <div className="col-span-1 flex flex-col space-y-1">
-        <Tooltip className="line-clamp-1" title={id}>
-          ID：{id}
+        <Tooltip title={id}>
+          <span className="overflow-hidden text-ellipsis whitespace-nowrap">ID：{id}</span>
         </Tooltip>
         <div>名字：{name}</div>
         <div>类型：{DATA_SOURCE_TYPE_LABEL[type]}</div>

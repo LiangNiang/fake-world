@@ -62,7 +62,7 @@ const MainMenu = () => {
           </Dropdown.Button>
         </div>
         <div className="grid grid-cols-2 gap-1">
-          <div className="col-span-1">数据源管理</div>
+          <div className="col-span-1">数据源</div>
           <DataSourceManage />
         </div>
         <div className="flex">

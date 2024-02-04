@@ -2,6 +2,7 @@ import { Divider, Modal } from 'antd';
 import { Dispatch, SetStateAction } from 'react';
 
 import CurrentDataSource from './CurrentDataSource';
+import DataSourceList from './DataSourceList';
 import NewDataSource from './NewDataSource';
 
 type Props = {
@@ -22,11 +23,14 @@ const DataSourceManagerModal = ({ isModalOpen, setIsModalOpen }: Props) => {
       }}
       maskClosable
       destroyOnClose
+      width={850}
     >
       <div className="flex flex-col">
         <CurrentDataSource />
         <Divider />
         <NewDataSource />
+        <Divider />
+        <DataSourceList />
       </div>
     </Modal>
   );
