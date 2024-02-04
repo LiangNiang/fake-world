@@ -60,14 +60,14 @@ const app = new Elysia()
         return {
           data: {
             ...s,
-            downloadUrl: `/public/db/${s.dbName}`,
+            downloadUrl: s.dbName ? `/public/db/${s.dbName}` : null,
           },
         };
       })
       .post(
         '/share',
         async ({ body }) => {
-          const { file, data } = body;
+          const { file, data, name } = body;
           let dbName;
           if (file !== undefined) {
             const fileId = nanoid();
@@ -78,6 +78,7 @@ const app = new Elysia()
             data: {
               data,
               dbName,
+              name,
             },
           });
           return {
@@ -93,6 +94,7 @@ const app = new Elysia()
           body: t.Object({
             data: t.ObjectString({}),
             file: t.Optional(t.File()),
+            name: t.String({ maxLength: 128 }),
           }),
         }
       )
