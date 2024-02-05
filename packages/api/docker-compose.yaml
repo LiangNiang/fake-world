@@ -1,5 +1,6 @@
 services:
   mongodb_container:
+    # This image automatically creates a replica set required for transactions
     image: prismagraphql/mongo-single-replica:4.4.3-bionic
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
@@ -8,3 +9,7 @@ services:
     ports:
       - 27017:27017
   
+  fakeworldapi:
+    image: fakeworldapi:latest
+    ports:
+      - 3000:3000

@@ -1,24 +1,25 @@
 generator client {
   provider = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-1.1.x"]
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id            String          @id @default(uuid())
+  id            String          @id @default(auto()) @map("_id") @db.ObjectId
   ShareInstance ShareInstance[]
 }
 
 model ShareInstance {
-  id         String   @id @default(uuid())
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
   name       String?
-  data       Json     @db.Json
+  data       Json
   dbName     String?  @unique
   fromUser   User?    @relation(fields: [fromUserId], references: [id])
-  fromUserId String?
+  fromUserId String?  @db.ObjectId
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 }

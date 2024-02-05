@@ -11,6 +11,9 @@ import { resolve } from 'path';
 
 const prisma = new PrismaClient();
 
+const SRC_DIR = import.meta.dir;
+const API_PROJECT_DIR = resolve(SRC_DIR, '..');
+
 const app = new Elysia()
   .use(
     cors({
@@ -19,7 +22,7 @@ const app = new Elysia()
   )
   .use(
     staticPlugin({
-      assets: 'db',
+      assets: `${API_PROJECT_DIR}/db`,
       prefix: '/public/db',
     })
   )
@@ -81,7 +84,7 @@ const app = new Elysia()
           },
         });
         if (s?.dbName) {
-          await unlink(resolve(import.meta.dir, `../db/${s.dbName}`));
+          await unlink(`${API_PROJECT_DIR}/db/${s.dbName}`);
         }
         return {
           message: 'success',
@@ -96,7 +99,7 @@ const app = new Elysia()
           if (file !== undefined) {
             const fileId = nanoid();
             dbName = `${fileId}.db`;
-            await Bun.write(resolve(import.meta.dir, `../db/${dbName}`), file);
+            await Bun.write(`${API_PROJECT_DIR}/db/${dbName}`, file);
           }
           const s = await prisma.shareInstance.create({
             data: {
