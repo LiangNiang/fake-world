@@ -1,9 +1,10 @@
+import { unlink } from 'node:fs/promises';
+
 import { cors } from '@elysiajs/cors';
 import { staticPlugin } from '@elysiajs/static';
 import captureScreenshot from '@fake-world/capture';
 import { PrismaClient } from '@prisma/client';
 import { env } from 'bun';
-import { file as bunFile } from 'bun';
 import { Elysia, t } from 'elysia';
 import { nanoid } from 'nanoid';
 import { resolve } from 'path';
@@ -11,7 +12,11 @@ import { resolve } from 'path';
 const prisma = new PrismaClient();
 
 const app = new Elysia()
-  .use(cors())
+  .use(
+    cors({
+      methods: ['POST', 'GET', 'DELETE'],
+    })
+  )
   .use(
     staticPlugin({
       assets: 'db',
@@ -25,10 +30,8 @@ const app = new Elysia()
         '/screenshot',
         async ({ body }) => {
           const { file, data } = body;
-          let db: Buffer;
-          if (file === undefined) {
-            db = Buffer.from(await bunFile(resolve(import.meta.dir, '../web.db')).arrayBuffer());
-          } else {
+          let db: Buffer | undefined;
+          if (file !== undefined) {
             db = Buffer.from(await file.arrayBuffer());
           }
           const screenshot = await captureScreenshot({
@@ -62,6 +65,27 @@ const app = new Elysia()
             ...s,
             downloadUrl: s.dbName ? `/public/db/${s.dbName}` : null,
           },
+          message: 'success',
+          code: 0,
+        };
+      })
+      .delete('/share/:id', async ({ params: { id } }) => {
+        const s = await prisma.shareInstance.findUnique({
+          where: {
+            id,
+          },
+        });
+        await prisma.shareInstance.delete({
+          where: {
+            id,
+          },
+        });
+        if (s?.dbName) {
+          await unlink(resolve(import.meta.dir, `../db/${s.dbName}`));
+        }
+        return {
+          message: 'success',
+          code: 0,
         };
       })
       .post(
@@ -86,7 +110,7 @@ const app = new Elysia()
               id: s.id,
             },
             message: 'success',
-            status: 0,
+            code: 0,
           };
         },
         {
@@ -99,10 +123,14 @@ const app = new Elysia()
         }
       )
   )
-  .onError(async ({ error }) => {
+  .onError(async ({ error, set }) => {
     console.error(error);
     await prisma.$disconnect();
-    return;
+    set.status = 400;
+    return {
+      code: -1,
+      message: 'Something went wrong. Please try again later.',
+    };
   })
   .listen(env.PORT);
 

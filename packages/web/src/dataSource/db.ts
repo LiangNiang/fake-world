@@ -1,3 +1,4 @@
+import { exportDB } from 'dexie-export-import';
 import { isUndefined } from 'lodash-es';
 
 import { IDataSourceItem } from '@/state/globalConfig';
@@ -67,4 +68,12 @@ export function initDBBridge() {
       return await db.import(b);
     };
   }
+}
+
+export async function exportDBById(id: IDataSourceItem['id']) {
+  const db = DBManager.getInstace().getDBInstanceByKey(id);
+  const imagesCount = await db.images.count();
+  const isEmptyDB = imagesCount === 0;
+  if (isEmptyDB) return null;
+  return await exportDB(db);
 }

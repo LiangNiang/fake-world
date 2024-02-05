@@ -1,4 +1,7 @@
+import { notification } from 'antd';
 import SparkMD5 from 'spark-md5';
+
+import { ping } from './services';
 
 export const getFileMD5 = async (file: File): Promise<string> => {
   const arrayBuffer = await file.arrayBuffer();
@@ -60,3 +63,14 @@ export const preloadImages = (urls: string[]) => {
     img.src = url;
   });
 };
+
+export async function backendHealthCheck() {
+  try {
+    await ping();
+  } catch (e) {
+    console.error(e);
+    notification.warning({
+      message: '离线模式',
+    });
+  }
+}

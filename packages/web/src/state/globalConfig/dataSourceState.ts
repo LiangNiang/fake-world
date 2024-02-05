@@ -7,6 +7,7 @@ export interface IDataSourceItem {
   name: string;
   type: 'local' | 'share';
   isCurrent: boolean;
+  shareId?: string;
 }
 
 const INIT_DATASOURCE: IDataSourceItem = {

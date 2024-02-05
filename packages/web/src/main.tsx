@@ -12,10 +12,12 @@ import RecoilNexus from 'recoil-nexus';
 import { initDBBridge, initDBImagesCacheStore } from './dataSource/db.ts';
 import { routes } from './router/index.tsx';
 import { initDayjs } from './time.ts';
+import { backendHealthCheck } from './utils.ts';
 
 initDayjs();
 initDBImagesCacheStore();
 initDBBridge();
+backendHealthCheck();
 
 const router = createBrowserRouter(routes);
 

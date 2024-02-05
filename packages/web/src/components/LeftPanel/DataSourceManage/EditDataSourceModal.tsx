@@ -1,12 +1,11 @@
 import { CheckOutlined, CopyOutlined, DownloadOutlined, EditOutlined } from '@ant-design/icons';
 import { App, Button, Input, InputRef, Modal } from 'antd';
 import copy from 'copy-to-clipboard';
-import { exportDB } from 'dexie-export-import';
 import { saveAs } from 'file-saver';
 import { Dispatch, SetStateAction, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 
-import { DBManager } from '@/dataSource';
+import { exportDBById } from '@/dataSource';
 import { DATA_SOURCE_TYPE_LABEL, dataSourceListState, IDataSourceItem } from '@/state/globalConfig';
 
 type Props = {
@@ -66,19 +65,16 @@ const EditDataSourceModal = ({ open, setOpen, dataSourceId }: Props) => {
             <Button
               icon={<DownloadOutlined />}
               type="text"
-              onClick={async () => {
-                const db = DBManager.getInstace().getDBInstanceByKey(id);
-                const imagesCount = await db.images.count();
-                const isEmptyDB = imagesCount === 0;
-                if (isEmptyDB) {
-                  message.warning('数据库为空，无需导出');
-                } else {
-                  const exportedDB = await exportDB(db);
-                  if (exportedDB !== null) {
-                    saveAs(exportedDB, `${id}.db`);
+              onClick={() => {
+                exportDBById(id)
+                  .then((file) => {
+                    if (file === null) throw new Error('数据库为空，无需导出');
+                    saveAs(file, `${id}.db`);
                     message.success('数据库已导出');
-                  }
-                }
+                  })
+                  .catch((e) => {
+                    message.warning(e?.message || '导出失败');
+                  });
               }}
             />
           </div>
