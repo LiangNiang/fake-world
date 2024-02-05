@@ -1,22 +1,27 @@
+import { css, Global } from '@emotion/react';
 import { App, Button, Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
-import { exportDB } from 'dexie-export-import';
-import { saveAs } from 'file-saver';
+import { useRef, useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
-import { DBManager } from '@/dataSource';
+import { getCurrentStorageKey } from '@/dataSource';
 import { currentDataSourceState, DATA_SOURCE_TYPE_LABEL, dataSourceListState, IDataSourceItem } from '@/state/globalConfig';
+
+import EditDataSourceModal from './EditDataSourceModal';
 
 const DataSourceList = () => {
   const [dataSourceList, setDataSourceList] = useRecoilState(dataSourceListState);
   const setCurrentDataSource = useSetRecoilState(currentDataSourceState);
-  const { modal, message } = App.useApp();
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const { modal } = App.useApp();
+  const editIdRef = useRef<IDataSourceItem['id']>(getCurrentStorageKey());
 
   const TABLE_COLUMNS: ColumnsType<IDataSourceItem> = [
     {
       title: 'ID',
       dataIndex: 'id',
       width: 200,
+      className: 'whitespace-nowrap',
     },
     {
       title: '名字',
@@ -42,10 +47,16 @@ const DataSourceList = () => {
               <Button
                 type="link"
                 onClick={() => {
-                  setCurrentDataSource((prev) => ({ ...prev, isCurrent: false }));
-                  setDataSourceList((prev) => prev.map((item) => (item.id === id ? { ...item, isCurrent: true } : item)));
-                  location.reload();
+                  modal.confirm({
+                    title: '是否切换数据源？',
+                    onOk: () => {
+                      setCurrentDataSource((prev) => ({ ...prev, isCurrent: false }));
+                      setDataSourceList((prev) => prev.map((item) => (item.id === id ? { ...item, isCurrent: true } : item)));
+                      location.reload();
+                    },
+                  });
                 }}
+                className="px-2 py-1"
               >
                 启用
               </Button>
@@ -60,6 +71,7 @@ const DataSourceList = () => {
                     },
                   });
                 }}
+                className="px-2 py-1"
               >
                 删除
               </Button>
@@ -67,24 +79,17 @@ const DataSourceList = () => {
           )}
           <Button
             type="link"
-            onClick={async () => {
-              const db = DBManager.getInstace().getDBInstanceByKey(id);
-              const imagesCount = await db.images.count();
-              const isEmptyDB = imagesCount === 0;
-              if (isEmptyDB) {
-                message.warning('数据库为空，无需导出');
-              } else {
-                const exportedDB = await exportDB(db);
-                if (exportedDB !== null) {
-                  saveAs(exportedDB, `${id}.db`);
-                  message.success('数据库已导出');
-                }
-              }
+            className="px-2 py-1"
+            onClick={() => {
+              editIdRef.current = id;
+              setEditModalOpen(true);
             }}
           >
-            导出数据库
+            详情｜编辑
           </Button>
-          <Button type="link">分享</Button>
+          <Button type="link" className="px-2 py-1">
+            分享
+          </Button>
         </>
       ),
     },
@@ -93,10 +98,19 @@ const DataSourceList = () => {
   return (
     <div className="flex flex-col">
       <div className="text-lg font-semibold">数据源列表</div>
+      <Global
+        styles={css`
+          .isCurrent {
+            .ant-table-cell-row-hover {
+              background: #bbf7d0 !important;
+            }
+          }
+        `}
+      />
       <Table<IDataSourceItem>
         rowClassName={(record) => {
           if (record.isCurrent) {
-            return '!bg-green-100';
+            return '!bg-green-100 isCurrent';
           }
           return '';
         }}
@@ -106,6 +120,7 @@ const DataSourceList = () => {
         className="mt-4"
         rowKey="id"
       />
+      <EditDataSourceModal open={editModalOpen} setOpen={setEditModalOpen} dataSourceId={editIdRef.current} />
     </div>
   );
 };

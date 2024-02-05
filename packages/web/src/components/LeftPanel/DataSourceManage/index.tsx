@@ -4,10 +4,10 @@ import { useRecoilValue } from 'recoil';
 
 import { currentDataSourceState, DATA_SOURCE_TYPE_LABEL } from '@/state/globalConfig';
 
-import DataSourceManagerModal from './DataSourceManagerModal';
+import DataSourceManagerDrawer from './DataSourceManagerDrawer';
 
 const DataSourceManage = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const { id, name, type } = useRecoilValue(currentDataSourceState);
 
   return (
@@ -20,13 +20,13 @@ const DataSourceManage = () => {
         <div>类型：{DATA_SOURCE_TYPE_LABEL[type]}</div>
         <Button
           onClick={() => {
-            setIsModalOpen(true);
+            setOpen(true);
           }}
         >
           管理数据源
         </Button>
       </div>
-      <DataSourceManagerModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+      <DataSourceManagerDrawer open={open} setOpen={setOpen} />
     </>
   );
 };
