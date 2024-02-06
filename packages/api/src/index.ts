@@ -1,4 +1,4 @@
-import { unlink } from 'node:fs/promises';
+import { mkdir, unlink } from 'node:fs/promises';
 
 import { cors } from '@elysiajs/cors';
 import { staticPlugin } from '@elysiajs/static';
@@ -13,6 +13,9 @@ const prisma = new PrismaClient();
 
 const SRC_DIR = import.meta.dir;
 const API_PROJECT_DIR = resolve(SRC_DIR, '..');
+const STATIC_DB_DIR = resolve(API_PROJECT_DIR, 'db');
+
+await mkdir(STATIC_DB_DIR, { recursive: true });
 
 const app = new Elysia()
   .use(
@@ -22,7 +25,7 @@ const app = new Elysia()
   )
   .use(
     staticPlugin({
-      assets: `${API_PROJECT_DIR}/db`,
+      assets: STATIC_DB_DIR,
       prefix: '/public/db',
     })
   )
