@@ -27,6 +27,14 @@ const MainMenu = () => {
           <div className="col-span-1">{t('base.csd')}</div>
           <ScreenDevicesSelect />
         </div>
+
+        <div className="grid grid-cols-2 gap-1">
+          <div className="col-span-1">数据源</div>
+          <DataSourceManage />
+        </div>
+        <div className="flex">
+          <ScreenshotButton />
+        </div>
         <div className="grid grid-cols-2 items-center gap-1">
           <div className="col-span-1">清除数据</div>
           <Dropdown.Button
@@ -60,13 +68,6 @@ const MainMenu = () => {
           >
             清除所有
           </Dropdown.Button>
-        </div>
-        <div className="grid grid-cols-2 gap-1">
-          <div className="col-span-1">数据源</div>
-          <DataSourceManage />
-        </div>
-        <div className="flex">
-          <ScreenshotButton />
         </div>
       </div>
     </>
