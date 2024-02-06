@@ -75,25 +75,37 @@ const app = new Elysia()
           code: 0,
         };
       })
-      .delete('/share/:id', async ({ params: { id } }) => {
-        const s = await prisma.shareInstance.findUnique({
-          where: {
-            id,
+      .delete(
+        '/share/:id',
+        async ({ params: { id } }) => {
+          const s = await prisma.shareInstance.findUnique({
+            where: {
+              id,
+            },
+          });
+          await prisma.shareInstance.delete({
+            where: {
+              id,
+            },
+          });
+          if (s?.dbName) {
+            await unlink(`${API_PROJECT_DIR}/db/${s.dbName}`);
+          }
+          return {
+            message: 'success',
+            code: 0,
+          };
+        },
+        {
+          error: ({ set }) => {
+            set.status = 200;
+            return {
+              message: 'success',
+              code: 10,
+            };
           },
-        });
-        await prisma.shareInstance.delete({
-          where: {
-            id,
-          },
-        });
-        if (s?.dbName) {
-          await unlink(`${API_PROJECT_DIR}/db/${s.dbName}`);
         }
-        return {
-          message: 'success',
-          code: 0,
-        };
-      })
+      )
       .post(
         '/share',
         async ({ body }) => {
