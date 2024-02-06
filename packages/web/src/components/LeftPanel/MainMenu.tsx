@@ -1,7 +1,7 @@
 import { Dropdown } from 'antd';
 import { useTranslation } from 'react-i18next';
 
-import { db } from '@/dataSource';
+import { db, DBManager } from '@/dataSource';
 
 import useAppInfo from '../useAppInfo';
 import DataSourceManage from './DataSourceManage';
@@ -40,7 +40,7 @@ const MainMenu = () => {
           <Dropdown.Button
             onClick={async () => {
               localStorage.clear();
-              await db.images.clear();
+              await DBManager.removeAllDBs();
               window.location.reload();
             }}
             menu={{

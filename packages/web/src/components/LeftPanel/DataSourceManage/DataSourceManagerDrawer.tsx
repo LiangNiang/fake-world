@@ -2,6 +2,7 @@ import { Divider, Drawer } from 'antd';
 import { Dispatch, SetStateAction } from 'react';
 
 import DataSourceList from './DataSourceList';
+import LoadShareDataSource from './LoadShareDataSource';
 import NewDataSource from './NewDataSource';
 
 type Props = {
@@ -22,6 +23,8 @@ const DataSourceManagerDrawer = ({ open, setOpen }: Props) => {
     >
       <div className="flex flex-col">
         <NewDataSource />
+        <Divider />
+        <LoadShareDataSource />
         <Divider />
         <DataSourceList />
       </div>

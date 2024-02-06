@@ -1,3 +1,4 @@
+import Dexie from 'dexie';
 import { exportDB } from 'dexie-export-import';
 import { isUndefined } from 'lodash-es';
 
@@ -41,6 +42,13 @@ export class DBManager {
       this.instance = new DBManager();
     }
     return this.instance;
+  }
+
+  static async removeAllDBs() {
+    const names = await Dexie.getDatabaseNames();
+    for (const name of names) {
+      await Dexie.delete(name);
+    }
   }
 }
 

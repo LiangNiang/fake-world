@@ -16,3 +16,18 @@ export async function uploadDataSource(payload: { data: string; name: string; fi
 export async function deleteDataSource(id: IDataSourceItem['id']) {
   return request.delete(`/api/v1/share/${id}`);
 }
+
+interface ShareDataSourceResponse extends IDataSourceItem {
+  downloadUrl: string | null;
+  data: Record<string, any>;
+}
+
+export async function getShareDataSourceInfo(shareId: IDataSourceItem['shareId']) {
+  return request.get<ShareDataSourceResponse>(`/api/v1/share/${shareId}`).then((res) => res.data);
+}
+
+export async function getRemoteDB(url: string) {
+  return request.get<ArrayBuffer>(url, {
+    responseType: 'arraybuffer',
+  });
+}

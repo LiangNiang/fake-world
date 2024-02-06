@@ -26,7 +26,7 @@ const app = new Elysia()
   .use(
     staticPlugin({
       assets: STATIC_DB_DIR,
-      prefix: '/public/db',
+      alwaysStatic: true,
     })
   )
   .get('/ping', () => 'pong！！')

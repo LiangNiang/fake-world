@@ -79,6 +79,7 @@ const DataSourceList = () => {
       dataIndex: 'id',
       render: (id: IDataSourceItem['id'], record) => {
         const shared = !!record.shareId;
+        const isLocal = record.type === 'local';
         return (
           <>
             {!record.isCurrent && (
@@ -105,10 +106,12 @@ const DataSourceList = () => {
                   onClick={() => {
                     modal.confirm({
                       title: '是否删除该数据源？',
-                      content: shared ? '该数据源的分享会被一并删除' : '',
+                      content: shared && isLocal ? '该数据源的分享会被一并删除' : '',
                       onOk: () => {
                         setDataSourceList((prev) => prev.filter((item) => item.id !== id));
-                        deleteShare(record);
+                        if (isLocal) {
+                          deleteShare(record);
+                        }
                       },
                     });
                   }}
@@ -128,9 +131,11 @@ const DataSourceList = () => {
             >
               详情｜编辑
             </Button>
-            <Button type="link" className="px-2 py-1" onClick={() => (shared ? deleteShare(record) : createShare(record))}>
-              {shared ? '取消分享' : '分享'}
-            </Button>
+            {isLocal && (
+              <Button type="link" className="px-2 py-1" onClick={() => (shared ? deleteShare(record) : createShare(record))}>
+                {shared ? '取消分享' : '分享'}
+              </Button>
+            )}
           </>
         );
       },
