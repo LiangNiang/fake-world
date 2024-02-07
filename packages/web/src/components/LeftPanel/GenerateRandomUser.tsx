@@ -1,13 +1,15 @@
+import { DeleteOutlined } from '@ant-design/icons';
 import { App, Button } from 'antd';
 import { getRecoil } from 'recoil-nexus';
 
 import { quickAddFakeUser, removeFakeUsers } from '@/faker/wechat/user';
 import { friendsIdsState } from '@/state/profile';
 
-const QuickOperations = () => {
-  const { message } = App.useApp();
+const GenerateRandomUser = () => {
+  const { message, modal } = App.useApp();
+
   return (
-    <div className="flex space-x-1">
+    <Button.Group>
       <Button
         onClick={() => {
           requestIdleCallback(() => {
@@ -20,18 +22,24 @@ const QuickOperations = () => {
           });
         }}
       >
-        随机添加50个好友
+        + 50
       </Button>
       <Button
         onClick={() => {
-          removeFakeUsers();
-          message.success('删除成功');
+          modal.confirm({
+            title: '删除所有随机添加好友',
+            content: '确定删除所有随机添加好友？',
+            onOk: () => {
+              removeFakeUsers();
+              message.success('删除成功');
+            },
+          });
         }}
-      >
-        删除所有随机添加好友
-      </Button>
-    </div>
+        danger
+        icon={<DeleteOutlined />}
+      ></Button>
+    </Button.Group>
   );
 };
 
-export default QuickOperations;
+export default GenerateRandomUser;

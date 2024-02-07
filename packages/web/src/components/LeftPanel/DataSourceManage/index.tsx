@@ -13,7 +13,7 @@ const DataSourceManage = () => {
   return (
     <>
       <div className="col-span-1 flex flex-col space-y-1">
-        <Tooltip title={id}>
+        <Tooltip title={id} placement="topLeft">
           <span className="overflow-hidden text-ellipsis whitespace-nowrap">ID：{id}</span>
         </Tooltip>
         {type === 'local' && <div>名字：{name}</div>}

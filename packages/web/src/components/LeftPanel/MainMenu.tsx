@@ -5,6 +5,7 @@ import { db, DBManager } from '@/dataSource';
 
 import useAppInfo from '../useAppInfo';
 import DataSourceManage from './DataSourceManage';
+import GenerateRandomUser from './GenerateRandomUser';
 import ScreenDevicesSelect from './ScreenDevicesSelect';
 import ScreenshotButton from './ScreenshotButton';
 
@@ -26,6 +27,11 @@ const MainMenu = () => {
         <div className="grid grid-cols-2 items-center gap-1">
           <div className="col-span-1">{t('base.csd')}</div>
           <ScreenDevicesSelect />
+        </div>
+
+        <div className="grid grid-cols-2 gap-1">
+          <div className="col-span-1">随机好友</div>
+          <GenerateRandomUser />
         </div>
 
         <div className="grid grid-cols-2 gap-1">
