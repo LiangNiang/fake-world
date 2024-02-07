@@ -16,7 +16,6 @@ ENV NODE_ENV=production
 ENV DEFAULT_HREF=https://fake-world.devdoll.icu/wechat
 ENV USE_NATIVE_BROWSER=true
 ENV PORT=3000
-ENV DATABASE_URL="mongodb+srv://liang:qgmjjg6vc1mwvSOW@fake-world-pre.q2vwki9.mongodb.net/fake-world-staging"
 
 
 COPY --from=installer /app /app
