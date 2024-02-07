@@ -3,5 +3,6 @@ declare module 'bun' {
     DEFAULT_HREF: string;
     PORT: number;
     USE_NATIVE_BROWSER: string;
+    API_URL: string;
   }
 }

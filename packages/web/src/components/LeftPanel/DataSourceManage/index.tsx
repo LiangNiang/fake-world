@@ -16,7 +16,7 @@ const DataSourceManage = () => {
         <Tooltip title={id}>
           <span className="overflow-hidden text-ellipsis whitespace-nowrap">ID：{id}</span>
         </Tooltip>
-        <div>名字：{name}</div>
+        {type === 'local' && <div>名字：{name}</div>}
         <div>类型：{DATA_SOURCE_TYPE_LABEL[type]}</div>
         <Button
           onClick={() => {

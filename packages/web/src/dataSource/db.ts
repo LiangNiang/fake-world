@@ -50,6 +50,10 @@ export class DBManager {
       await Dexie.delete(name);
     }
   }
+
+  static async removeDBById(id: IDataSourceItem['id']) {
+    await Dexie.delete(id);
+  }
 }
 
 export const db = DBManager.getInstace().getCurrentDBInstance();

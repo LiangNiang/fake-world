@@ -18,14 +18,14 @@ const LoadShareDataSource = () => {
     setLoading(true);
     const { shareId } = values;
     try {
-      const { data: shareInfo } = await getShareDataSourceInfo(shareId);
-      const { id, downloadUrl, data, name } = shareInfo;
+      const { data: res } = await getShareDataSourceInfo(shareId);
+      const { data, shareKey, downloadUrl } = res;
 
-      localStorage.setItem(id, JSON.stringify(data));
+      localStorage.setItem(shareKey, JSON.stringify(data));
       if (downloadUrl) {
         const { data: buffer } = await getRemoteDB(downloadUrl);
         const remoteDB = new Blob([buffer], { type: 'text/json' });
-        const db = DBManager.getInstace().createDBInstance(id);
+        const db = DBManager.getInstace().createDBInstance(shareKey);
         await db.import(remoteDB, {
           acceptNameDiff: true,
         });
@@ -34,11 +34,10 @@ const LoadShareDataSource = () => {
         return [
           ...prev,
           {
-            id,
-            name,
+            id: shareKey,
             type: 'share',
             isCurrent: false,
-            shareId: id,
+            shareKey,
           },
         ];
       });
@@ -64,7 +63,7 @@ const LoadShareDataSource = () => {
               {
                 validateTrigger: 'onSubmit',
                 validator: (_, value) => {
-                  if (value && getRecoil(dataSourceListState).some((item) => item.shareId === value)) {
+                  if (value && getRecoil(dataSourceListState).some((item) => item.shareKey === value)) {
                     return Promise.reject('该数据源已经加载过了');
                   } else {
                     return Promise.resolve();

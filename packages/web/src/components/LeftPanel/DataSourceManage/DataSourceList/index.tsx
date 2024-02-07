@@ -4,60 +4,28 @@ import { ColumnsType } from 'antd/es/table';
 import { useRef, useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
-import { exportDBById, getCurrentStorageKey } from '@/dataSource';
-import { deleteDataSource, uploadDataSource } from '@/services';
+import { DBManager, getCurrentStorageKey } from '@/dataSource';
 import { currentDataSourceState, DATA_SOURCE_TYPE_LABEL, dataSourceListState, IDataSourceItem } from '@/state/globalConfig';
 
-import EditDataSourceModal from './EditDataSourceModal';
+import EditDataSourceModal from '../EditDataSourceModal';
+import ShareOperation from './ShareOperation';
 
 const DataSourceList = () => {
   const [dataSourceList, setDataSourceList] = useRecoilState(dataSourceListState);
   const setCurrentDataSource = useSetRecoilState(currentDataSourceState);
   const [editModalOpen, setEditModalOpen] = useState(false);
-  const { modal, message } = App.useApp();
+  const { modal } = App.useApp();
   const editIdRef = useRef<IDataSourceItem['id']>(getCurrentStorageKey());
-
-  const createShare = async (record: IDataSourceItem) => {
-    const { id, name } = record;
-    console.log(id);
-    const file = await exportDBById(id);
-    try {
-      const res = await uploadDataSource({
-        data: localStorage.getItem(id) ?? '{}',
-        name,
-        file,
-      });
-      const shareId = res.data.id;
-      setDataSourceList((prev) => prev.map((item) => (item.id === id ? { ...item, shareId } : item)));
-      message.success('分享成功');
-    } catch (err) {
-      console.error(err);
-      message.error('分享失败');
-    }
-  };
-
-  const deleteShare = async (record: IDataSourceItem) => {
-    if (!record.shareId) return;
-    try {
-      await deleteDataSource(record.shareId);
-      setDataSourceList((prev) => prev.map((item) => (item.id === record.id ? { ...item, shareId: undefined } : item)));
-      message.success('取消分享成功');
-    } catch (err) {
-      console.error(err);
-      message.error('取消分享失败');
-    }
-  };
-
   const TABLE_COLUMNS: ColumnsType<IDataSourceItem> = [
     {
       title: 'ID',
       dataIndex: 'id',
-      width: 200,
       className: 'whitespace-nowrap',
     },
     {
       title: '名字',
       dataIndex: 'name',
+      render: (name: IDataSourceItem['name']) => name ?? '-',
     },
     {
       title: '类型',
@@ -70,15 +38,14 @@ const DataSourceList = () => {
       render: (isCurrent: IDataSourceItem['isCurrent']) => (isCurrent ? '是' : '否'),
     },
     {
-      title: '分享 ID',
-      dataIndex: 'shareId',
-      render: (shareId: IDataSourceItem['shareId']) => (shareId ? shareId : '无'),
+      title: '分享 Key',
+      dataIndex: 'shareKey',
+      render: (shareKey: IDataSourceItem['shareKey']) => shareKey ?? '无',
     },
     {
       title: '操作',
       dataIndex: 'id',
       render: (id: IDataSourceItem['id'], record) => {
-        const shared = !!record.shareId;
         const isLocal = record.type === 'local';
         return (
           <>
@@ -106,12 +73,10 @@ const DataSourceList = () => {
                   onClick={() => {
                     modal.confirm({
                       title: '是否删除该数据源？',
-                      content: shared && isLocal ? '该数据源的分享会被一并删除' : '',
                       onOk: () => {
                         setDataSourceList((prev) => prev.filter((item) => item.id !== id));
-                        if (isLocal) {
-                          deleteShare(record);
-                        }
+                        localStorage.removeItem(id);
+                        DBManager.removeDBById(id);
                       },
                     });
                   }}
@@ -131,11 +96,7 @@ const DataSourceList = () => {
             >
               详情｜编辑
             </Button>
-            {isLocal && (
-              <Button type="link" className="px-2 py-1" onClick={() => (shared ? deleteShare(record) : createShare(record))}>
-                {shared ? '取消分享' : '分享'}
-              </Button>
-            )}
+            {isLocal && <ShareOperation record={record} />}
           </>
         );
       },

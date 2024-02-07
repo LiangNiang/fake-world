@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
   binaryTargets = ["native", "debian-openssl-1.1.x"]
 }
 
@@ -15,9 +15,10 @@ model User {
 
 model ShareInstance {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  name       String?
+  shareKey   String
+  shareId    String   @unique
   data       Json
-  dbName     String?  @unique
+  dbName     String?
   fromUser   User?    @relation(fields: [fromUserId], references: [id])
   fromUserId String?  @db.ObjectId
   createdAt  DateTime @default(now())

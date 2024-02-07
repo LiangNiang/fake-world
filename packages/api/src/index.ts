@@ -59,33 +59,34 @@ const app = new Elysia()
           }),
         }
       )
-      .get('/share/:id', async ({ params: { id } }) => {
-        const s = await prisma.shareInstance.findUnique({
+      .get('/share/:shareKey', async ({ params: { shareKey } }) => {
+        const s = await prisma.shareInstance.findFirst({
           where: {
-            id,
+            shareKey,
           },
         });
         if (!s) throw new Error('Share Instance Not Found');
         return {
           data: {
-            ...s,
-            downloadUrl: s.dbName ? `/public/db/${s.dbName}` : null,
+            shareKey: s.shareKey,
+            data: s.data,
+            downloadUrl: s.dbName ? `${env.API_URL}:${env.PORT}/public/db/${s.dbName}` : null,
           },
           message: 'success',
           code: 0,
         };
       })
       .delete(
-        '/share/:id',
-        async ({ params: { id } }) => {
+        '/share/:shareId',
+        async ({ params: { shareId } }) => {
           const s = await prisma.shareInstance.findUnique({
             where: {
-              id,
+              shareId,
             },
           });
           await prisma.shareInstance.delete({
             where: {
-              id,
+              shareId,
             },
           });
           if (s?.dbName) {
@@ -109,23 +110,27 @@ const app = new Elysia()
       .post(
         '/share',
         async ({ body }) => {
-          const { file, data, name } = body;
+          const { file, data } = body;
           let dbName;
           if (file !== undefined) {
             const fileId = nanoid();
             dbName = `${fileId}.db`;
             await Bun.write(`${API_PROJECT_DIR}/db/${dbName}`, file);
           }
-          const s = await prisma.shareInstance.create({
+          const shareKey = nanoid(5);
+          const shareId = nanoid();
+          await prisma.shareInstance.create({
             data: {
               data,
               dbName,
-              name,
+              shareId,
+              shareKey,
             },
           });
           return {
             data: {
-              id: s.id,
+              shareId,
+              shareKey,
             },
             message: 'success',
             code: 0,
@@ -136,7 +141,6 @@ const app = new Elysia()
           body: t.Object({
             data: t.ObjectString({}),
             file: t.Optional(t.File()),
-            name: t.String({ maxLength: 128 }),
           }),
         }
       )

@@ -4,9 +4,10 @@ import { globalConfigPersistAtom } from '../effects';
 
 export interface IDataSourceItem {
   id: string;
-  name: string;
+  name?: string;
   type: 'local' | 'share';
   isCurrent: boolean;
+  shareKey?: string;
   shareId?: string;
 }
 

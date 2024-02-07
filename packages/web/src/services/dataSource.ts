@@ -2,28 +2,28 @@ import { IDataSourceItem } from '@/state/globalConfig';
 
 import request, { CommonJSONResponse } from './request';
 
-export async function uploadDataSource(payload: { data: string; name: string; file: Blob | null }) {
-  const { data, name, file } = payload;
+export async function uploadDataSource(payload: { data: string; file: Blob | null }) {
+  const { data, file } = payload;
   const form = new FormData();
   form.append('data', data);
-  form.append('name', name);
   if (file) {
     form.append('file', file);
   }
-  return request.post<CommonJSONResponse<{ id: string }>>('/api/v1/share', form).then((res) => res.data);
+  return request.post<CommonJSONResponse<{ shareKey: string; shareId: string }>>('/api/v1/share', form).then((res) => res.data);
 }
 
-export async function deleteDataSource(id: IDataSourceItem['id']) {
-  return request.delete(`/api/v1/share/${id}`);
+export async function deleteDataSource(shareId: IDataSourceItem['shareId']) {
+  return request.delete(`/api/v1/share/${shareId}`);
 }
 
-interface ShareDataSourceResponse extends IDataSourceItem {
+interface ShareDataSourceResponse {
   downloadUrl: string | null;
   data: Record<string, any>;
+  shareKey: string;
 }
 
-export async function getShareDataSourceInfo(shareId: IDataSourceItem['shareId']) {
-  return request.get<ShareDataSourceResponse>(`/api/v1/share/${shareId}`).then((res) => res.data);
+export async function getShareDataSourceInfo(shareKey: IDataSourceItem['shareKey']) {
+  return request.get<CommonJSONResponse<ShareDataSourceResponse>>(`/api/v1/share/${shareKey}`).then((res) => res.data);
 }
 
 export async function getRemoteDB(url: string) {
