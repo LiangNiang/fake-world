@@ -21,6 +21,7 @@ const DataSourceList = () => {
       title: 'ID',
       dataIndex: 'id',
       className: 'whitespace-nowrap',
+      render: (id: IDataSourceItem['id'], record) => (record.type === 'share' ? '-' : id),
     },
     {
       title: '名字',

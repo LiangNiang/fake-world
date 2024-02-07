@@ -21,6 +21,8 @@ const EditDataSourceModal = ({ open, setOpen, dataSourceId }: Props) => {
   const [isEditName, setIsEditName] = useState(false);
   const inputRef = useRef<InputRef>(null);
 
+  const isLocal = type === 'local';
+
   return (
     <Modal open={open} maskClosable onCancel={() => setOpen(false)} okButtonProps={{ hidden: true }} title="编辑数据源">
       <div className="flex flex-col space-y-2">
@@ -38,28 +40,30 @@ const EditDataSourceModal = ({ open, setOpen, dataSourceId }: Props) => {
         <div>类型：{DATA_SOURCE_TYPE_LABEL[type]}</div>
 
         <div className="grid grid-cols-2 items-center gap-3">
-          <div className="flex flex-nowrap items-center space-x-1">
-            <div className="flex items-center">
-              <span className="shrink-0">名字：</span>
-              {isEditName ? <Input ref={inputRef} defaultValue={name} className="inline-block" /> : <span>{name}</span>}
+          {isLocal && (
+            <div className="flex flex-nowrap items-center space-x-1">
+              <div className="flex items-center">
+                <span className="shrink-0">名字：</span>
+                {isEditName ? <Input ref={inputRef} defaultValue={name} className="inline-block" /> : <span>{name}</span>}
+              </div>
+              <Button
+                icon={isEditName ? <CheckOutlined /> : <EditOutlined />}
+                type="text"
+                onClick={() => {
+                  if (isEditName) {
+                    const value = inputRef.current?.input?.value ?? '';
+                    setDataSourceList((prev) => prev.map((item) => (item.id === id ? { ...item, name: value } : item)));
+                    setIsEditName(false);
+                  } else {
+                    setIsEditName(true);
+                    setTimeout(() => {
+                      inputRef.current?.focus();
+                    });
+                  }
+                }}
+              />
             </div>
-            <Button
-              icon={isEditName ? <CheckOutlined /> : <EditOutlined />}
-              type="text"
-              onClick={() => {
-                if (isEditName) {
-                  const value = inputRef.current?.input?.value ?? '';
-                  setDataSourceList((prev) => prev.map((item) => (item.id === id ? { ...item, name: value } : item)));
-                  setIsEditName(false);
-                } else {
-                  setIsEditName(true);
-                  setTimeout(() => {
-                    inputRef.current?.focus();
-                  });
-                }
-              }}
-            />
-          </div>
+          )}
           <div>
             数据库：
             <Button
