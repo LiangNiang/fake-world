@@ -70,7 +70,7 @@ const app = new Elysia()
           data: {
             shareKey: s.shareKey,
             data: s.data,
-            downloadUrl: s.dbName ? `${env.API_URL}:${env.PORT}/public/db/${s.dbName}` : null,
+            downloadUrl: s.dbName ? `${env.API_URL}/public/db/${s.dbName}` : null,
           },
           message: 'success',
           code: 0,
