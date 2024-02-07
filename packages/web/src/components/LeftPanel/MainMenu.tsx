@@ -30,7 +30,7 @@ const MainMenu = () => {
         </div>
 
         <div className="grid grid-cols-2 gap-1">
-          <div className="col-span-1">随机好友</div>
+          <div className="col-span-1">生成随机好友</div>
           <GenerateRandomUser />
         </div>
 

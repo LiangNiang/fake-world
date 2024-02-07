@@ -7,6 +7,8 @@ import { IDataSourceItem } from '@/state/globalConfig';
 import { FakeWorldImageDB } from './dbInstance';
 import { getAllStorageKey, getCurrentStorageKey, IMAGES_CACHE } from './utils';
 
+const SHARE_KEY = import.meta.env.VITE_PERSIST_STATE_SHARE_KEY;
+
 export class DBManager {
   dbs: Record<IDataSourceItem['id'], FakeWorldImageDB> = {};
   static instance: DBManager | null = null;
@@ -17,6 +19,7 @@ export class DBManager {
       const db = new FakeWorldImageDB(key);
       this.dbs[key] = db;
     }
+    this.dbs[SHARE_KEY] = new FakeWorldImageDB(SHARE_KEY);
   }
 
   getCurrentDBInstance() {

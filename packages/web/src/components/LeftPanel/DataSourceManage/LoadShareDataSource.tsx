@@ -7,19 +7,19 @@ import { DBManager } from '@/dataSource';
 import { getRemoteDB, getShareDataSourceInfo } from '@/services';
 import { dataSourceListState } from '@/state/globalConfig';
 
-type FormValue = { shareId: string };
+type FormValue = { shareKey: string };
 
 const LoadShareDataSource = () => {
   const [loading, setLoading] = useState(false);
   const setdataSourceList = useSetRecoilState(dataSourceListState);
-  const [form] = Form.useForm<{ shareId: string }>();
+  const [form] = Form.useForm<{ shareKey: string }>();
 
   const loadShare = async (values: FormValue) => {
     setLoading(true);
-    const { shareId } = values;
+    const { shareKey } = values;
     try {
-      const { data: res } = await getShareDataSourceInfo(shareId);
-      const { data, shareKey, downloadUrl } = res;
+      const { data: res } = await getShareDataSourceInfo(shareKey);
+      const { data, downloadUrl } = res;
 
       if (downloadUrl) {
         const { data: buffer } = await getRemoteDB(downloadUrl);
@@ -56,7 +56,7 @@ const LoadShareDataSource = () => {
       <div className="mt-4">
         <Form layout="inline" form={form} onFinish={loadShare}>
           <Form.Item
-            name="shareId"
+            name="shareKey"
             required
             rules={[
               { required: true, message: '分享 ID 不能为空' },

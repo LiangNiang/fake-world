@@ -2,6 +2,7 @@ import { TFunction } from 'i18next';
 import { Navigate, RouteObject, UIMatch } from 'react-router-dom';
 
 import App from '@/App';
+import ShareEntry from '@/pages/share';
 import Contacts from '@/pages/wechat/contacts';
 import Conversation from '@/pages/wechat/conversation';
 import Discover from '@/pages/wechat/discover';
@@ -179,6 +180,10 @@ export const routes: RouteObject[] = [
         ],
       },
     ],
+  },
+  {
+    path: '/s/:shareKey',
+    element: <ShareEntry />,
   },
   // {
   //   path: '/screenshot',

@@ -1,5 +1,7 @@
 import UAParser from 'ua-parser-js';
 
+import { sleep } from '@/utils';
+
 export function checkCanDirectCreateScreenshot(ua: UAParser.UAParserInstance) {
   const browser = ua.getBrowser();
   const { name, version } = browser;
@@ -32,9 +34,9 @@ export async function drawToCanvas(stream: MediaStream) {
   const video = document.createElement('video');
   video.srcObject = stream;
 
-  await video.play();
+  await sleep(500);
 
-  console.dir(video);
+  await video.play();
 
   canvas.width = video.videoWidth;
   canvas.height = video.videoHeight;

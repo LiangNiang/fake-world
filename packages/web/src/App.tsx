@@ -8,19 +8,22 @@ import useDeviceConfig from './components/useDeviceConfig';
 
 const App = () => {
   const screenConfig = useDeviceConfig();
+  const inShareMode = !!window.__SHARE_KEY__;
 
   return (
     <ConfigProvider locale={zhCN}>
       <div className="grid min-h-screen grid-cols-3 max-lg:grid-cols-1">
-        <AntdApp>
-          <LeftPanel />
-        </AntdApp>
+        {!inShareMode && (
+          <AntdApp>
+            <LeftPanel />
+          </AntdApp>
+        )}
         <div className="flex items-center justify-center overflow-auto border-l border-r border-dashed border-orange-400 max-lg:border-none">
           <div className="border">
             <Screen sizeConfig={screenConfig} />
           </div>
         </div>
-        <RightPanel />
+        {!inShareMode && <RightPanel />}
       </div>
     </ConfigProvider>
   );
