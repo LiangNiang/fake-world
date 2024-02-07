@@ -21,7 +21,6 @@ const LoadShareDataSource = () => {
       const { data: res } = await getShareDataSourceInfo(shareId);
       const { data, shareKey, downloadUrl } = res;
 
-      localStorage.setItem(shareKey, JSON.stringify(data));
       if (downloadUrl) {
         const { data: buffer } = await getRemoteDB(downloadUrl);
         const remoteDB = new Blob([buffer], { type: 'text/json' });
@@ -30,6 +29,7 @@ const LoadShareDataSource = () => {
           acceptNameDiff: true,
         });
       }
+      localStorage.setItem(shareKey, JSON.stringify(data));
       setdataSourceList((prev) => {
         return [
           ...prev,

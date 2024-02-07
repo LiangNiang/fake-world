@@ -26,7 +26,7 @@ const app = new Elysia()
   .use(
     staticPlugin({
       assets: STATIC_DB_DIR,
-      alwaysStatic: true,
+      prefix: '/public/db',
     })
   )
   .get('/ping', () => 'pong！！')
@@ -70,7 +70,7 @@ const app = new Elysia()
           data: {
             shareKey: s.shareKey,
             data: s.data,
-            downloadUrl: s.dbName ? `${env.API_URL}/public/db/${s.dbName}` : null,
+            downloadUrl: s.downloadUrl,
           },
           message: 'success',
           code: 0,
@@ -111,10 +111,11 @@ const app = new Elysia()
         '/share',
         async ({ body }) => {
           const { file, data } = body;
-          let dbName;
+          let dbName, downloadUrl;
           if (file !== undefined) {
             const fileId = nanoid();
             dbName = `${fileId}.db`;
+            downloadUrl = `${env.API_URL}/public/db/${dbName}`;
             await Bun.write(`${API_PROJECT_DIR}/db/${dbName}`, file);
           }
           const shareKey = nanoid(5);
@@ -123,6 +124,7 @@ const app = new Elysia()
             data: {
               data,
               dbName,
+              downloadUrl,
               shareId,
               shareKey,
             },

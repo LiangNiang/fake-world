@@ -14,13 +14,14 @@ model User {
 }
 
 model ShareInstance {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  shareKey   String
-  shareId    String   @unique
-  data       Json
-  dbName     String?
-  fromUser   User?    @relation(fields: [fromUserId], references: [id])
-  fromUserId String?  @db.ObjectId
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  shareKey    String
+  shareId     String   @unique
+  data        Json
+  dbName      String?
+  downloadUrl String?
+  fromUser    User?    @relation(fields: [fromUserId], references: [id])
+  fromUserId  String?  @db.ObjectId
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

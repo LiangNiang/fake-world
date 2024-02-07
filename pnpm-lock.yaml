@@ -43,10 +43,10 @@ importers:
     dependencies:
       '@elysiajs/cors':
         specifier: ^0.8.0
-        version: 0.8.0(elysia@0.8.15)
+        version: 0.8.0(elysia@0.8.16)
       '@elysiajs/static':
         specifier: ^0.8.1
-        version: 0.8.1(elysia@0.8.15)
+        version: 0.8.1(elysia@0.8.16)
       '@fake-world/capture':
         specifier: workspace:^
         version: link:../capture
@@ -54,8 +54,8 @@ importers:
         specifier: 5.9.1
         version: 5.9.1(prisma@5.9.1)
       elysia:
-        specifier: ^0.8.15
-        version: 0.8.15(@sinclair/typebox@0.32.13)(typescript@5.3.3)
+        specifier: ^0.8.16
+        version: 0.8.16(@sinclair/typebox@0.32.13)(typescript@5.3.3)
       nanoid:
         specifier: ^5.0.5
         version: 5.0.5
@@ -67,11 +67,11 @@ importers:
         specifier: ^0.32.13
         version: 0.32.13
       bun:
-        specifier: ^1.0.25
-        version: 1.0.25
+        specifier: ^1.0.26
+        version: 1.0.26
       bun-types:
-        specifier: ^1.0.25
-        version: 1.0.25
+        specifier: ^1.0.26
+        version: 1.0.26
       typescript:
         specifier: ^5.3.3
         version: 5.3.3
@@ -95,11 +95,11 @@ importers:
         specifier: ^4.17.12
         version: 4.17.12
       bun:
-        specifier: ^1.0.25
-        version: 1.0.25
+        specifier: ^1.0.26
+        version: 1.0.26
       bun-types:
-        specifier: ^1.0.25
-        version: 1.0.25
+        specifier: ^1.0.26
+        version: 1.0.26
       typescript:
         specifier: ^5.3.3
         version: 5.3.3
@@ -622,20 +622,20 @@ packages:
     engines: {node: '>=10'}
     dev: false
 
-  /@elysiajs/cors@0.8.0(elysia@0.8.15):
+  /@elysiajs/cors@0.8.0(elysia@0.8.16):
     resolution: {integrity: sha512-NADcOsokALRv4nljA5DYJPJdIJ7iwq+ouV5lH5W+hLgZRMYsfbKShg82QSmxd7BJQFuGSv2dIIF2dfG9ieUyng==}
     peerDependencies:
       elysia: '>= 0.8.0'
     dependencies:
-      elysia: 0.8.15(@sinclair/typebox@0.32.13)(typescript@5.3.3)
+      elysia: 0.8.16(@sinclair/typebox@0.32.13)(typescript@5.3.3)
     dev: false
 
-  /@elysiajs/static@0.8.1(elysia@0.8.15):
+  /@elysiajs/static@0.8.1(elysia@0.8.16):
     resolution: {integrity: sha512-SKMSZVrlcUASDOj1VYZu2Dx5vGRK5dq3wRHW1GWFhZ9FyW2uowvbc1lXSzRahAxVsJvvTStdEt2Etbx+pi9V8Q==}
     peerDependencies:
       elysia: '>= 0.8.0'
     dependencies:
-      elysia: 0.8.15(@sinclair/typebox@0.32.13)(typescript@5.3.3)
+      elysia: 0.8.16(@sinclair/typebox@0.32.13)(typescript@5.3.3)
       node-cache: 5.1.2
     dev: false
 
@@ -1237,8 +1237,8 @@ packages:
       fastq: 1.15.0
     dev: true
 
-  /@oven/bun-darwin-aarch64@1.0.25:
-    resolution: {integrity: sha512-Yt1FJhpMotQZ7dB+mFE3SJN+tUsRA9Z6DJpW4s79KAxrIUDbYcpCxasGR/0uV/oowBAD8FkST8d4KN2yU8oyYw==}
+  /@oven/bun-darwin-aarch64@1.0.26:
+    resolution: {integrity: sha512-7FgUZz2EpMgFdEI9sA68bnHhrnrDBmCwcewpm6641HK0x2RIO1EcFl/7GKSGsD1JmbNfGqxYU16Sc+rgKFtXAg==}
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
@@ -1253,8 +1253,8 @@ packages:
     dev: false
     optional: true
 
-  /@oven/bun-darwin-x64-baseline@1.0.25:
-    resolution: {integrity: sha512-e2zm5xRH4VvgTu7U9PxxpuT/kYmynkEY+6CT7SvmCokCEBCIszsM54offhYQ3iL5bRcP4DNQ7OwbUI5CpS8rnQ==}
+  /@oven/bun-darwin-x64-baseline@1.0.26:
+    resolution: {integrity: sha512-ssVJJs6tAvVZKnCx5bXAXZ05nSbfLHJ4qD/XFlVYb+3aue81YhXzQpbsOr9DShv209rBp9756SqHs9KZH66cbQ==}
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
@@ -1269,8 +1269,8 @@ packages:
     dev: false
     optional: true
 
-  /@oven/bun-darwin-x64@1.0.25:
-    resolution: {integrity: sha512-eqF9FPavqkbtFLTk1w9GVGsLKh2q1d4jXunrHo9F48sZ5n3eHtdt3BvsB8zV8GnIEMOjYFaBuydRo7Y9URr4dg==}
+  /@oven/bun-darwin-x64@1.0.26:
+    resolution: {integrity: sha512-kWO6ThQEMm4OPfqlhFlWrDRiIFtaUl//bRJfomOHE4BABaP9bdgHjDsaxt0pUWiKP9j9YnPFXtMw91iUbTbCWg==}
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
@@ -1285,8 +1285,8 @@ packages:
     dev: false
     optional: true
 
-  /@oven/bun-linux-aarch64@1.0.25:
-    resolution: {integrity: sha512-h1NIoNTfr9ol5mYCIRFm8zsekmPWMUTNYzRLyV4Rdivfbf51u5OEI/DA9I/7+sHnd6WqdL+xcWQsAu0xjsWe+w==}
+  /@oven/bun-linux-aarch64@1.0.26:
+    resolution: {integrity: sha512-YSG6pOFMpXquGf3i4/Ta05NAlsSkiZVk5P5EAlfO1fnJANlkcu1QfD/IYvddQ5YY4aOTwlQFqA29pYxYj+2A/A==}
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
@@ -1301,8 +1301,8 @@ packages:
     dev: false
     optional: true
 
-  /@oven/bun-linux-x64-baseline@1.0.25:
-    resolution: {integrity: sha512-jHp0OfKeZwNbzi8f0Be6SGRof3JUktH3nw1p6MlurXAUP9fcViRPouUqlwp+Valvu1bPQd2mNkvJLZvN1E0K7Q==}
+  /@oven/bun-linux-x64-baseline@1.0.26:
+    resolution: {integrity: sha512-1EjD6t6BFkspGqTRqYGVSQw5eIktDsappweG+1yh/QpmhV95/vDKKoPGXCwoyeSoJIjJMl9VaApX8Fr1vpnUfA==}
     cpu: [x64]
     os: [linux]
     requiresBuild: true
@@ -1317,8 +1317,8 @@ packages:
     dev: false
     optional: true
 
-  /@oven/bun-linux-x64@1.0.25:
-    resolution: {integrity: sha512-2cXW8V9ZYWKeI5XzOE4bQgnJ2No96I0kt7jLASn04mXJNStmxPnYS6BBzqxGNHeNx3kVhQcf3kHsO4Z3+GKyag==}
+  /@oven/bun-linux-x64@1.0.26:
+    resolution: {integrity: sha512-ErEH7yBkWIt01qROMysM6ZQqz8epY+2DtQW0rfjKbaPm8JuEdZVyeA5zoKES3e2J37FUY073MdbwdzE5KPX2cQ==}
     cpu: [x64]
     os: [linux]
     requiresBuild: true
@@ -2541,31 +2541,30 @@ packages:
       ieee754: 1.2.1
     dev: false
 
-  /bun-types@1.0.25:
-    resolution: {integrity: sha512-9lxeUR/OJsvlZH4GOWteiAdx7ikrSxCUX7Rr0JJux+DrR3LejouVLxIZnTeQ3UPAZovvSgKivWeHPJ2wlo7/Kg==}
+  /bun-types@1.0.26:
+    resolution: {integrity: sha512-VcSj+SCaWIcMb0uSGIAtr8P92zq9q+unavcQmx27fk6HulCthXHBVrdGuXxAZbFtv7bHVjizRzR2mk9r/U8Nkg==}
     dependencies:
       '@types/node': 20.11.16
       '@types/ws': 8.5.10
-      undici-types: 5.26.5
     dev: true
 
   /bun-types@1.0.6:
     resolution: {integrity: sha512-5QwynfXiRCRxPW3ZnC0Dv+sHHmctP4SHIuzsRKOWYO0HF/qUpsxQVexoviaxpmwDsF1hoVDDFdc4xUuafOzx1g==}
     dev: true
 
-  /bun@1.0.25:
-    resolution: {integrity: sha512-/AOzoPOtbrOga8pR/qbFX0fvgCxBEn3L29Dt90fUJMCyB8YC6YXG6P919NyF/cANgJ3Vman3fI4+nFm8QYlYoQ==}
+  /bun@1.0.26:
+    resolution: {integrity: sha512-+aSzKvGLE9hWwCRDwvnhoMTDntCYEk5bKn16L0QGD0v630WJMPhazAMxaSJmfq6dSAtiqPpauPpmHbzwoGPjlQ==}
     cpu: [arm64, x64]
     os: [darwin, linux]
     hasBin: true
     requiresBuild: true
     optionalDependencies:
-      '@oven/bun-darwin-aarch64': 1.0.25
-      '@oven/bun-darwin-x64': 1.0.25
-      '@oven/bun-darwin-x64-baseline': 1.0.25
-      '@oven/bun-linux-aarch64': 1.0.25
-      '@oven/bun-linux-x64': 1.0.25
-      '@oven/bun-linux-x64-baseline': 1.0.25
+      '@oven/bun-darwin-aarch64': 1.0.26
+      '@oven/bun-darwin-x64': 1.0.26
+      '@oven/bun-darwin-x64-baseline': 1.0.26
+      '@oven/bun-linux-aarch64': 1.0.26
+      '@oven/bun-linux-x64': 1.0.26
+      '@oven/bun-linux-x64-baseline': 1.0.26
     dev: true
 
   /bun@1.0.6:
@@ -3083,8 +3082,8 @@ packages:
     resolution: {integrity: sha512-2yszojF7vIZ68adIOvzV4bku8OZad9w5H9xF3ZAMZjPuOjBarlflUkjN6DggdV+L71WZuKUfKUhov/34+G5QHg==}
     dev: true
 
-  /elysia@0.8.15(@sinclair/typebox@0.32.13)(typescript@5.3.3):
-    resolution: {integrity: sha512-jJhIukagVZ31qwTEDrjkvpJv2ZhKewOG+eVbKj3N6MksBkLj1VXcTL6C4PZ1lACv1gU1HVRQNIeTy/eAeiMwZg==}
+  /elysia@0.8.16(@sinclair/typebox@0.32.13)(typescript@5.3.3):
+    resolution: {integrity: sha512-SRZLqLtPeeQGlAb5XMK+An+VLHFSEkFCaPuiP5jyu4qWeZHHU7ibmLR4Jub995eW+Dxe7F6ju6eT8kxfwcisaQ==}
     peerDependencies:
       '@sinclair/typebox': '>= 0.31.0'
       openapi-types: '>= 12.0.0'

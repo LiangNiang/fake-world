@@ -11,14 +11,14 @@
     "@elysiajs/static": "^0.8.1",
     "@fake-world/capture": "workspace:^",
     "@prisma/client": "5.9.1",
-    "elysia": "^0.8.15",
+    "elysia": "^0.8.16",
     "nanoid": "^5.0.5",
     "prisma": "^5.9.1"
   },
   "devDependencies": {
     "@sinclair/typebox": "^0.32.13",
-    "bun": "^1.0.25",
-    "bun-types": "^1.0.25",
+    "bun": "^1.0.26",
+    "bun-types": "^1.0.26",
     "typescript": "^5.3.3"
   },
   "module": "src/index.js"
