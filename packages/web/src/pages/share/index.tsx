@@ -1,5 +1,5 @@
 import { useRequest } from 'ahooks';
-import { Button, Spin } from 'antd';
+import { App, Button, Spin } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -13,6 +13,7 @@ const ShareEntry = () => {
   const screenConfig = useDeviceConfig();
   const [loading, setLoading] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
+  const { notification } = App.useApp();
 
   const { loading: loadShareLoading } = useRequest(getShareDataSourceInfo, {
     defaultParams: [shareKey],
@@ -32,6 +33,11 @@ const ShareEntry = () => {
       }
       localStorage.setItem(import.meta.env.VITE_PERSIST_STATE_SHARE_KEY, JSON.stringify(data));
       setLoading(false);
+    },
+    onError: () => {
+      notification.error({
+        message: '获取分享数据失败',
+      });
     },
   });
   const loadSuccess = !loading && !loadShareLoading;
@@ -57,7 +63,7 @@ const ShareEntry = () => {
           >
             退出分享模式
           </Button>
-          <ScreenshotButton buttonProps={{ type: 'primary' }} />
+          <ScreenshotButton buttonProps={{ type: 'primary', disabled: !loadSuccess }} />
         </div>
         <Spin spinning={!loadSuccess} wrapperClassName="">
           {loadSuccess ? (

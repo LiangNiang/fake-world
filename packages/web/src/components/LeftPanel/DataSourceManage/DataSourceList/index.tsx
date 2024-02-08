@@ -1,21 +1,19 @@
+import { CopyOutlined } from '@ant-design/icons';
 import { css, Global } from '@emotion/react';
-import { App, Button, Table } from 'antd';
+import { App, Button, message, Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
-import { useRef, useState } from 'react';
+import copy from 'copy-to-clipboard';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
-import { DBManager, getCurrentStorageKey } from '@/dataSource';
+import { DBManager } from '@/dataSource';
 import { currentDataSourceState, DATA_SOURCE_TYPE_LABEL, dataSourceListState, IDataSourceItem } from '@/state/globalConfig';
 
-import EditDataSourceModal from '../EditDataSourceModal';
 import ShareOperation from './ShareOperation';
 
 const DataSourceList = () => {
   const [dataSourceList, setDataSourceList] = useRecoilState(dataSourceListState);
   const setCurrentDataSource = useSetRecoilState(currentDataSourceState);
-  const [editModalOpen, setEditModalOpen] = useState(false);
   const { modal } = App.useApp();
-  const editIdRef = useRef<IDataSourceItem['id']>(getCurrentStorageKey());
   const TABLE_COLUMNS: ColumnsType<IDataSourceItem> = [
     {
       title: 'ID',
@@ -41,7 +39,21 @@ const DataSourceList = () => {
     {
       title: '分享 Key',
       dataIndex: 'shareKey',
-      render: (shareKey: IDataSourceItem['shareKey']) => shareKey ?? '无',
+      render: (shareKey: IDataSourceItem['shareKey']) =>
+        shareKey ? (
+          <div className="space-x-1">
+            <span>{shareKey}</span>
+            <CopyOutlined
+              className="cursor-pointer"
+              onClick={() => {
+                copy(`${location.host}/s/${shareKey}`);
+                message.success('已将分享链接复制到剪贴板');
+              }}
+            />
+          </div>
+        ) : (
+          '-'
+        ),
     },
     {
       title: '操作',
@@ -87,16 +99,6 @@ const DataSourceList = () => {
                 </Button>
               </>
             )}
-            <Button
-              type="link"
-              className="px-2 py-1"
-              onClick={() => {
-                editIdRef.current = id;
-                setEditModalOpen(true);
-              }}
-            >
-              详情｜编辑
-            </Button>
             {isLocal && <ShareOperation record={record} />}
           </>
         );
@@ -129,7 +131,6 @@ const DataSourceList = () => {
         className="mt-4"
         rowKey="id"
       />
-      <EditDataSourceModal open={editModalOpen} setOpen={setEditModalOpen} dataSourceId={editIdRef.current} />
     </div>
   );
 };

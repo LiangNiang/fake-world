@@ -1,3 +1,4 @@
+import { App as AntdApp } from 'antd';
 import { TFunction } from 'i18next';
 import { Navigate, RouteObject, UIMatch } from 'react-router-dom';
 
@@ -183,7 +184,11 @@ export const routes: RouteObject[] = [
   },
   {
     path: '/s/:shareKey',
-    element: <ShareEntry />,
+    element: (
+      <AntdApp>
+        <ShareEntry />
+      </AntdApp>
+    ),
   },
   // {
   //   path: '/screenshot',
