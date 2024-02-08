@@ -9,14 +9,14 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import RecoilNexus from 'recoil-nexus';
 
-import { initDBBridge, initDBImagesCacheStore } from './dataSource/db.ts';
+import { ImageDBManager } from './dataSource/DBManagers.ts';
 import { routes } from './router/index.tsx';
 import { initDayjs } from './time.ts';
 import { backendHealthCheck } from './utils.ts';
 
 initDayjs();
-initDBImagesCacheStore();
-initDBBridge();
+ImageDBManager.initDBImagesCacheStore();
+ImageDBManager.initDBBridge();
 backendHealthCheck();
 
 const router = createBrowserRouter(routes);

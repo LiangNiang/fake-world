@@ -1,3 +1,3 @@
-export * from './db';
 export * from './dbInstance';
+export * from './DBManagers';
 export * from './utils';

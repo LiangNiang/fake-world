@@ -37,7 +37,6 @@ declare global {
   declare const CropTarget: CropTarget;
 
   interface Window {
-    __INIT_IMAGE_DB_PROMISE__: undefined | Promise<void>;
     __SHARE_KEY__: string | undefined;
     isOpenedByPuppeteer?: boolean;
     importDB: (db: { data: number[] }) => Promise<void>;

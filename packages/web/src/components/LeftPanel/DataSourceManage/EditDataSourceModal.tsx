@@ -5,7 +5,7 @@ import { saveAs } from 'file-saver';
 import { Dispatch, SetStateAction, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 
-import { exportDBById } from '@/dataSource';
+import { imageDBManager } from '@/dataSource';
 import { DATA_SOURCE_TYPE_LABEL, dataSourceListState, IDataSourceItem } from '@/state/globalConfig';
 
 type Props = {
@@ -70,7 +70,8 @@ const EditDataSourceModal = ({ open, setOpen, dataSourceId }: Props) => {
               icon={<DownloadOutlined />}
               type="text"
               onClick={() => {
-                exportDBById(id)
+                imageDBManager
+                  .exportDBById(id)
                   .then((file) => {
                     if (file === null) throw new Error('数据库为空，无需导出');
                     saveAs(file, `${id}.db`);

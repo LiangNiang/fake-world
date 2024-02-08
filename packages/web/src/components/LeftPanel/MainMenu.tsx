@@ -1,7 +1,7 @@
 import { Dropdown } from 'antd';
 import { useTranslation } from 'react-i18next';
 
-import { db, DBManager } from '@/dataSource';
+import { imageDB, imageDBManager } from '@/dataSource';
 
 import useAppInfo from '../useAppInfo';
 import DataSourceManage from './DataSourceManage';
@@ -49,27 +49,19 @@ const MainMenu = () => {
             danger
             onClick={async () => {
               localStorage.clear();
-              await DBManager.removeAllDBs();
+              await imageDBManager.removeAllDBs();
               window.location.reload();
             }}
             menu={{
               items: [
                 {
                   key: '1',
-                  label: '清空本地缓存',
-                },
-                {
-                  key: '2',
                   label: '清空图片缓存',
                 },
               ],
               onClick: async ({ key }) => {
                 if (key === '1') {
-                  localStorage.clear();
-                  window.location.reload();
-                }
-                if (key === '2') {
-                  await db.images.clear();
+                  await imageDB.images.clear();
                   window.location.reload();
                 }
               },

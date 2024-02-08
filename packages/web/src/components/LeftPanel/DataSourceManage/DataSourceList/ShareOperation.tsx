@@ -2,7 +2,7 @@ import { App, Button } from 'antd';
 import { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 
-import { exportDBById } from '@/dataSource';
+import { imageDBManager } from '@/dataSource';
 import { deleteDataSource, uploadDataSource } from '@/services';
 import { dataSourceListState, IDataSourceItem } from '@/state/globalConfig';
 
@@ -31,7 +31,7 @@ const ShareOperation = ({ record }: Props) => {
   };
 
   const createShare = async () => {
-    const file = await exportDBById(id);
+    const file = await imageDBManager.exportDBById(id);
     try {
       const res = await uploadDataSource({
         data: localStorage.getItem(id) ?? '{}',

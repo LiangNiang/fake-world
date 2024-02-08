@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { getRecoil } from 'recoil-nexus';
 
-import { DBManager } from '@/dataSource';
+import { imageDBManager } from '@/dataSource';
 import { getRemoteDB, getShareDataSourceInfo } from '@/services';
 import { dataSourceListState } from '@/state/globalConfig';
 
@@ -24,7 +24,7 @@ const LoadShareDataSource = () => {
       if (downloadUrl) {
         const { data: buffer } = await getRemoteDB(downloadUrl);
         const remoteDB = new Blob([buffer], { type: 'text/json' });
-        const db = DBManager.getInstace().createDBInstance(shareKey);
+        const db = imageDBManager.createDBInstance(shareKey);
         await db.import(remoteDB, {
           acceptNameDiff: true,
         });

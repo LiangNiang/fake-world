@@ -5,7 +5,7 @@ import { ColumnsType } from 'antd/es/table';
 import copy from 'copy-to-clipboard';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
-import { DBManager } from '@/dataSource';
+import { ImageDBManager } from '@/dataSource';
 import { currentDataSourceState, DATA_SOURCE_TYPE_LABEL, dataSourceListState, IDataSourceItem } from '@/state/globalConfig';
 
 import ShareOperation from './ShareOperation';
@@ -89,7 +89,7 @@ const DataSourceList = () => {
                       onOk: () => {
                         setDataSourceList((prev) => prev.filter((item) => item.id !== id));
                         localStorage.removeItem(id);
-                        DBManager.removeDBById(id);
+                        ImageDBManager.removeDBById(id);
                       },
                     });
                   }}

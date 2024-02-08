@@ -3,7 +3,7 @@ import { App, Button, Form, Input } from 'antd';
 import { nanoid } from 'nanoid';
 import { useSetRecoilState } from 'recoil';
 
-import { DBManager } from '@/dataSource';
+import { imageDBManager } from '@/dataSource';
 import { dataSourceListState, IDataSourceItem } from '@/state/globalConfig';
 
 const NewDataSource = () => {
@@ -22,7 +22,7 @@ const NewDataSource = () => {
         ...prev,
       ];
     });
-    DBManager.getInstace().createDBInstance(values.id);
+    imageDBManager.createDBInstance(values.id);
     message.success('创建成功');
     form.resetFields();
     form.setFieldValue('id', nanoid());

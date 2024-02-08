@@ -1,6 +1,6 @@
 import Dexie, { Table } from 'dexie';
 
-import { IMAGES_CACHE } from './utils';
+import { ImageDBManager } from '.';
 
 export interface DBImage {
   id: string;
@@ -18,7 +18,7 @@ export class FakeWorldImageDB extends Dexie {
     this.images.hook('creating', (_, obj) => {
       if (obj.file) {
         const url = URL.createObjectURL(obj.file);
-        IMAGES_CACHE.set(obj.id, url);
+        ImageDBManager.IMAGES_CACHE.set(obj.id, url);
       }
     });
   }

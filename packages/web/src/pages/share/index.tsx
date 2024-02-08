@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 
 import ScreenshotButton from '@/components/LeftPanel/ScreenshotButton';
 import useDeviceConfig from '@/components/useDeviceConfig';
-import { DBManager } from '@/dataSource';
+import { imageDBManager } from '@/dataSource';
 import { getRemoteDB, getShareDataSourceInfo } from '@/services';
 
 const ShareEntry = () => {
@@ -25,7 +25,7 @@ const ShareEntry = () => {
       if (downloadUrl) {
         const { data: buffer } = await getRemoteDB(downloadUrl);
         const remoteDB = new Blob([buffer], { type: 'text/json' });
-        const db = DBManager.getInstace().getDBInstanceByKey(import.meta.env.VITE_PERSIST_STATE_SHARE_KEY);
+        const db = imageDBManager.getDBInstanceByKey(import.meta.env.VITE_PERSIST_STATE_SHARE_KEY);
         await db.import(remoteDB, {
           acceptNameDiff: true,
           overwriteValues: true,

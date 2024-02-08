@@ -3,7 +3,7 @@ import { twJoin } from 'tailwind-merge';
 
 import PlayFilledSVG from '@/assets/play-filled.svg?react';
 import { h } from '@/components/HashAssets';
-import { IMAGES_CACHE, initDBImagesCacheStore } from '@/dataSource';
+import { ImageDBManager } from '@/dataSource';
 import { EConversationRole, IConversationTypeImage } from '@/state/conversationState';
 import { IProfile } from '@/state/profile';
 import { isMD5 } from '@/utils';
@@ -23,8 +23,8 @@ const Image = ({ imageInfo, upperText, senderId, role, isVideo }: Props) => {
 
   useEffect(() => {
     if (isMD5(imageInfo)) {
-      initDBImagesCacheStore().then(() => {
-        calcShape(IMAGES_CACHE.get(imageInfo) ?? '');
+      ImageDBManager.initDBImagesCacheStore().then(() => {
+        calcShape(ImageDBManager.IMAGES_CACHE.get(imageInfo) ?? '');
       });
     } else {
       calcShape(imageInfo);

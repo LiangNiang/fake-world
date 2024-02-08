@@ -1,7 +1,5 @@
 import { isArray } from 'lodash-es';
 
-export const IMAGES_CACHE = new Map<string, string>();
-
 export function getCurrentStorageKey() {
   if (window.__SHARE_KEY__) {
     return import.meta.env.VITE_PERSIST_STATE_SHARE_KEY ?? import.meta.env.VITE_PERSIST_STATE_VERSION_KEY ?? 'recoil-persist';
