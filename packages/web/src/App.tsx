@@ -7,7 +7,7 @@ import Screen from './components/Screen';
 import useDeviceConfig from './components/useDeviceConfig';
 
 const App = () => {
-  const screenConfig = useDeviceConfig();
+  const { screenSize } = useDeviceConfig();
   const inShareMode = !!window.__SHARE_KEY__;
 
   return (
@@ -20,7 +20,7 @@ const App = () => {
         )}
         <div className="flex items-center justify-center overflow-auto border-l border-r border-dashed border-orange-400 max-lg:border-none">
           <div className="border">
-            <Screen sizeConfig={screenConfig} />
+            <Screen sizeConfig={screenSize} />
           </div>
         </div>
         {!inShareMode && <RightPanel />}

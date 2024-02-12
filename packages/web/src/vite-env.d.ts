@@ -37,6 +37,7 @@ declare global {
   declare const CropTarget: CropTarget;
 
   interface Window {
+    setDevice: (v: string) => void;
     __SHARE_KEY__: string | undefined;
     isOpenedByPuppeteer?: boolean;
     importDB: (db: { data: number[] }) => Promise<void>;

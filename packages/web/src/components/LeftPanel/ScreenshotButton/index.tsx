@@ -17,7 +17,7 @@ type Props = {
 
 const ScreenshotButton = ({ buttonProps }: Props) => {
   const { message } = App.useApp();
-  const screenSize = useDeviceConfig();
+  const { screenSize } = useDeviceConfig();
 
   const handleCreateScreenshot = async () => {
     setRecoil(modeState, ModeState.PREVIEW);

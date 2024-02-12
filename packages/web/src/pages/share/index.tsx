@@ -1,8 +1,10 @@
 import { useRequest } from 'ahooks';
 import { App, Button, Spin } from 'antd';
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
+import ScreenDevicesSelect from '@/components/LeftPanel/ScreenDevicesSelect';
 import ScreenshotButton from '@/components/LeftPanel/ScreenshotButton';
 import useDeviceConfig from '@/components/useDeviceConfig';
 import { imageDBManager } from '@/dataSource';
@@ -10,10 +12,11 @@ import { getRemoteDB, getShareDataSourceInfo } from '@/services';
 
 const ShareEntry = () => {
   const { shareKey } = useParams();
-  const screenConfig = useDeviceConfig();
+  const { screenSize, device } = useDeviceConfig();
   const [loading, setLoading] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const { notification } = App.useApp();
+  const { t } = useTranslation();
 
   const { loading: loadShareLoading } = useRequest(getShareDataSourceInfo, {
     defaultParams: [shareKey],
@@ -44,17 +47,25 @@ const ShareEntry = () => {
 
   useEffect(() => {
     // 监听 iframe 加载完成
-    const iframe = iframeRef.current;
-    if (iframe) {
-      const iWindow = iframe.contentWindow;
-      (iWindow as Window).__SHARE_KEY__ = shareKey;
+    const iWindow = iframeRef.current?.contentWindow;
+    const loadFn = () => {
+      iWindow?.setDevice(device);
+    };
+
+    if (iWindow) {
+      iWindow.__SHARE_KEY__ = shareKey;
+      iWindow.addEventListener('load', loadFn);
     }
+
+    return () => {
+      iWindow?.removeEventListener('load', loadFn);
+    };
   }, [loadSuccess]);
 
   return (
-    <div className="flex h-screen w-screen items-center justify-center">
-      <div className="flex flex-col items-center space-y-4">
-        <div className="flex space-x-4">
+    <div className="relative flex h-screen w-screen items-center justify-center">
+      <div className="absolute left-4 top-4 flex w-72 flex-col space-y-4">
+        <div className="grid grid-cols-2 items-center gap-1">
           <Button
             className="w-fit"
             onClick={() => {
@@ -65,11 +76,17 @@ const ShareEntry = () => {
           </Button>
           <ScreenshotButton buttonProps={{ type: 'primary', disabled: !loadSuccess }} />
         </div>
+        <div className="grid grid-cols-2 items-center gap-1">
+          <div className="col-span-1">{t('base.csd')}</div>
+          <ScreenDevicesSelect onChange={(v) => iframeRef.current?.contentWindow?.setDevice(v)} />
+        </div>
+      </div>
+      <div className="flex flex-col items-center space-y-4">
         <Spin spinning={!loadSuccess} wrapperClassName="">
           {loadSuccess ? (
-            <iframe id="screen" ref={iframeRef} width={screenConfig.width} height={screenConfig.height} src="/"></iframe>
+            <iframe id="screen" ref={iframeRef} width={screenSize.width} height={screenSize.height} src="/"></iframe>
           ) : (
-            <div style={screenConfig}></div>
+            <div style={screenSize}></div>
           )}
         </Spin>
       </div>
