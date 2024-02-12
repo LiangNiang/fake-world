@@ -7,7 +7,6 @@ import MoreFilledSVG from '@/assets/more-filled.svg?react';
 import StickerOutlinedSVG from '@/assets/sticker-outlined.svg?react';
 import useModeNavigate from '@/components/useModeNavigate';
 import { generateInitFeedComment } from '@/faker/wechat/moments';
-import { ModeState, modeState } from '@/state/globalConfig';
 import { feedState } from '@/state/moments';
 
 import Feed from './Feed';
@@ -35,7 +34,6 @@ const MomentDetail = () => {
       <div
         className="flex cursor-pointer space-x-1 bg-wechatBG-3 py-2 pb-2 pl-1 pr-3"
         onClick={() => {
-          setRecoil(modeState, ModeState.EDIT);
           setRecoil(feedState(feedId as string), (prev) => ({
             ...prev,
             comments: [...(prev.comments ?? []), generateInitFeedComment()],

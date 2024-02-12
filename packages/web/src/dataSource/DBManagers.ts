@@ -20,7 +20,6 @@ export class ImageDBManager {
       this.dbs[key] = db;
     }
     this.dbs[ENV_SHARE_KEY] = new FakeWorldImageDB(ENV_SHARE_KEY);
-    console.log(this.dbs);
   }
 
   getCurrentDBInstance() {

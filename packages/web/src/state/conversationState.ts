@@ -16,6 +16,7 @@ export enum EConversationType {
   transfer = 'transfer',
   redPacket = 'redPacket',
   redPacketAcceptedReply = 'redPacketAcceptedReply',
+  personalCard = 'personalCard',
 }
 
 export const ConversationTypeLabel = {
@@ -23,6 +24,7 @@ export const ConversationTypeLabel = {
   [EConversationType.image]: '图片',
   [EConversationType.transfer]: '转账',
   [EConversationType.redPacket]: '红包',
+  [EConversationType.personalCard]: '个人名片',
   [EConversationType.voice]: '语音消息',
   [EConversationType.video]: '视频',
   [EConversationType.centerText]: '居中文本',
@@ -93,6 +95,12 @@ export interface IConversationTypeVoice extends IConversationItemBase {
   stt?: string;
 }
 
+export interface IConversationTypePersonalCard extends IConversationItemBase {
+  type: EConversationType.personalCard;
+  avatarInfo: string;
+  nickname: string;
+}
+
 export type TConversationItem =
   | IConversationTypeText
   | IConversationTypeSingleUpperText
@@ -101,7 +109,8 @@ export type TConversationItem =
   | ICoversationTypeVideo
   | IConversationTypeVoice
   | IConversationTypeRedPacket
-  | IConversationTypeRedPacketAcceptedReply;
+  | IConversationTypeRedPacketAcceptedReply
+  | IConversationTypePersonalCard;
 
 export interface IConversationInputConfig {
   sendRole: EConversationRole;
@@ -163,6 +172,13 @@ const MOCK_INIT_CONVERSATION_LIST: TConversationItem[] = [
     originalSender: EConversationRole.friend,
     amount: '0.01',
     redPacketStatus: 'awaiting',
+  },
+  {
+    id: '7',
+    type: EConversationType.personalCard,
+    role: EConversationRole.mine,
+    avatarInfo: 'https://cdn-fakeworld.azureedge.net/fakeworld/kbw.jpg',
+    nickname: '酷霸王',
   },
 ];
 

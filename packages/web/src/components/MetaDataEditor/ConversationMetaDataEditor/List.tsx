@@ -183,6 +183,18 @@ const ConversationListMetaDataEditor = ({ index }: EditorProps<unknown, IFeed['i
               </>
             );
           }
+          if (type === EConversationType.personalCard) {
+            return (
+              <>
+                <Form.Item<TConversationItem> name="avatarInfo" label="头像">
+                  <LocalImageUploadWithPreview />
+                </Form.Item>
+                <Form.Item<TConversationItem> name="nickname" label="昵称" required rules={[{ required: true }]}>
+                  <Input />
+                </Form.Item>
+              </>
+            );
+          }
         }}
       </Form.Item>
       <Form.Item>
