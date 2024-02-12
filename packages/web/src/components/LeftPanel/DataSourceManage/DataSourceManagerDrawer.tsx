@@ -20,6 +20,7 @@ const DataSourceManagerDrawer = ({ open, setOpen }: Props) => {
       }}
       placement="left"
       width={892}
+      destroyOnClose
     >
       <div className="flex flex-col">
         <NewDataSource />

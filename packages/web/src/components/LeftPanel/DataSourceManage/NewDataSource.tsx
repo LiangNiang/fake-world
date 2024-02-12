@@ -25,7 +25,7 @@ const NewDataSource = () => {
     imageDBManager.createDBInstance(values.id);
     message.success('创建成功');
     form.resetFields();
-    form.setFieldValue('id', nanoid());
+    form.setFieldValue('id', nanoid(8));
   };
 
   return (
@@ -35,7 +35,7 @@ const NewDataSource = () => {
         form={form}
         className="mt-4"
         initialValues={{
-          id: nanoid(),
+          id: nanoid(8),
         }}
         labelAlign="left"
         labelCol={{ span: 4 }}
