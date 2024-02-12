@@ -17,7 +17,7 @@ const NodeTree = () => {
   const allNodeTree = useRecoilValue(allNodesTreeState);
   const [expandKeys, setExpandKeys] = useState<string[]>([]);
   const size = useSize(document.querySelector('#tree-container'));
-  const { isEdit } = useMode();
+  const { isEdit, isPreview } = useMode();
 
   useEffect(() => {
     const res = [];
@@ -55,7 +55,7 @@ const NodeTree = () => {
             behavior: 'smooth',
             block: 'center',
           });
-          if (isEdit) return;
+          if (isPreview) return;
           element?.dispatchEvent(new MouseEvent('click', { bubbles: true }));
         }
       }}

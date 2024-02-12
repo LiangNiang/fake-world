@@ -177,8 +177,8 @@ importers:
         specifier: ^3.2.4
         version: 3.2.4
       dexie-export-import:
-        specifier: 4.0.7
-        version: 4.0.7(dexie@3.2.4)
+        specifier: 4.1.1
+        version: 4.1.1(dexie@3.2.4)
       dexie-react-hooks:
         specifier: ^1.1.7
         version: 1.1.7(@types/react@18.2.51)(dexie@3.2.4)(react@18.2.0)
@@ -240,14 +240,14 @@ importers:
         specifier: ^5.1.0
         version: 5.1.0(recoil@0.7.7)
       slate:
-        specifier: ^0.101.5
-        version: 0.101.5
+        specifier: ^0.102.0
+        version: 0.102.0
       slate-history:
         specifier: ^0.100.0
-        version: 0.100.0(slate@0.101.5)
+        version: 0.100.0(slate@0.102.0)
       slate-react:
-        specifier: ^0.101.6
-        version: 0.101.6(react-dom@18.2.0)(react@18.2.0)(slate@0.101.5)
+        specifier: ^0.102.0
+        version: 0.102.0(react-dom@18.2.0)(react@18.2.0)(slate@0.102.0)
       sortablejs:
         specifier: ^1.15.2
         version: 1.15.2
@@ -3001,8 +3001,8 @@ packages:
     resolution: {integrity: sha512-pM27vqEfxSxRkTMnF+XCmxSEb6duO5R+t8A9DEEJgy4Wz2RVanje2mmj99B6A3zv2r/qGfYlOvYznUhuokizmg==}
     dev: false
 
-  /dexie-export-import@4.0.7(dexie@3.2.4):
-    resolution: {integrity: sha512-h22soiockhhWch6edw8XL/JNfn7akPLuLf6kPQdR4uneG/P0XQus4I8wpjV86dck61oEYKPHm36jyft/zVK0jQ==}
+  /dexie-export-import@4.1.1(dexie@3.2.4):
+    resolution: {integrity: sha512-X6gm08h/HUM/b/iwAOtOTrtyz+maADKOUEODjfAMJDPQ31jwRGehRzycq0e67KL2Wh6xEaqeDmG00VFr2vIQNQ==}
     peerDependencies:
       dexie: ^2.0.4 || ^3.0.0 || ^4.0.1-alpha.5
     dependencies:
@@ -5918,17 +5918,17 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /slate-history@0.100.0(slate@0.101.5):
+  /slate-history@0.100.0(slate@0.102.0):
     resolution: {integrity: sha512-x5rUuWLNtH97hs9PrFovGgt3Qc5zkTm/5mcUB+0NR/TK923eLax4HsL6xACLHMs245nI6aJElyM1y6hN0y5W/Q==}
     peerDependencies:
       slate: '>=0.65.3'
     dependencies:
       is-plain-object: 5.0.0
-      slate: 0.101.5
+      slate: 0.102.0
     dev: false
 
-  /slate-react@0.101.6(react-dom@18.2.0)(react@18.2.0)(slate@0.101.5):
-    resolution: {integrity: sha512-aMtp9FY127hKWTkCcTBonfKIwKJC2ESPqFdw2o/RuOk3RMQRwsWay8XTOHx8OBGOHanI2fsKaTAPF5zxOLA1Qg==}
+  /slate-react@0.102.0(react-dom@18.2.0)(react@18.2.0)(slate@0.102.0):
+    resolution: {integrity: sha512-SAcFsK5qaOxXjm0hr/t2pvIxfRv6HJGzmWkG58TdH4LdJCsgKS1n6hQOakHPlRVCwPgwvngB6R+t3pPjv8MqwA==}
     peerDependencies:
       react: '>=18.2.0'
       react-dom: '>=18.2.0'
@@ -5944,12 +5944,12 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       scroll-into-view-if-needed: 3.1.0
-      slate: 0.101.5
+      slate: 0.102.0
       tiny-invariant: 1.3.1
     dev: false
 
-  /slate@0.101.5:
-    resolution: {integrity: sha512-ZZt1ia8ayRqxtpILRMi2a4MfdvwdTu64CorxTVq9vNSd0GQ/t3YDkze6wKjdeUtENmBlq5wNIDInZbx38Hfu5Q==}
+  /slate@0.102.0:
+    resolution: {integrity: sha512-RT+tHgqOyZVB1oFV9Pv99ajwh4OUCN9p28QWdnDTIzaN/kZxMsHeQN39UNAgtkZTVVVygFqeg7/R2jiptCvfyA==}
     dependencies:
       immer: 10.0.3
       is-plain-object: 5.0.0
