@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 import ScreenDevicesSelect from '@/components/LeftPanel/ScreenDevicesSelect';
 import ScreenshotButton from '@/components/LeftPanel/ScreenshotButton';
 import useDeviceConfig from '@/components/useDeviceConfig';
+import { ENV_SHARE_KEY } from '@/consts';
 import { imageDBManager } from '@/dataSource';
 import { getRemoteDB, getShareDataSourceInfo } from '@/services';
 
@@ -28,13 +29,13 @@ const ShareEntry = () => {
       if (downloadUrl) {
         const { data: buffer } = await getRemoteDB(downloadUrl);
         const remoteDB = new Blob([buffer], { type: 'text/json' });
-        const db = imageDBManager.getDBInstanceByKey(import.meta.env.VITE_PERSIST_STATE_SHARE_KEY);
+        const db = imageDBManager.getDBInstanceByKey(ENV_SHARE_KEY);
         await db.import(remoteDB, {
           acceptNameDiff: true,
           overwriteValues: true,
         });
       }
-      localStorage.setItem(import.meta.env.VITE_PERSIST_STATE_SHARE_KEY, JSON.stringify(data));
+      localStorage.setItem(ENV_SHARE_KEY, JSON.stringify(data));
       setLoading(false);
     },
     onError: () => {

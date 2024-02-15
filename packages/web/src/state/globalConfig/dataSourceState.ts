@@ -1,5 +1,7 @@
 import { atom, DefaultValue, selector } from 'recoil';
 
+import { ENV_VERSION_KEY } from '@/consts';
+
 import { globalConfigPersistAtom } from '../effects';
 
 export interface IDataSourceItem {
@@ -12,7 +14,7 @@ export interface IDataSourceItem {
 }
 
 const INIT_DATASOURCE: IDataSourceItem = {
-  id: import.meta.env.VITE_PERSIST_STATE_VERSION_KEY ?? 'recoil-persist',
+  id: ENV_VERSION_KEY ?? 'recoil-persist',
   name: '默认数据源',
   type: 'local',
   isCurrent: true,

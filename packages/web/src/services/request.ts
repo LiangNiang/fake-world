@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { ENV_API_BASE_URL } from '@/consts';
+
 export type CommonJSONResponse<T> = {
   data: T;
   message: string;
@@ -7,7 +9,7 @@ export type CommonJSONResponse<T> = {
 };
 
 const request = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
+  baseURL: ENV_API_BASE_URL,
 });
 
 export default request;

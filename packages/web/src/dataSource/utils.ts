@@ -1,10 +1,12 @@
 import { isArray } from 'lodash-es';
 
+import { ENV_GLOBAL_KEY, ENV_SHARE_KEY, ENV_VERSION_KEY } from '@/consts';
+
 export function getCurrentStorageKey() {
   if (window.__SHARE_KEY__) {
-    return import.meta.env.VITE_PERSIST_STATE_SHARE_KEY ?? import.meta.env.VITE_PERSIST_STATE_VERSION_KEY ?? 'recoil-persist';
+    return ENV_SHARE_KEY ?? ENV_VERSION_KEY ?? 'recoil-persist';
   }
-  const globalConfig = localStorage.getItem(import.meta.env.VITE_PERSIST_STATE_GLOBAL_KEY);
+  const globalConfig = localStorage.getItem(ENV_GLOBAL_KEY);
   if (globalConfig) {
     try {
       const config = JSON.parse(globalConfig);
@@ -17,11 +19,11 @@ export function getCurrentStorageKey() {
       // eslint-disable-next-line no-empty
     } catch {}
   }
-  return import.meta.env.VITE_PERSIST_STATE_VERSION_KEY ?? 'recoil-persist';
+  return ENV_VERSION_KEY ?? 'recoil-persist';
 }
 
 export function getAllStorageKey() {
-  const globalConfig = localStorage.getItem(import.meta.env.VITE_PERSIST_STATE_GLOBAL_KEY);
+  const globalConfig = localStorage.getItem(ENV_GLOBAL_KEY);
   if (globalConfig) {
     try {
       const config = JSON.parse(globalConfig);
@@ -31,5 +33,5 @@ export function getAllStorageKey() {
       // eslint-disable-next-line no-empty
     } catch {}
   }
-  return [import.meta.env.VITE_PERSIST_STATE_VERSION_KEY ?? 'recoil-persist'];
+  return [ENV_VERSION_KEY ?? 'recoil-persist'];
 }

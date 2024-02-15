@@ -2,6 +2,8 @@ import { App, Button, Form, Image, Input } from 'antd';
 import { ChangeEventHandler, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
+import { ENV_API_BASE_URL } from '@/consts';
+
 import { file2Blob } from './utils';
 
 interface FormValues {
@@ -33,7 +35,7 @@ const LeftForm = ({ className }: { className?: string }) => {
       newBody.append('file', fb);
     }
     try {
-      const image = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/screenshot`, {
+      const image = await fetch(`${ENV_API_BASE_URL}/api/v1/screenshot`, {
         method: 'POST',
         body: newBody,
       }).then((res) => {
