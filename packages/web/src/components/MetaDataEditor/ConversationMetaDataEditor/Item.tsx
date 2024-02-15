@@ -55,7 +55,18 @@ const ConversationItemMetaDataEditor = ({ data, index }: EditorProps<TConversati
         </Radio.Group>
       </Form.Item>
       <Form.Item<TConversationItem> name="upperText" label="上方文字">
-        <Input />
+        <Input
+          suffix={
+            <Button
+              onClick={() => {
+                form.setFieldValue('upperText', dayjs().format('HH:mm'));
+                form.submit();
+              }}
+            >
+              自动生成时间文本
+            </Button>
+          }
+        />
       </Form.Item>
       <Form.Item<TConversationItem> noStyle shouldUpdate={(pv, cv) => pv.type !== cv.type}>
         {({ getFieldValue, setFieldValue }) => {
