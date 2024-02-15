@@ -1,6 +1,11 @@
 import { atom } from 'recoil';
+import { setRecoil } from 'recoil-nexus';
 
 import { persistAtom } from './effects';
+
+window.setDevice = (v) => {
+  setRecoil(deviceState, v as MOBILE_LIST);
+};
 
 export enum MOBILE_LIST {
   IPHONE_12_PRO = 'iPhone 12 Pro',

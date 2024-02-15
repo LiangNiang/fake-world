@@ -68,7 +68,6 @@ export async function backendHealthCheck() {
   try {
     await ping();
   } catch (e) {
-    console.error(e);
     notification.warning({
       message: '离线模式',
     });
