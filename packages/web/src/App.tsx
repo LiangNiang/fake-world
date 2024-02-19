@@ -1,26 +1,31 @@
 import { App as AntdApp, ConfigProvider } from 'antd';
-import zhCN from 'antd/locale/zh_CN';
+import { useTranslation } from 'react-i18next';
 
 import LeftPanel from './components/LeftPanel';
 import RightPanel from './components/RightPanel';
 import Screen from './components/Screen';
 import useDeviceConfig from './components/useDeviceConfig';
+import { ANTD_LANG_MAP } from './i18n';
 
 const App = () => {
-  const screenConfig = useDeviceConfig();
+  const { screenSize } = useDeviceConfig();
+  const inShareMode = !!window.__SHARE_KEY__;
+  const { i18n } = useTranslation();
 
   return (
-    <ConfigProvider locale={zhCN}>
+    <ConfigProvider locale={ANTD_LANG_MAP[i18n.language as keyof typeof ANTD_LANG_MAP]}>
       <div className="grid min-h-screen grid-cols-3 max-lg:grid-cols-1">
-        <AntdApp>
-          <LeftPanel />
-        </AntdApp>
+        {!inShareMode && (
+          <AntdApp>
+            <LeftPanel />
+          </AntdApp>
+        )}
         <div className="flex items-center justify-center overflow-auto border-l border-r border-dashed border-orange-400 max-lg:border-none">
           <div className="border">
-            <Screen sizeConfig={screenConfig} />
+            <Screen sizeConfig={screenSize} />
           </div>
         </div>
-        <RightPanel />
+        {!inShareMode && <RightPanel />}
       </div>
     </ConfigProvider>
   );

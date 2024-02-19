@@ -44,7 +44,7 @@ const Transfer = ({ upperText, senderId, transferStatus, amount, note, originalS
       senderId={senderId}
       blockClassName="w-4/5"
       innerBlockClassName={twJoin(
-        'w-full',
+        'w-full pb-1',
         transferStatus === 'awaiting' && 'bg-wechatOrange-3 before:bg-wechatOrange-3',
         (transferStatus === 'accepted' || transferStatus === 'rejected') && 'bg-wechatOrange-5 before:bg-wechatOrange-5',
         transferStatus === 'expired' && 'bg-wechatOrange-5 before:bg-wechatOrange-5 saturate-60'

@@ -3,7 +3,7 @@ import { useDebounceFn } from 'ahooks';
 import { CSSProperties, MouseEventHandler, PropsWithChildren, ReactNode } from 'react';
 import { useRecoilValue } from 'recoil';
 import { getRecoil } from 'recoil-nexus';
-import { twMerge } from 'tailwind-merge';
+import { twJoin, twMerge } from 'tailwind-merge';
 
 import { h } from '@/components/HashAssets';
 import useModeNavigate from '@/components/useModeNavigate';
@@ -20,9 +20,19 @@ type Props = {
   blockClassName?: string;
   blockStyle?: CSSProperties;
   extraElement?: ReactNode;
+  hideAvatar?: boolean;
 };
 
-const CommonBlock = ({ upperText, senderId, children, innerBlockClassName, blockClassName, blockStyle, extraElement }: PropsWithChildren<Props>) => {
+const CommonBlock = ({
+  upperText,
+  senderId,
+  children,
+  innerBlockClassName,
+  blockClassName,
+  blockStyle,
+  extraElement,
+  hideAvatar,
+}: PropsWithChildren<Props>) => {
   const { avatarInfo } = useRecoilValue(friendState(senderId));
   const navigate = useModeNavigate({ silence: true });
   const { sendTickleText } = useConversationAPI();
@@ -53,7 +63,11 @@ const CommonBlock = ({ upperText, senderId, children, innerBlockClassName, block
         )}
         style={blockStyle}
       >
-        <h.img src={avatarInfo} className="h-10 w-10 cursor-pointer rounded" onClick={debouncedHandleClick} />
+        <h.img
+          src={avatarInfo}
+          className={twJoin('h-10 w-10 min-w-10 cursor-pointer rounded object-cover object-center', hideAvatar && 'invisible')}
+          onClick={debouncedHandleClick}
+        />
         <div
           css={css`
             &::before {
@@ -61,7 +75,7 @@ const CommonBlock = ({ upperText, senderId, children, innerBlockClassName, block
             }
           `}
           className={twMerge(
-            'relative max-w-[85%] break-words rounded p-2 before:absolute before:top-[6px] before:h-7 before:w-7 before:rounded-sm group-[.friend]:before:-left-[1px] group-[.mine]:before:-right-[1px] group-[.friend]:before:rotate-45 group-[.mine]:before:-rotate-[135deg]',
+            'relative max-w-[85%] break-words rounded p-[10px] before:absolute before:top-[6px] before:h-7 before:w-7 before:rounded-sm group-[.friend]:before:-left-[1px] group-[.mine]:before:-right-[1px] group-[.friend]:before:rotate-45 group-[.mine]:before:-rotate-[135deg]',
             innerBlockClassName
           )}
         >

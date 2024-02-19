@@ -1,6 +1,8 @@
 import { recoilPersist } from 'recoil-persist';
 
-export const CURRENT_STORAGE_KEY = import.meta.env.VITE_PERSIST_STATE_VERSION_KEY ?? 'recoil-persist';
+import { getCurrentStorageKey } from '@/dataSource';
+
+const CURRENT_STORAGE_KEY = getCurrentStorageKey();
 
 export const GLOBAL_CONFIG_STORAGE_KEY = 'global-config';
 

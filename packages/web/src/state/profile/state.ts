@@ -75,18 +75,22 @@ export const friendState = selectorFamily<IProfile, IProfile['id']>({
 export const allFriendsAnchorDataState = selector({
   key: 'allFriendsGroupState',
   get: ({ get }) => {
+    console.time('allFriendsAnchorDataState');
     const allFriendsIds = get(friendsIdsState);
     const preGroupData = [];
     for (const id of allFriendsIds) {
-      const { remark, nickname, isStarred, description } = get(friendState(id));
+      const { remark, nickname, isStarred, description, avatarInfo } = get(friendState(id));
       preGroupData.push({
         id,
         name: remark ?? nickname,
         description,
         isStarred,
+        avatarInfo,
       });
     }
-    return generateNameAnchorGroup(preGroupData);
+    const res = generateNameAnchorGroup(preGroupData);
+    console.timeEnd('allFriendsAnchorDataState');
+    return res;
   },
 });
 

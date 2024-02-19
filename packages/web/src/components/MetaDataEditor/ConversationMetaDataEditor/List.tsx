@@ -2,9 +2,8 @@ import { Button, Form, Input, InputNumber, Radio, Switch } from 'antd';
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
 import { useSetRecoilState } from 'recoil';
-import { getRecoil } from 'recoil-nexus';
 
-import { conversationState, EConversationRole, EConversationType, fromLastGenerateUpperText, TConversationItem } from '@/state/conversationState';
+import { conversationState, EConversationRole, EConversationType, TConversationItem } from '@/state/conversationState';
 import { IFeed } from '@/state/moments';
 import { SLATE_INITIAL_VALUE } from '@/wechatComponents/SlateText/utils';
 
@@ -57,8 +56,7 @@ const ConversationListMetaDataEditor = ({ index }: EditorProps<unknown, IFeed['i
           suffix={
             <Button
               onClick={() => {
-                const conversationList = getRecoil(conversationState(index));
-                form.setFieldValue('upperText', fromLastGenerateUpperText(conversationList));
+                form.setFieldValue('upperText', dayjs().format('HH:mm'));
               }}
             >
               自动生成时间文本
@@ -110,6 +108,12 @@ const ConversationListMetaDataEditor = ({ index }: EditorProps<unknown, IFeed['i
                   tooltip="只有是好友发送的消息才会显示未读小红点"
                 >
                   <Switch />
+                </Form.Item>
+                <Form.Item<TConversationItem> name="showStt" label="是否跟随显示语音转文字内容" valuePropName="checked">
+                  <Switch />
+                </Form.Item>
+                <Form.Item<TConversationItem> name="stt" label="语音转文字内容">
+                  <Input />
                 </Form.Item>
               </>
             );
@@ -175,6 +179,18 @@ const ConversationListMetaDataEditor = ({ index }: EditorProps<unknown, IFeed['i
                     <Radio value="accepted">已接受</Radio>
                     <Radio value="expired">已过期</Radio>
                   </Radio.Group>
+                </Form.Item>
+              </>
+            );
+          }
+          if (type === EConversationType.personalCard) {
+            return (
+              <>
+                <Form.Item<TConversationItem> name="avatarInfo" label="头像">
+                  <LocalImageUploadWithPreview />
+                </Form.Item>
+                <Form.Item<TConversationItem> name="nickname" label="昵称" required rules={[{ required: true }]}>
+                  <Input />
                 </Form.Item>
               </>
             );

@@ -20,7 +20,7 @@ export const DEFAULT_FEED_COMMENT: Omit<IFeedComment, 'id'> = {
   text: [
     {
       type: 'paragraph',
-      children: [{ text: '评论测试，点击修改或删除' }],
+      children: [{ text: '这是自动生成的评论，进入编辑模式进行修改或删除' }],
     },
   ],
   sendTimestamp: dayjs().valueOf(),
