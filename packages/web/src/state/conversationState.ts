@@ -46,6 +46,7 @@ export interface IConversationItemBase {
 export interface IConversationTypeText extends IConversationItemBase {
   type: EConversationType.text;
   textContent: Descendant[];
+  referenceId?: IConversationItemBase['id'];
 }
 
 export interface IConversationTypeSingleUpperText extends IConversationItemBase {
@@ -179,6 +180,18 @@ const MOCK_INIT_CONVERSATION_LIST: TConversationItem[] = [
     role: EConversationRole.mine,
     avatarInfo: 'https://cdn-fakeworld.azureedge.net/fakeworld/kbw.jpg',
     nickname: '酷霸王',
+  },
+  {
+    id: '8',
+    type: EConversationType.text,
+    textContent: [
+      {
+        type: 'paragraph',
+        children: [{ text: '你也好' }],
+      },
+    ],
+    role: EConversationRole.mine,
+    referenceId: '1',
   },
 ];
 
