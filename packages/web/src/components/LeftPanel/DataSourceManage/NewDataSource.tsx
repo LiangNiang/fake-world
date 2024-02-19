@@ -1,6 +1,7 @@
 import { css, Global } from '@emotion/react';
 import { App, Button, Form, Input } from 'antd';
 import { nanoid } from 'nanoid';
+import { useTranslation } from 'react-i18next';
 import { useSetRecoilState } from 'recoil';
 
 import { imageDBManager } from '@/dataSource';
@@ -10,6 +11,7 @@ const NewDataSource = () => {
   const [form] = Form.useForm<IDataSourceItem>();
   const setDataSourceList = useSetRecoilState(dataSourceListState);
   const { message } = App.useApp();
+  const { t } = useTranslation();
 
   const handleCreateDataSource = (values: IDataSourceItem) => {
     setDataSourceList((prev) => {
@@ -23,14 +25,14 @@ const NewDataSource = () => {
       ];
     });
     imageDBManager.createDBInstance(values.id);
-    message.success('创建成功');
+    message.success(t('base.success'));
     form.resetFields();
     form.setFieldValue('id', nanoid(8));
   };
 
   return (
     <div className="flex flex-col">
-      <div className="text-lg font-semibold">新建数据源</div>
+      <div className="text-lg font-semibold">{t('menu.dataSourceManage.new')}</div>
       <Form
         form={form}
         className="mt-4"
@@ -48,15 +50,15 @@ const NewDataSource = () => {
             }
           `}
         />
-        <Form.Item tooltip="自动生成" label="ID" name="id">
+        <Form.Item tooltip={t('menu.dataSourceManage.autoGenerate')} label="ID" name="id">
           <Input readOnly variant="borderless" />
         </Form.Item>
-        <Form.Item label="名字" name="name" required rules={[{ required: true }]}>
+        <Form.Item label={t('menu.dataSourceManage.name')} name="name" required rules={[{ required: true }]}>
           <Input />
         </Form.Item>
         <Form.Item>
           <Button htmlType="submit" type="primary">
-            创建
+            {t('menu.dataSourceManage.create')}
           </Button>
         </Form.Item>
       </Form>

@@ -3,8 +3,10 @@ import { css, Global } from '@emotion/react';
 import { App, Button, message, Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import copy from 'copy-to-clipboard';
+import { useTranslation } from 'react-i18next';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
+import { ENV_VERSION_KEY } from '@/consts';
 import { ImageDBManager } from '@/dataSource';
 import { currentDataSourceState, DATA_SOURCE_TYPE_LABEL, dataSourceListState, IDataSourceItem } from '@/state/globalConfig';
 
@@ -14,6 +16,8 @@ const DataSourceList = () => {
   const [dataSourceList, setDataSourceList] = useRecoilState(dataSourceListState);
   const setCurrentDataSource = useSetRecoilState(currentDataSourceState);
   const { modal } = App.useApp();
+  const { t } = useTranslation();
+
   const TABLE_COLUMNS: ColumnsType<IDataSourceItem> = [
     {
       title: 'ID',
@@ -22,22 +26,22 @@ const DataSourceList = () => {
       render: (id: IDataSourceItem['id'], record) => (record.type === 'share' ? '-' : id),
     },
     {
-      title: '名字',
+      title: t('menu.dataSourceManage.name'),
       dataIndex: 'name',
-      render: (name: IDataSourceItem['name']) => name ?? '-',
+      render: (name: IDataSourceItem['name'], record) => (record.id === ENV_VERSION_KEY ? t('menu.dataSourceManage.defaultData') : name) ?? '-',
     },
     {
-      title: '类型',
+      title: t('menu.dataSourceManage.type'),
       dataIndex: 'type',
-      render: (type: IDataSourceItem['type']) => DATA_SOURCE_TYPE_LABEL[type],
+      render: (type: IDataSourceItem['type']) => t(DATA_SOURCE_TYPE_LABEL[type]),
     },
     {
-      title: '是否使用',
+      title: t('menu.dataSourceManage.used'),
       dataIndex: 'isCurrent',
-      render: (isCurrent: IDataSourceItem['isCurrent']) => (isCurrent ? '是' : '否'),
+      render: (isCurrent: IDataSourceItem['isCurrent']) => (isCurrent ? t('base.yes') : t('base.no')),
     },
     {
-      title: '分享 Key',
+      title: t('menu.dataSourceManage.shareKey'),
       dataIndex: 'shareKey',
       render: (shareKey: IDataSourceItem['shareKey']) =>
         shareKey ? (
@@ -56,7 +60,7 @@ const DataSourceList = () => {
         ),
     },
     {
-      title: '操作',
+      title: t('base.operation'),
       dataIndex: 'id',
       render: (id: IDataSourceItem['id'], record) => {
         const isLocal = record.type === 'local';
@@ -78,7 +82,7 @@ const DataSourceList = () => {
                   }}
                   className="px-2 py-1"
                 >
-                  启用
+                  {t('menu.dataSourceManage.operation.enable')}
                 </Button>
                 <Button
                   type="link"
@@ -95,7 +99,7 @@ const DataSourceList = () => {
                   }}
                   className="px-2 py-1"
                 >
-                  删除
+                  {t('base.delete')}
                 </Button>
               </>
             )}
@@ -108,7 +112,7 @@ const DataSourceList = () => {
 
   return (
     <div className="flex flex-col">
-      <div className="text-lg font-semibold">数据源列表</div>
+      <div className="text-lg font-semibold">{t('menu.dataSourceManage.list')}</div>
       <Global
         styles={css`
           .isCurrent {

@@ -1,5 +1,6 @@
 import { Button, Form, Input, message } from 'antd';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSetRecoilState } from 'recoil';
 import { getRecoil } from 'recoil-nexus';
 
@@ -13,6 +14,7 @@ const LoadShareDataSource = () => {
   const [loading, setLoading] = useState(false);
   const setdataSourceList = useSetRecoilState(dataSourceListState);
   const [form] = Form.useForm<{ shareKey: string }>();
+  const { t } = useTranslation();
 
   const loadShare = async (values: FormValue) => {
     setLoading(true);
@@ -41,10 +43,10 @@ const LoadShareDataSource = () => {
           },
         ];
       });
-      message.success('加载成功');
+      message.success(t('base.success'));
     } catch (err) {
       console.log(err);
-      message.error('加载失败');
+      message.error(t('base.fail'));
     }
     form.resetFields();
     setLoading(false);
@@ -52,19 +54,19 @@ const LoadShareDataSource = () => {
 
   return (
     <div>
-      <div className="text-lg font-semibold">加载外部分享数据源</div>
+      <div className="text-lg font-semibold">{t('menu.dataSourceManage.loadShare.title')}</div>
       <div className="mt-4">
         <Form layout="inline" form={form} onFinish={loadShare}>
           <Form.Item
             name="shareKey"
             required
             rules={[
-              { required: true, message: '分享 ID 不能为空' },
+              { required: true, message: t('menu.dataSourceManage.loadShare.errorEmpty') },
               {
                 validateTrigger: 'onSubmit',
                 validator: (_, value) => {
                   if (value && getRecoil(dataSourceListState).some((item) => item.shareKey === value)) {
-                    return Promise.reject('该数据源已经加载过了');
+                    return Promise.reject(t('menu.dataSourceManage.loadShare.errorLoaded'));
                   } else {
                     return Promise.resolve();
                   }
@@ -72,10 +74,10 @@ const LoadShareDataSource = () => {
               },
             ]}
           >
-            <Input placeholder="请输入数据源分享 ID" className="w-72" />
+            <Input placeholder={t('menu.dataSourceManage.loadShare.placeholder')} className="w-72" />
           </Form.Item>
           <Button loading={loading} htmlType="submit">
-            加载
+            {t('menu.dataSourceManage.loadShare.load')}
           </Button>
         </Form>
       </div>

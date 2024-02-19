@@ -3,6 +3,7 @@ import { App, Button, Input, InputRef, Modal } from 'antd';
 import copy from 'copy-to-clipboard';
 import { saveAs } from 'file-saver';
 import { Dispatch, SetStateAction, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useRecoilState } from 'recoil';
 
 import { imageDBManager } from '@/dataSource';
@@ -20,6 +21,7 @@ const EditDataSourceModal = ({ open, setOpen, dataSourceId }: Props) => {
   const { message } = App.useApp();
   const [isEditName, setIsEditName] = useState(false);
   const inputRef = useRef<InputRef>(null);
+  const { t } = useTranslation();
 
   const isLocal = type === 'local';
 
@@ -37,7 +39,7 @@ const EditDataSourceModal = ({ open, setOpen, dataSourceId }: Props) => {
             type="text"
           />
         </div>
-        <div>类型：{DATA_SOURCE_TYPE_LABEL[type]}</div>
+        <div>类型：{t(DATA_SOURCE_TYPE_LABEL[type])}</div>
 
         <div className="grid grid-cols-2 items-center gap-3">
           {isLocal && (

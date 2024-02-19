@@ -1,3 +1,6 @@
+import enUS from 'antd/locale/en_US';
+import zhCN from 'antd/locale/zh_CN';
+import zhTW from 'antd/locale/zh_TW';
 import i18n from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import Backend from 'i18next-http-backend';
@@ -8,6 +11,12 @@ export const ALL_LANGUAGES = [
   { label: '繁體中文（臺灣）', value: 'zh-TW' },
   { label: 'English', value: 'en-US' },
 ];
+
+export const ANTD_LANG_MAP = {
+  'zh-CN': zhCN,
+  'zh-TW': zhTW,
+  'en-US': enUS,
+};
 
 i18n.use(Backend).use(LanguageDetector).use(initReactI18next).init();
 

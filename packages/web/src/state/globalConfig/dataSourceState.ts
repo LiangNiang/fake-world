@@ -15,7 +15,6 @@ export interface IDataSourceItem {
 
 const INIT_DATASOURCE: IDataSourceItem = {
   id: ENV_VERSION_KEY ?? 'recoil-persist',
-  name: '默认数据源',
   type: 'local',
   isCurrent: true,
 };
@@ -23,8 +22,8 @@ const INIT_DATASOURCE: IDataSourceItem = {
 export const INIT_DATASOURCE_LIST: IDataSourceItem[] = [INIT_DATASOURCE];
 
 export const DATA_SOURCE_TYPE_LABEL = {
-  local: '本地',
-  share: '共享',
+  local: 'menu.dataSourceManage.local',
+  share: 'menu.dataSourceManage.share',
 };
 
 export const dataSourceListState = atom<IDataSourceItem[]>({

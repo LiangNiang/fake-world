@@ -16,7 +16,14 @@
     "she": "She",
     "his": "His",
     "her": "Her",
-    "safeNavigateNotice": "Exit edit mode to jump to another page"
+    "safeNavigateNotice": "Exit edit mode to jump to another page",
+    "success": "Success",
+    "error": "Error",
+    "fail": "Fail",
+    "yes": "Yes",
+    "no": "No",
+    "operation": "Operation",
+    "delete": "Delete"
   },
   "menu": {
     "main": "Main Page",
@@ -27,6 +34,44 @@
     "treesBlock": {
       "editLabel": " (In Edit Mode)",
       "previewLabel": " (Enter Edit Mode with shift + Z)"
+    },
+    "mainBlock": {
+      "screenshot": "Generate Screenshots",
+      "friends": "Generate Random Friends",
+      "friendsLimitedError": "The number of friends exceeds the limit. You can modify the number of displayed friends at the bottom",
+      "screenshotTooltip": "To capture screenshots using the browser's screen recording feature, manual permission is required.",
+      "clearData": "Clear Data",
+      "clearAll": "Clear All",
+      "clearAllConfirmTitle": "Clear all data?",
+      "clearAllDesc": "This will include all data sources and image caches. Deleting cannot be undone.",
+      "clearImg": "Clear Image Cache",
+      "clearFriends": "Delete all randomly added friends?"
+    },
+    "dataSourceManage": {
+      "name": "Name",
+      "type": "Type",
+      "local": "Local",
+      "share": "Share",
+      "used": "Used",
+      "shareKey": "Share Key",
+      "defaultData": "Default Data Source",
+      "manage": "Manage Data Sources",
+      "new": "Create New Data Source",
+      "autoGenerate": "Auto-generate",
+      "create": "Create",
+      "loadShare": {
+        "title": "Load External Shared Data Source",
+        "placeholder": "Please enter the data source sharing ID",
+        "load": "Load",
+        "errorEmpty": "The sharing ID cannot be empty",
+        "errorLoaded": "This data source has already been loaded"
+      },
+      "list": "List of Data Sources",
+      "operation": {
+        "share": "Share",
+        "unShare": "Cancel Sharing",
+        "enable": "Enable"
+      }
     }
   },
   "quickJump": {

@@ -1,4 +1,5 @@
-import { Dropdown } from 'antd';
+import { InfoCircleOutlined } from '@ant-design/icons';
+import { App, Dropdown, Tooltip } from 'antd';
 import { useTranslation } from 'react-i18next';
 
 import { imageDB, imageDBManager } from '@/dataSource';
@@ -12,6 +13,7 @@ import ScreenshotButton from './ScreenshotButton';
 const MainMenu = () => {
   const { label, app } = useAppInfo();
   const { t } = useTranslation();
+  const { modal } = App.useApp();
 
   return (
     <>
@@ -29,34 +31,44 @@ const MainMenu = () => {
           <ScreenDevicesSelect />
         </div>
         <div className="grid grid-cols-2 gap-1">
-          <div className="col-span-1">生成截图</div>
+          <Tooltip title={t('menu.mainBlock.screenshotTooltip')}>
+            <div className="col-span-1">
+              {t('menu.mainBlock.screenshot')} <InfoCircleOutlined />
+            </div>
+          </Tooltip>
           <ScreenshotButton />
         </div>
 
         <div className="grid grid-cols-2 gap-1">
-          <div className="col-span-1">生成随机好友</div>
+          <div className="col-span-1">{t('menu.mainBlock.friends')}</div>
           <GenerateRandomUser />
         </div>
 
         <div className="grid grid-cols-2 gap-1">
-          <div className="col-span-1">数据源</div>
+          <div className="col-span-1">{t('menu.dataSource')}</div>
           <DataSourceManage />
         </div>
 
         <div className="grid grid-cols-2 items-center gap-1">
-          <div className="col-span-1">清除数据</div>
+          <div className="col-span-1">{t('menu.mainBlock.clearData')}</div>
           <Dropdown.Button
             danger
-            onClick={async () => {
-              localStorage.clear();
-              await imageDBManager.removeAllDBs();
-              window.location.reload();
+            onClick={() => {
+              modal.confirm({
+                title: t('menu.mainBlock.clearAllConfirmTitle'),
+                content: t('menu.mainBlock.clearAllDesc'),
+                onOk: async () => {
+                  localStorage.clear();
+                  await imageDBManager.removeAllDBs();
+                  window.location.reload();
+                },
+              });
             }}
             menu={{
               items: [
                 {
                   key: '1',
-                  label: '清空图片缓存',
+                  label: t('menu.mainBlock.clearImg'),
                 },
               ],
               onClick: async ({ key }) => {
@@ -67,7 +79,7 @@ const MainMenu = () => {
               },
             }}
           >
-            清除所有
+            {t('menu.mainBlock.clearAll')}
           </Dropdown.Button>
         </div>
       </div>

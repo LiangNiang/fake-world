@@ -16,7 +16,14 @@
     "she": "她",
     "his": "他的",
     "her": "她的",
-    "safeNavigateNotice": "退出编辑模式进行页面跳转"
+    "safeNavigateNotice": "退出编辑模式进行页面跳转",
+    "success": "成功",
+    "error": "错误",
+    "fail": "失败",
+    "yes": "是",
+    "no": "否",
+    "operation": "操作",
+    "delete": "删除"
   },
   "menu": {
     "main": "主页",
@@ -27,6 +34,44 @@
     "treesBlock": {
       "editLabel": "（编辑模式中）",
       "previewLabel": "（shift + Z 进入编辑模式）"
+    },
+    "mainBlock": {
+      "screenshot": "生成截图",
+      "friends": "生成随机好友",
+      "friendsLimitedError": "好友数量超出限制，可在底部修改好友数量显示",
+      "screenshotTooltip": "通过浏览器录屏功能来截图，需要手动授予权限",
+      "clearData": "清除数据",
+      "clearAll": "清除所有",
+      "clearAllConfirmTitle": "是否清除所有数据？",
+      "clearAllDesc": "这将包含所有的数据源、图片缓存，删除后不可恢复",
+      "clearImg": "清除圖片緩存",
+      "clearFriends": "删除所有随机添加好友？"
+    },
+    "dataSourceManage": {
+      "name": "名字",
+      "type": "类型",
+      "local": "本地",
+      "share": "共享",
+      "used": "是否使用",
+      "shareKey": "分享 Key",
+      "defaultData": "默认数据源",
+      "manage": "管理数据源",
+      "new": "新建数据源",
+      "autoGenerate": "自动生成",
+      "create": "创建",
+      "loadShare": {
+        "title": "加载外部分享数据源",
+        "placeholder": "请输入数据源分享 ID",
+        "load": "加载",
+        "errorEmpty": "分享 ID 不能为空",
+        "errorLoaded": "该数据源已经加载过了"
+      },
+      "list": "数据源列表",
+      "operation": {
+        "share": "分享",
+        "unShare": "取消分享",
+        "enable": "启用"
+      }
     }
   },
   "quickJump": {

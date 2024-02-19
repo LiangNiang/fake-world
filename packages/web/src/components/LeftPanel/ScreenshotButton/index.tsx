@@ -1,5 +1,5 @@
-import { InfoCircleOutlined } from '@ant-design/icons';
-import { App, Button, ButtonProps, Tooltip } from 'antd';
+import { CameraOutlined } from '@ant-design/icons';
+import { App, Button, ButtonProps } from 'antd';
 import { saveAs } from 'file-saver';
 import { noop } from 'lodash-es';
 import { setRecoil } from 'recoil-nexus';
@@ -53,13 +53,7 @@ const ScreenshotButton = ({ buttonProps }: Props) => {
     });
   };
 
-  return (
-    <Tooltip title="通过浏览器录屏 API 来截图">
-      <Button onClick={handleCreateScreenshot} icon={<InfoCircleOutlined />} {...buttonProps}>
-        截图
-      </Button>
-    </Tooltip>
-  );
+  return <Button onClick={handleCreateScreenshot} icon={<CameraOutlined />} {...buttonProps}></Button>;
 };
 
 export default ScreenshotButton;

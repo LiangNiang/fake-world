@@ -1,5 +1,6 @@
 import { App, Button } from 'antd';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSetRecoilState } from 'recoil';
 
 import { imageDBManager } from '@/dataSource';
@@ -14,6 +15,7 @@ const ShareOperation = ({ record }: Props) => {
   const [loading, setLoading] = useState(false);
   const { message } = App.useApp();
   const setDataSourceList = useSetRecoilState(dataSourceListState);
+  const { t } = useTranslation();
 
   const { shareKey, shareId, id } = record;
   const shared = !!shareKey;
@@ -23,10 +25,10 @@ const ShareOperation = ({ record }: Props) => {
     try {
       await deleteDataSource(shareId);
       setDataSourceList((prev) => prev.map((item) => (item.id === record.id ? { ...item, shareId: undefined, shareKey: undefined } : item)));
-      message.success('取消分享成功');
+      message.success(t('base.success'));
     } catch (err) {
       console.error(err);
-      message.error('取消分享失败');
+      message.error(t('base.fail'));
     }
   };
 
@@ -39,10 +41,10 @@ const ShareOperation = ({ record }: Props) => {
       });
       const { shareKey, shareId } = res.data;
       setDataSourceList((prev) => prev.map((item) => (item.id === id ? { ...item, shareKey, shareId } : item)));
-      message.success('分享成功');
+      message.success(t('base.success'));
     } catch (err) {
       console.error(err);
-      message.error('分享失败');
+      message.error(t('base.fail'));
     }
   };
 
@@ -58,7 +60,7 @@ const ShareOperation = ({ record }: Props) => {
 
   return (
     <Button type="link" loading={loading} className="px-2 py-1" onClick={handleClick}>
-      {shared ? '取消分享' : '分享'}
+      {shared ? t('menu.dataSourceManage.operation.unShare') : t('menu.dataSourceManage.operation.share')}
     </Button>
   );
 };
