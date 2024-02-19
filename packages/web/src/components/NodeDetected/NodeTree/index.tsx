@@ -5,8 +5,8 @@ import { memo, useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { getRecoil } from 'recoil-nexus';
 
+import useMode from '@/components/useMode';
 import { activatedNodeState, allNodesTreeState, nodeInjectMetaState, TreeNode } from '@/state/detectedNode';
-import { ModeState, modeState } from '@/state/globalConfig';
 
 import { doChangeOrder } from '../utils';
 import NodeTreeTitle from './Title';
@@ -17,6 +17,7 @@ const NodeTree = () => {
   const allNodeTree = useRecoilValue(allNodesTreeState);
   const [expandKeys, setExpandKeys] = useState<string[]>([]);
   const size = useSize(document.querySelector('#tree-container'));
+  const { isEdit, isPreview } = useMode();
 
   useEffect(() => {
     const res = [];
@@ -54,14 +55,14 @@ const NodeTree = () => {
             behavior: 'smooth',
             block: 'center',
           });
-          if (getRecoil(modeState) !== ModeState.EDIT) return;
+          if (isPreview) return;
           element?.dispatchEvent(new MouseEvent('click', { bubbles: true }));
         }
       }}
       selectedKeys={[currentSelected as string]}
       titleRender={(item) => <NodeTreeTitle item={item} />}
       draggable={(node) => {
-        return (node as TreeNode).nodeTreeSort && getRecoil(modeState) === ModeState.EDIT;
+        return (node as TreeNode).nodeTreeSort && isEdit;
       }}
       onDrop={(info) => {
         const dropKey = info.node.key;

@@ -1,14 +1,14 @@
 import { useUpdate } from 'ahooks';
 import { useEffect } from 'react';
 
-import { initDBImagesCacheStore } from '@/db';
+import { ImageDBManager } from '@/dataSource';
 
 export function useAsyncAssetsCache(run?: boolean) {
   const update = useUpdate();
 
   useEffect(() => {
     if (run) {
-      initDBImagesCacheStore().then(() => {
+      ImageDBManager.initDBImagesCacheStore().then(() => {
         run && update();
       });
     }

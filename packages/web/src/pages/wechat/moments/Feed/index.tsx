@@ -3,21 +3,22 @@ import { Modal, Tooltip } from 'antd';
 import { memo, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { setRecoil } from 'recoil-nexus';
 import { twJoin, twMerge } from 'tailwind-merge';
 
 import { canBeDetected } from '@/components/NodeDetected';
 import TopOperations from '@/components/TopOperations';
 import useModeNavigate from '@/components/useModeNavigate';
+import { generateInitFeedComment } from '@/faker/wechat/moments';
 import { MYSELF_ID } from '@/faker/wechat/user';
 import { MetaDataType } from '@/state/detectedNode';
-import { allFeedsState, IFeedBase } from '@/state/moments';
+import { allFeedsState, feedState, IFeedBase } from '@/state/moments';
 import { friendState } from '@/state/profile';
 import UserAvatar from '@/wechatComponents/User/UserAvatar';
 
 import Comments from './Comments';
 import FeedContent from './Content';
 import LikeList from './Likes';
-import { selectFeedCommentsListNode } from './utils';
 
 type Props = {
   classNames?: Partial<{
@@ -69,7 +70,10 @@ const Feed = ({ id, userId, classNames, fromDetail }: Omit<IFeedBase, 'sendTimes
     },
     {
       onClick: () => {
-        selectFeedCommentsListNode(id);
+        setRecoil(feedState(id), (prev) => ({
+          ...prev,
+          comments: [...(prev.comments ?? []), generateInitFeedComment()],
+        }));
       },
       element: (
         <Tooltip title="新增评论">

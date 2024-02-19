@@ -6,7 +6,7 @@ import puppeteer from 'puppeteer';
 export interface ICaptureScreenshotOptions {
   data: Record<string, string>;
   useNativeBrowser: boolean;
-  db: Buffer;
+  db: Buffer | undefined;
   defaultHref: string;
 }
 
@@ -61,12 +61,13 @@ async function captureScreenshot({ useNativeBrowser, data, db, defaultHref }: IC
       waitUntil: ['load', 'domcontentloaded', 'networkidle0', 'networkidle2'],
     });
     console.log(chalk.magenta('页面跳转成功', logTime()));
-
-    console.log(chalk.blue('开始注入 indexedDB', logTime()));
-    await page.evaluate(async (db) => {
-      await window.importDB(db);
-    }, db);
-    console.log(chalk.magenta('indexedDB 注入成功', logTime()));
+    if (db) {
+      console.log(chalk.blue('开始注入 indexedDB', logTime()));
+      await page.evaluate(async (db) => {
+        await window.importDB(db);
+      }, db);
+      console.log(chalk.magenta('indexedDB 注入成功', logTime()));
+    }
 
     console.log(chalk.blue('开始刷新页面并等待页面完全加载', logTime()));
     await page.reload({

@@ -37,7 +37,7 @@ const RedPacket = ({ role, upperText, senderId, redPacketStatus, note, originalS
       senderId={senderId}
       blockClassName="w-4/5"
       innerBlockClassName={twJoin(
-        'w-full',
+        'w-full pb-1',
         redPacketStatus === 'awaiting' && 'bg-wechatOrange-3 before:bg-wechatOrange-3',
         (redPacketStatus === 'accepted' || redPacketStatus === 'expired') && 'bg-wechatOrange-5 before:bg-wechatOrange-5'
       )}

@@ -1,4 +1,7 @@
+import { notification } from 'antd';
 import SparkMD5 from 'spark-md5';
+
+import { ping } from './services';
 
 export const getFileMD5 = async (file: File): Promise<string> => {
   const arrayBuffer = await file.arrayBuffer();
@@ -49,22 +52,6 @@ export const animateElement = (elementSelector: string, animation: string) =>
 
 export const sleep = async (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-export async function drawToCanvas(stream: MediaStream) {
-  const canvas = document.createElement('canvas');
-  const video = document.createElement('video');
-  video.srcObject = stream;
-
-  await video.play();
-
-  console.dir(video);
-
-  canvas.width = video.videoWidth;
-  canvas.height = video.videoHeight;
-  canvas.getContext('2d')!.drawImage(video, 0, 0);
-
-  return canvas;
-}
-
 const loadedImages = new Set<string>();
 
 export const preloadImages = (urls: string[]) => {
@@ -76,3 +63,13 @@ export const preloadImages = (urls: string[]) => {
     img.src = url;
   });
 };
+
+export async function backendHealthCheck() {
+  try {
+    await ping();
+  } catch (e) {
+    notification.warning({
+      message: '离线模式',
+    });
+  }
+}

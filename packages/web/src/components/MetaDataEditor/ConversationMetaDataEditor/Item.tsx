@@ -55,7 +55,18 @@ const ConversationItemMetaDataEditor = ({ data, index }: EditorProps<TConversati
         </Radio.Group>
       </Form.Item>
       <Form.Item<TConversationItem> name="upperText" label="上方文字">
-        <Input />
+        <Input
+          suffix={
+            <Button
+              onClick={() => {
+                form.setFieldValue('upperText', dayjs().format('HH:mm'));
+                form.submit();
+              }}
+            >
+              自动生成时间文本
+            </Button>
+          }
+        />
       </Form.Item>
       <Form.Item<TConversationItem> noStyle shouldUpdate={(pv, cv) => pv.type !== cv.type}>
         {({ getFieldValue, setFieldValue }) => {
@@ -101,6 +112,12 @@ const ConversationItemMetaDataEditor = ({ data, index }: EditorProps<TConversati
                   tooltip="只有是好友发送的消息才会显示未读小红点"
                 >
                   <Switch />
+                </Form.Item>
+                <Form.Item<TConversationItem> name="showStt" label="是否跟随显示语音转文字内容" valuePropName="checked">
+                  <Switch />
+                </Form.Item>
+                <Form.Item<TConversationItem> name="stt" label="语音转文字内容">
+                  <Input />
                 </Form.Item>
               </>
             );
@@ -171,6 +188,18 @@ const ConversationItemMetaDataEditor = ({ data, index }: EditorProps<TConversati
               </>
             );
           }
+          if (type === EConversationType.personalCard) {
+            return (
+              <>
+                <Form.Item<TConversationItem> name="avatarInfo" label="头像">
+                  <LocalImageUploadWithPreview />
+                </Form.Item>
+                <Form.Item<TConversationItem> name="nickname" label="昵称" required rules={[{ required: true }]}>
+                  <Input />
+                </Form.Item>
+              </>
+            );
+          }
         }}
       </Form.Item>
       <Form.Item<TConversationItem>
@@ -182,7 +211,7 @@ const ConversationItemMetaDataEditor = ({ data, index }: EditorProps<TConversati
           };
         }}
       >
-        <Input bordered={false} readOnly />
+        <Input variant="borderless" readOnly />
       </Form.Item>
     </Form>
   );

@@ -37,7 +37,7 @@ const FriendsTotlaMetaDataEditor = ({ data }: EditorProps<IFriendsTotalCountDisp
         </Radio.Group>
       </Form.Item>
       <Form.Item<IFriendsTotalCountDisplay> name="count" label="好友总数">
-        <InputNumber disabled={calcuateTypeValue === 'auto'} min={0} />
+        <InputNumber disabled={calcuateTypeValue === 'auto'} min={1} />
       </Form.Item>
     </Form>
   );

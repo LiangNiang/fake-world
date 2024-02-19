@@ -5,7 +5,7 @@ import { ChangeEvent, useMemo, useState } from 'react';
 import { ReactSortable } from 'react-sortablejs';
 
 import HashAssets from '@/components/HashAssets';
-import { db } from '@/db';
+import { imageDB } from '@/dataSource';
 import { getFileMD5 } from '@/utils';
 
 type Props = {
@@ -17,7 +17,7 @@ type Props = {
 const saveFileToDB = async (file: File) => {
   const hash = await getFileMD5(file);
 
-  await db.images.put({
+  await imageDB.images.put({
     id: hash,
     file,
   });

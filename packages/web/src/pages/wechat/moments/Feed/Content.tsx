@@ -13,13 +13,12 @@ import LikeFilledSVG from '@/assets/like-filled.svg?react';
 import LikeOutlinedSVG from '@/assets/like-outlined.svg?react';
 import PlayFilledSVG from '@/assets/play-filled.svg?react';
 import { h } from '@/components/HashAssets';
+import { generateInitFeedComment } from '@/faker/wechat/moments';
 import { MYSELF_ID } from '@/faker/wechat/user';
 import { ModeState, modeState } from '@/state/globalConfig';
 import { feedState, IFeed } from '@/state/moments';
 import SlateText from '@/wechatComponents/SlateText';
 import { SLATE_EMPTY_VALUE } from '@/wechatComponents/SlateText/utils';
-
-import { selectFeedCommentsListNode } from './utils';
 
 type Props = {
   id: IFeed['id'];
@@ -124,8 +123,10 @@ const FeedContent = ({ id, fromDetail }: Props) => {
 
   const handleClickComment = () => {
     setOperationsVisible(false);
-    setRecoil(modeState, ModeState.EDIT);
-    selectFeedCommentsListNode(id);
+    setRecoil(feedState(id), (prev) => ({
+      ...prev,
+      comments: [...(prev.comments ?? []), generateInitFeedComment()],
+    }));
   };
 
   return (
