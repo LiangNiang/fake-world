@@ -25,7 +25,7 @@ const ConversationItem = ({ data }: Props) => {
 
   switch (type) {
     case EConversationType.text:
-      return <Text upperText={upperText} senderId={senderId} textContent={data.textContent} />;
+      return <Text upperText={upperText} senderId={senderId} textContent={data.textContent} referenceId={data.referenceId} />;
     case EConversationType.centerText:
       return <CenterText upperText={upperText} simpleContent={data.simpleContent} extraClassName={data.extraClassName} />;
     case EConversationType.transfer:

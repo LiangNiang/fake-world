@@ -120,7 +120,10 @@ const CommentItem = ({
                 <span className="ml-[2px] mr-1">:</span>
               </div>
             )}
-            <SlateText content={text} classNames={{ base: 'inline', emojiClassName: 'h-5 w-5 text-sm origin-top-left scale-85' }} />
+            <SlateText
+              content={text}
+              classNames={{ base: 'inline', emojiClassName: 'h-5 w-5 text-sm origin-top-left scale-85 mx-[1px]', emojiInnerClassName: 'mx-0' }}
+            />
           </div>
         </div>
       </canBeDetected.div>
@@ -129,7 +132,10 @@ const CommentItem = ({
     return (
       <canBeDetected.div className="block text-sm" metaData={metaData}>
         <CommentUserText fromUserId={fromUserId} replyUserId={replyUserId} />
-        <SlateText content={text} classNames={{ base: 'inline', emojiClassName: 'h-5 w-5 text-sm origin-top-left scale-85' }} />
+        <SlateText
+          content={text}
+          classNames={{ base: 'inline', emojiClassName: 'h-5 w-5 text-sm origin-top-left scale-85 mx-[1px]', emojiInnerClassName: 'mx-0' }}
+        />
       </canBeDetected.div>
     );
   }

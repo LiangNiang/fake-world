@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { atom, atomFamily } from 'recoil';
+import { atom, atomFamily, selectorFamily } from 'recoil';
 import { Descendant } from 'slate';
 
 import { SLATE_INITIAL_VALUE } from '@/wechatComponents/SlateText/utils';
@@ -199,6 +199,22 @@ export const conversationState = atomFamily<TConversationItem[], IProfile['id']>
   key: 'conversationState',
   default: () => MOCK_INIT_CONVERSATION_LIST,
   effects_UNSTABLE: () => [persistAtom],
+});
+
+export const conversationItemReferenceState = selectorFamily<
+  TConversationItem | undefined,
+  {
+    profileId: IProfile['id'];
+    conversationId: IConversationItemBase['id'];
+  }
+>({
+  key: 'conversationItemReferenceState',
+  get:
+    (param) =>
+    ({ get }) => {
+      const conversationList = get(conversationState(param.profileId));
+      return conversationList.find((v) => v.id === param.conversationId);
+    },
 });
 
 export const conversationInputState = atom<IConversationInputConfig>({
