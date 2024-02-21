@@ -29,7 +29,7 @@ const LeftPanel = () => {
     {
       key: EMenus.Code,
       icon: <CodepenOutlined />,
-      title: t('menu.code'),
+      title: t('menu.dataSource'),
     },
   ];
 

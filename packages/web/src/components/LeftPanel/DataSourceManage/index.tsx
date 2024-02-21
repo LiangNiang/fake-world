@@ -1,5 +1,5 @@
 import { Button, Tooltip } from 'antd';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilValue } from 'recoil';
 
@@ -41,4 +41,4 @@ const DataSourceManage = () => {
   );
 };
 
-export default DataSourceManage;
+export default memo(DataSourceManage);
