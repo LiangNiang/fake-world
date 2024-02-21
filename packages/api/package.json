@@ -2,7 +2,7 @@
   "name": "@fake-world/api",
   "private": true,
   "scripts": {
-    "dev": "bun run --watch src/index.ts",
+    "dev": "prisma generate && bun run --watch src/index.ts",
     "studio": "prisma studio",
     "migrate": "prisma migrate dev",
     "start": "bun run src/index.ts"
