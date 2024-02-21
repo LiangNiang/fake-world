@@ -39,4 +39,6 @@ export enum MetaDataType {
   ContactsContainer = 'contactsContainer',
   /** 好友总数 */
   FriendsTotalCount = 'friendsTotalCount',
+  /** 多设备登录提醒 */
+  MultipleDeviceLogin = 'multipleDeviceLogin',
 }

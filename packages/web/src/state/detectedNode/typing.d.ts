@@ -5,6 +5,7 @@ import { BottomNavBars, IBottomNavbarItemConfig } from '../btmNavbarsState';
 import { IConversationInputConfig, TConversationItem } from '../conversationState';
 import { IDialogueItem } from '../dialogueState';
 import { IFeed, IFeedComment } from '../moments';
+import { TLoginDevicesConfig } from '../multipleDeviceLoginState';
 import { IFriendsTotalCountDisplay, IProfile } from '../profile';
 import { ITotalUnreadCountState } from '../totalUnreadCountState';
 import { TTransactionDataWithType, TTransactionType } from '../transaction';
@@ -154,6 +155,12 @@ declare namespace OverallMetaData {
     treeItemDisplayName: string | ((data: IFriendsTotalCountDisplay) => string);
   }
 
+  interface IMetaDataMultipleDeviceLogin extends Base {
+    type: MetaDataType.MultipleDeviceLogin;
+    data: TLoginDevicesConfig;
+    treeItemDisplayName: string | ((data: TLoginDevicesConfig) => string);
+  }
+
   interface IMetaDataSimple extends Base {
     treeItemDisplayName: string;
   }
@@ -179,6 +186,7 @@ declare namespace OverallMetaData {
     | IMetaDataTransactionRecord
     | IMetaDataContactsContainer
     | IMetaDataFriendsTotalCount
+    | IMetaDataMultipleDeviceLogin
     | IMetaDataSimple;
 
   type OverallIndex = GetTypeInUnion<Overall, 'index'>;

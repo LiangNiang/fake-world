@@ -17,6 +17,7 @@ import FeedCommentItemMetaDataEditor from './FeedCommentItemMetaDataEditor';
 import FeedCommentsListMetaDataEditor from './FeedCommentsListMetaDataEditor';
 import FeedLikeMetaDataEditor from './FeedLikeMetaDataEditor';
 import FeedMetaDataEditor from './FeedMetaDataEditor';
+import MultipleDeviceLoginEditor from './MultipleDeviceLoginEditor';
 import NavigationBarMetaDataEditor from './NavigationBarMetaDataEditor';
 import StatusBarMetaDataEditor from './StatusBarMetaDataEditor';
 import TotalUnreadMetaDataEditor from './TotalUnreadMetaDataEditor';
@@ -45,6 +46,7 @@ const TYPE_MAP_COMPONENT = {
   [MetaDataType.TransactionRecord]: TransactionRecordMetaDataEditor,
   [MetaDataType.ContactsContainer]: NewUserMetaDataEditor,
   [MetaDataType.FriendsTotalCount]: FriendsTotlaMetaDataEditor,
+  [MetaDataType.MultipleDeviceLogin]: MultipleDeviceLoginEditor,
 };
 
 export const MetaDataEditor = () => {
