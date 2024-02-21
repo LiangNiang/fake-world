@@ -1,7 +1,7 @@
 import { autoUpdate, detectOverflow, FloatingOverlay, FloatingPortal, Middleware, size, useFloating } from '@floating-ui/react';
-import cn from 'classnames';
 import { useMemo } from 'react';
 import { useRecoilValue } from 'recoil';
+import { twJoin } from 'tailwind-merge';
 
 import TopOperations from '@/components/TopOperations';
 import { activatedNodeState, hoverdNodeState } from '@/state/detectedNode';
@@ -73,17 +73,15 @@ const DetectedOverlay = ({ element, type, nodeId }: ActivatedBorderProps) => {
   return (
     <FloatingPortal>
       <FloatingOverlay
-        className={cn('pointer-events-none h-screen w-screen !overflow-hidden', {
-          'z-200': type === 'activated',
-          'z-40': type === 'hover',
-        })}
+        className={twJoin('pointer-events-none h-screen w-screen !overflow-hidden', type === 'activated' && 'z-200', type === 'hover' && 'z-40')}
       >
         <div
           ref={refs.setFloating}
-          className={cn('outline outline-2 -outline-offset-2', {
-            'outline-antDaybreakBlue-6': type === 'activated',
-            'outline-dashed outline-antDaybreakBlue-3': type === 'hover',
-          })}
+          className={twJoin(
+            'outline outline-2 -outline-offset-2',
+            type === 'activated' && 'outline-antDaybreakBlue-6',
+            type === 'hover' && 'outline-dashed outline-antDaybreakBlue-3'
+          )}
           style={{
             ...floatingStyles,
             width: elementRect.width,

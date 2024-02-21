@@ -1,4 +1,3 @@
-import cn from 'classnames';
 import { useMemo } from 'react';
 import { ReactSortable } from 'react-sortablejs';
 import { useRecoilState, useResetRecoilState } from 'recoil';
@@ -50,7 +49,7 @@ const DialogueList = () => {
         }}
       >
         {dialogueList.map((item) => (
-          <DialogueItem data={item} key={item.id} className={cn({ 'cursor-grab': isEdit })} />
+          <DialogueItem data={item} key={item.id} className={isEdit ? 'cursor-grab' : ''} />
         ))}
       </ReactSortable>
     </canBeDetected.section>

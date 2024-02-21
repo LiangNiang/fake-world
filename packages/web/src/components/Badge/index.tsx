@@ -1,6 +1,6 @@
-import cn from 'classnames';
 import { isNil } from 'lodash-es';
 import { CSSProperties, PropsWithChildren } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 type Props = {
   type?: 'number' | 'dot';
@@ -18,15 +18,14 @@ const Badge = ({ type = 'number', style, text, className, children, hidden }: Pr
   return (
     <div className="relative">
       {children}
-      {type === 'dot' && <div className={cn('absolute -right-1 -top-1 h-[10px] w-[10px] rounded-full bg-red-500', className)} style={style}></div>}
+      {type === 'dot' && (
+        <div className={twMerge('absolute -right-1 -top-1 h-[10px] w-[10px] rounded-full bg-red-500', className)} style={style}></div>
+      )}
       {type === 'number' && (
         <div
-          className={cn(
+          className={twMerge(
             'absolute -right-2 -top-2 flex items-center justify-center rounded-full bg-red-500 text-xs font-bold text-white',
-            {
-              'h-[18px] w-[18px] leading-[18px]': isOneText,
-              'px-1': !isOneText,
-            },
+            isOneText ? 'h-[18px] w-[18px] leading-[18px]' : 'px-1',
             className
           )}
         >

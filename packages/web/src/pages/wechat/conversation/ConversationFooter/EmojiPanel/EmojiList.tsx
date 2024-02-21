@@ -1,6 +1,6 @@
-import cn from 'classnames';
 import { MouseEvent, useMemo } from 'react';
 import { useRecoilValue } from 'recoil';
+import { twJoin } from 'tailwind-merge';
 
 import { recentUseEmojiState } from '@/state/conversationState';
 import { EMOJI_ARRAY } from '@/wechatComponents/SlateText/utils';
@@ -42,7 +42,7 @@ const EmojiList = ({ onEmojiClick, className }: Props) => {
   }, [recentUseEmoji]);
 
   return (
-    <div className={cn('flex flex-col overflow-auto bg-[#ECECEC] px-4 pb-8', className)}>
+    <div className={twJoin('flex flex-col overflow-auto bg-[#ECECEC] px-4 pb-8', className)}>
       {recentUseEmojiContent}
       <div className="my-4 text-xs">所有表情</div>
       <div className="flex flex-col space-y-4" onClick={onEmojiClick}>
@@ -54,7 +54,7 @@ const EmojiList = ({ onEmojiClick, className }: Props) => {
                   <div
                     key={`${yi}-${xi}`}
                     data-key={style ? `${yi}-${xi}` : null}
-                    className={cn('h-6 w-6 origin-center bg-inherit bg-no-repeat', { 'cursor-pointer': style })}
+                    className={twJoin('h-6 w-6 origin-center bg-inherit bg-no-repeat', style && 'cursor-pointer')}
                     style={{
                       backgroundImage: style ? `url(https://cdn-fakeworld.azureedge.net/fakeworld/emoji-sprite.png)` : undefined,
                       ...style?.panel,

@@ -1,7 +1,6 @@
 import { PlusCircleOutlined } from '@ant-design/icons';
 import { Button, Divider, Input, Select } from 'antd';
 import { DefaultOptionType, SelectProps } from 'antd/es/select';
-import cn from 'classnames';
 import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
@@ -19,8 +18,8 @@ type Props = SelectProps<IProfile['id'] | IProfile['id'][]> & {
 };
 
 export const FriendItem = ({ id, className }: { id: IProfile['id']; className?: string }) => {
-  const { nickname, wechat } = useRecoilValue(friendState(id));
-  return <div className={cn(className)}>{`${nickname}（${wechat}）`}</div>;
+  const { nickname, wechat, remark } = useRecoilValue(friendState(id));
+  return <div className={className}>{`${remark ?? nickname}（${wechat}）`}</div>;
 };
 
 const FriendSelect = ({ value, onChange, filterExisting, withQuickAdd, withMyself, ...rest }: Props) => {

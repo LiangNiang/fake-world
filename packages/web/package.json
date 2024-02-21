@@ -19,7 +19,6 @@
     "animate.css": "^4.1.1",
     "antd": "^5.14.1",
     "axios": "^1.6.7",
-    "classnames": "^2.5.1",
     "copy-to-clipboard": "^3.3.3",
     "dayjs": "^1.11.10",
     "dexie": "^3.2.5",
