@@ -3,9 +3,9 @@ import { ReactEditor } from 'slate-react';
 
 export const withInlines = (editor: BaseEditor & ReactEditor) => {
   const { isInline, isVoid, markableVoid } = editor;
-  editor.isInline = (element) => element.type === 'emoji' || isInline(element);
-  editor.isVoid = (element) => element.type === 'emoji' || isVoid(element);
-  editor.markableVoid = (element) => element.type === 'emoji' || markableVoid(element);
+  editor.isInline = (element) => ['emoji'].includes(element.type) || isInline(element);
+  editor.isVoid = (element) => ['emoji'].includes(element.type) || isVoid(element);
+  editor.markableVoid = (element) => ['emoji'].includes(element.type) || markableVoid(element);
 
   return editor;
 };

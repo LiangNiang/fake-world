@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 import { useDebounceFn } from 'ahooks';
-import { CSSProperties, MouseEventHandler, PropsWithChildren, ReactNode } from 'react';
+import { ComponentType, CSSProperties, MouseEventHandler, PropsWithChildren, ReactNode } from 'react';
 import { useRecoilValue } from 'recoil';
 import { getRecoil } from 'recoil-nexus';
 import { twJoin, twMerge } from 'tailwind-merge';
@@ -13,7 +13,7 @@ import { friendState, IProfile } from '@/state/profile';
 
 import { useConversationAPI } from '../../context';
 
-type Props = {
+interface Props<P = AnyObject> {
   upperText: IConversationItemBase['upperText'];
   senderId: IProfile['id'];
   innerBlockClassName?: string;
@@ -21,9 +21,12 @@ type Props = {
   blockStyle?: CSSProperties;
   extraElement?: ReactNode;
   hideAvatar?: boolean;
-};
+  innerBlockComponent?: ComponentType<P> | string;
+  innerBlockProps?: P;
+  onClick?: MouseEventHandler<HTMLDivElement>;
+}
 
-const CommonBlock = ({
+const CommonBlock = <P extends AnyObject>({
   upperText,
   senderId,
   children,
@@ -32,7 +35,10 @@ const CommonBlock = ({
   blockStyle,
   extraElement,
   hideAvatar,
-}: PropsWithChildren<Props>) => {
+  innerBlockComponent: InnerBlockComponent = 'div',
+  innerBlockProps,
+  onClick,
+}: PropsWithChildren<Props<P>>) => {
   const { avatarInfo } = useRecoilValue(friendState(senderId));
   const navigate = useModeNavigate({ silence: true });
   const { sendTickleText } = useConversationAPI();
@@ -62,13 +68,14 @@ const CommonBlock = ({
           blockClassName
         )}
         style={blockStyle}
+        onClick={onClick}
       >
         <h.img
           src={avatarInfo}
           className={twJoin('h-10 w-10 min-w-10 cursor-pointer rounded object-cover object-center', hideAvatar && 'invisible')}
           onClick={debouncedHandleClick}
         />
-        <div
+        <InnerBlockComponent
           css={css`
             &::before {
               clip-path: polygon(0% 50%, 50% 100%, 0% 100%);
@@ -78,9 +85,10 @@ const CommonBlock = ({
             'relative max-w-[85%] break-words rounded p-[10px] before:absolute before:top-[6px] before:h-7 before:w-7 before:rounded-sm group-[.friend]:before:-left-[1px] group-[.mine]:before:-right-[1px] group-[.friend]:before:rotate-45 group-[.mine]:before:-rotate-[135deg]',
             innerBlockClassName
           )}
+          {...(innerBlockProps as P)}
         >
           {children}
-        </div>
+        </InnerBlockComponent>
         {extraElement}
       </div>
     </>

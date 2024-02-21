@@ -1,6 +1,5 @@
-import cn from 'classnames';
 import { RenderElementProps, useSelected } from 'slate-react';
-import { twMerge } from 'tailwind-merge';
+import { twJoin, twMerge } from 'tailwind-merge';
 
 import { CustomElementEmoji } from '@/vite-env';
 
@@ -11,6 +10,8 @@ export type TElementOtherProps = {
   classNames?: {
     base?: string;
     emojiClassName?: string;
+    emojiInnerClassName?: string;
+    textClassName?: string;
   };
 };
 
@@ -32,7 +33,11 @@ export const EmojiElement = (props: ElementProps) => {
     <span
       {...attributes}
       contentEditable={false}
-      className={cn('mx-[1px] inline-block h-6 w-6 origin-center bg-inherit bg-no-repeat', { '!bg-wechatBrand-5': selected })}
+      className={twMerge(
+        'mx-[1px] inline-block h-6 w-6 origin-center bg-inherit bg-no-repeat',
+        selected && '!bg-wechatBrand-5',
+        classNames?.emojiInnerClassName
+      )}
       style={{
         backgroundImage: `url(https://cdn-fakeworld.azureedge.net/fakeworld/emoji-sprite.png)`,
         ...EMOJI_ARRAY[y][x]?.preview,
@@ -52,13 +57,13 @@ export const EmojiElement = (props: ElementProps) => {
 };
 
 export const Element = (props: ElementProps) => {
-  const { attributes, children, element } = props;
+  const { attributes, children, element, classNames } = props;
   switch (element.type) {
     case 'emoji':
       return <EmojiElement {...props} />;
     default:
       return (
-        <div {...attributes} className="selection:bg-wechatBrand-5">
+        <div {...attributes} className={twJoin('selection:bg-wechatBrand-5', classNames?.textClassName)}>
           {children}
         </div>
       );

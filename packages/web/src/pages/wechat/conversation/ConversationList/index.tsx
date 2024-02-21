@@ -147,6 +147,7 @@ const ConversationList = () => {
                 },
               ]}
               nodeTreeSort
+              data-conversation-id={item.id}
             >
               <ConversationItem data={item} />
             </canBeDetected.div>

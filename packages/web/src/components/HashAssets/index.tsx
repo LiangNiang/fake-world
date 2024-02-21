@@ -7,8 +7,6 @@ import { isMD5 } from '@/utils';
 
 import { useAsyncAssetsCache } from '../useAssetsCache';
 
-type AnyObject = Record<PropertyKey, any>;
-
 const whiteImageUrl = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
 
 interface Props<P = AnyObject> extends AllHTMLAttributes<HTMLElement> {
