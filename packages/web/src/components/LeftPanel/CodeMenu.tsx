@@ -11,6 +11,8 @@ import { useRecoilValue } from 'recoil';
 import { PERSIST_UPDATE_KEY, persistEventEmitter } from '@/state/effects';
 import { currentDataSourceState } from '@/state/globalConfig';
 
+import DataSourceManage from './DataSourceManage';
+
 const CodeMenu = () => {
   const [v, setV] = useState('');
   const editorRef = useRef<editor.IStandaloneCodeEditor | null>(null);
@@ -60,7 +62,8 @@ const CodeMenu = () => {
 
   return (
     <>
-      <div className="mb-4 flex items-center justify-between">
+      <DataSourceManage />
+      <div className="mb-4 mt-1 flex items-center justify-between">
         <span className="font-bold">{t('menu.code')}</span>
         <div>
           <Button.Group>

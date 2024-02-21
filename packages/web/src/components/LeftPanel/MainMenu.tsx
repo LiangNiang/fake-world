@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import { imageDB, imageDBManager } from '@/dataSource';
 
 import useAppInfo from '../useAppInfo';
-import DataSourceManage from './DataSourceManage';
 import GenerateRandomUser from './GenerateRandomUser';
 import ScreenDevicesSelect from './ScreenDevicesSelect';
 import ScreenshotButton from './ScreenshotButton';
@@ -42,11 +41,6 @@ const MainMenu = () => {
         <div className="grid grid-cols-2 gap-1">
           <div className="col-span-1">{t('menu.mainBlock.friends')}</div>
           <GenerateRandomUser />
-        </div>
-
-        <div className="grid grid-cols-2 gap-1">
-          <div className="col-span-1">{t('menu.dataSource')}</div>
-          <DataSourceManage />
         </div>
 
         <div className="grid grid-cols-2 items-center gap-1">
