@@ -4,6 +4,7 @@ import btmNavbarsState, { BottomNavBars } from '../btmNavbarsState';
 import { conversationInputState, conversationState } from '../conversationState';
 import { dialogueItemState } from '../dialogueState';
 import { feedState } from '../moments';
+import { multipleDeviceLoginState } from '../multipleDeviceLoginState';
 import { friendsIdsState, friendState, friendsTotalCountState, myProfileState } from '../profile';
 import { statusBarHideState } from '../statusBarState';
 import totalUnreadCountState from '../totalUnreadCountState';
@@ -44,6 +45,7 @@ const handlerMap: HandlerMap = {
   }),
   [MetaDataType.ContactsContainer]: (get) => get(friendsIdsState),
   [MetaDataType.FriendsTotalCount]: (get) => get(friendsTotalCountState),
+  [MetaDataType.MultipleDeviceLogin]: (get) => get(multipleDeviceLoginState),
 };
 
 export const nodeRuntimeState = selectorFamily<OverallMetaData.OverallData, ParamsType>({

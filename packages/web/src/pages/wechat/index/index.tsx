@@ -11,6 +11,7 @@ import totalUnreadCountState from '@/state/totalUnreadCountState';
 import BottomNavbar, { useToggleNavbarActivated } from '@/wechatComponents/BottomNavbar';
 
 import DialogueList from './DialogueList';
+import MultipleDeviceLogin from './MultipleDeviceLogin';
 import StateEffect from './StateEffect';
 
 const WechatIndex = () => {
@@ -44,6 +45,7 @@ const WechatIndex = () => {
             <span className="ml-2 opacity-50">{t('wechatPage.main.search')}</span>
           </div>
         </div>
+        <MultipleDeviceLogin />
         <DialogueList />
       </div>
       <BottomNavbar />
