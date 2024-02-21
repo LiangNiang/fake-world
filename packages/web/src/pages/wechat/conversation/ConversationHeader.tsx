@@ -1,4 +1,3 @@
-import cn from 'classnames';
 import { useParams } from 'react-router-dom';
 import { useRecoilValue, waitForAll } from 'recoil';
 
@@ -20,7 +19,7 @@ const ConversationHeader = () => {
       <div className="flex items-center">
         <BackFilledSVG
           fill="black"
-          className={cn('h-5 w-5 cursor-pointer')}
+          className="h-5 w-5 cursor-pointer"
           onClick={() => {
             navigate('/wechat');
           }}

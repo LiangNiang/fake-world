@@ -1,9 +1,10 @@
-import cn from 'classnames';
+/* eslint-disable complexity */
 import { mapValues } from 'lodash-es';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { twJoin } from 'tailwind-merge';
 
 import AddressBookFilledSVG from '@/assets/address-book-filled.svg?react';
 import AddressBookOutlinedSVG from '@/assets/address-book-outlined.svg?react';
@@ -56,15 +57,12 @@ const BottomNavbar = () => {
         <Badge
           text={WECHAT.badgeNumber}
           type={WECHAT.badgeType}
-          className={cn({
-            '!-right-3': WECHAT.badgeType !== 'dot',
-            '!right-0 !top-0': WECHAT.badgeType === 'dot',
-          })}
+          className={WECHAT.badgeType === 'dot' ? 'right-0 top-0' : '-right-3'}
           hidden={WECHAT.badgeHide}
         >
           <WechatSVG className="h-7 w-7" fill={WECHAT.activated ? '#39CD80' : 'white'} stroke={WECHAT.activated ? 'unset' : 'black'} />
         </Badge>
-        <span className={cn('text-xs', { 'text-[#07C160]': WECHAT.activated })}>{t('bottomNavbar.wechat')}</span>
+        <span className={twJoin('text-xs', WECHAT.activated && 'text-[#07C160]')}>{t('bottomNavbar.wechat')}</span>
       </canBeDetected.div>
       <canBeDetected.div
         className="flex cursor-pointer flex-col items-center justify-center space-y-1 py-2"
@@ -81,10 +79,7 @@ const BottomNavbar = () => {
         <Badge
           text={ADDRESS_BOOK.badgeNumber}
           type={ADDRESS_BOOK.badgeType}
-          className={cn({
-            '!-right-3': ADDRESS_BOOK.badgeType !== 'dot',
-            '!-right-0 !-top-0': ADDRESS_BOOK.badgeType === 'dot',
-          })}
+          className={ADDRESS_BOOK.badgeType === 'dot' ? '-right-1 top-0' : '-right-3'}
           hidden={ADDRESS_BOOK.badgeHide}
         >
           {ADDRESS_BOOK.activated ? (
@@ -93,13 +88,7 @@ const BottomNavbar = () => {
             <AddressBookOutlinedSVG className="h-7 w-7" fill="black" />
           )}
         </Badge>
-        <span
-          className={cn('text-xs', {
-            'text-[#07C160]': ADDRESS_BOOK.activated,
-          })}
-        >
-          {t('bottomNavbar.contacts')}
-        </span>
+        <span className={twJoin('text-xs', ADDRESS_BOOK.activated && 'text-[#07C160]')}>{t('bottomNavbar.contacts')}</span>
       </canBeDetected.div>
       <canBeDetected.div
         className="flex cursor-pointer flex-col items-center justify-center space-y-1 py-2"
@@ -116,15 +105,12 @@ const BottomNavbar = () => {
         <Badge
           text={DISCOVER.badgeNumber}
           type={DISCOVER.badgeType}
-          className={cn({
-            '!-right-3': DISCOVER.badgeType !== 'dot',
-            '!right-0 !top-0': DISCOVER.badgeType === 'dot',
-          })}
+          className={DISCOVER.badgeType === 'dot' ? 'right-0 top-0' : '-right-3'}
           hidden={DISCOVER.badgeHide}
         >
           {DISCOVER.activated ? <DiscoverFilledSVG fill="#39CD80" className="h-7 w-7" /> : <DiscoverOutlinedSVG className="h-7 w-7" fill="black" />}
         </Badge>
-        <span className={cn('text-xs', { 'text-[#07C160]': DISCOVER.activated })}>{t('bottomNavbar.discover')}</span>
+        <span className={twJoin('text-xs', DISCOVER.activated && 'text-[#07C160]')}>{t('bottomNavbar.discover')}</span>
       </canBeDetected.div>
       <canBeDetected.div
         className="flex cursor-pointer flex-col items-center justify-center space-y-1 py-2"
@@ -138,18 +124,10 @@ const BottomNavbar = () => {
           navigate('/wechat/my');
         }}
       >
-        <Badge
-          text={MY.badgeNumber}
-          type={MY.badgeType}
-          className={cn({
-            '!-right-3': MY.badgeType !== 'dot',
-            '!right-0 !top-0': MY.badgeType === 'dot',
-          })}
-          hidden={MY.badgeHide}
-        >
+        <Badge text={MY.badgeNumber} type={MY.badgeType} className={MY.badgeType === 'dot' ? 'right-0 top-0' : '-right-3'} hidden={MY.badgeHide}>
           {MY.activated ? <PeopleFilledSVG fill="#39CD80" className="h-7 w-7" /> : <PeopleOutlinedSVG className="h-7 w-7" fill="black" />}
         </Badge>
-        <span className={cn('text-xs', { 'text-[#07C160]': MY.activated })}>{t('bottomNavbar.me')}</span>
+        <span className={twJoin('text-xs', MY.activated && 'text-[#07C160]')}>{t('bottomNavbar.me')}</span>
       </canBeDetected.div>
     </canBeDetected.div>
   );

@@ -1,5 +1,5 @@
-import cn from 'classnames';
 import { useEffect, useState } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 import BackspaceSVG from '@/assets/backspace.svg?react';
 
@@ -33,17 +33,19 @@ const FloatingButtons = ({ disabled }: Props) => {
   return (
     <div className="absolute bottom-3 right-2 flex select-none justify-end space-x-2">
       <div
-        className={cn('inline-flex h-10 cursor-pointer items-center rounded-md bg-white px-4 text-black', {
-          '!cursor-not-allowed !text-black/30': disabled,
-        })}
+        className={twMerge(
+          'inline-flex h-10 cursor-pointer items-center rounded-md bg-white px-4 text-black',
+          disabled && 'cursor-not-allowed text-black/30'
+        )}
         onClick={disabled ? undefined : removeLastNode}
       >
         <BackspaceSVG fill="currentcolor" />
       </div>
       <div
-        className={cn('inline-flex h-10 cursor-pointer items-center rounded-md bg-wechatBrand-3 px-4 text-white', {
-          '!cursor-not-allowed bg-white !text-black/30': disabled,
-        })}
+        className={twMerge(
+          'inline-flex h-10 cursor-pointer items-center rounded-md bg-wechatBrand-3 px-4 text-white',
+          disabled && 'cursor-not-allowed bg-white text-black/30'
+        )}
         onClick={disabled ? undefined : sendTextMessage}
       >
         发送

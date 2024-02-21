@@ -1,7 +1,6 @@
-import cn from 'classnames';
 import { omit } from 'lodash-es';
 import { ComponentPropsWithRef, ReactNode } from 'react';
-import { twMerge } from 'tailwind-merge';
+import { twJoin, twMerge } from 'tailwind-merge';
 
 import ArrowOutlinedSVG from '@/assets/arrow-outlined.svg?react';
 import { canBeDetected } from '@/components/NodeDetected';
@@ -15,7 +14,7 @@ type ListItemProps = {
 };
 
 export const List = ({ children, className }: ComponentPropsWithRef<'div'>) => {
-  return <div className={cn('flex flex-col bg-white', className)}>{children}</div>;
+  return <div className={twJoin('flex flex-col bg-white', className)}>{children}</div>;
 };
 
 const ListItemPrev = ({ children, className }: ComponentPropsWithRef<'div'>) => {

@@ -1,11 +1,11 @@
 import { ClockCircleOutlined } from '@ant-design/icons';
 import { useInterval, useUpdate } from 'ahooks';
 import { Tooltip } from 'antd';
-import cn from 'classnames';
 import dayjs from 'dayjs';
 import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
+import { twJoin } from 'tailwind-merge';
 
 import { MetaDataType } from '@/state/detectedNode';
 import { statusBarHideState, statusBarMountNodeState, statusBarState } from '@/state/statusBarState';
@@ -81,10 +81,11 @@ const StatusBar = () => {
 
   const renderContent = (isMount?: boolean) => {
     const useWhiteColorText = theme === 'dark';
+
     return (
       <canBeDetected.div
         innerRef={divRef}
-        className={cn('flex items-center justify-between py-2 pl-10 pr-6', { hidden: hidden, 'pointer-events-auto z-10': isMount })}
+        className={twJoin('flex items-center justify-between py-2 pl-10 pr-6', hidden && 'hidden', isMount && 'pointer-events-auto z-10')}
         metaData={{
           type: MetaDataType.StatusBar,
           treeItemDisplayName: '状态栏',
@@ -103,12 +104,12 @@ const StatusBar = () => {
           backgroundColor,
         }}
       >
-        <div className={cn('font-semibold', { 'text-white': useWhiteColorText })}>{dayjs().format('HH:mm')}</div>
+        <div className={twJoin('font-semibold', useWhiteColorText && 'text-white')}>{dayjs().format('HH:mm')}</div>
         <div className="flex items-center space-x-2">
           <SingalSVG fill={useWhiteColorText ? 'white' : 'black'} />
           <WifiSVG fill={useWhiteColorText ? 'white' : 'black'} />
           {/* 这里svg每个path使用了currentcolor，不能设置为 fill 会导致样式异常 */}
-          <BatterySVG className={cn({ 'text-white': useWhiteColorText, 'text-black': !useWhiteColorText })} />
+          <BatterySVG className={twJoin(useWhiteColorText ? 'text-white' : 'text-black')} />
         </div>
       </canBeDetected.div>
     );

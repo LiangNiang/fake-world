@@ -1,6 +1,6 @@
+/* eslint-disable complexity */
 import { css, Global } from '@emotion/react';
 import { useScroll } from 'ahooks';
-import cn from 'classnames';
 import { pick } from 'lodash-es';
 import { CSSProperties, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -8,6 +8,7 @@ import { Outlet } from 'react-router-dom';
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { getRecoil, setRecoil } from 'recoil-nexus';
+import { twJoin } from 'tailwind-merge';
 
 import BackFilledSVG from '@/assets/back-filled.svg?react';
 import CameraFilledSVG from '@/assets/camera-filled.svg?react';
@@ -164,7 +165,11 @@ const MomentsLayout = () => {
       />
       <div className="pointer-events-none absolute z-20 w-full bg-transparent" ref={portalRef}></div>
       <div
-        className={cn('absolute z-20 grid w-full grid-cols-3 px-4 py-2 text-white', { 'mt-10': !hidden, 'transition-all duration-300': bgExpand })}
+        className={twJoin(
+          'absolute z-20 grid w-full grid-cols-3 px-4 py-2 text-white',
+          !hidden && 'mt-10',
+          bgExpand && 'transition-all duration-300'
+        )}
         style={{
           ...navbarStyle,
           opacity: bgExpand ? 0 : navbarStyle.opacity,
@@ -178,7 +183,7 @@ const MomentsLayout = () => {
       </div>
 
       <div
-        className={cn('flex-1', { 'overflow-auto': !bgExpand, 'overflow-hidden': bgExpand })}
+        className={twJoin('flex-1', bgExpand ? 'overflow-hidden' : 'overflow-auto')}
         ref={divWrapperRef}
         onWheelCapture={() => {
           if (bgExpand) {
@@ -188,10 +193,7 @@ const MomentsLayout = () => {
         data-wheel-id={DATA_WHEEL_ID}
       >
         <canBeDetected.div
-          className={cn('cursor-pointer transition-all duration-300', {
-            'h-72': !bgExpand,
-            'h-5/6': bgExpand,
-          })}
+          className={twJoin('cursor-pointer transition-all duration-300', bgExpand ? 'h-5/6' : 'h-72')}
           metaData={{
             treeItemDisplayName: '朋友圈背景图',
             ...metaDataPart,

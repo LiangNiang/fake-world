@@ -1,8 +1,8 @@
 import { Modal } from 'antd';
-import cn from 'classnames';
 import { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { twMerge } from 'tailwind-merge';
 
 import MUTED_SVG from '@/assets/muted.svg';
 import Badge from '@/components/Badge';
@@ -39,12 +39,10 @@ const DialogueItem = ({ data, className }: Props) => {
 
   return (
     <canBeDetected.div
-      className={cn(
+      className={twMerge(
         'relative flex cursor-pointer items-center p-4 after:absolute after:bottom-0 after:w-full after:border-b after:border-gray-200',
         styles['chat-item'],
-        {
-          'bg-[rgba(237,237,237,1)]': isPinned,
-        },
+        isPinned && 'bg-[rgba(237,237,237,1)]',
         className
       )}
       metaData={[
