@@ -1,10 +1,10 @@
 import { css, Global } from '@emotion/react';
 import { useUpdateEffect } from 'ahooks';
-import { Button, Form, Input, InputNumber, Radio, Switch } from 'antd';
+import { Button, Form, Input, InputNumber, Radio, Select, Switch } from 'antd';
 import dayjs from 'dayjs';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 
-import { conversationState, EConversationRole, EConversationType, TConversationItem } from '@/state/conversationState';
+import { conversationState, ConversationTypeLabel, EConversationRole, EConversationType, TConversationItem } from '@/state/conversationState';
 import { IProfile } from '@/state/profile';
 
 import LocalImageUploadWithPreview from '../LocalImageUpload';
@@ -13,10 +13,10 @@ import { CONVERSATION_TYPE_OPTIONS } from './consts';
 
 const ConversationItemMetaDataEditor = ({ data, index }: EditorProps<TConversationItem, [IProfile['id'], TConversationItem['id']]>) => {
   const [form] = Form.useForm<TConversationItem>();
-  const setConversation = useSetRecoilState(conversationState(index[0]));
+  const [conversationList, setConversationList] = useRecoilState(conversationState(index[0]));
 
   const onFinish = (values: TConversationItem) => {
-    setConversation((prev) => prev.map((item) => (item.id === data.id ? { ...item, ...values } : item)));
+    setConversationList((prev) => prev.map((item) => (item.id === data.id ? { ...item, ...values } : item)));
   };
 
   useUpdateEffect(() => {
@@ -73,9 +73,22 @@ const ConversationItemMetaDataEditor = ({ data, index }: EditorProps<TConversati
           const type = getFieldValue('type');
           if (type === EConversationType.text) {
             return (
-              <Form.Item<TConversationItem> name="textContent" label="聊天内容">
-                <WrapSlateInput inline />
-              </Form.Item>
+              <>
+                <Form.Item<TConversationItem> name="textContent" label="聊天内容">
+                  <WrapSlateInput inline />
+                </Form.Item>
+                <Form.Item<TConversationItem> name="referenceId" label="引用的消息">
+                  <Select
+                    options={conversationList
+                      .filter((v) => [EConversationType.text, EConversationType.image].includes(v.type) && v.id !== data.id)
+                      .map((v) => ({
+                        label: `消息（${ConversationTypeLabel[v.type]}${v.role ? '-' + v.role : ''}）`,
+                        value: v.id,
+                      }))}
+                    allowClear
+                  />
+                </Form.Item>
+              </>
             );
           }
           if (type === EConversationType.centerText) {

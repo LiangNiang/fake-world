@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { atom, atomFamily } from 'recoil';
+import { atom, atomFamily, selectorFamily } from 'recoil';
 import { Descendant } from 'slate';
 
 import { SLATE_INITIAL_VALUE } from '@/wechatComponents/SlateText/utils';
@@ -46,6 +46,7 @@ export interface IConversationItemBase {
 export interface IConversationTypeText extends IConversationItemBase {
   type: EConversationType.text;
   textContent: Descendant[];
+  referenceId?: IConversationItemBase['id'];
 }
 
 export interface IConversationTypeSingleUpperText extends IConversationItemBase {
@@ -180,12 +181,40 @@ const MOCK_INIT_CONVERSATION_LIST: TConversationItem[] = [
     avatarInfo: 'https://cdn-fakeworld.azureedge.net/fakeworld/kbw.jpg',
     nickname: '酷霸王',
   },
+  {
+    id: '8',
+    type: EConversationType.text,
+    textContent: [
+      {
+        type: 'paragraph',
+        children: [{ text: '你也好' }],
+      },
+    ],
+    role: EConversationRole.mine,
+    referenceId: '1',
+  },
 ];
 
 export const conversationState = atomFamily<TConversationItem[], IProfile['id']>({
   key: 'conversationState',
   default: () => MOCK_INIT_CONVERSATION_LIST,
   effects_UNSTABLE: () => [persistAtom],
+});
+
+export const conversationItemReferenceState = selectorFamily<
+  TConversationItem | undefined,
+  {
+    profileId: IProfile['id'];
+    conversationId: IConversationItemBase['id'];
+  }
+>({
+  key: 'conversationItemReferenceState',
+  get:
+    (param) =>
+    ({ get }) => {
+      const conversationList = get(conversationState(param.profileId));
+      return conversationList.find((v) => v.id === param.conversationId);
+    },
 });
 
 export const conversationInputState = atom<IConversationInputConfig>({
