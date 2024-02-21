@@ -85,6 +85,7 @@ const ConversationItemMetaDataEditor = ({ data, index }: EditorProps<TConversati
                         label: `消息（${ConversationTypeLabel[v.type]}${v.role ? '-' + v.role : ''}）`,
                         value: v.id,
                       }))}
+                    allowClear
                   />
                 </Form.Item>
               </>

@@ -8,13 +8,14 @@ import CommonBlock from './CommonBlock';
 import TextReference from './TextReference';
 
 type Props = {
+  conversationItemId: IConversationTypeText['id'];
   upperText: IConversationTypeText['upperText'];
   senderId: IProfile['id'];
   textContent: IConversationTypeText['textContent'];
   referenceId: IConversationTypeText['referenceId'];
 };
 
-const Text = ({ upperText, senderId, textContent, referenceId }: Props) => {
+const Text = ({ upperText, senderId, textContent, referenceId, conversationItemId }: Props) => {
   return (
     <>
       <CommonBlock
@@ -24,7 +25,7 @@ const Text = ({ upperText, senderId, textContent, referenceId }: Props) => {
       >
         <SlateText content={textContent} />
       </CommonBlock>
-      {referenceId && <TextReference referenceId={referenceId} />}
+      {referenceId && <TextReference referenceId={referenceId} conversationItemId={conversationItemId} />}
     </>
   );
 };

@@ -19,13 +19,21 @@ type Props = {
 };
 
 const ConversationItem = ({ data }: Props) => {
-  const { type, role, upperText } = data;
+  const { type, role, upperText, id: conversationItemId } = data;
   const { id } = useParams<{ id: string }>();
   const senderId = role === EConversationRole.friend ? id! : MYSELF_ID;
 
   switch (type) {
     case EConversationType.text:
-      return <Text upperText={upperText} senderId={senderId} textContent={data.textContent} referenceId={data.referenceId} />;
+      return (
+        <Text
+          conversationItemId={conversationItemId}
+          upperText={upperText}
+          senderId={senderId}
+          textContent={data.textContent}
+          referenceId={data.referenceId}
+        />
+      );
     case EConversationType.centerText:
       return <CenterText upperText={upperText} simpleContent={data.simpleContent} extraClassName={data.extraClassName} />;
     case EConversationType.transfer:

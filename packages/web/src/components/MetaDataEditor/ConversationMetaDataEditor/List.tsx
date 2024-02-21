@@ -1,9 +1,9 @@
-import { Button, Form, Input, InputNumber, Radio, Switch } from 'antd';
+import { Button, Form, Input, InputNumber, Radio, Select, Switch } from 'antd';
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 
-import { conversationState, EConversationRole, EConversationType, TConversationItem } from '@/state/conversationState';
+import { conversationState, ConversationTypeLabel, EConversationRole, EConversationType, TConversationItem } from '@/state/conversationState';
 import { IFeed } from '@/state/moments';
 import { SLATE_INITIAL_VALUE } from '@/wechatComponents/SlateText/utils';
 
@@ -13,10 +13,10 @@ import { CONVERSATION_TYPE_OPTIONS } from './consts';
 
 const ConversationListMetaDataEditor = ({ index }: EditorProps<unknown, IFeed['id']>) => {
   const [form] = Form.useForm<TConversationItem>();
-  const setConversation = useSetRecoilState(conversationState(index));
+  const [conversationList, setConversationList] = useRecoilState(conversationState(index[0]));
 
   const onFinish = (values: TConversationItem) => {
-    setConversation((prev) => {
+    setConversationList((prev) => {
       return [
         ...prev,
         {
@@ -69,9 +69,22 @@ const ConversationListMetaDataEditor = ({ index }: EditorProps<unknown, IFeed['i
           const type = getFieldValue('type');
           if (type === EConversationType.text) {
             return (
-              <Form.Item<TConversationItem> name="textContent" label="聊天内容">
-                <WrapSlateInput inline />
-              </Form.Item>
+              <>
+                <Form.Item<TConversationItem> name="textContent" label="聊天内容">
+                  <WrapSlateInput inline />
+                </Form.Item>
+                <Form.Item<TConversationItem> name="referenceId" label="引用的消息">
+                  <Select
+                    options={conversationList
+                      .filter((v) => [EConversationType.text, EConversationType.image].includes(v.type))
+                      .map((v) => ({
+                        label: `消息（${ConversationTypeLabel[v.type]}${v.role ? '-' + v.role : ''}）`,
+                        value: v.id,
+                      }))}
+                    allowClear
+                  />
+                </Form.Item>
+              </>
             );
           }
           if (type === EConversationType.centerText) {
