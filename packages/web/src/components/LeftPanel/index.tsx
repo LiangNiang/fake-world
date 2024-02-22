@@ -1,4 +1,4 @@
-import { BarsOutlined, CodepenOutlined, HomeOutlined } from '@ant-design/icons';
+import { BarsOutlined, CodepenOutlined, GithubOutlined, HomeOutlined } from '@ant-design/icons';
 import { Menu, MenuProps } from 'antd';
 import Marquee from 'react-fast-marquee';
 import { useTranslation } from 'react-i18next';
@@ -31,6 +31,11 @@ const LeftPanel = () => {
       icon: <CodepenOutlined />,
       title: t('menu.dataSource'),
     },
+    {
+      key: EMenus.Git,
+      icon: <GithubOutlined />,
+      title: 'Github',
+    },
   ];
 
   return (
@@ -38,7 +43,12 @@ const LeftPanel = () => {
       <div className="flex flex-1 overflow-hidden">
         <Menu
           onSelect={({ selectedKeys }) => {
-            setMenu(selectedKeys[0] as EMenus);
+            const value = selectedKeys[0] as EMenus;
+            if (value === EMenus.Git) {
+              window.open('https://github.com/LiangNiang/fake-wechat-document/');
+              return;
+            }
+            setMenu(value);
           }}
           style={{ width: '64px' }}
           selectedKeys={[menu]}
