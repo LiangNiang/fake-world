@@ -9,6 +9,7 @@ import { useSetRecoilState } from 'recoil';
 import { ALL_LANGUAGES } from '@/i18n';
 import { activatedNodeState, hoverdNodeState } from '@/state/detectedNode';
 import { ModeState } from '@/state/globalConfig';
+import { tourTargetState } from '@/state/globalConfig/tourState';
 import { LOCALE_MAP } from '@/time';
 
 import useMode from '../useMode';
@@ -19,6 +20,7 @@ const CommonBlock = () => {
   const setHoverdNode = useSetRecoilState(hoverdNodeState);
   const setActivatedNode = useSetRecoilState(activatedNodeState);
   const { i18n, t } = useTranslation();
+  const setTourTarget = useSetRecoilState(tourTargetState);
 
   useEffect(() => {
     if (isPreview) {
@@ -45,7 +47,15 @@ const CommonBlock = () => {
         </div>
         <QuickJumpSelect />
       </div>
-      <div className="grid grid-cols-2 gap-1">
+      <div
+        className="grid grid-cols-2 gap-1"
+        ref={(element) => {
+          setTourTarget((pv) => ({
+            ...pv,
+            ref1: element,
+          }));
+        }}
+      >
         <div className="col-span-1">
           <Tooltip title={t('base.modeTooltip')}>
             {t('base.mode')} <InfoCircleOutlined className="cursor-pointer" />

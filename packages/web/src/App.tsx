@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import LeftPanel from './components/LeftPanel';
 import RightPanel from './components/RightPanel';
 import Screen from './components/Screen';
+import Tour from './components/Tour';
 import useDeviceConfig from './components/useDeviceConfig';
 import { ANTD_LANG_MAP } from './i18n';
 
@@ -27,6 +28,7 @@ const App = () => {
         </div>
         {!inShareMode && <RightPanel />}
       </div>
+      <Tour />
     </ConfigProvider>
   );
 };

@@ -1,8 +1,10 @@
 import { InfoCircleOutlined } from '@ant-design/icons';
-import { App, Dropdown, Tooltip } from 'antd';
+import { App, Button, Dropdown, Tooltip } from 'antd';
 import { useTranslation } from 'react-i18next';
+import { useSetRecoilState } from 'recoil';
 
 import { imageDB, imageDBManager } from '@/dataSource';
+import { touredState } from '@/state/globalConfig/tourState';
 
 import useAppInfo from '../useAppInfo';
 import GenerateRandomUser from './GenerateRandomUser';
@@ -12,6 +14,7 @@ import ScreenshotButton from './ScreenshotButton';
 const MainMenu = () => {
   const { label, app } = useAppInfo();
   const { t } = useTranslation();
+  const setToured = useSetRecoilState(touredState);
   const { modal } = App.useApp();
 
   return (
@@ -75,6 +78,16 @@ const MainMenu = () => {
           >
             {t('menu.mainBlock.clearAll')}
           </Dropdown.Button>
+        </div>
+
+        <div className="grid grid-cols-4 items-center">
+          <Button
+            onClick={() => {
+              setToured(false);
+            }}
+          >
+            开启使用指引
+          </Button>
         </div>
       </div>
     </>

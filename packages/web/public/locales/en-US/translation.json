@@ -72,7 +72,10 @@
         "unShare": "Cancel Sharing",
         "enable": "Enable"
       }
-    }
+    },
+    "tourTip1": "Click the switch on the right or use the shortcut Shift + Z to enter editing mode. Select a block on the canvas in the middle and edit the page in WYSIWYG (What You See Is What You Get) mode.",
+    "tourTip2": "Here is displayed all editable nodes of the current page. Clicking on them in edit mode allows editing the associated data.",
+    "tourTip3": "Some nodes also support drag-and-drop to change the order."
   },
   "quickJump": {
     "wechat": {
