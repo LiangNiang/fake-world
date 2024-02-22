@@ -2,7 +2,6 @@ import { mkdir, unlink } from 'node:fs/promises';
 
 import { cors } from '@elysiajs/cors';
 import { staticPlugin } from '@elysiajs/static';
-import captureScreenshot from '@fake-world/capture';
 import { PrismaClient } from '@prisma/client';
 import { env } from 'bun';
 import { Elysia, t } from 'elysia';
@@ -32,33 +31,6 @@ const app = new Elysia()
   .get('/ping', () => 'pong！！')
   .group('/api/v1', (app) =>
     app
-      .post(
-        '/screenshot',
-        async ({ body }) => {
-          const { file, data } = body;
-          let db: Buffer | undefined;
-          if (file !== undefined) {
-            db = Buffer.from(await file.arrayBuffer());
-          }
-          const screenshot = await captureScreenshot({
-            useNativeBrowser: env.USE_NATIVE_BROWSER === 'true',
-            data,
-            db,
-            defaultHref: env.DEFAULT_HREF,
-          });
-          if (screenshot === undefined) {
-            throw new Error('screenshot generation failed');
-          }
-          return new Blob([screenshot], { type: 'image/jpeg' });
-        },
-        {
-          type: 'multipart/form-data',
-          body: t.Object({
-            data: t.ObjectString({}),
-            file: t.Optional(t.File()),
-          }),
-        }
-      )
       .get('/share/:shareKey', async ({ params: { shareKey } }) => {
         const s = await prisma.shareInstance.findFirst({
           where: {
