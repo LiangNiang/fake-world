@@ -22,11 +22,11 @@ import { ITransactionPayReward, ITransactionQrTransfer } from './typing';
 export const BUILT_IN_TRANSACTION_TYPES = ['qr-transfer', 'transfer', 'pay-reward', 'red-packet', 'credit-card-repayments'] as const;
 
 export const BUILT_IN_TRANSACTION_TYPES_LABELS = {
-  'qr-transfer': 'transactionType.qr',
-  transfer: 'transactionType.transfer',
-  'pay-reward': 'transactionType.payReward',
-  'red-packet': 'transactionType.redPacket',
-  'credit-card-repayments': 'transactionType.creditCard',
+  'qr-transfer': 'wechatPage.transactionType.qr',
+  transfer: 'wechatPage.transactionType.transfer',
+  'pay-reward': 'wechatPage.transactionType.payReward',
+  'red-packet': 'wechatPage.transactionType.redPacket',
+  'credit-card-repayments': 'wechatPage.transactionType.creditCard',
 };
 
 export const qrTransferState = atom<ITransactionQrTransfer>({
