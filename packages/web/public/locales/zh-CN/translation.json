@@ -122,7 +122,13 @@
     "main": {
       "title": "微信 ({{totalUnreadCount}})",
       "title2": "微信",
-      "search": "搜索"
+      "search": "搜索",
+      "desktopLogin": "桌面微信已登录",
+      "macLogin": "Mac 微信已登录",
+      "iPadLogin": "iPad 微信已登录",
+      "windowsLogin": "Windows 微信已登录",
+      "watchLogin": "手表微信已登录",
+      "multipleLogin": "{{number}} 个设备已登录微信"
     },
     "discover": {
       "title": "发现",

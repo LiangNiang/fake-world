@@ -122,7 +122,13 @@
     "main": {
       "title": "Weixin ({{totalUnreadCount}})",
       "title2": "Weixin",
-      "search": "Search"
+      "search": "Search",
+      "desktopLogin": "Logged in to Weixin for Desktop.",
+      "macLogin": "Logged in to Weixin for Mac.",
+      "iPadLogin": "Logged in to Weixin for iPad.",
+      "windowsLogin": "Logged in to Weixin for Windows",
+      "watchLogin": "Logged in to Weixin for Watch",
+      "multipleLogin": "Logged in to Weixin on {{number}} device(s)"
     },
     "discover": {
       "title": "Discover",
