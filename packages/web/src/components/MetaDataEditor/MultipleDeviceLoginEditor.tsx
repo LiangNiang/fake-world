@@ -27,7 +27,7 @@ const MultipleDeviceLoginEditor = ({ data }: EditorProps<TLoginDevicesConfig>) =
       <Form.Item<TLoginDevicesConfig> name="visible" label="是否显示" valuePropName="checked">
         <Switch />
       </Form.Item>
-      <Form.Item<TLoginDevicesConfig> name="devices" label="选择设备" valuePropName="checked">
+      <Form.Item<TLoginDevicesConfig> name="devices" label="选择设备">
         <Checkbox.Group options={ALL_LOGIN_DEVICES.map((v) => ({ value: v, label: v }))} />
       </Form.Item>
     </Form>
