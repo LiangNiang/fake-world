@@ -87,12 +87,6 @@
   "app": {
     "wechat": "Weixin"
   },
-  "bottomNavbar": {
-    "wechat": "chats",
-    "contacts": "Contacts",
-    "discover": "Discover",
-    "me": "Me"
-  },
   "routerLabel": {
     "wechat": {
       "index": "WeChat homepage",
@@ -111,14 +105,13 @@
       "contacts": "Contacts"
     }
   },
-  "transactionType": {
-    "qr": "QR Code Transfer",
-    "transfer": "Friend Transfer",
-    "payReward": "Pay Reward",
-    "redPacket": "Red Packet",
-    "creditCard": "Credit Card Repayment"
-  },
   "wechatPage": {
+    "bottomNavbar": {
+      "wechat": "chats",
+      "contacts": "Contacts",
+      "discover": "Discover",
+      "me": "Me"
+    },
     "main": {
       "title": "Weixin ({{totalUnreadCount}})",
       "title2": "Weixin",
@@ -250,6 +243,13 @@
       "official": "Official Accounts",
       "starred": "Starred",
       "total": "{{num}} friends"
+    },
+    "transactionType": {
+      "qr": "QR Code Transfer",
+      "transfer": "Friend Transfer",
+      "payReward": "Pay Reward",
+      "redPacket": "Red Packet",
+      "creditCard": "Credit Card Repayment"
     }
   }
 }

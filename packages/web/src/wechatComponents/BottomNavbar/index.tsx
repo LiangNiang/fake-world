@@ -62,7 +62,7 @@ const BottomNavbar = () => {
         >
           <WechatSVG className="h-7 w-7" fill={WECHAT.activated ? '#39CD80' : 'white'} stroke={WECHAT.activated ? 'unset' : 'black'} />
         </Badge>
-        <span className={twJoin('text-xs', WECHAT.activated && 'text-[#07C160]')}>{t('bottomNavbar.wechat')}</span>
+        <span className={twJoin('text-xs', WECHAT.activated && 'text-[#07C160]')}>{t('wechatPage.bottomNavbar.wechat')}</span>
       </canBeDetected.div>
       <canBeDetected.div
         className="flex cursor-pointer flex-col items-center justify-center space-y-1 py-2"
@@ -88,7 +88,7 @@ const BottomNavbar = () => {
             <AddressBookOutlinedSVG className="h-7 w-7" fill="black" />
           )}
         </Badge>
-        <span className={twJoin('text-xs', ADDRESS_BOOK.activated && 'text-[#07C160]')}>{t('bottomNavbar.contacts')}</span>
+        <span className={twJoin('text-xs', ADDRESS_BOOK.activated && 'text-[#07C160]')}>{t('wechatPage.bottomNavbar.contacts')}</span>
       </canBeDetected.div>
       <canBeDetected.div
         className="flex cursor-pointer flex-col items-center justify-center space-y-1 py-2"
@@ -110,7 +110,7 @@ const BottomNavbar = () => {
         >
           {DISCOVER.activated ? <DiscoverFilledSVG fill="#39CD80" className="h-7 w-7" /> : <DiscoverOutlinedSVG className="h-7 w-7" fill="black" />}
         </Badge>
-        <span className={twJoin('text-xs', DISCOVER.activated && 'text-[#07C160]')}>{t('bottomNavbar.discover')}</span>
+        <span className={twJoin('text-xs', DISCOVER.activated && 'text-[#07C160]')}>{t('wechatPage.bottomNavbar.discover')}</span>
       </canBeDetected.div>
       <canBeDetected.div
         className="flex cursor-pointer flex-col items-center justify-center space-y-1 py-2"
@@ -127,7 +127,7 @@ const BottomNavbar = () => {
         <Badge text={MY.badgeNumber} type={MY.badgeType} className={MY.badgeType === 'dot' ? 'right-0 top-0' : '-right-3'} hidden={MY.badgeHide}>
           {MY.activated ? <PeopleFilledSVG fill="#39CD80" className="h-7 w-7" /> : <PeopleOutlinedSVG className="h-7 w-7" fill="black" />}
         </Badge>
-        <span className={twJoin('text-xs', MY.activated && 'text-[#07C160]')}>{t('bottomNavbar.me')}</span>
+        <span className={twJoin('text-xs', MY.activated && 'text-[#07C160]')}>{t('wechatPage.bottomNavbar.me')}</span>
       </canBeDetected.div>
     </canBeDetected.div>
   );
