@@ -1,3 +1,4 @@
 packages:
   - 'packages/*'
   - '!packages/client-tools'
+  - '!packages/capture'
