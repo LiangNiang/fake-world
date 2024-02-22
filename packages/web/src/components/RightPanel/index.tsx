@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 import { MetaDataEditor } from '../MetaDataEditor';
 
 const RightPanel = () => {
@@ -12,4 +14,4 @@ const RightPanel = () => {
   );
 };
 
-export default RightPanel;
+export default memo(RightPanel);

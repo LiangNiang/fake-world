@@ -1,5 +1,6 @@
 import { BarsOutlined, CodepenOutlined, GithubOutlined, HomeOutlined } from '@ant-design/icons';
 import { Menu, MenuProps } from 'antd';
+import { memo } from 'react';
 import Marquee from 'react-fast-marquee';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState } from 'recoil';
@@ -39,7 +40,7 @@ const LeftPanel = () => {
   ];
 
   return (
-    <div className="flex h-screen flex-col pr-4 pt-4 max-lg:hidden">
+    <div className="flex h-screen flex-col pr-4 pt-4 max-lg:hidden" id="left-panel">
       <div className="flex flex-1 overflow-hidden">
         <Menu
           onSelect={({ selectedKeys }) => {
@@ -93,4 +94,4 @@ const LeftPanel = () => {
   );
 };
 
-export default LeftPanel;
+export default memo(LeftPanel);
