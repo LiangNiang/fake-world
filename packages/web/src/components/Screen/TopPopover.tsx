@@ -21,7 +21,9 @@ const TopPopover = () => {
       autoAdjustOverflow={false}
       placement="topLeft"
       zIndex={1}
-    />
+    >
+      <div className="top-0" />
+    </Popover>
   );
 };
 
