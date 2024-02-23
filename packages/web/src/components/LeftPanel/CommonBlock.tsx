@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSetRecoilState } from 'recoil';
 
-import { ALL_LANGUAGES } from '@/i18n';
+import { ALL_LANGUAGES, getCurrentLanguage } from '@/i18n';
 import { activatedNodeState, hoverdNodeState } from '@/state/detectedNode';
 import { tourTargetState } from '@/state/globalConfig/tourState';
 import { ModeState } from '@/state/modeState';
@@ -74,7 +74,7 @@ const CommonBlock = () => {
         </div>
         <div className="col-span-1">
           <Radio.Group
-            value={i18n.language}
+            value={getCurrentLanguage()}
             onChange={(ev) => {
               i18n.changeLanguage(ev.target.value);
               dayjs.locale(LOCALE_MAP[ev.target.value as keyof typeof LOCALE_MAP]);
