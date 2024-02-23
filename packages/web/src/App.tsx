@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import LeftPanel from './components/LeftPanel';
 import RightPanel from './components/RightPanel';
 import Screen from './components/Screen';
+import TopPopover from './components/Screen/TopPopover';
 import Tour from './components/Tour';
 import useDeviceConfig from './components/useDeviceConfig';
 import { ANTD_LANG_MAP } from './i18n';
@@ -17,12 +18,13 @@ const App = () => {
     <ConfigProvider locale={ANTD_LANG_MAP[i18n.language as keyof typeof ANTD_LANG_MAP]}>
       <div className="grid min-h-screen grid-cols-3 max-lg:grid-cols-1">
         {!inShareMode && (
-          <AntdApp>
+          <AntdApp className="max-lg:hidden">
             <LeftPanel />
           </AntdApp>
         )}
         <div className="flex items-center justify-center overflow-auto border-l border-r border-dashed border-orange-400 max-lg:border-none">
           <div className="border">
+            <TopPopover />
             <Screen sizeConfig={screenSize} />
           </div>
         </div>
