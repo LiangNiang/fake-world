@@ -1,7 +1,8 @@
-import { App as AntdApp, ConfigProvider } from 'antd';
+import { App as AntdApp, ConfigProvider, Popover } from 'antd';
 import { useTranslation } from 'react-i18next';
 
 import LeftPanel from './components/LeftPanel';
+import ModeSwitch from './components/ModeSwitch';
 import RightPanel from './components/RightPanel';
 import Screen from './components/Screen';
 import Tour from './components/Tour';
@@ -17,13 +18,25 @@ const App = () => {
     <ConfigProvider locale={ANTD_LANG_MAP[i18n.language as keyof typeof ANTD_LANG_MAP]}>
       <div className="grid min-h-screen grid-cols-3 max-lg:grid-cols-1">
         {!inShareMode && (
-          <AntdApp>
+          <AntdApp className="max-lg:hidden">
             <LeftPanel />
           </AntdApp>
         )}
         <div className="flex items-center justify-center overflow-auto border-l border-r border-dashed border-orange-400 max-lg:border-none">
           <div className="border">
-            <Screen sizeConfig={screenSize} />
+            <Popover
+              rootClassName="max-lg:hidden"
+              open={!inShareMode}
+              content={
+                <div className="flex space-x-2">
+                  <span>切换模式:</span>
+                  <ModeSwitch />
+                </div>
+              }
+              autoAdjustOverflow={false}
+            >
+              <Screen sizeConfig={screenSize} />
+            </Popover>
           </div>
         </div>
         {!inShareMode && <RightPanel />}

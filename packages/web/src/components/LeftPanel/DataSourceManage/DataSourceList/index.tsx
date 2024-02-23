@@ -46,7 +46,9 @@ const DataSourceList = () => {
       render: (shareKey: IDataSourceItem['shareKey']) =>
         shareKey ? (
           <div className="space-x-1">
-            <span>{shareKey}</span>
+            <a className="cursor-pointer" target="_blank" href={`${location.host}/s/${shareKey}`} rel="noreferrer">
+              {shareKey}
+            </a>
             <CopyOutlined
               className="cursor-pointer"
               onClick={() => {

@@ -1,6 +1,6 @@
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { useKeyPress } from 'ahooks';
-import { Radio, Space, Switch, Tooltip } from 'antd';
+import { Radio, Space, Tooltip } from 'antd';
 import dayjs from 'dayjs';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -12,11 +12,12 @@ import { ModeState } from '@/state/globalConfig';
 import { tourTargetState } from '@/state/globalConfig/tourState';
 import { LOCALE_MAP } from '@/time';
 
+import ModeSwitch from '../ModeSwitch';
 import useMode from '../useMode';
 import QuickJumpSelect from './QuickJumpSelect';
 
 const CommonBlock = () => {
-  const { isEdit, setMode, isPreview } = useMode();
+  const { setMode, isPreview } = useMode();
   const setHoverdNode = useSetRecoilState(hoverdNodeState);
   const setActivatedNode = useSetRecoilState(activatedNodeState);
   const { i18n, t } = useTranslation();
@@ -62,14 +63,7 @@ const CommonBlock = () => {
           </Tooltip>
         </div>
         <div className="col-span-1">
-          <Switch
-            checkedChildren={t('base.modeEdit')}
-            unCheckedChildren={t('base.modePreview')}
-            checked={isEdit}
-            onChange={(checked) => {
-              setMode(checked ? ModeState.EDIT : ModeState.PREVIEW);
-            }}
-          />
+          <ModeSwitch />
         </div>
       </div>
       <div className="grid grid-cols-2 gap-1">
