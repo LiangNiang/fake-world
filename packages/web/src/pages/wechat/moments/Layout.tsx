@@ -3,6 +3,7 @@ import { css, Global } from '@emotion/react';
 import { useScroll } from 'ahooks';
 import { pick } from 'lodash-es';
 import { CSSProperties, useEffect, useMemo, useRef, useState } from 'react';
+import { isDesktop } from 'react-device-detect';
 import { useTranslation } from 'react-i18next';
 import { Outlet } from 'react-router-dom';
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
@@ -167,7 +168,7 @@ const MomentsLayout = () => {
       <div
         className={twJoin(
           'absolute z-20 grid w-full grid-cols-3 px-4 py-2 text-white',
-          !hidden && 'mt-10',
+          !hidden && isDesktop && 'mt-10',
           bgExpand && 'transition-all duration-300'
         )}
         style={{
