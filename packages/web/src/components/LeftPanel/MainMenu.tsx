@@ -80,7 +80,7 @@ const MainMenu = () => {
           </Dropdown.Button>
         </div>
 
-        <div className="grid grid-cols-4 items-center">
+        <div>
           <Button
             onClick={() => {
               setToured(false);
