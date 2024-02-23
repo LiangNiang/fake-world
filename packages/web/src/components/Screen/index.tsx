@@ -1,4 +1,5 @@
 import { css, Global } from '@emotion/react';
+import { memo } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Outlet } from 'react-router-dom';
 
@@ -32,4 +33,4 @@ const Screen = ({ sizeConfig }: Props) => {
   );
 };
 
-export default Screen;
+export default memo(Screen);

@@ -2,6 +2,7 @@
   "base": {
     "mode": "模式",
     "modeTooltip": "shift + Z 鍵快速切換",
+    "switchMode": "切換模式",
     "modeEdit": "編輯",
     "modePreview": "預覽",
     "quickJump": "快速跳轉",
