@@ -1,13 +1,9 @@
-import UAParser from 'ua-parser-js';
-
 import { sleep } from '@/utils';
 
-export function checkCanDirectCreateScreenshot(ua: UAParser.UAParserInstance) {
-  const browser = ua.getBrowser();
-  const { name, version } = browser;
-  const majorVersion = parseInt(version ?? '', 10);
+export function checkCanDirectCreateScreenshot({ browserName, browserVersion }: { browserName: string; browserVersion: string }) {
+  const majorVersion = parseInt(browserVersion ?? '', 10);
   let errorText;
-  switch (name) {
+  switch (browserName) {
     case 'Edge':
       if (majorVersion < 94) {
         errorText = '请升级到新版本的 Edge 浏览器';
