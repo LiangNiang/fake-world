@@ -140,6 +140,12 @@ const MomentsLayout = () => {
     return <h.img src={momentsBackgroundInfo} className="h-full w-full object-cover object-center" />;
   }, [momentsBackgroundInfo]);
 
+  const handleScrollBlockWhenExpand = () => {
+    if (bgExpand) {
+      setBgExpand(false);
+    }
+  };
+
   return (
     <>
       <Global
@@ -186,11 +192,8 @@ const MomentsLayout = () => {
       <div
         className={twJoin('flex-1', bgExpand ? 'overflow-hidden' : 'overflow-auto')}
         ref={divWrapperRef}
-        onWheelCapture={() => {
-          if (bgExpand) {
-            setBgExpand(false);
-          }
-        }}
+        onWheelCapture={handleScrollBlockWhenExpand}
+        onTouchMoveCapture={handleScrollBlockWhenExpand}
         data-wheel-id={DATA_WHEEL_ID}
       >
         <canBeDetected.div
