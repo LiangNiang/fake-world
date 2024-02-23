@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { getRecoil } from 'recoil-nexus';
 
-import { ModeState, modeState } from '@/state/globalConfig';
+import { ModeState, modeState } from '@/state/modeState';
 import { showToast } from '@/wechatComponents/Toast';
 
 type Options = {

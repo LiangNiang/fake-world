@@ -2,6 +2,7 @@
   "base": {
     "mode": "Mode",
     "modeTooltip": "Shift + Z key for quick switching",
+    "switchMode": "Switch Modes",
     "modeEdit": "Edit",
     "modePreview": "Preview",
     "quickJump": "Quick Jump",

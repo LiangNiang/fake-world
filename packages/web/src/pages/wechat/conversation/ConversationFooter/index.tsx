@@ -7,7 +7,7 @@ import KeyboardOutlinedSVG from '@/assets/keyboard-outlined.svg?react';
 import StickerOutlinedSVG from '@/assets/sticker-outlined.svg?react';
 import VoiceSVG from '@/assets/voice-outlined.svg?react';
 import { activatedNodeState, allNodesState, MetaDataType, nodeInjectMetaState } from '@/state/detectedNode';
-import { ModeState, modeState } from '@/state/globalConfig';
+import { ModeState, modeState } from '@/state/modeState';
 
 import BottomPopup from './BottomPopup';
 import EmojiPanel from './EmojiPanel';
