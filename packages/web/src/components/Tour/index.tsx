@@ -25,13 +25,12 @@ const Tour = () => {
       current={current}
       open={!toured}
       onClose={() => {
+        setMode(ModeState.PREVIEW);
         setToured(true);
         setCurrent(0);
       }}
       onFinish={() => {
         setMenu(EMenus.Main);
-        setMode(ModeState.PREVIEW);
-        setCurrent(0);
       }}
       steps={[
         {

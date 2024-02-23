@@ -28,7 +28,7 @@ const app = new Elysia()
       prefix: '/public/db',
     })
   )
-  .get('/ping', () => 'pong！！')
+  .get('/ping', () => 'pong')
   .group('/api/v1', (app) =>
     app
       .get('/share/:shareKey', async ({ params: { shareKey } }) => {
