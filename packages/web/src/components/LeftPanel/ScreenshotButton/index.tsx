@@ -2,8 +2,8 @@ import { CameraOutlined } from '@ant-design/icons';
 import { App, Button, ButtonProps } from 'antd';
 import { saveAs } from 'file-saver';
 import { noop } from 'lodash-es';
+import { browserName, browserVersion } from 'react-device-detect';
 import { setRecoil } from 'recoil-nexus';
-import { UAParser } from 'ua-parser-js';
 
 import useDeviceConfig from '@/components/useDeviceConfig';
 import { ModeState, modeState } from '@/state/modeState';
@@ -18,12 +18,15 @@ type Props = {
 const ScreenshotButton = ({ buttonProps }: Props) => {
   const { message } = App.useApp();
   const { screenSize } = useDeviceConfig();
+  console.log(browserName, browserVersion);
 
   const handleCreateScreenshot = async () => {
     setRecoil(modeState, ModeState.PREVIEW);
-    const parser = new UAParser();
     try {
-      checkCanDirectCreateScreenshot(parser);
+      checkCanDirectCreateScreenshot({
+        browserName,
+        browserVersion,
+      });
     } catch (e: any) {
       message.error(e?.message);
     }

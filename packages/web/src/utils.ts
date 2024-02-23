@@ -1,4 +1,3 @@
-import { notification } from 'antd';
 import SparkMD5 from 'spark-md5';
 
 import { ping } from './services';
@@ -68,8 +67,6 @@ export async function backendHealthCheck() {
   try {
     await ping();
   } catch (e) {
-    notification.warning({
-      message: '离线模式',
-    });
+    /* empty */
   }
 }
