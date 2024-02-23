@@ -4,8 +4,9 @@ import { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
-import { EMenus, menuState, ModeState, modeState } from '@/state/globalConfig';
+import { EMenus, menuState } from '@/state/globalConfig';
 import { touredState, tourTargetState } from '@/state/globalConfig/tourState';
+import { ModeState, modeState } from '@/state/modeState';
 import { sleep } from '@/utils';
 
 const Tour = () => {

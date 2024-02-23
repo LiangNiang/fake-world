@@ -15,7 +15,7 @@ import PlayFilledSVG from '@/assets/play-filled.svg?react';
 import { h } from '@/components/HashAssets';
 import { generateInitFeedComment } from '@/faker/wechat/moments';
 import { MYSELF_ID } from '@/faker/wechat/user';
-import { ModeState, modeState } from '@/state/globalConfig';
+import { ModeState, modeState } from '@/state/modeState';
 import { feedState, IFeed } from '@/state/moments';
 import SlateText from '@/wechatComponents/SlateText';
 import { SLATE_EMPTY_VALUE } from '@/wechatComponents/SlateText/utils';

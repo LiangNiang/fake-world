@@ -2,7 +2,7 @@ import { Switch } from 'antd';
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { ModeState } from '@/state/globalConfig';
+import { ModeState } from '@/state/modeState';
 
 import useMode from '../useMode';
 

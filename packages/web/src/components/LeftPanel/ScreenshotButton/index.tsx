@@ -6,7 +6,7 @@ import { setRecoil } from 'recoil-nexus';
 import { UAParser } from 'ua-parser-js';
 
 import useDeviceConfig from '@/components/useDeviceConfig';
-import { ModeState, modeState } from '@/state/globalConfig';
+import { ModeState, modeState } from '@/state/modeState';
 import { sleep } from '@/utils';
 
 import { checkCanDirectCreateScreenshot, drawToCanvas } from './utils';

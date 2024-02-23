@@ -8,8 +8,8 @@ import { useSetRecoilState } from 'recoil';
 
 import { ALL_LANGUAGES } from '@/i18n';
 import { activatedNodeState, hoverdNodeState } from '@/state/detectedNode';
-import { ModeState } from '@/state/globalConfig';
 import { tourTargetState } from '@/state/globalConfig/tourState';
+import { ModeState } from '@/state/modeState';
 import { LOCALE_MAP } from '@/time';
 
 import ModeSwitch from '../ModeSwitch';

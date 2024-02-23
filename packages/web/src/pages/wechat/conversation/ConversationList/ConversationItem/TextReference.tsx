@@ -18,7 +18,7 @@ import {
   IConversationTypeText,
 } from '@/state/conversationState';
 import { activatedNodeState, MetaDataType } from '@/state/detectedNode';
-import { ModeState, modeState } from '@/state/globalConfig';
+import { ModeState, modeState } from '@/state/modeState';
 import SlateText from '@/wechatComponents/SlateText';
 import UserName from '@/wechatComponents/User/UserName';
 

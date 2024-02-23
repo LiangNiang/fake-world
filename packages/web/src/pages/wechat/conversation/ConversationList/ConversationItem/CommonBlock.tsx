@@ -8,7 +8,7 @@ import { twJoin, twMerge } from 'tailwind-merge';
 import { h } from '@/components/HashAssets';
 import useModeNavigate from '@/components/useModeNavigate';
 import { IConversationItemBase } from '@/state/conversationState';
-import { ModeState, modeState } from '@/state/globalConfig';
+import { ModeState, modeState } from '@/state/modeState';
 import { friendState, IProfile } from '@/state/profile';
 
 import { useConversationAPI } from '../../context';

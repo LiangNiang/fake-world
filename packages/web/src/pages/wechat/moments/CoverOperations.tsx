@@ -9,7 +9,7 @@ import LikeFilledSVG from '@/assets/like-filled.svg?react';
 import LikeOutlinedSVG from '@/assets/like-outlined.svg?react';
 import { MYSELF_ID } from '@/faker/wechat/user';
 import { activatedNodeState, allNodesState } from '@/state/detectedNode';
-import { ModeState, modeState } from '@/state/globalConfig';
+import { ModeState, modeState } from '@/state/modeState';
 import { friendState } from '@/state/profile';
 
 import { useProfile } from './hook';
