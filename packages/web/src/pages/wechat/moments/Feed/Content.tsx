@@ -11,6 +11,7 @@ import { twJoin } from 'tailwind-merge';
 import CommentOutlinedSVG from '@/assets/comment-outlined.svg?react';
 import LikeFilledSVG from '@/assets/like-filled.svg?react';
 import LikeOutlinedSVG from '@/assets/like-outlined.svg?react';
+import More2OutlinedSVG from '@/assets/more-2-outlined.svg?react';
 import PlayFilledSVG from '@/assets/play-filled.svg?react';
 import { h } from '@/components/HashAssets';
 import { generateInitFeedComment } from '@/faker/wechat/moments';
@@ -135,13 +136,8 @@ const FeedContent = ({ id, fromDetail }: Props) => {
       {renderFeedImages()}
       <div className="mt-2 flex items-center justify-between">
         <span className="text-sm text-gray-400">{dayjs(sendTimestamp).fromNow()}</span>
-        <div
-          ref={refs.setReference}
-          {...getReferenceProps()}
-          className="flex cursor-pointer select-none items-baseline space-x-[1px] rounded bg-wechatBG-3 px-2 py-[2px] text-2xl leading-[8px]"
-        >
-          <span>&middot;</span>
-          <span>&middot;</span>
+        <div ref={refs.setReference} {...getReferenceProps()} className="cursor-pointer select-none rounded bg-wechatBG-3 py-[2px] pl-2">
+          <More2OutlinedSVG fill="#465677" className="h-4 w-6 scale-150" />
         </div>
         {isMounted && (
           <div ref={refs.setFloating} style={floatingStyles} {...getFloatingProps()} className="flex select-none text-white">

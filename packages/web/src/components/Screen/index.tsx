@@ -1,26 +1,22 @@
 import { css, Global } from '@emotion/react';
 import { CSSProperties, memo } from 'react';
-import { isMobileOnly } from 'react-device-detect';
+import { isDesktop, isMobileOnly } from 'react-device-detect';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Outlet } from 'react-router-dom';
 
 import Fallback from '../Fallback';
 import DetectedOverall from '../NodeDetected/DetectedFloating';
 import StatusBar from '../StatusBar';
+import useDeviceConfig from '../useDeviceConfig';
 
-type Props = {
-  sizeConfig: {
-    width: string;
-    height: string;
-  };
-};
+const Screen = () => {
+  const { screenSize } = useDeviceConfig();
 
-const Screen = ({ sizeConfig }: Props) => {
   const style: CSSProperties = isMobileOnly
     ? { width: '100vw', height: '100vh' }
     : {
-        width: sizeConfig.width,
-        height: sizeConfig.height,
+        width: screenSize.width,
+        height: screenSize.height,
       };
 
   return (
@@ -33,7 +29,7 @@ const Screen = ({ sizeConfig }: Props) => {
         `}
       />
       <DetectedOverall />
-      <StatusBar />
+      {isDesktop && <StatusBar />}
       <ErrorBoundary FallbackComponent={Fallback}>
         <Outlet />
       </ErrorBoundary>
