@@ -18,7 +18,14 @@ export const ANTD_LANG_MAP = {
   'en-US': enUS,
 };
 
-i18n.use(Backend).use(LanguageDetector).use(initReactI18next).init();
+i18n
+  .use(Backend)
+  .use(LanguageDetector)
+  .use(initReactI18next)
+  .init({
+    supportedLngs: ['zh-CN', 'zh-TW', 'en-US'],
+    fallbackLng: 'zh-CN',
+  });
 
 export function getCurrentLanguage() {
   return i18n.language || localStorage.getItem('i18nextLng') || 'zh-CN';

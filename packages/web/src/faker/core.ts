@@ -12,7 +12,8 @@ export const LOCALE_MAP = {
 
 export default function getFakerInstanceByLang() {
   const curLang = getCurrentLanguage();
-  return LOCALE_MAP[curLang as keyof typeof LOCALE_MAP];
+  // @ts-expect-error 默认返回中文
+  return LOCALE_MAP[curLang] ?? fakerZH;
 }
 
 export { fakerEN, fakerZH, fakerZH_TW };
