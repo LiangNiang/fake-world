@@ -15,17 +15,23 @@ import EmojiList from './EmojiList';
 import FloatingButtons from './FloatingButtons';
 
 const EmojiPanel = () => {
-  const { enteringStatusCallback, nodeRef } = usePopup();
-  const { insertEmojiNode, scrollConversationListToBtm } = useConversationAPI();
+  const { enteringStatusCallback, exitedStatusCallback, nodeRef } = usePopup();
+  const { insertEmojiNode, scrollConversationListToBtm, focusInput, setMobileInputMode } = useConversationAPI();
   const inputValue = useRecoilValue(conversationInputValueState);
   const previousTouch = useRef<Touch | null>(null);
   const isInitial = isEqual(inputValue, SLATE_INITIAL_VALUE);
 
   useEffect(() => {
-    const rmEnteredCB = enteringStatusCallback.setCallback(scrollConversationListToBtm);
+    const onEnter = () => {
+      scrollConversationListToBtm();
+      setMobileInputMode('none');
+    };
+    const rmEnteredCB = enteringStatusCallback.setCallback(onEnter);
+    const rmExitedCB = exitedStatusCallback.setCallback(focusInput);
 
     return () => {
       rmEnteredCB();
+      rmExitedCB();
     };
   });
 
@@ -43,7 +49,7 @@ const EmojiPanel = () => {
       previousTouch.current = touch;
     }
     const res = height - movementY!;
-    if (res <= 570 && res >= 300) {
+    if (res <= 600 && res >= 350) {
       nodeRef.current!.style.height = `${res}px`;
     }
   }, []);

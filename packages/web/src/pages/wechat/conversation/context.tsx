@@ -1,8 +1,20 @@
-import { useCreation } from 'ahooks';
+import { useCreation, usePrevious } from 'ahooks';
 import dayjs from 'dayjs';
 import { isEqual, throttle } from 'lodash-es';
 import { nanoid } from 'nanoid';
-import { createContext, PropsWithChildren, RefObject, useCallback, useContext, useMemo, useRef } from 'react';
+import {
+  createContext,
+  Dispatch,
+  HTMLAttributes,
+  PropsWithChildren,
+  RefObject,
+  SetStateAction,
+  useCallback,
+  useContext,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { useParams } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { getRecoil, setRecoil } from 'recoil-nexus';
@@ -28,6 +40,8 @@ import { animateElement } from '@/utils';
 import { CustomElementEmoji } from '@/vite-env';
 import { SLATE_INITIAL_VALUE, withInlines } from '@/wechatComponents/SlateText/utils';
 
+type InputMode = HTMLAttributes<HTMLDivElement>['inputMode'];
+
 interface IConversationAPIContext {
   conversationId: IProfile['id'];
   listRef: RefObject<HTMLDivElement>;
@@ -39,6 +53,10 @@ interface IConversationAPIContext {
   sendTransfer: (data: Omit<IConversationTypeTransfer, 'id' | 'sendTimestamp' | 'upperText' | 'type'>) => void;
   sendRedPacketAcceptedReply: (redPacketId: IConversationTypeRedPacket['id']) => void;
   removeLastNode: () => void;
+  focusInput: () => void;
+  mobileInputMode: InputMode;
+  setMobileInputMode: Dispatch<SetStateAction<InputMode>>;
+  previousMobileInputMode: InputMode;
 }
 
 const ConversationAPIContext = createContext<IConversationAPIContext | null>(null);
@@ -48,6 +66,8 @@ export const ConversationAPIProvider = ({ children }: PropsWithChildren) => {
   const inputEditor = useCreation(() => withInlines(withHistory(withReact(createEditor()))), []);
   const { id: conversationId = '' } = useParams();
   const setRecentUseEmoji = useSetRecoilState(recentUseEmojiState);
+  const [mobileInputMode, setMobileInputMode] = useState<InputMode>('text');
+  const previousMobileInputMode = usePrevious(mobileInputMode);
 
   const scrollConversationListToBtm = useCallback(() => {
     setTimeout(() => {
@@ -58,10 +78,9 @@ export const ConversationAPIProvider = ({ children }: PropsWithChildren) => {
   }, []);
 
   const insertEmojiNode = useCallback((emojiSymbol: string) => {
-    // ReactEditor.focus(inputEditor);
     const emoji: CustomElementEmoji = { type: 'emoji', emojiSymbol, children: [{ text: '' }] };
     Transforms.insertNodes(inputEditor, emoji);
-    Transforms.move(inputEditor, { distance: 2 });
+    Transforms.move(inputEditor, { distance: 1 });
   }, []);
 
   const sendTextMessage = useCallback(() => {
@@ -173,6 +192,10 @@ export const ConversationAPIProvider = ({ children }: PropsWithChildren) => {
     Editor.deleteBackward(inputEditor, { unit: 'character' });
   }, []);
 
+  const focusInput = useCallback(() => {
+    setMobileInputMode('text');
+  }, []);
+
   const value: IConversationAPIContext = useMemo(() => {
     return {
       conversationId,
@@ -185,8 +208,13 @@ export const ConversationAPIProvider = ({ children }: PropsWithChildren) => {
       sendTickleText,
       sendTransfer,
       sendRedPacketAcceptedReply,
+      focusInput,
+      mobileInputMode,
+      setMobileInputMode,
+      previousMobileInputMode,
     };
-  }, []);
+  }, [mobileInputMode]);
+
   return <ConversationAPIContext.Provider value={value}>{children}</ConversationAPIContext.Provider>;
 };
 
