@@ -27,6 +27,10 @@ const ConversationListMetaDataEditor = ({ index }: EditorProps<unknown, IFeed['i
       ] as TConversationItem[];
     });
     form.resetFields();
+    const listElement = document.getElementById('conversation-list');
+    if (listElement) {
+      listElement.scrollTop = 9999999;
+    }
   };
 
   return (
