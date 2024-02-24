@@ -58,7 +58,7 @@ export const ConversationAPIProvider = ({ children }: PropsWithChildren) => {
   }, []);
 
   const insertEmojiNode = useCallback((emojiSymbol: string) => {
-    ReactEditor.focus(inputEditor);
+    // ReactEditor.focus(inputEditor);
     const emoji: CustomElementEmoji = { type: 'emoji', emojiSymbol, children: [{ text: '' }] };
     Transforms.insertNodes(inputEditor, emoji);
     Transforms.move(inputEditor, { distance: 2 });
@@ -170,7 +170,6 @@ export const ConversationAPIProvider = ({ children }: PropsWithChildren) => {
   );
 
   const removeLastNode = useCallback(async () => {
-    ReactEditor.focus(inputEditor);
     Editor.deleteBackward(inputEditor, { unit: 'character' });
   }, []);
 

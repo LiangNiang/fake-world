@@ -1,5 +1,6 @@
 import { isArray, keys } from 'lodash-es';
 import { useState } from 'react';
+import { isMobileOnly } from 'react-device-detect';
 import { getRecoil, setRecoil } from 'recoil-nexus';
 
 import Add2OutlinedSVG from '@/assets/add2-outlined.svg?react';
@@ -16,12 +17,19 @@ import Input from './Input';
 const ConversationFooter = () => {
   const [showEmojiPanel, setShowEmojiPanel] = useState(false);
 
+  const inputComponentProps = isMobileOnly
+    ? {
+        showEmojiPanel,
+        setShowEmojiPanel,
+      }
+    : {};
+
   return (
     <div className="flex flex-col">
       <div className="flex flex-col border-t bg-[#F6F6F6] p-2">
         <div className="flex w-full items-end space-x-2">
           <VoiceSVG fill="#000" className="h-8 w-8" />
-          <Input />
+          <Input {...inputComponentProps} />
           {showEmojiPanel ? (
             <KeyboardOutlinedSVG fill="#000" className="h-8 w-8 cursor-pointer" onClick={() => setShowEmojiPanel((v) => !v)} />
           ) : (
