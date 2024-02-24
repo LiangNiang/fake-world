@@ -74,6 +74,7 @@ const ConversationList = () => {
         treeItemDisplayName: '聊天记录',
       }}
       innerRef={listRef}
+      id="conversation-list"
     >
       <ReactSortable
         disabled={!isEdit}
