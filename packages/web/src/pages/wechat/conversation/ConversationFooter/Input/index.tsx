@@ -1,4 +1,6 @@
-import { memo } from 'react';
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import { Dispatch, memo, SetStateAction } from 'react';
+import { isMobileOnly } from 'react-device-detect';
 import { useSetRecoilState } from 'recoil';
 import { Editable, Slate } from 'slate-react';
 
@@ -10,8 +12,13 @@ import { SLATE_INITIAL_VALUE } from '@/wechatComponents/SlateText/utils';
 
 import { useConversationAPI } from '../../context';
 
-const Input = () => {
-  const { inputEditor: editor, sendTextMessage } = useConversationAPI();
+type Props = {
+  showEmojiPanel?: boolean;
+  setShowEmojiPanel?: Dispatch<SetStateAction<boolean>>;
+};
+
+const Input = ({ showEmojiPanel, setShowEmojiPanel }: Props) => {
+  const { inputEditor: editor, sendTextMessage, scrollConversationListToBtm } = useConversationAPI();
   const setInputValue = useSetRecoilState(conversationInputValueState);
 
   return (
@@ -27,6 +34,14 @@ const Input = () => {
         }}
       >
         <Editable
+          onFocus={() => {
+            if (isMobileOnly) {
+              scrollConversationListToBtm();
+              if (showEmojiPanel) {
+                setShowEmojiPanel?.(false);
+              }
+            }
+          }}
           className="rounded bg-white px-2 py-1 caret-wechatBrand-3 focus:outline-none"
           renderElement={(props) => <Element {...props} />}
           onKeyDown={(ev) => {
@@ -35,6 +50,8 @@ const Input = () => {
               sendTextMessage();
             }
           }}
+          // @ts-ignore
+          enterKeyHint="send"
         />
       </Slate>
     </canBeDetected.div>

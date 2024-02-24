@@ -40,7 +40,7 @@ const LeftPanel = () => {
   ];
 
   return (
-    <div className="flex h-screen flex-col pr-4 pt-4 max-lg:hidden" id="left-panel">
+    <div className="flex h-screen flex-col pr-4 pt-4" id="left-panel">
       <div className="flex flex-1 overflow-hidden">
         <Menu
           onSelect={({ selectedKeys }) => {

@@ -1,20 +1,27 @@
+/* eslint-disable complexity */
+import { BrowserTypes } from 'react-device-detect';
+
 import { sleep } from '@/utils';
 
 export function checkCanDirectCreateScreenshot({ browserName, browserVersion }: { browserName: string; browserVersion: string }) {
   const majorVersion = parseInt(browserVersion ?? '', 10);
   let errorText;
+  console.log(BrowserTypes);
+
   switch (browserName) {
-    case 'Edge':
+    case BrowserTypes.EdgeChromium:
+    case BrowserTypes.Edge:
       if (majorVersion < 94) {
         errorText = '请升级到新版本的 Edge 浏览器';
       }
       break;
-    case 'Chrome':
+    case BrowserTypes.Chromium:
+    case BrowserTypes.Chrome:
       if (majorVersion < 104) {
         errorText = '请升级到 Chrome > 104 或更高版本';
       }
       break;
-    case 'Opera':
+    case BrowserTypes.Opera:
       if (majorVersion < 90) {
         errorText = '请升级到 Opera > 90 或更高版本';
       }
