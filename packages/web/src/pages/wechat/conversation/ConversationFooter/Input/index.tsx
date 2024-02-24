@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { Dispatch, memo, SetStateAction } from 'react';
+import { Dispatch, memo, SetStateAction, useEffect } from 'react';
 import { isMobileOnly } from 'react-device-detect';
 import { useSetRecoilState } from 'recoil';
-import { Editable, Slate } from 'slate-react';
+import { Editable, ReactEditor, Slate } from 'slate-react';
 
 import { canBeDetected } from '@/components/NodeDetected';
 import { conversationInputValueState } from '@/state/conversationState';
@@ -11,6 +11,7 @@ import Element from '@/wechatComponents/SlateText/Element';
 import { SLATE_INITIAL_VALUE } from '@/wechatComponents/SlateText/utils';
 
 import { useConversationAPI } from '../../context';
+import { focusFix } from './utils';
 
 type Props = {
   showEmojiPanel?: boolean;
@@ -18,8 +19,15 @@ type Props = {
 };
 
 const Input = ({ showEmojiPanel, setShowEmojiPanel }: Props) => {
-  const { inputEditor: editor, sendTextMessage, scrollConversationListToBtm } = useConversationAPI();
+  const { inputEditor: editor, sendTextMessage, scrollConversationListToBtm, mobileInputMode, previousMobileInputMode } = useConversationAPI();
   const setInputValue = useSetRecoilState(conversationInputValueState);
+
+  useEffect(() => {
+    if (isMobileOnly && mobileInputMode === 'text' && previousMobileInputMode === 'none') {
+      focusFix();
+      ReactEditor.focus(editor);
+    }
+  }, [mobileInputMode]);
 
   return (
     <canBeDetected.div
@@ -34,6 +42,7 @@ const Input = ({ showEmojiPanel, setShowEmojiPanel }: Props) => {
         }}
       >
         <Editable
+          id="conversation-input"
           onFocus={() => {
             if (isMobileOnly) {
               scrollConversationListToBtm();
@@ -52,6 +61,7 @@ const Input = ({ showEmojiPanel, setShowEmojiPanel }: Props) => {
           }}
           // @ts-ignore
           enterKeyHint="send"
+          inputMode={isMobileOnly ? mobileInputMode : 'text'}
         />
       </Slate>
     </canBeDetected.div>

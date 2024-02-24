@@ -128,7 +128,7 @@ const TextReference = ({ referenceId, conversationItemId }: Props) => {
       }}
     >
       <div className="m-2 line-clamp-2">
-        <div className="float-start inline">
+        <div className="float-left inline">
           <UserName id={senderId} className="inline text-[#7D7D7D]" />
           <span className="mr-2">:</span>
         </div>

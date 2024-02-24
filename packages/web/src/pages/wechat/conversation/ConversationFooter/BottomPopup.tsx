@@ -21,6 +21,8 @@ interface IBottomPopupContext {
   enteringStatusCallback: TStatusCallback;
   enteredStatusCallback: TStatusCallback;
   exitStatusCallback: TStatusCallback;
+  exitedStatusCallback: TStatusCallback;
+  exitingStatusCallback: TStatusCallback;
 }
 
 const statusCallbackFactory = (eventName: string) => {
@@ -61,6 +63,8 @@ const BottomPopup = ({ children, show, ...rest }: PropsWithChildren<Props & Part
   const enteringStatusCallback = useCreation(() => statusCallbackFactory('onEntering'), []);
   const enteredStatusCallback = useCreation(() => statusCallbackFactory('onEntered'), []);
   const exitStatusCallback = useCreation(() => statusCallbackFactory('onExit'), []);
+  const exitedStatusCallback = useCreation(() => statusCallbackFactory('onExited'), []);
+  const exitingStatusCallback = useCreation(() => statusCallbackFactory('onExiting'), []);
 
   const value: IBottomPopupContext = useMemo(
     () => ({
@@ -68,6 +72,8 @@ const BottomPopup = ({ children, show, ...rest }: PropsWithChildren<Props & Part
       enteringStatusCallback,
       enteredStatusCallback,
       exitStatusCallback,
+      exitedStatusCallback,
+      exitingStatusCallback,
     }),
     []
   );
@@ -81,15 +87,15 @@ const BottomPopup = ({ children, show, ...rest }: PropsWithChildren<Props & Part
               height: 0;
             }
             &-enter-active {
-              height: 300px;
-              transition: height linear 300ms;
+              height: 350px;
+              transition: height linear 150ms;
             }
             &-enter-done {
-              height: 300px;
+              height: 350px;
             }
             &-exit {
               height: 0 !important;
-              transition: height linear 300ms;
+              transition: height linear 150ms;
             }
           }
         `}
@@ -97,7 +103,7 @@ const BottomPopup = ({ children, show, ...rest }: PropsWithChildren<Props & Part
       <CSSTransition
         in={show}
         nodeRef={nodeRef}
-        timeout={300}
+        timeout={150}
         unmountOnExit
         classNames="bottomPopup"
         onEntering={() => {
@@ -108,6 +114,12 @@ const BottomPopup = ({ children, show, ...rest }: PropsWithChildren<Props & Part
         }}
         onExit={() => {
           exitStatusCallback.run();
+        }}
+        onExiting={() => {
+          exitingStatusCallback.run();
+        }}
+        onExited={() => {
+          exitedStatusCallback.run();
         }}
         {...rest}
       >
