@@ -1,7 +1,7 @@
 {
   "name": "fake-world-project",
   "private": true,
-  "version": "1.2.1",
+  "version": "1.2.3",
   "scripts": {
     "dev:web": "pnpm -F @fake-world/web run dev",
     "dev:client-tools": "pnpm -F @fake-world/client-tools run dev",

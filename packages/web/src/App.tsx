@@ -22,8 +22,9 @@ const App = () => {
         )}
         <div className="flex items-center justify-center overflow-auto border-l border-r border-dashed border-orange-400 max-lg:border-none">
           <div className="border">
-            <TopPopover />
-            <Screen />
+            <TopPopover>
+              <Screen />
+            </TopPopover>
           </div>
         </div>
         {!inShareMode && <RightPanel />}
