@@ -1,10 +1,10 @@
-import { Popover } from 'antd';
+import { Popover, PopoverProps } from 'antd';
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import ModeSwitch from '../ModeSwitch';
 
-const TopPopover = () => {
+const TopPopover = ({ children }: PopoverProps) => {
   const inShareMode = !!window.__SHARE_KEY__;
   const { t } = useTranslation();
 
@@ -19,10 +19,10 @@ const TopPopover = () => {
         </div>
       }
       autoAdjustOverflow={false}
-      placement="topLeft"
+      placement="leftTop"
       zIndex={1}
     >
-      <div className="top-0" />
+      {children}
     </Popover>
   );
 };
