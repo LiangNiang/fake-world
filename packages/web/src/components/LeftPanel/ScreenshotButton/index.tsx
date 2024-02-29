@@ -40,7 +40,7 @@ const ScreenshotButton = ({ buttonProps }: Props) => {
     await sleep(700);
     const screenElement = document.querySelector('#screen') as HTMLDivElement;
     const innerHeight = window.innerHeight;
-    if (innerHeight < +screenSize.height.slice(0, -2)) {
+    if (innerHeight < screenSize.height) {
       screenElement.style.height = `${innerHeight}px`;
     }
     const [videoTrack] = stream.getVideoTracks();

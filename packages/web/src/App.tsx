@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import LeftPanel from './components/LeftPanel';
 import RightPanel from './components/RightPanel';
 import Screen from './components/Screen';
-import TopPopover from './components/TopPopover';
 import Tour from './components/Tour';
 import { ANTD_LANG_MAP } from './i18n';
 
@@ -20,11 +19,12 @@ const App = () => {
             <LeftPanel />
           </AntdApp>
         )}
-        <div className="flex items-center justify-center overflow-auto border-l border-r border-dashed border-orange-400 max-lg:border-none">
+        <div
+          className="flex items-center justify-center overflow-auto border-l border-r border-dashed border-orange-400 max-lg:border-none"
+          id="center"
+        >
           <div className="border">
-            <TopPopover>
-              <Screen />
-            </TopPopover>
+            <Screen />
           </div>
         </div>
         {!inShareMode && <RightPanel />}
