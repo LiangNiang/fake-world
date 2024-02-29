@@ -19,7 +19,7 @@ const TopPopover = ({ children }: PopoverProps) => {
         </div>
       }
       autoAdjustOverflow={false}
-      placement="leftTop"
+      placement="topLeft"
       zIndex={1}
     >
       {children}

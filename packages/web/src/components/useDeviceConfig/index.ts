@@ -1,10 +1,23 @@
+import { useSize } from 'ahooks';
 import { useRecoilValue } from 'recoil';
 
-import { deviceState, SCREEN_SIZE } from '@/state/screenState';
+import { deviceState, MOBILE_LIST, SCREEN_SIZE } from '@/state/screenState';
 
 export default function useDeviceConfig() {
   const device = useRecoilValue(deviceState);
-  const screenSize = SCREEN_SIZE[device];
+  const size = useSize(() => document.querySelector('#center'));
+  let screenSize;
+  if (device === MOBILE_LIST.AUTO) {
+    const calculatedWidth = size ? size.width - 30 : 0;
+    const calculatedHeight = size ? size.height - 100 : 0;
+    screenSize = {
+      width: calculatedWidth > 430 ? 430 : calculatedWidth,
+      height: calculatedHeight,
+    };
+  } else {
+    screenSize = SCREEN_SIZE[device];
+  }
+
   return {
     screenSize,
     device,

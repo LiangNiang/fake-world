@@ -46,7 +46,10 @@
       "clearAllConfirmTitle": "Clear all data?",
       "clearAllDesc": "This will include all data sources and image caches. Deleting cannot be undone.",
       "clearImg": "Clear Image Cache",
-      "clearFriends": "Delete all randomly added friends?"
+      "clearFriends": "Delete all randomly added friends?",
+      "device": {
+        "auto": "Auto"
+      }
     },
     "dataSourceManage": {
       "name": "Name",

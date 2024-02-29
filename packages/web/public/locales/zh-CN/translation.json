@@ -46,7 +46,10 @@
       "clearAllConfirmTitle": "是否清除所有数据？",
       "clearAllDesc": "这将包含所有的数据源、图片缓存，删除后不可恢复",
       "clearImg": "清除圖片緩存",
-      "clearFriends": "删除所有随机添加好友？"
+      "clearFriends": "删除所有随机添加好友？",
+      "device": {
+        "auto": "自动"
+      }
     },
     "dataSourceManage": {
       "name": "名字",
