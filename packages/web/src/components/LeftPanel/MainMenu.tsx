@@ -33,7 +33,7 @@ const MainMenu = () => {
           <ScreenDevicesSelect />
         </div>
         <div className="grid grid-cols-2 gap-1">
-          <Tooltip title={t('menu.mainBlock.screenshotTooltip')}>
+          <Tooltip title={t('menu.mainBlock.screenshotTooltip')} placement="topLeft">
             <div className="col-span-1">
               {t('menu.mainBlock.screenshot')} <InfoCircleOutlined />
             </div>

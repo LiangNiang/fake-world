@@ -9,7 +9,7 @@ export default function useDeviceConfig() {
   let screenSize;
   if (device === MOBILE_LIST.AUTO) {
     const calculatedWidth = size ? size.width - 30 : 0;
-    const calculatedHeight = size ? size.height - 100 : 0;
+    const calculatedHeight = size ? size.height - 140 : 0;
     screenSize = {
       width: calculatedWidth > 430 ? 430 : calculatedWidth,
       height: calculatedHeight,

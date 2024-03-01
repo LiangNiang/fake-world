@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import LeftPanel from './components/LeftPanel';
 import RightPanel from './components/RightPanel';
 import Screen from './components/Screen';
+import TopPopover from './components/TopPopover';
 import Tour from './components/Tour';
 import { ANTD_LANG_MAP } from './i18n';
 
@@ -24,7 +25,9 @@ const App = () => {
           id="center"
         >
           <div className="border">
-            <Screen />
+            <TopPopover>
+              <Screen />
+            </TopPopover>
           </div>
         </div>
         {!inShareMode && <RightPanel />}
