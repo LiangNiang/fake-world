@@ -5,7 +5,7 @@ import { deviceState, MOBILE_LIST, SCREEN_SIZE } from '@/state/screenState';
 
 export default function useDeviceConfig() {
   const device = useRecoilValue(deviceState);
-  const size = useSize(() => document.querySelector('#center'));
+  const size = useSize(() => document.querySelector('#center') || document.querySelector('#root'));
   let screenSize;
   if (device === MOBILE_LIST.AUTO) {
     const calculatedWidth = size ? size.width - 30 : 0;

@@ -46,7 +46,7 @@ const LeftPanel = () => {
           onSelect={({ selectedKeys }) => {
             const value = selectedKeys[0] as EMenus;
             if (value === EMenus.Git) {
-              window.open('https://github.com/LiangNiang/fake-wechat-document/');
+              window.open('https://github.com/LiangNiang/fake-world');
               return;
             }
             setMenu(value);
