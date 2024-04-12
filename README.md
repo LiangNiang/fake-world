@@ -91,7 +91,7 @@ pnpm install
 #### 启动前端项目
 
 ```bash
-pnpm run dev:ewb
+pnpm run dev:web
 
 ```
 #### 启动后端项目 （非必需）
