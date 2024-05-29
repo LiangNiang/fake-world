@@ -77,7 +77,10 @@
 * [docker](https://www.docker.com/) 可选
 * [docker-compose](https://docs.docker.com/compose/) 可选
 
-Node.js 使用最新的 LTS 版本即可，同时本项目使用了 [pnpm](https://pnpm.io/) 来做 monorepo，请先确保您已经安装了 pnpm
+Node.js 使用最新的 LTS 版本即可，同时本项目使用了 [pnpm](https://pnpm.io/) 来做 monorepo，请先确保您已经安装了 pnpm，可以方便的使用 [corepack](https://github.com/nodejs/corepack) 来使用包管理工具
+```bash
+corepack enable
+```
 
 ```bash
 # clone project
@@ -85,7 +88,6 @@ git clone https://github.com/LiangNiang/fake-world.git
 cd fake-world
 # 安装依赖
 pnpm install
-
 ```
 
 #### 启动前端项目

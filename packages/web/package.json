@@ -73,5 +73,8 @@
     "typescript": "^5.3.3",
     "vite": "^5.2.8",
     "vite-plugin-svgr": "^4.2.0"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }
