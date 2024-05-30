@@ -28,7 +28,7 @@
 				"useExhaustiveDependencies": "warn"
 			},
 			"a11y": {
-				"useKeyWithClickEvents": "warn",
+				"useKeyWithClickEvents": "off",
 				"useAltText": "off"
 			}
 		}

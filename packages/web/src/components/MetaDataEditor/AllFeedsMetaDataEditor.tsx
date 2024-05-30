@@ -79,7 +79,6 @@ const AllFeedsMetaDataEditor = ({ index }: EditorProps<unknown, IProfile["id"]>)
 					<Radio value="text">纯文本</Radio>
 					<Radio value="textWithImages">图文</Radio>
 					<Radio value="video">视频</Radio>
-					<Radio value="link">外链</Radio>
 				</Radio.Group>
 			</Form.Item>
 			<Form.Item<IFeed> name={["content", "text"]} label="文本内容">

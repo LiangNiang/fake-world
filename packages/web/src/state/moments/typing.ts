@@ -41,17 +41,4 @@ interface IFeedContentVideo {
 	videoInfo: string;
 }
 
-interface IFeedContentLink {
-	type: "link";
-	text?: Descendant[];
-	linkInfo: {
-		imageInfo: string;
-		linkText: string;
-	};
-}
-
-type IFeedContent =
-	| IFeedContentText
-	| IFeedContentTextWithImages
-	| IFeedContentVideo
-	| IFeedContentLink;
+type IFeedContent = IFeedContentText | IFeedContentTextWithImages | IFeedContentVideo;
