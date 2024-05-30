@@ -1,262 +1,262 @@
 {
-  "base": {
-    "mode": "模式",
-    "modeTooltip": "shift + Z 键快速切换",
-    "switchMode": "切换模式",
-    "modeEdit": "编辑",
-    "modePreview": "预览",
-    "quickJump": "快速跳转",
-    "quickJumpTooltip": "通过下拉选项快速跳转到子页面",
-    "lang": "语言",
-    "langTooltip": "切换语言（不是所有页面都有繁体中文或者英语）",
-    "curApp": "当前应用",
-    "curPage": "当前页面",
-    "csd": "画布模拟设备",
-    "save": "保存",
-    "he": "他",
-    "she": "她",
-    "his": "他的",
-    "her": "她的",
-    "safeNavigateNotice": "退出编辑模式进行页面跳转",
-    "success": "成功",
-    "error": "错误",
-    "fail": "失败",
-    "yes": "是",
-    "no": "否",
-    "operation": "操作",
-    "delete": "删除"
-  },
-  "menu": {
-    "main": "主页",
-    "trees": "可编辑节点大纲",
-    "code": "编辑当前元数据",
-    "dataSource": "数据源",
-    "settings": "设置",
-    "treesBlock": {
-      "editLabel": "（编辑模式中）",
-      "previewLabel": "（shift + Z 进入编辑模式）"
-    },
-    "mainBlock": {
-      "screenshot": "生成截图",
-      "friends": "生成随机好友",
-      "friendsLimitedError": "好友数量超出限制，可在底部修改好友数量显示",
-      "screenshotTooltip": "通过浏览器录屏功能来截图，需要手动授予权限",
-      "clearData": "清除数据",
-      "clearAll": "清除所有",
-      "clearAllConfirmTitle": "是否清除所有数据？",
-      "clearAllDesc": "这将包含所有的数据源、图片缓存，删除后不可恢复",
-      "clearImg": "清除圖片緩存",
-      "clearFriends": "删除所有随机添加好友？",
-      "device": {
-        "auto": "自动"
-      }
-    },
-    "dataSourceManage": {
-      "name": "名字",
-      "type": "类型",
-      "local": "本地",
-      "share": "共享",
-      "used": "是否使用",
-      "shareKey": "分享 Key",
-      "defaultData": "默认数据源",
-      "manage": "管理数据源",
-      "new": "新建数据源",
-      "autoGenerate": "自动生成",
-      "create": "创建",
-      "loadShare": {
-        "title": "加载外部分享数据源",
-        "placeholder": "请输入数据源分享 ID",
-        "load": "加载",
-        "errorEmpty": "分享 ID 不能为空",
-        "errorLoaded": "该数据源已经加载过了"
-      },
-      "list": "数据源列表",
-      "operation": {
-        "share": "分享",
-        "unShare": "取消分享",
-        "enable": "启用"
-      }
-    },
-    "tourTip1": "点击右边的开关或者使用快捷键 shift + z 进入编辑模式，在中间画布中选取区块，对页面进行所见即所得的编辑",
-    "tourTip2": "这里显示了当前页面的所有可编辑节点，编辑模式下点击后可以编辑该节点关联的数据",
-    "tourTip3": "部分节点还支持拖拽改变顺序"
-  },
-  "quickJump": {
-    "wechat": {
-      "index": "微信首页",
-      "profileEdit": "个人信息编辑",
-      "services": "服务",
-      "balance": "钱包 - 零钱",
-      "moments": "朋友圈",
-      "trans": "账单详情-二维码转账"
-    }
-  },
-  "app": {
-    "wechat": "微信"
-  },
-  "routerLabel": {
-    "wechat": {
-      "index": "首页",
-      "cHistory": "聊天记录",
-      "my": "我的",
-      "profileEdit": "个人信息编辑",
-      "services": "服务",
-      "wallet": "钱包",
-      "balance": "零钱",
-      "discover": "发现",
-      "moments": "朋友圈",
-      "personalMoments": "个人朋友圈",
-      "momentDetail": "单条朋友圈详情",
-      "user": "用户",
-      "transaction": "账单详情",
-      "contacts": "通讯录"
-    }
-  },
-  "wechatPage": {
-    "bottomNavbar": {
-      "wechat": "微信",
-      "contacts": "通讯录",
-      "discover": "发现",
-      "me": "我"
-    },
-    "main": {
-      "title": "微信 ({{totalUnreadCount}})",
-      "title2": "微信",
-      "search": "搜索",
-      "desktopLogin": "桌面微信已登录",
-      "macLogin": "Mac 微信已登录",
-      "iPadLogin": "iPad 微信已登录",
-      "windowsLogin": "Windows 微信已登录",
-      "watchLogin": "手表微信已登录",
-      "multipleLogin": "{{number}} 个设备已登录微信"
-    },
-    "discover": {
-      "title": "发现",
-      "moments": "朋友圈",
-      "channels": "视频号",
-      "live": "直播",
-      "scan": "扫一扫",
-      "topStories": "看一看",
-      "search": "搜一搜",
-      "nearby": "附近",
-      "games": "游戏",
-      "mp": "小程序"
-    },
-    "my": {
-      "wid": "微信号",
-      "status": "状态",
-      "services": "服务",
-      "favorites": "收藏",
-      "moments": "朋友圈",
-      "cards": "卡包",
-      "stickers": "表情",
-      "settings": "设置",
-      "profile": {
-        "title": "个人信息",
-        "photo": "头像",
-        "name": "名字",
-        "tickle": "拍一拍",
-        "wid": "微信号",
-        "qr": "我的二维码",
-        "more": "更多",
-        "icr": "来电铃声",
-        "weBeans": "微信豆",
-        "address": "我的地址"
-      }
-    },
-    "services": {
-      "title": "服务",
-      "money": "收付款",
-      "wallet": "钱包",
-      "financialServices": "金融理财",
-      "cardRepay": "信用卡还款",
-      "wealth": "理财通",
-      "insurance": "保险服务",
-      "dailyServices": "生活服务",
-      "mobile": "手机充值",
-      "utilities": "生活缴费",
-      "qqCoin": "Q币充值",
-      "public": "城市服务",
-      "charity": "腾讯公益",
-      "health": "医疗健康",
-      "travel": "交通出行",
-      "mobility": "出行服务",
-      "r&f": "火车票机票",
-      "didi": "滴滴出行",
-      "hotels": "酒店",
-      "shopping": "购物消费",
-      "brandMall": "品牌发现",
-      "jd": "京东购物",
-      "meituan": "美团外卖",
-      "eventTickets": "电影演出娱乐",
-      "meituan2": "美团特价",
-      "pdd": "拼多多",
-      "wph": "唯品会特卖",
-      "zz": "转转二手",
-      "bk": "贝壳找房"
-    },
-    "wallet": {
-      "title": "钱包",
-      "transactions": "账单",
-      "balance": "零钱",
-      "mf": "零钱通",
-      "cards": "银行卡",
-      "relativeCard": "亲属卡",
-      "payScore": "支付分",
-      "protection": "消费者保护",
-      "eCNY": "数字人民币",
-      "idInfo": "身份信息",
-      "settings": "支付设置",
-      "yield": "收益率",
-      "balancePage": {
-        "transactions": "零钱明细",
-        "my": "我的零钱",
-        "ad": "转入零钱通，能赚又能花",
-        "topUp": "充值",
-        "withdraw": "提现",
-        "provided": "本服务由财付通提供"
-      }
-    },
-    "friend": {
-      "wid": "微信号 :",
-      "nickname": "昵称 :",
-      "region": "地区 :",
-      "editContact": "设置备注和标签",
-      "tags": "标签",
-      "desc": "描述",
-      "mobile": "电话",
-      "moments": "朋友圈",
-      "privacy": "朋友权限",
-      "privacyChatsOnly": "仅聊天",
-      "privacyHideMy": "不让{{title}}看朋友圈和状态",
-      "privacyHideFriend": "不看{{title}}朋友圈和状态",
-      "more": "更多信息",
-      "sendMessage": "发消息",
-      "call": "音视频通话"
-    },
-    "moments": {
-      "title": "朋友圈",
-      "changeCover": "换封面",
-      "like": "赞",
-      "comment": "评论",
-      "cancel": "取消"
-    },
-    "contacts": {
-      "title": "通讯录",
-      "new": "新的朋友",
-      "chatsOnly": "仅聊天的朋友",
-      "group": "群聊",
-      "tags": "标签",
-      "official": "公众号",
-      "starred": "星标朋友",
-      "total": "{{num}} 个朋友"
-    },
-    "transactionType": {
-      "qr": "二维码转账",
-      "transfer": "好友转账",
-      "payReward": "赞赏码",
-      "redPacket": "红包",
-      "creditCard": "信用卡还款"
-    }
-  }
+	"base": {
+		"mode": "模式",
+		"modeTooltip": "shift + Z 键快速切换",
+		"switchMode": "切换模式",
+		"modeEdit": "编辑",
+		"modePreview": "预览",
+		"quickJump": "快速跳转",
+		"quickJumpTooltip": "通过下拉选项快速跳转到子页面",
+		"lang": "语言",
+		"langTooltip": "切换语言（不是所有页面都有繁体中文或者英语）",
+		"curApp": "当前应用",
+		"curPage": "当前页面",
+		"csd": "画布模拟设备",
+		"save": "保存",
+		"he": "他",
+		"she": "她",
+		"his": "他的",
+		"her": "她的",
+		"safeNavigateNotice": "退出编辑模式进行页面跳转",
+		"success": "成功",
+		"error": "错误",
+		"fail": "失败",
+		"yes": "是",
+		"no": "否",
+		"operation": "操作",
+		"delete": "删除"
+	},
+	"menu": {
+		"main": "主页",
+		"trees": "可编辑节点大纲",
+		"code": "编辑当前元数据",
+		"dataSource": "数据源",
+		"settings": "设置",
+		"treesBlock": {
+			"editLabel": "（编辑模式中）",
+			"previewLabel": "（shift + Z 进入编辑模式）"
+		},
+		"mainBlock": {
+			"screenshot": "生成截图",
+			"friends": "生成随机好友",
+			"friendsLimitedError": "好友数量超出限制，可在底部修改好友数量显示",
+			"screenshotTooltip": "通过浏览器录屏功能来截图，需要手动授予权限",
+			"clearData": "清除数据",
+			"clearAll": "清除所有",
+			"clearAllConfirmTitle": "是否清除所有数据？",
+			"clearAllDesc": "这将包含所有的数据源、图片缓存，删除后不可恢复",
+			"clearImg": "清除圖片緩存",
+			"clearFriends": "删除所有随机添加好友？",
+			"device": {
+				"auto": "自动"
+			}
+		},
+		"dataSourceManage": {
+			"name": "名字",
+			"type": "类型",
+			"local": "本地",
+			"share": "共享",
+			"used": "是否使用",
+			"shareKey": "分享 Key",
+			"defaultData": "默认数据源",
+			"manage": "管理数据源",
+			"new": "新建数据源",
+			"autoGenerate": "自动生成",
+			"create": "创建",
+			"loadShare": {
+				"title": "加载外部分享数据源",
+				"placeholder": "请输入数据源分享 ID",
+				"load": "加载",
+				"errorEmpty": "分享 ID 不能为空",
+				"errorLoaded": "该数据源已经加载过了"
+			},
+			"list": "数据源列表",
+			"operation": {
+				"share": "分享",
+				"unShare": "取消分享",
+				"enable": "启用"
+			}
+		},
+		"tourTip1": "点击右边的开关或者使用快捷键 shift + z 进入编辑模式，在中间画布中选取区块，对页面进行所见即所得的编辑",
+		"tourTip2": "这里显示了当前页面的所有可编辑节点，编辑模式下点击后可以编辑该节点关联的数据",
+		"tourTip3": "部分节点还支持拖拽改变顺序"
+	},
+	"quickJump": {
+		"wechat": {
+			"index": "微信首页",
+			"profileEdit": "个人信息编辑",
+			"services": "服务",
+			"balance": "钱包 - 零钱",
+			"moments": "朋友圈",
+			"trans": "账单详情-二维码转账"
+		}
+	},
+	"app": {
+		"wechat": "微信"
+	},
+	"routerLabel": {
+		"wechat": {
+			"index": "首页",
+			"cHistory": "聊天记录",
+			"my": "我的",
+			"profileEdit": "个人信息编辑",
+			"services": "服务",
+			"wallet": "钱包",
+			"balance": "零钱",
+			"discover": "发现",
+			"moments": "朋友圈",
+			"personalMoments": "个人朋友圈",
+			"momentDetail": "单条朋友圈详情",
+			"user": "用户",
+			"transaction": "账单详情",
+			"contacts": "通讯录"
+		}
+	},
+	"wechatPage": {
+		"bottomNavbar": {
+			"wechat": "微信",
+			"contacts": "通讯录",
+			"discover": "发现",
+			"me": "我"
+		},
+		"main": {
+			"title": "微信 ({{totalUnreadCount}})",
+			"title2": "微信",
+			"search": "搜索",
+			"desktopLogin": "桌面微信已登录",
+			"macLogin": "Mac 微信已登录",
+			"iPadLogin": "iPad 微信已登录",
+			"windowsLogin": "Windows 微信已登录",
+			"watchLogin": "手表微信已登录",
+			"multipleLogin": "{{number}} 个设备已登录微信"
+		},
+		"discover": {
+			"title": "发现",
+			"moments": "朋友圈",
+			"channels": "视频号",
+			"live": "直播",
+			"scan": "扫一扫",
+			"topStories": "看一看",
+			"search": "搜一搜",
+			"nearby": "附近",
+			"games": "游戏",
+			"mp": "小程序"
+		},
+		"my": {
+			"wid": "微信号",
+			"status": "状态",
+			"services": "服务",
+			"favorites": "收藏",
+			"moments": "朋友圈",
+			"cards": "卡包",
+			"stickers": "表情",
+			"settings": "设置",
+			"profile": {
+				"title": "个人信息",
+				"photo": "头像",
+				"name": "名字",
+				"tickle": "拍一拍",
+				"wid": "微信号",
+				"qr": "我的二维码",
+				"more": "更多",
+				"icr": "来电铃声",
+				"weBeans": "微信豆",
+				"address": "我的地址"
+			}
+		},
+		"services": {
+			"title": "服务",
+			"money": "收付款",
+			"wallet": "钱包",
+			"financialServices": "金融理财",
+			"cardRepay": "信用卡还款",
+			"wealth": "理财通",
+			"insurance": "保险服务",
+			"dailyServices": "生活服务",
+			"mobile": "手机充值",
+			"utilities": "生活缴费",
+			"qqCoin": "Q币充值",
+			"public": "城市服务",
+			"charity": "腾讯公益",
+			"health": "医疗健康",
+			"travel": "交通出行",
+			"mobility": "出行服务",
+			"r&f": "火车票机票",
+			"didi": "滴滴出行",
+			"hotels": "酒店",
+			"shopping": "购物消费",
+			"brandMall": "品牌发现",
+			"jd": "京东购物",
+			"meituan": "美团外卖",
+			"eventTickets": "电影演出娱乐",
+			"meituan2": "美团特价",
+			"pdd": "拼多多",
+			"wph": "唯品会特卖",
+			"zz": "转转二手",
+			"bk": "贝壳找房"
+		},
+		"wallet": {
+			"title": "钱包",
+			"transactions": "账单",
+			"balance": "零钱",
+			"mf": "零钱通",
+			"cards": "银行卡",
+			"relativeCard": "亲属卡",
+			"payScore": "支付分",
+			"protection": "消费者保护",
+			"eCNY": "数字人民币",
+			"idInfo": "身份信息",
+			"settings": "支付设置",
+			"yield": "收益率",
+			"balancePage": {
+				"transactions": "零钱明细",
+				"my": "我的零钱",
+				"ad": "转入零钱通，能赚又能花",
+				"topUp": "充值",
+				"withdraw": "提现",
+				"provided": "本服务由财付通提供"
+			}
+		},
+		"friend": {
+			"wid": "微信号 :",
+			"nickname": "昵称 :",
+			"region": "地区 :",
+			"editContact": "设置备注和标签",
+			"tags": "标签",
+			"desc": "描述",
+			"mobile": "电话",
+			"moments": "朋友圈",
+			"privacy": "朋友权限",
+			"privacyChatsOnly": "仅聊天",
+			"privacyHideMy": "不让{{title}}看朋友圈和状态",
+			"privacyHideFriend": "不看{{title}}朋友圈和状态",
+			"more": "更多信息",
+			"sendMessage": "发消息",
+			"call": "音视频通话"
+		},
+		"moments": {
+			"title": "朋友圈",
+			"changeCover": "换封面",
+			"like": "赞",
+			"comment": "评论",
+			"cancel": "取消"
+		},
+		"contacts": {
+			"title": "通讯录",
+			"new": "新的朋友",
+			"chatsOnly": "仅聊天的朋友",
+			"group": "群聊",
+			"tags": "标签",
+			"official": "公众号",
+			"starred": "星标朋友",
+			"total": "{{num}} 个朋友"
+		},
+		"transactionType": {
+			"qr": "二维码转账",
+			"transfer": "好友转账",
+			"payReward": "赞赏码",
+			"redPacket": "红包",
+			"creditCard": "信用卡还款"
+		}
+	}
 }

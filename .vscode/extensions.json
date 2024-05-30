@@ -1,9 +1,8 @@
 {
-  "recommendations": [
-    "bradlc.vscode-tailwindcss",
-    "editorconfig.editorconfig",
-    "dbaeumer.vscode-eslint",
-    "esbenp.prettier-vscode",
-    "lokalise.i18n-ally"
-  ]
+	"recommendations": [
+		"bradlc.vscode-tailwindcss",
+		"editorconfig.editorconfig",
+		"lokalise.i18n-ally",
+		"biomejs.biome"
+	]
 }

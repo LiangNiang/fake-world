@@ -1,18 +1,37 @@
 {
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "tailwindCSS.classAttributes": [
-    "class",
-    "className",
-    "classNames",
-    "blockClassName",
-    "innerBlockClassName"
-  ],
-  "i18n-ally.localesPaths": [
-    "packages/web/public/locales"
-  ],
-  "i18n-ally.enabledFrameworks": [
-    "react",
-    "react-i18next"
-  ],
-  "i18n-ally.keystyle": "nested"
+	"typescript.tsdk": "node_modules/typescript/lib",
+	"tailwindCSS.classAttributes": [
+		"class",
+		"className",
+		"classNames",
+		"blockClassName",
+		"innerBlockClassName"
+	],
+	"i18n-ally.localesPaths": ["packages/web/public/locales"],
+	"i18n-ally.enabledFrameworks": ["react", "react-i18next"],
+	"i18n-ally.keystyle": "nested",
+	"[typescript]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[typescriptreact]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[javascript]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[javascriptreact]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[json]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[jsonc]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"editor.defaultFormatter": "biomejs.biome",
+	"editor.codeActionsOnSave": {
+		"quickfix.biome": "explicit",
+		"source.organizeImports.biome": "explicit"
+	},
+	"editor.formatOnSave": true
 }

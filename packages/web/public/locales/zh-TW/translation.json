@@ -1,262 +1,262 @@
 {
-  "base": {
-    "mode": "模式",
-    "modeTooltip": "shift + Z 鍵快速切換",
-    "switchMode": "切換模式",
-    "modeEdit": "編輯",
-    "modePreview": "預覽",
-    "quickJump": "快速跳轉",
-    "quickJumpTooltip": "通過下拉選項快速跳轉到子頁面",
-    "lang": "語言",
-    "langTooltip": "切換語言（不是所有頁面都有繁體中文或者英語）",
-    "curApp": "當前應用",
-    "curPage": "當前頁面",
-    "csd": "畫布模擬設備",
-    "save": "保存",
-    "he": "他",
-    "she": "她",
-    "his": "他的",
-    "her": "她的",
-    "safeNavigateNotice": "退出編輯模式進行頁面跳轉",
-    "success": "成功",
-    "error": "錯誤",
-    "fail": "失敗",
-    "yes": "是",
-    "no": "否",
-    "operation": "操作",
-    "delete": "刪除"
-  },
-  "menu": {
-    "main": "主頁",
-    "trees": "可編輯節點大綱",
-    "code":  "編輯當前元數據",
-    "dataSource": "數據源",
-    "settings": "設定",
-    "treesBlock": {
-      "editLabel": "（編輯模式中）",
-      "previewLabel": "（shift + Z 進入編輯模式）"
-    },
-    "mainBlock": {
-      "screenshot": "生成截圖",
-      "friends": "生成隨機好友",
-      "friendsLimitedError": "好友數量超出限制，可在底部修改好友數量顯示",
-      "screenshotTooltip": "透過瀏覽器錄屏功能來截圖，需要手動授予許可權",
-      "clearData": "清除數據",
-      "clearAll": "清除所有",
-      "clearAllConfirmTitle": "是否清除所有數據？",
-      "clearAllDesc": "這將包含所有的數據源、圖片緩存，刪除後不可恢復",
-      "clearImg": "Clear Image Cache",
-      "clearFriends": "刪除所有隨機新增好友？",
-      "device": {
-        "auto": "自動"
-      }
-    },
-    "dataSourceManage": {
-      "name": "名字",
-      "type": "類型",
-      "local": "本地",
-      "share": "共享",
-      "used": "是否使用",
-      "shareKey": "分享 Key",
-      "defaultData": "預設數據源",
-      "manage": "管理數據源",
-      "new": "新建數據源",
-      "autoGenerate": "自動生成",
-      "create": "創建",
-      "loadShare": {
-        "title": "加載外部分享數據源",
-        "placeholder": "請輸入數據源分享 ID",
-        "load": "加載",
-        "errorEmpty": "分享 ID 不能為空",
-        "errorLoaded": "該數據源已經加載過了"
-      },
-      "list": "數據源列表",
-      "operation": {
-        "share": "分享",
-        "unShare": "取消分享",
-        "enable": "啟用"
-      }
-    },
-    "tourTip1": "點擊右側的開關或使用快捷鍵 Shift + Z 進入編輯模式，在中間畫布中選取區塊，對頁面進行所見即所得的編輯",
-    "tourTip2": "這裡顯示了當前頁面的所有可編輯節點。在編輯模式下點擊後可以編輯該節點關聯的資料",
-    "tourTip3": "部分節點還支援拖曳以改變順序"
-  },  
-  "quickJump": {
-    "wechat": {
-      "index": "微信首頁",
-      "profileEdit": "個人信息編輯",
-      "services": "服務",
-      "balance": "錢包 - 零錢",
-      "moments": "朋友圈",
-      "trans": "賬單詳情-二維碼轉賬"
-    }
-  },
-  "app": {
-    "wechat": "微信"
-  },
-  "routerLabel": {
-    "wechat": {
-      "index": "首頁",
-      "cHistory": "聊天記錄",
-      "my": "我",
-      "profileEdit": "個人信息編輯",
-      "services": "服務",
-      "wallet": "錢包",
-      "balance": "零錢",
-      "discover": "發現",
-      "moments": "朋友圈",
-      "personalMoments": "個人朋友圈",
-      "momentDetail": "單條朋友圈詳情",
-      "user": "用戶",
-      "transaction": "賬單詳情",
-      "contacts": "通訊錄"
-    }
-  },
-  "wechatPage": {
-    "bottomNavbar": {
-      "wechat": "聊天",
-      "me": "我",
-      "contacts": "通訊錄",
-      "discover": "發現"
-    },
-    "main": {
-      "title": "微信 ({{totalUnreadCount}})",
-      "title2": "微信",
-      "search": "搜尋",
-      "desktopLogin": "已登入微信桌面版",
-      "macLogin": "已登入微信 for Mac",
-      "iPadLogin": "已登入微信 for iPad",
-      "windowsLogin": "已登入微信 for Windows",
-      "watchLogin": "手錶微信已登入",
-      "multipleLogin": "{{number}} 個裝置已登入微信"
-    },
-    "discover": {
-      "title": "發現",
-      "moments": "朋友圈",
-      "channels": "影音號",
-      "live": "直播",
-      "scan": "掃描",
-      "topStories": "看一看",
-      "search": "搜一搜",
-      "nearby": "附近",
-      "games": "遊戲",
-      "mp": "小程式"
-    },
-    "my": {
-      "wid": "微信 ID",
-      "status": "狀態",
-      "services": "服務",
-      "favorites": "收藏",
-      "moments": "朋友圈",
-      "cards": "票證 & 卡劵",
-      "stickers": "貼圖市集",
-      "settings": "設定",
-      "profile": {
-        "title": "個人資訊",
-        "photo": "大頭貼",
-        "name": "名字",
-        "tickle": "拍一拍",
-        "wid": "微信 ID",
-        "qr": "我的 QR Code",
-        "more": "更多",
-        "icr": "來電鈴聲",
-        "weBeans": "WeBeans",
-        "address": "我的地址"
-      }
-    },
-    "services": {
-      "title": "服務",
-      "money": "收付款",
-      "wallet": "錢包",
-      "financialServices": "金融理財",
-      "cardRepay": "信用卡還款",
-      "wealth": "理財通",
-      "insurance": "保險服務",
-      "dailyServices": "生活服務",
-      "mobile": "手機話費儲值",
-      "utilities": "生活繳費",
-      "qqCoin": "Q幣儲值",
-      "public": "城市服務",
-      "charity": "騰訊公益",
-      "health": "醫療健康",
-      "travel": "交通出行",
-      "mobility": "出行服務",
-      "r&f": "機票車票",
-      "didi": "叫車服務",
-      "hotels": "飯店",
-      "shopping": "購物消費",
-      "brandMall": "品牌發現",
-      "jd": "精選商品",
-      "meituan": "美食外送",
-      "eventTickets": "電影演出玩樂",
-      "meituan2": "美團特價",
-      "pdd": "拼多多",
-      "wph": "唯品會特賣",
-      "zz": "二手商品",
-      "bk": "貝殼找房"
-    },
-    "wallet": {
-      "title": "錢包",
-      "transactions": "賬單",
-      "balance": "餘額",
-      "mf": "零錢通",
-      "cards": "信用卡 / 簽約金融卡",
-      "relativeCard": "親屬卡",
-      "payScore": "WeChat Pay Score",
-      "protection": "消費者保護",
-      "eCNY": "数字人民币",
-      "idInfo": "身份信息",
-      "settings": "付款設定",
-      "yield": "收益率",
-      "balancePage": {
-        "transactions": "餘額記錄",
-        "my": "我的餘額",
-        "ad": "轉入零錢通，能賺又能花",
-        "topUp": "儲值",
-        "withdraw": "提款",
-        "provided": "本服務由財付通提供"
-      }
-    },
-    "friend": {
-      "wid": "微信 ID :",
-      "nickname": "暱稱 :",
-      "region": "地區 :",
-      "editContact": "設定備註和標籤",
-      "tags": "標籤",
-      "desc": "描述",
-      "mobile": "電話號碼",
-      "moments": "朋友圈",
-      "privacy": "朋友權限",
-      "privacyChatsOnly": "僅聊天",
-      "privacyHideMy": "不讓{{title}}瀏覽朋友圈和狀態",
-      "privacyHideFriend": "不瀏覽{{title}}朋友圈和狀態",
-      "more": "更多資訊",
-      "sendMessage": "傳送訊息",
-      "call": "語音/視訊通話"
-    },
-    "moments": {
-      "title": "朋友圈",
-      "changeCover": "更換封面",
-      "like": "讚",
-      "comment": "評論",
-      "cancel": "取消"
-    },
-    "contacts": {
-      "title": "通訊錄",
-      "new": "新的朋友",
-      "chatsOnly": "僅聊天的朋友",
-      "group": "群組",
-      "tags": "標籤",
-      "official": "官方賬號",
-      "starred": "超級好友",
-      "total": "{{num}} 個聯絡人"
-    },
-    "transactionType": {
-      "qr": "二維碼轉賬",
-      "transfer": "好友轉賬",
-      "payReward": "贊賞碼",
-      "redPacket": "紅包",
-      "creditCard": "信用卡還款"
-    }
-  }
+	"base": {
+		"mode": "模式",
+		"modeTooltip": "shift + Z 鍵快速切換",
+		"switchMode": "切換模式",
+		"modeEdit": "編輯",
+		"modePreview": "預覽",
+		"quickJump": "快速跳轉",
+		"quickJumpTooltip": "通過下拉選項快速跳轉到子頁面",
+		"lang": "語言",
+		"langTooltip": "切換語言（不是所有頁面都有繁體中文或者英語）",
+		"curApp": "當前應用",
+		"curPage": "當前頁面",
+		"csd": "畫布模擬設備",
+		"save": "保存",
+		"he": "他",
+		"she": "她",
+		"his": "他的",
+		"her": "她的",
+		"safeNavigateNotice": "退出編輯模式進行頁面跳轉",
+		"success": "成功",
+		"error": "錯誤",
+		"fail": "失敗",
+		"yes": "是",
+		"no": "否",
+		"operation": "操作",
+		"delete": "刪除"
+	},
+	"menu": {
+		"main": "主頁",
+		"trees": "可編輯節點大綱",
+		"code": "編輯當前元數據",
+		"dataSource": "數據源",
+		"settings": "設定",
+		"treesBlock": {
+			"editLabel": "（編輯模式中）",
+			"previewLabel": "（shift + Z 進入編輯模式）"
+		},
+		"mainBlock": {
+			"screenshot": "生成截圖",
+			"friends": "生成隨機好友",
+			"friendsLimitedError": "好友數量超出限制，可在底部修改好友數量顯示",
+			"screenshotTooltip": "透過瀏覽器錄屏功能來截圖，需要手動授予許可權",
+			"clearData": "清除數據",
+			"clearAll": "清除所有",
+			"clearAllConfirmTitle": "是否清除所有數據？",
+			"clearAllDesc": "這將包含所有的數據源、圖片緩存，刪除後不可恢復",
+			"clearImg": "Clear Image Cache",
+			"clearFriends": "刪除所有隨機新增好友？",
+			"device": {
+				"auto": "自動"
+			}
+		},
+		"dataSourceManage": {
+			"name": "名字",
+			"type": "類型",
+			"local": "本地",
+			"share": "共享",
+			"used": "是否使用",
+			"shareKey": "分享 Key",
+			"defaultData": "預設數據源",
+			"manage": "管理數據源",
+			"new": "新建數據源",
+			"autoGenerate": "自動生成",
+			"create": "創建",
+			"loadShare": {
+				"title": "加載外部分享數據源",
+				"placeholder": "請輸入數據源分享 ID",
+				"load": "加載",
+				"errorEmpty": "分享 ID 不能為空",
+				"errorLoaded": "該數據源已經加載過了"
+			},
+			"list": "數據源列表",
+			"operation": {
+				"share": "分享",
+				"unShare": "取消分享",
+				"enable": "啟用"
+			}
+		},
+		"tourTip1": "點擊右側的開關或使用快捷鍵 Shift + Z 進入編輯模式，在中間畫布中選取區塊，對頁面進行所見即所得的編輯",
+		"tourTip2": "這裡顯示了當前頁面的所有可編輯節點。在編輯模式下點擊後可以編輯該節點關聯的資料",
+		"tourTip3": "部分節點還支援拖曳以改變順序"
+	},
+	"quickJump": {
+		"wechat": {
+			"index": "微信首頁",
+			"profileEdit": "個人信息編輯",
+			"services": "服務",
+			"balance": "錢包 - 零錢",
+			"moments": "朋友圈",
+			"trans": "賬單詳情-二維碼轉賬"
+		}
+	},
+	"app": {
+		"wechat": "微信"
+	},
+	"routerLabel": {
+		"wechat": {
+			"index": "首頁",
+			"cHistory": "聊天記錄",
+			"my": "我",
+			"profileEdit": "個人信息編輯",
+			"services": "服務",
+			"wallet": "錢包",
+			"balance": "零錢",
+			"discover": "發現",
+			"moments": "朋友圈",
+			"personalMoments": "個人朋友圈",
+			"momentDetail": "單條朋友圈詳情",
+			"user": "用戶",
+			"transaction": "賬單詳情",
+			"contacts": "通訊錄"
+		}
+	},
+	"wechatPage": {
+		"bottomNavbar": {
+			"wechat": "聊天",
+			"me": "我",
+			"contacts": "通訊錄",
+			"discover": "發現"
+		},
+		"main": {
+			"title": "微信 ({{totalUnreadCount}})",
+			"title2": "微信",
+			"search": "搜尋",
+			"desktopLogin": "已登入微信桌面版",
+			"macLogin": "已登入微信 for Mac",
+			"iPadLogin": "已登入微信 for iPad",
+			"windowsLogin": "已登入微信 for Windows",
+			"watchLogin": "手錶微信已登入",
+			"multipleLogin": "{{number}} 個裝置已登入微信"
+		},
+		"discover": {
+			"title": "發現",
+			"moments": "朋友圈",
+			"channels": "影音號",
+			"live": "直播",
+			"scan": "掃描",
+			"topStories": "看一看",
+			"search": "搜一搜",
+			"nearby": "附近",
+			"games": "遊戲",
+			"mp": "小程式"
+		},
+		"my": {
+			"wid": "微信 ID",
+			"status": "狀態",
+			"services": "服務",
+			"favorites": "收藏",
+			"moments": "朋友圈",
+			"cards": "票證 & 卡劵",
+			"stickers": "貼圖市集",
+			"settings": "設定",
+			"profile": {
+				"title": "個人資訊",
+				"photo": "大頭貼",
+				"name": "名字",
+				"tickle": "拍一拍",
+				"wid": "微信 ID",
+				"qr": "我的 QR Code",
+				"more": "更多",
+				"icr": "來電鈴聲",
+				"weBeans": "WeBeans",
+				"address": "我的地址"
+			}
+		},
+		"services": {
+			"title": "服務",
+			"money": "收付款",
+			"wallet": "錢包",
+			"financialServices": "金融理財",
+			"cardRepay": "信用卡還款",
+			"wealth": "理財通",
+			"insurance": "保險服務",
+			"dailyServices": "生活服務",
+			"mobile": "手機話費儲值",
+			"utilities": "生活繳費",
+			"qqCoin": "Q幣儲值",
+			"public": "城市服務",
+			"charity": "騰訊公益",
+			"health": "醫療健康",
+			"travel": "交通出行",
+			"mobility": "出行服務",
+			"r&f": "機票車票",
+			"didi": "叫車服務",
+			"hotels": "飯店",
+			"shopping": "購物消費",
+			"brandMall": "品牌發現",
+			"jd": "精選商品",
+			"meituan": "美食外送",
+			"eventTickets": "電影演出玩樂",
+			"meituan2": "美團特價",
+			"pdd": "拼多多",
+			"wph": "唯品會特賣",
+			"zz": "二手商品",
+			"bk": "貝殼找房"
+		},
+		"wallet": {
+			"title": "錢包",
+			"transactions": "賬單",
+			"balance": "餘額",
+			"mf": "零錢通",
+			"cards": "信用卡 / 簽約金融卡",
+			"relativeCard": "親屬卡",
+			"payScore": "WeChat Pay Score",
+			"protection": "消費者保護",
+			"eCNY": "数字人民币",
+			"idInfo": "身份信息",
+			"settings": "付款設定",
+			"yield": "收益率",
+			"balancePage": {
+				"transactions": "餘額記錄",
+				"my": "我的餘額",
+				"ad": "轉入零錢通，能賺又能花",
+				"topUp": "儲值",
+				"withdraw": "提款",
+				"provided": "本服務由財付通提供"
+			}
+		},
+		"friend": {
+			"wid": "微信 ID :",
+			"nickname": "暱稱 :",
+			"region": "地區 :",
+			"editContact": "設定備註和標籤",
+			"tags": "標籤",
+			"desc": "描述",
+			"mobile": "電話號碼",
+			"moments": "朋友圈",
+			"privacy": "朋友權限",
+			"privacyChatsOnly": "僅聊天",
+			"privacyHideMy": "不讓{{title}}瀏覽朋友圈和狀態",
+			"privacyHideFriend": "不瀏覽{{title}}朋友圈和狀態",
+			"more": "更多資訊",
+			"sendMessage": "傳送訊息",
+			"call": "語音/視訊通話"
+		},
+		"moments": {
+			"title": "朋友圈",
+			"changeCover": "更換封面",
+			"like": "讚",
+			"comment": "評論",
+			"cancel": "取消"
+		},
+		"contacts": {
+			"title": "通訊錄",
+			"new": "新的朋友",
+			"chatsOnly": "僅聊天的朋友",
+			"group": "群組",
+			"tags": "標籤",
+			"official": "官方賬號",
+			"starred": "超級好友",
+			"total": "{{num}} 個聯絡人"
+		},
+		"transactionType": {
+			"qr": "二維碼轉賬",
+			"transfer": "好友轉賬",
+			"payReward": "贊賞碼",
+			"redPacket": "紅包",
+			"creditCard": "信用卡還款"
+		}
+	}
 }

@@ -1,5 +1,5 @@
 {
-  "navigationFallback": {
-    "rewrite": "/index.html"
-  }
+	"navigationFallback": {
+		"rewrite": "/index.html"
+	}
 }

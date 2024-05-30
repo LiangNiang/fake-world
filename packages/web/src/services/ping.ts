@@ -1,5 +1,5 @@
-import request from './request';
+import request from "./request";
 
 export async function ping() {
-  return request.get('/ping');
+	return request.get("/ping");
 }

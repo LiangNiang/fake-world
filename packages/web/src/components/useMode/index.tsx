@@ -1,14 +1,14 @@
-import { useRecoilState } from 'recoil';
+import { useRecoilState } from "recoil";
 
-import { ModeState, modeState } from '@/state/modeState';
+import { ModeState, modeState } from "@/state/modeState";
 
 export default function useMode() {
-  const [mode, setMode] = useRecoilState(modeState);
+	const [mode, setMode] = useRecoilState(modeState);
 
-  return {
-    mode,
-    isEdit: mode === ModeState.EDIT,
-    isPreview: mode === ModeState.PREVIEW,
-    setMode,
-  };
+	return {
+		mode,
+		isEdit: mode === ModeState.EDIT,
+		isPreview: mode === ModeState.PREVIEW,
+		setMode,
+	};
 }
