@@ -8,17 +8,16 @@
 		"start": "bun run src/index.ts"
 	},
 	"dependencies": {
-		"@elysiajs/cors": "^0.8.0",
-		"@elysiajs/static": "^0.8.1",
+		"@elysiajs/cors": "^1.0.2",
+		"@elysiajs/static": "^1.0.3",
 		"@prisma/client": "5.9.1",
-		"elysia": "^0.8.17",
+		"elysia": "^1.0.22",
 		"nanoid": "^5.0.5",
-		"prisma": "^5.9.1"
+		"prisma": "^5.14.0"
 	},
 	"devDependencies": {
-		"@sinclair/typebox": "^0.32.14",
-		"bun": "^1.0.29",
-		"bun-types": "^1.0.29",
+		"bun": "^1.1.10",
+		"bun-types": "^1.1.10",
 		"typescript": "^5.3.3"
 	},
 	"module": "src/index.js"

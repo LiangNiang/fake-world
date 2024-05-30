@@ -1,4 +1,4 @@
-FROM node:18-alpine as installer
+FROM node:lts as installer
 
 ENV NODE_ENV=production
 
@@ -7,7 +7,6 @@ WORKDIR /app
 ADD package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc /app/
 ADD packages/api/package.json /app/packages/api/
 ADD packages/api/prisma /app/packages/api/prisma
-ADD packages/capture/package.json /app/packages/capture/
 RUN npm i -g pnpm && cd packages/api && pnpm install --prod --no-optional && pnpx prisma generate
 ADD . /app
 
