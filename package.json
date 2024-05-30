@@ -10,11 +10,13 @@
 		"lint": "biome lint .",
 		"lint:fix": "biome check --apply .",
 		"check": "biome check .",
-		"check:fix": "biome check --apply-unsafe ."
+		"check:fix": "biome check --apply-unsafe .",
+		"release": "release-it"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.7.3",
 		"@types/node": "^20.12.13",
+		"release-it": "^17.3.0",
 		"typescript": "^5.3.3"
 	},
 	"workspaces": ["packages/*"],
