@@ -15,7 +15,7 @@ export default function useDeviceConfig() {
 		const calculatedHeight = size ? size.height - 140 : 0;
 		screenSize = {
 			width: calculatedWidth > 430 ? 430 : calculatedWidth,
-			height: calculatedHeight,
+			height: calculatedHeight > 932 ? 932 : calculatedHeight,
 		};
 	} else {
 		screenSize = SCREEN_SIZE[device];
