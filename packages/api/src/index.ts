@@ -5,7 +5,7 @@ import { cors } from "@elysiajs/cors";
 import { staticPlugin } from "@elysiajs/static";
 import { PrismaClient } from "@prisma/client";
 import { env } from "bun";
-import { Elysia, t } from "elysia";
+import { Elysia, NotFoundError, t } from "elysia";
 import { nanoid } from "nanoid";
 
 const prisma = new PrismaClient();
@@ -37,7 +37,7 @@ const app = new Elysia()
 						shareKey,
 					},
 				});
-				if (!s) throw new Error("Share Instance Not Found");
+				if (!s) throw new NotFoundError("Share Instance Not Found");
 				return {
 					data: {
 						shareKey: s.shareKey,
@@ -74,7 +74,7 @@ const app = new Elysia()
 						set.status = 200;
 						return {
 							message: "success",
-							code: 10,
+							code: 0,
 						};
 					},
 				},
@@ -118,12 +118,16 @@ const app = new Elysia()
 						file: t.Optional(t.File()),
 					}),
 				},
-			),
+			)
+			.onError(async () => {
+				return {
+					code: -1,
+				};
+			}),
 	)
-	.onError(async ({ error, set }) => {
-		console.error(error);
+	.onError(async ({ set }) => {
 		await prisma.$disconnect();
-		set.status = 400;
+		set.status = 500;
 		return {
 			code: -1,
 			message: "Something went wrong. Please try again later.",

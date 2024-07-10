@@ -24,17 +24,17 @@ importers:
   packages/api:
     dependencies:
       '@elysiajs/cors':
-        specifier: ^1.0.2
-        version: 1.0.2(elysia@1.0.22(@sinclair/typebox@0.32.31)(typescript@5.3.3))
+        specifier: ^1.0.4
+        version: 1.0.4(elysia@1.0.27(@sinclair/typebox@0.32.31)(typescript@5.3.3))
       '@elysiajs/static':
         specifier: ^1.0.3
-        version: 1.0.3(elysia@1.0.22(@sinclair/typebox@0.32.31)(typescript@5.3.3))
+        version: 1.0.3(elysia@1.0.27(@sinclair/typebox@0.32.31)(typescript@5.3.3))
       '@prisma/client':
         specifier: 5.9.1
         version: 5.9.1(prisma@5.14.0)
       elysia:
-        specifier: ^1.0.22
-        version: 1.0.22(@sinclair/typebox@0.32.31)(typescript@5.3.3)
+        specifier: ^1.0.27
+        version: 1.0.27(@sinclair/typebox@0.32.31)(typescript@5.3.3)
       nanoid:
         specifier: ^5.0.5
         version: 5.0.5
@@ -43,8 +43,8 @@ importers:
         version: 5.14.0
     devDependencies:
       bun:
-        specifier: ^1.1.10
-        version: 1.1.10
+        specifier: ^1.1.18
+        version: 1.1.18
       bun-types:
         specifier: ^1.1.10
         version: 1.1.10
@@ -509,8 +509,8 @@ packages:
     resolution: {integrity: sha512-SITSV6aIXsuVNV3f3O0f2n/cgyEDWoSqtZMYiAmcsYHydcKrOz3gUxB/iXd/Qf08+IZX4KpgNbvUdMBmWz+kcA==}
     engines: {node: '>=10'}
 
-  '@elysiajs/cors@1.0.2':
-    resolution: {integrity: sha512-2X+wes5M2SdSaI4lGp0YBbTK35y9TtjjjFMjmQNjMonUXxtOrAR7cA0lsSIvHQ8UTd9z+mMBn7NyBhWaKxq0jA==}
+  '@elysiajs/cors@1.0.4':
+    resolution: {integrity: sha512-rrjJFM/z2jxGcVPwj26U91DogZTz3gBpOhHPFHYWH2bMir0AbnrOc2F6SNQr2opQAbmGoxDPPEgZFyqenXHRbw==}
     peerDependencies:
       elysia: '>= 1.0.2'
 
@@ -894,8 +894,8 @@ packages:
     cpu: [arm64]
     os: [darwin]
 
-  '@oven/bun-darwin-aarch64@1.1.10':
-    resolution: {integrity: sha512-5x6QGEzTurmCPZM3OLosIJE0QynhKfKZZ6uSVl7C36mNPFAZfTXjK64LgbM+4P9Kr0PyEQnZweLlScl+HaEJcw==}
+  '@oven/bun-darwin-aarch64@1.1.18':
+    resolution: {integrity: sha512-2YMh1G+S5AxDqOEDh9i+9kc17887mkP/yzK/d5DQ0NyPt5uR2w5FKGaalPLDiu5w139y3LKBi+1eGba1oEJnyw==}
     cpu: [arm64]
     os: [darwin]
 
@@ -909,8 +909,8 @@ packages:
     cpu: [x64]
     os: [darwin]
 
-  '@oven/bun-darwin-x64-baseline@1.1.10':
-    resolution: {integrity: sha512-a/P612tHH86gpBiITwHmrpFMLT9Z/v6VxBKpPK+FgejIgLDGvzfIOxbNtBeGygWbZaAFDQfRRQJFGpVHvjwGQA==}
+  '@oven/bun-darwin-x64-baseline@1.1.18':
+    resolution: {integrity: sha512-shwwfe9Yugpyr490FdjQ90O3JtETbszyUk4PBXQrbz3babPfhXGuVGewis8ORNYeb8zoWGo/adk4biby6kKwHA==}
     cpu: [x64]
     os: [darwin]
 
@@ -924,8 +924,8 @@ packages:
     cpu: [x64]
     os: [darwin]
 
-  '@oven/bun-darwin-x64@1.1.10':
-    resolution: {integrity: sha512-DYbp2koaATwWikMIyeWLq2LhLZtvxzr4WuFIBe4+KwoWLGXJEC8uK9QsTwis/tCLPH45ov9DMwDmBA31oX+0iA==}
+  '@oven/bun-darwin-x64@1.1.18':
+    resolution: {integrity: sha512-ppeJpQqEXO6nfCneq2TXYFO/l1S/KYKTt3cintTiQxW0ISvj36vQcP/l0ln8BxEu46EnqulVKDrkTBAttv9sww==}
     cpu: [x64]
     os: [darwin]
 
@@ -939,8 +939,8 @@ packages:
     cpu: [arm64]
     os: [linux]
 
-  '@oven/bun-linux-aarch64@1.1.10':
-    resolution: {integrity: sha512-iR7TRUWtVtrPe+iZu1ISQNbz7M6HxMRtn4PCr/a6dswuPkIhvXxTJUD6WTpHnHxsgioS5GHG9eonu03PTeBY0Q==}
+  '@oven/bun-linux-aarch64@1.1.18':
+    resolution: {integrity: sha512-cDwqcGA/PiiqM8pQkZSRW0HbSh3r1hMsS2ew61d6FjjEI7HP+bwTuu0n0rGdzQKWTtb3PzzXvOkiFZywKS5Gzg==}
     cpu: [arm64]
     os: [linux]
 
@@ -954,8 +954,8 @@ packages:
     cpu: [x64]
     os: [linux]
 
-  '@oven/bun-linux-x64-baseline@1.1.10':
-    resolution: {integrity: sha512-TjBH/KIyI/4Ms3PJYRm2QEgI7HOyV5fXdwqwB/40SCPXND6wq0u4voHDIINc9rdHDRXpmO8RPUFWsKNuN3Mf5w==}
+  '@oven/bun-linux-x64-baseline@1.1.18':
+    resolution: {integrity: sha512-hxnFwssve6M9i4phusIn9swFvQKwLI+9i2taWSotshp1axLXQ5ruIIE9WPKJGR0i+yuw5Q8HBCnUDDh5ZMp9rA==}
     cpu: [x64]
     os: [linux]
 
@@ -969,18 +969,18 @@ packages:
     cpu: [x64]
     os: [linux]
 
-  '@oven/bun-linux-x64@1.1.10':
-    resolution: {integrity: sha512-pUgLdu/5Yn+hV8aIwZE0x2H/t2QQRIPWUibnUdDLglnNtGjaqNUyST9iVN5TD7NdMk1p342GDc9rouA8VxAHHA==}
+  '@oven/bun-linux-x64@1.1.18':
+    resolution: {integrity: sha512-oce0pELxlVhRO7clQGAkbo8vfxaCmRpf7Tu/Swn+T/wqeA5tew02HmsZAnDQqgYx8Z2/QpCOfF1SvLsdg7hR+A==}
     cpu: [x64]
     os: [linux]
 
-  '@oven/bun-windows-x64-baseline@1.1.10':
-    resolution: {integrity: sha512-+q2pDLq9VCXYJ89pcT5AevXUTGdDoqgq+scE3qlKLclSxtSR25K18C61D9rpqgiueC6jLrxIN13w5qOi4B3LfQ==}
+  '@oven/bun-windows-x64-baseline@1.1.18':
+    resolution: {integrity: sha512-Wlb55q9QbayO+7NvfYMnU8oaTPz1k2xMr7mm9+JOnG/I6q82HMvIQEG181bAhU1kcm5YcZZ5E0WMp2gX3NFsEw==}
     cpu: [x64]
     os: [win32]
 
-  '@oven/bun-windows-x64@1.1.10':
-    resolution: {integrity: sha512-+KiITh1xyrDGoRXM3HLHyO9iweaMZ9T41KP4cbov92D78SKxR5jpq1LDLPhWK668a0aNX/r9PGePkPNt4yg/HA==}
+  '@oven/bun-windows-x64@1.1.18':
+    resolution: {integrity: sha512-d639p5g8hrXyvFX3FK9EpsaoVEhMRThftmkueljjpYnYjMvIiMQ2crHtI2zwZ6yLEHvecaFXVXlocu2+jxia7g==}
     cpu: [x64]
     os: [win32]
 
@@ -1620,8 +1620,8 @@ packages:
     os: [darwin, linux]
     hasBin: true
 
-  bun@1.1.10:
-    resolution: {integrity: sha512-qOJXrQZSzJ5DbJMt47GZGWtUSmIkbwD7fPSN/XS/T46D4cTTnPK46QDHlyC8VD+Anvs6uKNwuwKIyB31kUdHmQ==}
+  bun@1.1.18:
+    resolution: {integrity: sha512-bv1wLYtmkn6GCqYFsVO9xZzPvNaDlA3xHbtePGHMtXMqq8N/vo+L6b19LB4+I5RKXFAsSmgzonyh2oMExaaWcQ==}
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -2054,8 +2054,8 @@ packages:
   electron-to-chromium@1.4.655:
     resolution: {integrity: sha512-2yszojF7vIZ68adIOvzV4bku8OZad9w5H9xF3ZAMZjPuOjBarlflUkjN6DggdV+L71WZuKUfKUhov/34+G5QHg==}
 
-  elysia@1.0.22:
-    resolution: {integrity: sha512-bEdO6glElFciGvtYGzZoQ4mZyfTCNGm63jpCvPYIs+cC65i37qP93DFT+ZasB3s4m5HnavklCuXHKtuo5X2o8A==}
+  elysia@1.0.27:
+    resolution: {integrity: sha512-mf76BUZeLyw459KbKL+LLy+KtwOV152EfeZWp3p1fivbqEGu20IKbqkDmpiwzJxIz26ifp6Y3gQ0d4UizFvHrw==}
     peerDependencies:
       '@sinclair/typebox': '>= 0.31.0'
       openapi-types: '>= 12.0.0'
@@ -4614,13 +4614,13 @@ snapshots:
 
   '@ctrl/tinycolor@3.6.1': {}
 
-  '@elysiajs/cors@1.0.2(elysia@1.0.22(@sinclair/typebox@0.32.31)(typescript@5.3.3))':
+  '@elysiajs/cors@1.0.4(elysia@1.0.27(@sinclair/typebox@0.32.31)(typescript@5.3.3))':
     dependencies:
-      elysia: 1.0.22(@sinclair/typebox@0.32.31)(typescript@5.3.3)
+      elysia: 1.0.27(@sinclair/typebox@0.32.31)(typescript@5.3.3)
 
-  '@elysiajs/static@1.0.3(elysia@1.0.22(@sinclair/typebox@0.32.31)(typescript@5.3.3))':
+  '@elysiajs/static@1.0.3(elysia@1.0.27(@sinclair/typebox@0.32.31)(typescript@5.3.3))':
     dependencies:
-      elysia: 1.0.22(@sinclair/typebox@0.32.31)(typescript@5.3.3)
+      elysia: 1.0.27(@sinclair/typebox@0.32.31)(typescript@5.3.3)
       node-cache: 5.1.2
 
   '@emotion/babel-plugin@11.11.0':
@@ -4997,7 +4997,7 @@ snapshots:
   '@oven/bun-darwin-aarch64@1.0.6':
     optional: true
 
-  '@oven/bun-darwin-aarch64@1.1.10':
+  '@oven/bun-darwin-aarch64@1.1.18':
     optional: true
 
   '@oven/bun-darwin-x64-baseline@1.0.27':
@@ -5006,7 +5006,7 @@ snapshots:
   '@oven/bun-darwin-x64-baseline@1.0.6':
     optional: true
 
-  '@oven/bun-darwin-x64-baseline@1.1.10':
+  '@oven/bun-darwin-x64-baseline@1.1.18':
     optional: true
 
   '@oven/bun-darwin-x64@1.0.27':
@@ -5015,7 +5015,7 @@ snapshots:
   '@oven/bun-darwin-x64@1.0.6':
     optional: true
 
-  '@oven/bun-darwin-x64@1.1.10':
+  '@oven/bun-darwin-x64@1.1.18':
     optional: true
 
   '@oven/bun-linux-aarch64@1.0.27':
@@ -5024,7 +5024,7 @@ snapshots:
   '@oven/bun-linux-aarch64@1.0.6':
     optional: true
 
-  '@oven/bun-linux-aarch64@1.1.10':
+  '@oven/bun-linux-aarch64@1.1.18':
     optional: true
 
   '@oven/bun-linux-x64-baseline@1.0.27':
@@ -5033,7 +5033,7 @@ snapshots:
   '@oven/bun-linux-x64-baseline@1.0.6':
     optional: true
 
-  '@oven/bun-linux-x64-baseline@1.1.10':
+  '@oven/bun-linux-x64-baseline@1.1.18':
     optional: true
 
   '@oven/bun-linux-x64@1.0.27':
@@ -5042,13 +5042,13 @@ snapshots:
   '@oven/bun-linux-x64@1.0.6':
     optional: true
 
-  '@oven/bun-linux-x64@1.1.10':
+  '@oven/bun-linux-x64@1.1.18':
     optional: true
 
-  '@oven/bun-windows-x64-baseline@1.1.10':
+  '@oven/bun-windows-x64-baseline@1.1.18':
     optional: true
 
-  '@oven/bun-windows-x64@1.1.10':
+  '@oven/bun-windows-x64@1.1.18':
     optional: true
 
   '@pnpm/config.env-replace@1.1.0': {}
@@ -5760,16 +5760,16 @@ snapshots:
       '@oven/bun-linux-x64': 1.0.6
       '@oven/bun-linux-x64-baseline': 1.0.6
 
-  bun@1.1.10:
+  bun@1.1.18:
     optionalDependencies:
-      '@oven/bun-darwin-aarch64': 1.1.10
-      '@oven/bun-darwin-x64': 1.1.10
-      '@oven/bun-darwin-x64-baseline': 1.1.10
-      '@oven/bun-linux-aarch64': 1.1.10
-      '@oven/bun-linux-x64': 1.1.10
-      '@oven/bun-linux-x64-baseline': 1.1.10
-      '@oven/bun-windows-x64': 1.1.10
-      '@oven/bun-windows-x64-baseline': 1.1.10
+      '@oven/bun-darwin-aarch64': 1.1.18
+      '@oven/bun-darwin-x64': 1.1.18
+      '@oven/bun-darwin-x64-baseline': 1.1.18
+      '@oven/bun-linux-aarch64': 1.1.18
+      '@oven/bun-linux-x64': 1.1.18
+      '@oven/bun-linux-x64-baseline': 1.1.18
+      '@oven/bun-windows-x64': 1.1.18
+      '@oven/bun-windows-x64-baseline': 1.1.18
 
   bundle-name@3.0.0:
     dependencies:
@@ -6203,7 +6203,7 @@ snapshots:
 
   electron-to-chromium@1.4.655: {}
 
-  elysia@1.0.22(@sinclair/typebox@0.32.31)(typescript@5.3.3):
+  elysia@1.0.27(@sinclair/typebox@0.32.31)(typescript@5.3.3):
     dependencies:
       '@sinclair/typebox': 0.32.31
       cookie: 0.6.0
