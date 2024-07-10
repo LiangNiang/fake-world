@@ -4,9 +4,13 @@ import { resolve } from "node:path";
 import { cors } from "@elysiajs/cors";
 import { staticPlugin } from "@elysiajs/static";
 import { PrismaClient } from "@prisma/client";
+import { generateObject } from "ai";
 import { env } from "bun";
 import { Elysia, NotFoundError, t } from "elysia";
+import { rateLimit } from "elysia-rate-limit";
 import { nanoid } from "nanoid";
+import { z } from "zod";
+import { openai } from "./provider";
 
 const prisma = new PrismaClient();
 
@@ -31,6 +35,7 @@ const app = new Elysia()
 	.get("/ping", () => "pong")
 	.group("/api/v1", (app) =>
 		app
+			.get("/ping", () => "pong")
 			.get("/share/:shareKey", async ({ params: { shareKey } }) => {
 				const s = await prisma.shareInstance.findFirst({
 					where: {
@@ -119,7 +124,71 @@ const app = new Elysia()
 					}),
 				},
 			)
-			.onError(async () => {
+			.group("/ai", (app) =>
+				app
+					.use(rateLimit({ max: 2 }))
+					.get(
+						"/profiles",
+						async ({ query: { len } }) => {
+							const { object } = await generateObject({
+								mode: "auto",
+								model: openai("gpt-3.5-turbo"),
+								schema: z.object({
+									profiles: z.array(
+										z.object({
+											nickname: z.string(),
+											gender: z.enum(["female", "male"]),
+											wechatId: z.string(),
+											signature: z.string(),
+											firstMoment: z.string(),
+										}),
+									),
+								}),
+								prompt: `给我随机生成${len}个用户资料，包括性别（gender: "male" | "female"）、昵称（nickname）、微信 id（wechatId）、朋友圈个性签名（signature）、一条文字朋友圈（firstMoment，不少于 40 字），要求尽量年轻现代化一点，语言为中文环境，但是也可以有英文、数字、emoji，严格贴近当今 90 后 00 后的 style，时尚潮流富有个性`,
+							});
+							return {
+								data: object,
+								code: 0,
+								message: "success",
+							};
+						},
+						{
+							query: t.Object({
+								len: t.Optional(t.Numeric({ maximum: 50, minimum: 1, default: 10 })),
+							}),
+						},
+					)
+					.get(
+						"/chat_message",
+						async ({ query: { len } }) => {
+							const { object } = await generateObject({
+								mode: "auto",
+								model: openai("gpt-3.5-turbo"),
+								schema: z.object({
+									profiles: z.array(
+										z.object({
+											role: z.enum(["friend", "mine"]),
+											content: z.string(),
+										}),
+									),
+								}),
+								prompt: `给我随机生成${len}句微信聊天记录，包括发送人（role），发送的内容（content），每个人可以连续说几句都行，但不能只有一个人再说，要求尽量年轻现代化一点，语言为中文环境，但是也可以有英文、数字、emoji，严格贴近当今 90 后 00 后的 style，时尚潮流富有个性，聊天的整体主题小于等于 2 个`,
+							});
+							return {
+								data: object,
+								code: 0,
+								message: "success",
+							};
+						},
+						{
+							query: t.Object({
+								len: t.Optional(t.Numeric({ maximum: 30, minimum: 2, default: 10 })),
+							}),
+						},
+					),
+			)
+			.onError(async (err) => {
+				console.log(err);
 				return {
 					code: -1,
 				};

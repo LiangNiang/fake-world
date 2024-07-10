@@ -8,12 +8,16 @@
 		"start": "bun run src/index.ts"
 	},
 	"dependencies": {
+		"@ai-sdk/openai": "^0.0.36",
 		"@elysiajs/cors": "^1.0.4",
 		"@elysiajs/static": "^1.0.3",
 		"@prisma/client": "5.9.1",
+		"ai": "^3.2.19",
 		"elysia": "^1.0.27",
+		"elysia-rate-limit": "^4.1.0",
 		"nanoid": "^5.0.5",
-		"prisma": "^5.14.0"
+		"prisma": "^5.14.0",
+		"zod": "^3.23.8"
 	},
 	"devDependencies": {
 		"bun": "^1.1.18",
