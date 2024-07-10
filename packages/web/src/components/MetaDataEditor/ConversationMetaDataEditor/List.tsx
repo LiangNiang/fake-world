@@ -1,4 +1,4 @@
-import { Button, Form, Input, InputNumber, Radio, Select, Switch } from "antd";
+import { App, Button, Form, Input, InputNumber, Radio, Select, Switch } from "antd";
 import dayjs from "dayjs";
 import { nanoid } from "nanoid";
 import { useRecoilState } from "recoil";
@@ -10,16 +10,30 @@ import {
 	type TConversationItem,
 	conversationState,
 } from "@/state/conversationState";
-import type { IFeed } from "@/state/moments";
 import { SLATE_INITIAL_VALUE } from "@/wechatComponents/SlateText/utils";
 
+import { generateChatMessage } from "@/services";
+import { type IProfile, friendState } from "@/state/profile";
+import { useState } from "react";
+import { getRecoil } from "recoil-nexus";
 import LocalImageUploadWithPreview from "../LocalImageUpload";
 import WrapSlateInput from "../SlateInput";
 import { CONVERSATION_TYPE_OPTIONS } from "./consts";
 
-const ConversationListMetaDataEditor = ({ index }: EditorProps<unknown, IFeed["id"]>) => {
+const ConversationListMetaDataEditor = ({ index }: EditorProps<unknown, IProfile["id"]>) => {
 	const [form] = Form.useForm<TConversationItem>();
-	const [conversationList, setConversationList] = useRecoilState(conversationState(index[0]));
+	const [conversationList, setConversationList] = useRecoilState(conversationState(index));
+	const [aiLoading, setAiLoading] = useState(false);
+	const { message } = App.useApp();
+
+	const scrollToBtm = () => {
+		setTimeout(() => {
+			const listElement = document.getElementById("conversation-list");
+			if (listElement) {
+				listElement.scrollTop = 9999999;
+			}
+		});
+	};
 
 	const onFinish = (values: TConversationItem) => {
 		setConversationList((prev) => {
@@ -33,10 +47,7 @@ const ConversationListMetaDataEditor = ({ index }: EditorProps<unknown, IFeed["i
 			] as TConversationItem[];
 		});
 		form.resetFields();
-		const listElement = document.getElementById("conversation-list");
-		if (listElement) {
-			listElement.scrollTop = 9999999;
-		}
+		scrollToBtm();
 	};
 
 	return (
@@ -280,9 +291,54 @@ const ConversationListMetaDataEditor = ({ index }: EditorProps<unknown, IFeed["i
 				}}
 			</Form.Item>
 			<Form.Item>
-				<Button type="primary" htmlType="submit">
-					创建
-				</Button>
+				<div className="space-x-2">
+					<Button type="primary" htmlType="submit">
+						创建
+					</Button>
+					<Button
+						loading={aiLoading}
+						onClick={async () => {
+							const { remark: friendRemark } = getRecoil(friendState(index));
+							let remark: string | undefined = undefined;
+							if (friendRemark) {
+								remark = `我给这个好友的备注是${friendRemark}`;
+							}
+							setAiLoading(true);
+							generateChatMessage(remark)
+								.then((res) => {
+									const { messages } = res.data;
+									messages.forEach((m) => {
+										setConversationList((prev) => {
+											return [
+												...prev,
+												{
+													id: nanoid(8),
+													sendTimestamp: dayjs().valueOf(),
+													type: EConversationType.text,
+													role: m.role,
+													textContent: [
+														{
+															type: "paragraph",
+															children: [{ text: m.content }],
+														},
+													],
+												},
+											];
+										});
+									});
+									scrollToBtm();
+								})
+								.catch(() => {
+									message.error("生成失败，请稍后再试");
+								})
+								.finally(() => {
+									setAiLoading(false);
+								});
+						}}
+					>
+						随机生成 20 句
+					</Button>
+				</div>
 			</Form.Item>
 		</Form>
 	);

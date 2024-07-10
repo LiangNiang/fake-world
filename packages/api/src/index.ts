@@ -160,19 +160,19 @@ const app = new Elysia()
 					)
 					.get(
 						"/chat_message",
-						async ({ query: { len } }) => {
+						async ({ query: { remark } }) => {
 							const { object } = await generateObject({
 								mode: "auto",
 								model: openai("gpt-3.5-turbo"),
 								schema: z.object({
-									profiles: z.array(
+									messages: z.array(
 										z.object({
 											role: z.enum(["friend", "mine"]),
 											content: z.string(),
 										}),
 									),
 								}),
-								prompt: `给我随机生成${len}句微信聊天记录，包括发送人（role），发送的内容（content），每个人可以连续说几句都行，但不能只有一个人再说，要求尽量年轻现代化一点，语言为中文环境，但是也可以有英文、数字、emoji，严格贴近当今 90 后 00 后的 style，时尚潮流富有个性，聊天的整体主题小于等于 2 个`,
+								prompt: `给我随机生成 20 句微信聊天记录，包括发送人（role, mine 是我自己，friend 是我的朋友，要求生成的角色符合语境以及上下文，例如不允许出现朋友称呼我为我给他的备注），发送的内容（content），每个人可以连续说几句都行，但不能只有一个人再说，要求尽量年轻现代化一点，语言为中文环境，但是也可以有英文、数字、emoji，严格贴近当今 90 后 00 后的 style，时尚潮流富有个性，聊天的整体主题小于等于 2 个，语境和主题符合${remark}`,
 							});
 							return {
 								data: object,
@@ -182,7 +182,7 @@ const app = new Elysia()
 						},
 						{
 							query: t.Object({
-								len: t.Optional(t.Numeric({ maximum: 30, minimum: 2, default: 10 })),
+								remark: t.Optional(t.String()),
 							}),
 						},
 					),
