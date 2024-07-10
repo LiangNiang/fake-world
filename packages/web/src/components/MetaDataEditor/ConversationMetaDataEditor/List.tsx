@@ -14,6 +14,8 @@ import { SLATE_INITIAL_VALUE } from "@/wechatComponents/SlateText/utils";
 
 import { generateChatMessage } from "@/services";
 import { type IProfile, friendState } from "@/state/profile";
+import { useCreation, useUnmount } from "ahooks";
+import { message as globalMessage } from "antd";
 import { useState } from "react";
 import { getRecoil } from "recoil-nexus";
 import LocalImageUploadWithPreview from "../LocalImageUpload";
@@ -25,6 +27,14 @@ const ConversationListMetaDataEditor = ({ index }: EditorProps<unknown, IProfile
 	const [conversationList, setConversationList] = useRecoilState(conversationState(index));
 	const [aiLoading, setAiLoading] = useState(false);
 	const { message } = App.useApp();
+	const ctl = useCreation(() => new AbortController(), []);
+
+	useUnmount(() => {
+		if (aiLoading) {
+			ctl.abort();
+			globalMessage.info("AI 生成已取消");
+		}
+	});
 
 	const scrollToBtm = () => {
 		setTimeout(() => {
@@ -304,7 +314,7 @@ const ConversationListMetaDataEditor = ({ index }: EditorProps<unknown, IProfile
 								remark = `我给这个好友的备注是${friendRemark}`;
 							}
 							setAiLoading(true);
-							generateChatMessage(remark)
+							generateChatMessage(remark, ctl.signal)
 								.then((res) => {
 									const { messages } = res.data;
 									messages.forEach((m) => {
@@ -328,15 +338,19 @@ const ConversationListMetaDataEditor = ({ index }: EditorProps<unknown, IProfile
 									});
 									scrollToBtm();
 								})
-								.catch(() => {
-									message.error("生成失败，请稍后再试");
+								.catch((err) => {
+									if (err.response?.status === 429) {
+										message.error("请等待一段时间后再试");
+									} else {
+										message.error("生成失败，请稍后再试");
+									}
 								})
 								.finally(() => {
 									setAiLoading(false);
 								});
 						}}
 					>
-						随机生成 20 句
+						随机生成 20 句聊天记录
 					</Button>
 				</div>
 			</Form.Item>
