@@ -1,8 +1,3 @@
-import { App, Button, Form, Input, InputNumber, Radio, Select, Switch } from "antd";
-import dayjs from "dayjs";
-import { nanoid } from "nanoid";
-import { useRecoilState } from "recoil";
-
 import {
 	ConversationTypeLabel,
 	EConversationRole,
@@ -10,29 +5,29 @@ import {
 	type TConversationItem,
 	conversationState,
 } from "@/state/conversationState";
+import type { IProfile } from "@/state/profile";
 import { SLATE_INITIAL_VALUE } from "@/wechatComponents/SlateText/utils";
-
-import { generateChatMessage } from "@/services";
-import { type IProfile, friendState } from "@/state/profile";
 import { useCreation, useUnmount } from "ahooks";
+import { App, Button, Form, Input, InputNumber, Radio, Select, Switch } from "antd";
 import { message as globalMessage } from "antd";
+import dayjs from "dayjs";
+import { nanoid } from "nanoid";
 import { useState } from "react";
-import { getRecoil } from "recoil-nexus";
+import { useRecoilState } from "recoil";
 import LocalImageUploadWithPreview from "../LocalImageUpload";
 import WrapSlateInput from "../SlateInput";
+import GenerateConversation from "./GenerateConversation";
 import { CONVERSATION_TYPE_OPTIONS } from "./consts";
 
 const ConversationListMetaDataEditor = ({ index }: EditorProps<unknown, IProfile["id"]>) => {
 	const [form] = Form.useForm<TConversationItem>();
 	const [conversationList, setConversationList] = useRecoilState(conversationState(index));
-	const [aiLoading, setAiLoading] = useState(false);
 	const { message } = App.useApp();
-	const ctl = useCreation(() => new AbortController(), []);
 
 	useUnmount(() => {
 		if (aiLoading) {
 			ctl.abort();
-			globalMessage.info("AI 生成已取消");
+			globalMessage.warning("AI 生成已取消");
 		}
 	});
 
@@ -305,16 +300,24 @@ const ConversationListMetaDataEditor = ({ index }: EditorProps<unknown, IProfile
 					<Button type="primary" htmlType="submit">
 						创建
 					</Button>
-					<Button
+					{/* <Button
 						loading={aiLoading}
 						onClick={async () => {
-							const { remark: friendRemark } = getRecoil(friendState(index));
+							const { remark: friendRemark, nickname } = getRecoil(friendState(index));
 							let remark: string | undefined = undefined;
 							if (friendRemark) {
 								remark = `我给这个好友的备注是${friendRemark}`;
 							}
+							if (nickname) {
+								remark = `这个好友的昵称是${nickname}`;
+							}
 							setAiLoading(true);
-							generateChatMessage(remark, ctl.signal)
+							generateChatMessage({
+								params: {
+									remark,
+								},
+								signal: ctl.signal,
+							})
 								.then((res) => {
 									const { messages } = res.data;
 									messages.forEach((m) => {
@@ -336,6 +339,7 @@ const ConversationListMetaDataEditor = ({ index }: EditorProps<unknown, IProfile
 											];
 										});
 									});
+									message.success("生成成功");
 									scrollToBtm();
 								})
 								.catch((err) => {
@@ -351,9 +355,10 @@ const ConversationListMetaDataEditor = ({ index }: EditorProps<unknown, IProfile
 						}}
 					>
 						随机生成 20 句聊天记录
-					</Button>
+					</Button> */}
 				</div>
 			</Form.Item>
+			<GenerateConversation friendId={index} />
 		</Form>
 	);
 };
