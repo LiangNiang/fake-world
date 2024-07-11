@@ -61,6 +61,7 @@
 * [Dexie.js](https://dexie.org/)
 * [Bun](https://bun.sh/)
 * [ElysiaJS](https://elysiajs.com/)
+* [Vercel AI SDK](https://sdk.vercel.ai/)
 
 ### 用户数据声明
 
@@ -107,13 +108,14 @@ docker compose -f packages/api/compose/docker-compose.yaml up -d
 在 packages/apis/.env.local 中配置相关环境变量信息，写入如下内容
 
 ```
-DEFAULT_HREF=http://localhost:5173/
 PORT=9000
-USE_NATIVE_BROWSER=true
 DATABASE_URL="mongodb://root:prisma@localhost:27017/fake-world?authSource=admin&retryWrites=true&w=majority"
 API_URL=http://localhost:9000
-
+OPENAI_baseURL=
+OPENAI_apiKey=
 ```
+OPENAI 相关的环境变量可以不配置，如果需要调试相关 AI 功能，请自行填入
+
 
 然后在项目根目录执行
 ```bash
