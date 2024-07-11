@@ -7,7 +7,7 @@ import {
 import { type IProfile, friendState } from "@/state/profile";
 import { OpenAIOutlined } from "@ant-design/icons";
 import { useCreation, useUnmount } from "ahooks";
-import { Button, Input, type InputRef, message } from "antd";
+import { Button, Form, Input, type InputRef, message } from "antd";
 import dayjs from "dayjs";
 import { isEmpty } from "lodash-es";
 import { nanoid } from "nanoid";
@@ -92,17 +92,19 @@ const GenerateConversation = ({ friendId, scrollToBtm }: Props) => {
 	};
 
 	return (
-		<div className="flex flex-col space-y-2">
-			<div className="font-semibold text-orange-500 text-xl">
-				<OpenAIOutlined /> AI 生成 20 句聊天记录 <OpenAIOutlined />
+		<Form onFinish={handleSubmit}>
+			<div className="flex flex-col space-y-2">
+				<div className="font-semibold text-orange-500 text-xl">
+					<OpenAIOutlined /> AI 生成 20 句聊天记录 <OpenAIOutlined />
+				</div>
+				<div className="flex items-center space-x-4">
+					<Input placeholder="此处填写内容主题，为空则随机" ref={topicRef} />
+					<Button htmlType="submit" loading={loading}>
+						生成
+					</Button>
+				</div>
 			</div>
-			<div className="flex items-center space-x-4">
-				<Input placeholder="此处填写内容主题，为空则随机" ref={topicRef} />
-				<Button loading={loading} onClick={handleSubmit}>
-					生成
-				</Button>
-			</div>
-		</div>
+		</Form>
 	);
 };
 
