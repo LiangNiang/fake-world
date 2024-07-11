@@ -1,5 +1,6 @@
 import { generateChatMessage } from "@/services";
 import {
+	type EConversationRole,
 	EConversationType,
 	type TConversationItem,
 	conversationState,
@@ -47,47 +48,69 @@ const GenerateConversation = ({ friendId, scrollToBtm }: Props) => {
 			? "随意，但只能专注一个主题，可以贴合好友的基本信息"
 			: inputValue;
 		try {
-			const {
-				data: { messages },
-			} = await generateChatMessage({
+			const oldPrevConversation = getRecoil(conversationState(friendId));
+			generateChatMessage({
 				params: {
 					remark,
 					topic,
 				},
 				signal: ctl.signal,
+				adapter: "fetch",
+				responseType: "stream",
+			}).then(async (response) => {
+				const stream = response.data;
+				const reader = stream.pipeThrough(new TextDecoderStream()).getReader();
+				while (true) {
+					const { value, done } = await reader.read();
+					if (done) {
+						setLoading(false);
+						message.success("生成完毕");
+						break;
+					}
+					try {
+						const lines = value.split("\n");
+						for (const line of lines) {
+							if (line.startsWith("data: ")) {
+								const jsonString = line.slice(6);
+								const data = JSON.parse(jsonString);
+								const messages = data.messages as Array<{
+									role: EConversationRole;
+									content: string;
+								}>;
+								setConversationList(() => {
+									return [
+										...oldPrevConversation,
+										...messages.map(
+											(m) =>
+												({
+													id: nanoid(8),
+													sendTimestamp: dayjs().valueOf(),
+													type: EConversationType.text,
+													role: m.role ?? "mine",
+													textContent: [
+														{
+															type: "paragraph",
+															children: [{ text: m.content ?? "" }],
+														},
+													],
+												}) as TConversationItem,
+										),
+									];
+								});
+								scrollToBtm();
+							}
+						}
+					} catch (err) {}
+				}
 			});
-			setConversationList((prev) => {
-				return [
-					...prev,
-					...messages.map(
-						(m) =>
-							({
-								id: nanoid(8),
-								sendTimestamp: dayjs().valueOf(),
-								type: EConversationType.text,
-								role: m.role,
-								textContent: [
-									{
-										type: "paragraph",
-										children: [{ text: m.content }],
-									},
-								],
-							}) as TConversationItem,
-					),
-				];
-			});
-			message.success("生成成功");
-			scrollToBtm();
 		} catch (err: any) {
-			console.log(err);
+			setLoading(false);
 			if (err?.response?.status === 429) {
 				message.error("请等待一段时间后再试");
 			} else if (err?.code === "ERR_CANCELED") {
 			} else {
 				message.error("生成失败，请稍后再试");
 			}
-		} finally {
-			setLoading(false);
 		}
 	};
 

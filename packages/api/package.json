@@ -11,6 +11,7 @@
 		"@ai-sdk/openai": "^0.0.36",
 		"@elysiajs/cors": "^1.0.4",
 		"@elysiajs/static": "^1.0.3",
+		"@elysiajs/stream": "^1.0.3",
 		"@prisma/client": "5.9.1",
 		"ai": "^3.2.19",
 		"elysia": "^1.0.27",
