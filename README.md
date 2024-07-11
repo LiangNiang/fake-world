@@ -113,6 +113,7 @@ DATABASE_URL="mongodb://root:prisma@localhost:27017/fake-world?authSource=admin&
 API_URL=http://localhost:9000
 OPENAI_baseURL=
 OPENAI_apiKey=
+OPENAI_model=
 ```
 OPENAI 相关的环境变量可以不配置，如果需要调试相关 AI 功能，请自行填入
 

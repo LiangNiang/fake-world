@@ -5,5 +5,6 @@ declare namespace NodeJS {
     DATABASE_URL: string;
 		OPENAI_baseURL: string;
 		OPENAI_apiKey: string;
+    OPENAI_model: string;
 	}
 }
