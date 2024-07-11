@@ -179,14 +179,7 @@ const MOCK_INIT_CONVERSATION_LIST: TConversationItem[] = [
 		redPacketStatus: "awaiting",
 	},
 	{
-		id: "7",
-		type: EConversationType.personalCard,
-		role: EConversationRole.mine,
-		avatarInfo: "https://cdn-fakeworld.azureedge.net/fakeworld/kbw.jpg",
-		nickname: "酷霸王",
-	},
-	{
-		id: "8",
+		id: "9",
 		type: EConversationType.text,
 		textContent: [
 			{
@@ -196,6 +189,13 @@ const MOCK_INIT_CONVERSATION_LIST: TConversationItem[] = [
 		],
 		role: EConversationRole.mine,
 		referenceId: "1",
+	},
+	{
+		id: "7",
+		type: EConversationType.personalCard,
+		role: EConversationRole.mine,
+		avatarInfo: "https://cdn-fakeworld.azureedge.net/fakeworld/kbw.jpg",
+		nickname: "酷霸王",
 	},
 ];
 

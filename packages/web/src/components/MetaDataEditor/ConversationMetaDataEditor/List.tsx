@@ -1,8 +1,3 @@
-import { Button, Form, Input, InputNumber, Radio, Select, Switch } from "antd";
-import dayjs from "dayjs";
-import { nanoid } from "nanoid";
-import { useRecoilState } from "recoil";
-
 import {
 	ConversationTypeLabel,
 	EConversationRole,
@@ -10,16 +5,30 @@ import {
 	type TConversationItem,
 	conversationState,
 } from "@/state/conversationState";
-import type { IFeed } from "@/state/moments";
+import type { IProfile } from "@/state/profile";
 import { SLATE_INITIAL_VALUE } from "@/wechatComponents/SlateText/utils";
-
+import { Button, Form, Input, InputNumber, Radio, Select, Switch } from "antd";
+import dayjs from "dayjs";
+import { nanoid } from "nanoid";
+import { useCallback } from "react";
+import { useRecoilState } from "recoil";
 import LocalImageUploadWithPreview from "../LocalImageUpload";
 import WrapSlateInput from "../SlateInput";
+import GenerateConversation from "./GenerateConversation";
 import { CONVERSATION_TYPE_OPTIONS } from "./consts";
 
-const ConversationListMetaDataEditor = ({ index }: EditorProps<unknown, IFeed["id"]>) => {
+const ConversationListMetaDataEditor = ({ index }: EditorProps<unknown, IProfile["id"]>) => {
 	const [form] = Form.useForm<TConversationItem>();
-	const [conversationList, setConversationList] = useRecoilState(conversationState(index[0]));
+	const [conversationList, setConversationList] = useRecoilState(conversationState(index));
+
+	const scrollToBtm = useCallback(() => {
+		setTimeout(() => {
+			const listElement = document.getElementById("conversation-list");
+			if (listElement) {
+				listElement.scrollTop = 9999999;
+			}
+		});
+	}, []);
 
 	const onFinish = (values: TConversationItem) => {
 		setConversationList((prev) => {
@@ -33,10 +42,7 @@ const ConversationListMetaDataEditor = ({ index }: EditorProps<unknown, IFeed["i
 			] as TConversationItem[];
 		});
 		form.resetFields();
-		const listElement = document.getElementById("conversation-list");
-		if (listElement) {
-			listElement.scrollTop = 9999999;
-		}
+		scrollToBtm();
 	};
 
 	return (
@@ -280,10 +286,13 @@ const ConversationListMetaDataEditor = ({ index }: EditorProps<unknown, IFeed["i
 				}}
 			</Form.Item>
 			<Form.Item>
-				<Button type="primary" htmlType="submit">
-					创建
-				</Button>
+				<div className="space-x-2">
+					<Button type="primary" htmlType="submit">
+						创建
+					</Button>
+				</div>
 			</Form.Item>
+			<GenerateConversation scrollToBtm={scrollToBtm} friendId={index} />
 		</Form>
 	);
 };

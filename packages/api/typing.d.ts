@@ -1,8 +1,9 @@
 declare namespace NodeJS {
 	interface ProcessEnv {
-		DEFAULT_HREF: string;
 		PORT: number;
-		USE_NATIVE_BROWSER: string;
 		API_URL: string;
+    DATABASE_URL: string;
+		OPENAI_baseURL: string;
+		OPENAI_apiKey: string;
 	}
 }

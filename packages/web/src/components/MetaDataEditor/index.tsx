@@ -1,5 +1,5 @@
 import { Global, css } from "@emotion/react";
-import { Tabs } from "antd";
+import { App, Tabs } from "antd";
 import { useCallback } from "react";
 import { useRecoilValue } from "recoil";
 import { getRecoil } from "recoil-nexus";
@@ -127,9 +127,9 @@ export const MetaDataEditor = () => {
 		);
 	}
 	return (
-		<>
+		<App>
 			{metaData?.label && <div className="mb-4">{metaData.label}</div>}
 			{renderMetaDataEditorBySingleMetaData(metaData)}
-		</>
+		</App>
 	);
 };
