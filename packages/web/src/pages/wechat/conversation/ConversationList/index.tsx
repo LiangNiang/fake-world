@@ -11,7 +11,6 @@ import TopOperations from "@/components/TopOperations";
 import useMode from "@/components/useMode";
 import {
 	ConversationTypeLabel,
-	EConversationRole,
 	EConversationType,
 	type IConversationTypeTransfer,
 	type TConversationItem,
@@ -63,7 +62,7 @@ const ConversationList = () => {
 			amount,
 			transferStatus: "accepted",
 			originalSender,
-			role: role === EConversationRole.mine ? EConversationRole.friend : EConversationRole.mine,
+			role: role === 'mine' ? 'friend' : 'mine',
 		});
 	};
 

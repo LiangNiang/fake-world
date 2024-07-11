@@ -1,51 +1,120 @@
 /// <reference lib="dom" />
 
 globalThis.TextDecoderStream = class {
-  #handle: TextDecoder
+	#handle: TextDecoder;
 
-  #transform = new TransformStream({
-    transform: (chunk, controller) => {
-      const value = this.#handle.decode(chunk, { stream: true })
+	#transform = new TransformStream({
+		transform: (chunk, controller) => {
+			const value = this.#handle.decode(chunk, { stream: true });
 
-      if (value) {
-        controller.enqueue(value)
-      }
-    },
-    flush: controller => {
-      const value = this.#handle.decode()
-      if (value) {
-        controller.enqueue(value)
-      }
+			if (value) {
+				controller.enqueue(value);
+			}
+		},
+		flush: (controller) => {
+			const value = this.#handle.decode();
+			if (value) {
+				controller.enqueue(value);
+			}
 
-      controller.terminate()
-    }
-  })
+			controller.terminate();
+		},
+	});
 
-  constructor(encoding = "utf-8", options: TextDecoderOptions = {}) {
-    this.#handle = new TextDecoder(encoding, options)
-  }
+	constructor(encoding = "utf-8", options: TextDecoderOptions = {}) {
+		this.#handle = new TextDecoder(encoding, options);
+	}
 
-  get encoding() {
-    return this.#handle.encoding
-  }
+	get encoding() {
+		return this.#handle.encoding;
+	}
 
-  get fatal() {
-    return this.#handle.fatal
-  }
+	get fatal() {
+		return this.#handle.fatal;
+	}
 
-  get ignoreBOM() {
-    return this.#handle.ignoreBOM
-  }
+	get ignoreBOM() {
+		return this.#handle.ignoreBOM;
+	}
 
-  get readable() {
-    return this.#transform.readable
-  }
+	get readable() {
+		return this.#transform.readable;
+	}
 
-  get writable() {
-    return this.#transform.writable
-  }
+	get writable() {
+		return this.#transform.writable;
+	}
 
-  get [Symbol.toStringTag]() {
-    return "TextDecoderStream"
-  }
-}
+	get [Symbol.toStringTag]() {
+		return "TextDecoderStream";
+	}
+};
+
+global.TextEncoderStream = class {
+	#pendingHighSurrogate: string | null = null;
+
+	#handle = new TextEncoder();
+
+	#transform = new TransformStream<string, Uint8Array>({
+		transform: (inputChunk, controller) => {
+			// https://encoding.spec.whatwg.org/#encode-and-enqueue-a-chunk
+			const chunk = String(inputChunk);
+
+			let finalChunk = "";
+			for (let i = 0; i < chunk.length; i++) {
+				const item = chunk[i];
+				const codeUnit = item.charCodeAt(0);
+				if (this.#pendingHighSurrogate !== null) {
+					const highSurrogate = this.#pendingHighSurrogate;
+
+					this.#pendingHighSurrogate = null;
+					if (0xdc00 <= codeUnit && codeUnit <= 0xdfff) {
+						finalChunk += highSurrogate + item;
+						continue;
+					}
+
+					finalChunk += "\uFFFD";
+				}
+
+				if (0xd800 <= codeUnit && codeUnit <= 0xdbff) {
+					this.#pendingHighSurrogate = item;
+					continue;
+				}
+
+				if (0xdc00 <= codeUnit && codeUnit <= 0xdfff) {
+					finalChunk += "\uFFFD";
+					continue;
+				}
+
+				finalChunk += item;
+			}
+
+			if (finalChunk) {
+				controller.enqueue(this.#handle.encode(finalChunk));
+			}
+		},
+
+		flush: (controller) => {
+			// https://encoding.spec.whatwg.org/#encode-and-flush
+			if (this.#pendingHighSurrogate !== null) {
+				controller.enqueue(new Uint8Array([0xef, 0xbf, 0xbd]));
+			}
+		},
+	});
+
+	get encoding() {
+		return this.#handle.encoding;
+	}
+
+	get readable() {
+		return this.#transform.readable;
+	}
+
+	get writable() {
+		return this.#transform.writable;
+	}
+
+	get [Symbol.toStringTag]() {
+		return "TextEncoderStream";
+	}
+};

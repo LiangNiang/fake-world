@@ -146,6 +146,9 @@ importers:
       ahooks:
         specifier: ^3.8.0
         version: 3.8.0(react@18.3.1)
+      ai:
+        specifier: ^3.2.19
+        version: 3.2.19(react@18.3.1)(svelte@4.2.18)(vue@3.4.31(typescript@5.3.3))(zod@3.23.8)
       animate.css:
         specifier: ^4.1.1
         version: 4.1.1
@@ -248,6 +251,9 @@ importers:
       tailwind-merge:
         specifier: ^2.3.0
         version: 2.3.0
+      zod:
+        specifier: ^3.23.8
+        version: 3.23.8
     devDependencies:
       '@emotion/babel-plugin':
         specifier: ^11.11.0

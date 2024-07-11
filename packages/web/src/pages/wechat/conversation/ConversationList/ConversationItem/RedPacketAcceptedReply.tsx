@@ -3,7 +3,6 @@ import { useRecoilState } from "recoil";
 
 import RedPacketCloseIMG from "@/assets/red-packet-close.png";
 import {
-	EConversationRole,
 	type IConversationTypeRedPacket,
 	type IConversationTypeRedPacketAcceptedReply,
 	conversationState,
@@ -31,17 +30,9 @@ const RedPacketAcceptedReply = ({ redPacketId, upperText, id }: Props) => {
 
 	const { originalSender } = redPacket as IConversationTypeRedPacket;
 	const left =
-		originalSender === EConversationRole.friend ? (
-			"你"
-		) : (
-			<UserName id={conversationId} className="text-black/50" />
-		);
+		originalSender === "friend" ? "你" : <UserName id={conversationId} className="text-black/50" />;
 	const right =
-		originalSender === EConversationRole.friend ? (
-			<UserName id={conversationId} className="text-black/50" />
-		) : (
-			"你"
-		);
+		originalSender === "friend" ? <UserName id={conversationId} className="text-black/50" /> : "你";
 
 	return (
 		<>

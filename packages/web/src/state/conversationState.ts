@@ -31,16 +31,13 @@ export const ConversationTypeLabel = {
 	[EConversationType.redPacketAcceptedReply]: "红包领取成功消息",
 };
 
-export enum EConversationRole {
-	mine = "mine",
-	friend = "friend",
-}
+export type TConversationRole = "mine" | "friend";
 
 export interface IConversationItemBase {
 	id: string;
 	upperText?: string;
 	sendTimestamp?: number;
-	role: EConversationRole;
+	role: TConversationRole;
 }
 
 export interface IConversationTypeText extends IConversationItemBase {
@@ -57,7 +54,7 @@ export interface IConversationTypeSingleUpperText extends IConversationItemBase 
 
 export interface IConversationTypeTransfer extends IConversationItemBase {
 	type: EConversationType.transfer;
-	originalSender: EConversationRole;
+	originalSender: TConversationRole;
 	transferStatus: "awaiting" | "accepted" | "rejected" | "expired";
 	amount: string;
 	note?: string;
@@ -65,7 +62,7 @@ export interface IConversationTypeTransfer extends IConversationItemBase {
 
 export interface IConversationTypeRedPacket extends IConversationItemBase {
 	type: EConversationType.redPacket;
-	originalSender: EConversationRole;
+	originalSender: TConversationRole;
 	redPacketStatus: "awaiting" | "accepted" | "expired";
 	amount: string;
 	note?: string;
@@ -114,7 +111,7 @@ export type TConversationItem =
 	| IConversationTypePersonalCard;
 
 export interface IConversationInputConfig {
-	sendRole: EConversationRole;
+	sendRole: TConversationRole;
 }
 
 const MOCK_INIT_CONVERSATION_LIST: TConversationItem[] = [
@@ -131,7 +128,7 @@ const MOCK_INIT_CONVERSATION_LIST: TConversationItem[] = [
 				],
 			},
 		],
-		role: EConversationRole.friend,
+		role: 'friend',
 		upperText: "12:57",
 	},
 	{
@@ -143,28 +140,28 @@ const MOCK_INIT_CONVERSATION_LIST: TConversationItem[] = [
 				children: [{ text: "halo halo" }],
 			},
 		],
-		role: EConversationRole.mine,
+		role: 'mine',
 		upperText: "16:08",
 	},
 	{
 		id: "3",
 		type: EConversationType.transfer,
-		role: EConversationRole.mine,
+		role: 'mine',
 		transferStatus: "awaiting",
 		amount: "200.00",
 		upperText: "17:01",
-		originalSender: EConversationRole.mine,
+		originalSender: 'mine',
 	},
 	{
 		id: "4",
 		type: EConversationType.image,
-		role: EConversationRole.mine,
+		role: 'mine',
 		imageInfo: "https://cdn-fakeworld.azureedge.net/fakeworld/ow7vh8.jpg",
 	},
 	{
 		id: "5",
 		type: EConversationType.voice,
-		role: EConversationRole.friend,
+		role: 'friend',
 		upperText: "17:20",
 		duration: 5,
 		showStt: false,
@@ -173,8 +170,8 @@ const MOCK_INIT_CONVERSATION_LIST: TConversationItem[] = [
 	{
 		id: "6",
 		type: EConversationType.redPacket,
-		role: EConversationRole.friend,
-		originalSender: EConversationRole.friend,
+		role: 'friend',
+		originalSender: 'friend',
 		amount: "0.01",
 		redPacketStatus: "awaiting",
 	},
@@ -187,13 +184,13 @@ const MOCK_INIT_CONVERSATION_LIST: TConversationItem[] = [
 				children: [{ text: "你也好" }],
 			},
 		],
-		role: EConversationRole.mine,
+		role: 'mine',
 		referenceId: "1",
 	},
 	{
 		id: "7",
 		type: EConversationType.personalCard,
-		role: EConversationRole.mine,
+		role: 'mine',
 		avatarInfo: "https://cdn-fakeworld.azureedge.net/fakeworld/kbw.jpg",
 		nickname: "酷霸王",
 	},
@@ -224,7 +221,7 @@ export const conversationItemReferenceState = selectorFamily<
 export const conversationInputState = atom<IConversationInputConfig>({
 	key: "conversationInputState",
 	default: {
-		sendRole: EConversationRole.mine,
+		sendRole: 'mine',
 	},
 });
 

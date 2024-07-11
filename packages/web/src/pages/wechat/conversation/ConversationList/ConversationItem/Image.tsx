@@ -4,7 +4,7 @@ import { twJoin } from "tailwind-merge";
 import PlayFilledSVG from "@/assets/play-filled.svg?react";
 import { h } from "@/components/HashAssets";
 import { ImageDBManager } from "@/dataSource";
-import { EConversationRole, type IConversationTypeImage } from "@/state/conversationState";
+import type { IConversationTypeImage } from "@/state/conversationState";
 import type { IProfile } from "@/state/profile";
 import { isMD5 } from "@/utils";
 
@@ -50,10 +50,7 @@ const Image = ({ imageInfo, upperText, senderId, role, isVideo }: Props) => {
 		<CommonBlock
 			upperText={upperText}
 			senderId={senderId}
-			innerBlockClassName={twJoin(
-				"p-0 flex",
-				role === EConversationRole.mine ? "justify-end" : "justify-start",
-			)}
+			innerBlockClassName={twJoin("p-0 flex", role === "mine" ? "justify-end" : "justify-start")}
 		>
 			<div
 				className={twJoin(

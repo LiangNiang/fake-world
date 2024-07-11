@@ -2,7 +2,6 @@ import { mkdir, unlink } from "node:fs/promises";
 import { resolve } from "node:path";
 import { cors } from "@elysiajs/cors";
 import { staticPlugin } from "@elysiajs/static";
-import { Stream } from "@elysiajs/stream";
 import { PrismaClient } from "@prisma/client";
 import { generateObject, streamObject } from "ai";
 import { env } from "bun";
@@ -25,6 +24,7 @@ const app = new Elysia()
 	.use(
 		cors({
 			methods: ["POST", "GET", "DELETE"],
+			allowedHeaders: ["Content-Type"],
 		}),
 	)
 	.use(
@@ -159,37 +159,30 @@ const app = new Elysia()
 							}),
 						},
 					)
-					.get(
+					.post(
 						"/chat_message",
-						async ({ query: { remark, topic } }) => {
-							return new Stream(async (stream) => {
-								const { partialObjectStream } = await streamObject({
-									mode: "auto",
-									model: openai("gpt-4o"),
-									schema: z.object({
-										messages: z.array(
-											z.object({
-												role: z.enum(["mine", "friend"]),
-												content: z.string(),
-											}),
-										),
-									}),
-									prompt: `给我随机生成20多句微信聊天记录,包括发送人(role,有如下两个枚举值:mine是我自己,friend是我的朋友,关于friend的信息是:${remark}),发送的内容(content,要求内容符合发送人以及当前上下文语境,单个角色可以连续说几句,不用一个角色下面紧接着另一个角色,但总体不能只有一个角色在说),要求尽量年轻现代化一点,语言为中文环境,但是也可以有英文、数字、emoji,严格贴近当今年轻人的style,时尚潮流富有个性,聊天的整体主题是${topic}`,
-									maxRetries: 3,
-									temperature: 0.8,
-								});
-								for await (const partialObject of partialObjectStream) {
-									if (partialObject.messages?.some((message) => message?.role)) {
-										stream.send(partialObject);
-									}
-								}
-								stream.close();
+						async ({ body: { remark, topic } }) => {
+							const res = await streamObject({
+								mode: "auto",
+								model: openai("gpt-4o"),
+								schema: z.object({
+									messages: z.array(
+										z.object({
+											role: z.enum(["mine", "friend"]),
+											content: z.string(),
+										}),
+									),
+								}),
+								prompt: `给我随机生成20多句微信聊天记录,包括发送人(role,有如下两个枚举值:mine是我自己,friend是我的朋友,关于friend的信息是:${remark}),发送的内容(content,要求内容符合发送人以及当前上下文语境,单个角色可以连续说几句,不用一个角色下面紧接着另一个角色,但总体不能只有一个角色在说),要求尽量年轻现代化一点,语言为中文环境,但是也可以有英文、数字、emoji,严格贴近当今年轻人的style,时尚潮流富有个性,聊天的整体主题是${topic}`,
+								maxRetries: 3,
+								temperature: 0.8,
 							});
+							return res.toTextStreamResponse();
 						},
 						{
-							query: t.Object({
-								remark: t.Optional(t.String()),
-								topic: t.Optional(t.String()),
+							body: t.Object({
+								remark: t.String(),
+								topic: t.String(),
 							}),
 						},
 					),

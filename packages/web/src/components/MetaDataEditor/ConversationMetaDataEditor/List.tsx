@@ -1,6 +1,5 @@
 import {
 	ConversationTypeLabel,
-	EConversationRole,
 	EConversationType,
 	type TConversationItem,
 	conversationState,
@@ -54,7 +53,7 @@ const ConversationListMetaDataEditor = ({ index }: EditorProps<unknown, IProfile
 				onFinish={onFinish}
 				initialValues={{
 					type: EConversationType.text,
-					role: EConversationRole.mine,
+					role: "mine",
 					textContent: SLATE_INITIAL_VALUE,
 					simpleContent: "",
 				}}
@@ -64,8 +63,8 @@ const ConversationListMetaDataEditor = ({ index }: EditorProps<unknown, IProfile
 				</Form.Item>
 				<Form.Item<TConversationItem> name="role" label="消息由谁发送">
 					<Radio.Group>
-						<Radio value={EConversationRole.mine}>我自己</Radio>
-						<Radio value={EConversationRole.friend}>朋友</Radio>
+						<Radio value="mine">我自己</Radio>
+						<Radio value="friend">朋友</Radio>
 					</Radio.Group>
 				</Form.Item>
 				<Form.Item<TConversationItem> name="upperText" label="上方文字">
@@ -175,8 +174,8 @@ const ConversationListMetaDataEditor = ({ index }: EditorProps<unknown, IProfile
 										rules={[{ required: true }]}
 									>
 										<Radio.Group>
-											<Radio value={EConversationRole.mine}>我自己</Radio>
-											<Radio value={EConversationRole.friend}>朋友</Radio>
+											<Radio value="mine">我自己</Radio>
+											<Radio value="friend">朋友</Radio>
 										</Radio.Group>
 									</Form.Item>
 									<Form.Item<TConversationItem>
@@ -234,8 +233,8 @@ const ConversationListMetaDataEditor = ({ index }: EditorProps<unknown, IProfile
 										rules={[{ required: true }]}
 									>
 										<Radio.Group>
-											<Radio value={EConversationRole.mine}>我自己</Radio>
-											<Radio value={EConversationRole.friend}>朋友</Radio>
+											<Radio value="mine">我自己</Radio>
+											<Radio value="friend">朋友</Radio>
 										</Radio.Group>
 									</Form.Item>
 									<Form.Item<TConversationItem>

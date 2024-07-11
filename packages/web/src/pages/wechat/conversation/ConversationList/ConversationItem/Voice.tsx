@@ -2,7 +2,7 @@ import { memo } from "react";
 import { twJoin } from "tailwind-merge";
 
 import VoiceSVG from "@/assets/voice.svg?react";
-import { EConversationRole, type IConversationTypeVoice } from "@/state/conversationState";
+import type { IConversationTypeVoice } from "@/state/conversationState";
 import type { IProfile } from "@/state/profile";
 
 import CommonBlock from "./CommonBlock";
@@ -30,23 +30,18 @@ const Voice = ({ senderId, upperText, duration, role, isRead, showStt, stt }: Pr
 				}}
 				extraElement={
 					!isRead &&
-					role === EConversationRole.friend && (
+					role === "friend" && (
 						<div className="-right-5 -translate-y-1/2 absolute top-1/2">
 							<div className="h-2 w-2 rounded-full bg-wechatRed-3" />
 						</div>
 					)
 				}
 			>
-				<div
-					className={twJoin(
-						"flex h-6",
-						role === EConversationRole.mine ? "flex-row-reverse" : "flex-row",
-					)}
-				>
+				<div className={twJoin("flex h-6", role === "mine" ? "flex-row-reverse" : "flex-row")}>
 					<VoiceSVG
 						width={28}
 						height={28}
-						className={twJoin("self-center", role === EConversationRole.mine && "rotate-180")}
+						className={twJoin("self-center", role === "mine" && "rotate-180")}
 					/>
 					<span className="self-center text-sm">{duration}&apos;&apos;</span>
 				</div>
