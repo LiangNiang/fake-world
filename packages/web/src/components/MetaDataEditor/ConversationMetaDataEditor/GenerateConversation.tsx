@@ -1,19 +1,22 @@
-import { generateChatMessage } from "@/services";
+import { ENV_API_BASE_URL } from "@/consts";
 import {
 	EConversationType,
 	type TConversationItem,
+	type TConversationRole,
 	conversationState,
 } from "@/state/conversationState";
 import { type IProfile, friendState } from "@/state/profile";
 import { OpenAIOutlined } from "@ant-design/icons";
-import { useCreation, useUnmount } from "ahooks";
+import { useUnmount } from "ahooks";
+import { experimental_useObject as useObject } from "ai/react";
 import { Button, Form, Input, type InputRef, message } from "antd";
 import dayjs from "dayjs";
 import { isEmpty } from "lodash-es";
 import { nanoid } from "nanoid";
-import { memo, useRef, useState } from "react";
+import { memo, useEffect, useRef } from "react";
 import { useSetRecoilState } from "recoil";
 import { getRecoil } from "recoil-nexus";
+import { z } from "zod";
 
 type Props = {
 	friendId: IProfile["id"];
@@ -22,19 +25,69 @@ type Props = {
 
 const GenerateConversation = ({ friendId, scrollToBtm }: Props) => {
 	const topicRef = useRef<InputRef>(null);
-	const [loading, setLoading] = useState(false);
-	const ctl = useCreation(() => new AbortController(), []);
+	const oldPrevConversationRef = useRef<TConversationItem[] | null>(null);
 	const setConversationList = useSetRecoilState(conversationState(friendId));
+	const { submit, isLoading, object, stop, error } = useObject<
+		{ messages: Array<{ role: TConversationRole; content: string }> },
+		{ remark: string; topic: string }
+	>({
+		api: `${ENV_API_BASE_URL}/api/v1/ai/chat_message`,
+		schema: z.object({
+			messages: z.array(
+				z.object({
+					role: z.enum(["mine", "friend"]),
+					content: z.string(),
+				}),
+			),
+		}),
+	});
 
 	useUnmount(() => {
-		if (loading) {
-			ctl.abort();
+		if (isLoading) {
+			stop();
 			message.warning("AI 生成已取消");
 		}
 	});
 
+	useEffect(() => {
+		if (object) {
+			const { messages } = object;
+			if (!messages || messages.length === 0 || messages.some((m) => isEmpty(m?.role))) return;
+			setConversationList(() => {
+				return [
+					...(oldPrevConversationRef.current ?? []),
+					...messages.map(
+						(m) =>
+							({
+								id: nanoid(8),
+								sendTimestamp: dayjs().valueOf(),
+								type: EConversationType.text,
+								role: m?.role ?? "mine",
+								textContent: [
+									{
+										type: "paragraph",
+										children: [{ text: m?.content ?? "" }],
+									},
+								],
+							}) as TConversationItem,
+					),
+				];
+			});
+			scrollToBtm();
+		}
+	}, [object]);
+
+	useEffect(() => {
+		if (error) {
+			if ((error as any).message === "rate-limit reached") {
+				message.error("请等待一段时间后再试");
+			} else {
+				message.error("AI 生成失败");
+			}
+		}
+	}, [error]);
+
 	const handleSubmit = async () => {
-		setLoading(true);
 		const { remark: friendRemark, nickname } = getRecoil(friendState(friendId));
 		let remark = "";
 		if (friendRemark) {
@@ -45,50 +98,9 @@ const GenerateConversation = ({ friendId, scrollToBtm }: Props) => {
 		const inputValue = topicRef.current?.input?.value;
 		const topic = isEmpty(inputValue)
 			? "随意，但只能专注一个主题，可以贴合好友的基本信息"
-			: inputValue;
-		try {
-			const {
-				data: { messages },
-			} = await generateChatMessage({
-				params: {
-					remark,
-					topic,
-				},
-				signal: ctl.signal,
-			});
-			setConversationList((prev) => {
-				return [
-					...prev,
-					...messages.map(
-						(m) =>
-							({
-								id: nanoid(8),
-								sendTimestamp: dayjs().valueOf(),
-								type: EConversationType.text,
-								role: m.role,
-								textContent: [
-									{
-										type: "paragraph",
-										children: [{ text: m.content }],
-									},
-								],
-							}) as TConversationItem,
-					),
-				];
-			});
-			message.success("生成成功");
-			scrollToBtm();
-		} catch (err: any) {
-			console.log(err);
-			if (err?.response?.status === 429) {
-				message.error("请等待一段时间后再试");
-			} else if (err?.code === "ERR_CANCELED") {
-			} else {
-				message.error("生成失败，请稍后再试");
-			}
-		} finally {
-			setLoading(false);
-		}
+			: inputValue!;
+		submit({ remark, topic });
+		oldPrevConversationRef.current = getRecoil(conversationState(friendId));
 	};
 
 	return (
@@ -99,7 +111,7 @@ const GenerateConversation = ({ friendId, scrollToBtm }: Props) => {
 				</div>
 				<div className="flex items-center space-x-4">
 					<Input placeholder="此处填写内容主题，为空则随机" ref={topicRef} />
-					<Button htmlType="submit" loading={loading}>
+					<Button htmlType="submit" loading={!error && isLoading}>
 						生成
 					</Button>
 				</div>

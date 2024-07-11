@@ -10,7 +10,6 @@ import { type InjectProps, canBeDetected } from "@/components/NodeDetected";
 import TopOperations from "@/components/TopOperations";
 import { MYSELF_ID } from "@/faker/wechat/user";
 import {
-	EConversationRole,
 	EConversationType,
 	type IConversationTypeText,
 	conversationItemReferenceState,
@@ -39,7 +38,7 @@ const TextReference = ({ referenceId, conversationItemId }: Props) => {
 	if (!referenceData) return null;
 
 	const { role, type } = referenceData;
-	const senderId = role === EConversationRole.friend ? id! : MYSELF_ID;
+	const senderId = role === "friend" ? id! : MYSELF_ID;
 
 	const renderBlockElement = () => {
 		switch (type) {

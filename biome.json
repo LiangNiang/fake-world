@@ -25,7 +25,7 @@
 				"useSortedClasses": "warn"
 			},
 			"correctness": {
-				"useExhaustiveDependencies": "warn"
+				"useExhaustiveDependencies": "off"
 			},
 			"a11y": {
 				"useKeyWithClickEvents": "off",

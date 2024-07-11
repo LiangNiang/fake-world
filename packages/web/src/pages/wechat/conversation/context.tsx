@@ -24,7 +24,6 @@ import { type ReactEditor, withReact } from "slate-react";
 
 import { MYSELF_ID } from "@/faker/wechat/user";
 import {
-	EConversationRole,
 	EConversationType,
 	type IConversationTypeRedPacket,
 	type IConversationTypeTransfer,
@@ -140,7 +139,7 @@ export const ConversationAPIProvider = ({ children }: PropsWithChildren) => {
 							type: EConversationType.centerText,
 							id: nanoid(8),
 							sendTimestamp: dayjs().valueOf(),
-							role: EConversationRole.mine,
+							role: "mine",
 							simpleContent: finalTickleText,
 							upperText: fromLastGenerateUpperText(prev),
 							extraClassName: friendId === MYSELF_ID ? "text-black/70 font-bold" : "",

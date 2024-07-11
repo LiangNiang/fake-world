@@ -32,6 +32,9 @@ importers:
       '@elysiajs/static':
         specifier: ^1.0.3
         version: 1.0.3(elysia@1.0.27(@sinclair/typebox@0.32.31)(typescript@5.3.3))
+      '@elysiajs/stream':
+        specifier: ^1.0.3
+        version: 1.0.3(elysia@1.0.27(@sinclair/typebox@0.32.31)(typescript@5.3.3))
       '@prisma/client':
         specifier: 5.9.1
         version: 5.9.1(prisma@5.14.0)
@@ -143,6 +146,9 @@ importers:
       ahooks:
         specifier: ^3.8.0
         version: 3.8.0(react@18.3.1)
+      ai:
+        specifier: ^3.2.19
+        version: 3.2.19(react@18.3.1)(svelte@4.2.18)(vue@3.4.31(typescript@5.3.3))(zod@3.23.8)
       animate.css:
         specifier: ^4.1.1
         version: 4.1.1
@@ -245,6 +251,9 @@ importers:
       tailwind-merge:
         specifier: ^2.3.0
         version: 2.3.0
+      zod:
+        specifier: ^3.23.8
+        version: 3.23.8
     devDependencies:
       '@emotion/babel-plugin':
         specifier: ^11.11.0
@@ -600,6 +609,11 @@ packages:
 
   '@elysiajs/static@1.0.3':
     resolution: {integrity: sha512-+oMDfqRC8OFgzsrHQBUjlMHTUqYAyFpq3HPaHochgs9a+i/SBKfX6Ow4kepBIOMTlf43knw3wfHu6sEVsXzLRw==}
+    peerDependencies:
+      elysia: '>= 1.0.2'
+
+  '@elysiajs/stream@1.0.3':
+    resolution: {integrity: sha512-P9Cq6iLyFjlTWkdkKm6zWtASAIWVPgTH+RMKb2TwXTGzd83WiWhZsnbiA35tScgqUZpgG32EsUz/RkCt7nHHsQ==}
     peerDependencies:
       elysia: '>= 1.0.2'
 
@@ -4935,6 +4949,11 @@ snapshots:
     dependencies:
       elysia: 1.0.27(@sinclair/typebox@0.32.31)(typescript@5.3.3)
       node-cache: 5.1.2
+
+  '@elysiajs/stream@1.0.3(elysia@1.0.27(@sinclair/typebox@0.32.31)(typescript@5.3.3))':
+    dependencies:
+      elysia: 1.0.27(@sinclair/typebox@0.32.31)(typescript@5.3.3)
+      nanoid: 5.0.5
 
   '@emotion/babel-plugin@11.11.0':
     dependencies:

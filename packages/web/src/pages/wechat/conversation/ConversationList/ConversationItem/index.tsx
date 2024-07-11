@@ -2,11 +2,7 @@ import { memo } from "react";
 import { useParams } from "react-router-dom";
 
 import { MYSELF_ID } from "@/faker/wechat/user";
-import {
-	EConversationRole,
-	EConversationType,
-	type TConversationItem,
-} from "@/state/conversationState";
+import { EConversationType, type TConversationItem } from "@/state/conversationState";
 
 import CenterText from "./CenterText";
 import Image from "./Image";
@@ -24,7 +20,7 @@ type Props = {
 const ConversationItem = ({ data }: Props) => {
 	const { type, role, upperText, id: conversationItemId } = data;
 	const { id } = useParams<{ id: string }>();
-	const senderId = role === EConversationRole.friend ? id! : MYSELF_ID;
+	const senderId = role === "friend" ? id! : MYSELF_ID;
 
 	switch (type) {
 		case EConversationType.text:
