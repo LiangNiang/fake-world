@@ -7,12 +7,10 @@ import {
 } from "@/state/conversationState";
 import type { IProfile } from "@/state/profile";
 import { SLATE_INITIAL_VALUE } from "@/wechatComponents/SlateText/utils";
-import { useCreation, useUnmount } from "ahooks";
-import { App, Button, Form, Input, InputNumber, Radio, Select, Switch } from "antd";
-import { message as globalMessage } from "antd";
+import { Button, Form, Input, InputNumber, Radio, Select, Switch } from "antd";
 import dayjs from "dayjs";
 import { nanoid } from "nanoid";
-import { useState } from "react";
+import { useCallback } from "react";
 import { useRecoilState } from "recoil";
 import LocalImageUploadWithPreview from "../LocalImageUpload";
 import WrapSlateInput from "../SlateInput";
@@ -22,23 +20,15 @@ import { CONVERSATION_TYPE_OPTIONS } from "./consts";
 const ConversationListMetaDataEditor = ({ index }: EditorProps<unknown, IProfile["id"]>) => {
 	const [form] = Form.useForm<TConversationItem>();
 	const [conversationList, setConversationList] = useRecoilState(conversationState(index));
-	const { message } = App.useApp();
 
-	useUnmount(() => {
-		if (aiLoading) {
-			ctl.abort();
-			globalMessage.warning("AI 生成已取消");
-		}
-	});
-
-	const scrollToBtm = () => {
+	const scrollToBtm = useCallback(() => {
 		setTimeout(() => {
 			const listElement = document.getElementById("conversation-list");
 			if (listElement) {
 				listElement.scrollTop = 9999999;
 			}
 		});
-	};
+	}, []);
 
 	const onFinish = (values: TConversationItem) => {
 		setConversationList((prev) => {
@@ -300,65 +290,9 @@ const ConversationListMetaDataEditor = ({ index }: EditorProps<unknown, IProfile
 					<Button type="primary" htmlType="submit">
 						创建
 					</Button>
-					{/* <Button
-						loading={aiLoading}
-						onClick={async () => {
-							const { remark: friendRemark, nickname } = getRecoil(friendState(index));
-							let remark: string | undefined = undefined;
-							if (friendRemark) {
-								remark = `我给这个好友的备注是${friendRemark}`;
-							}
-							if (nickname) {
-								remark = `这个好友的昵称是${nickname}`;
-							}
-							setAiLoading(true);
-							generateChatMessage({
-								params: {
-									remark,
-								},
-								signal: ctl.signal,
-							})
-								.then((res) => {
-									const { messages } = res.data;
-									messages.forEach((m) => {
-										setConversationList((prev) => {
-											return [
-												...prev,
-												{
-													id: nanoid(8),
-													sendTimestamp: dayjs().valueOf(),
-													type: EConversationType.text,
-													role: m.role,
-													textContent: [
-														{
-															type: "paragraph",
-															children: [{ text: m.content }],
-														},
-													],
-												},
-											];
-										});
-									});
-									message.success("生成成功");
-									scrollToBtm();
-								})
-								.catch((err) => {
-									if (err.response?.status === 429) {
-										message.error("请等待一段时间后再试");
-									} else {
-										message.error("生成失败，请稍后再试");
-									}
-								})
-								.finally(() => {
-									setAiLoading(false);
-								});
-						}}
-					>
-						随机生成 20 句聊天记录
-					</Button> */}
 				</div>
 			</Form.Item>
-			<GenerateConversation friendId={index} />
+			<GenerateConversation scrollToBtm={scrollToBtm} friendId={index} />
 		</Form>
 	);
 };
