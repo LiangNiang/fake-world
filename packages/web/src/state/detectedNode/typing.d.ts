@@ -1,13 +1,12 @@
+import type { TStateUnreadCount } from "@/stateV2/unreadCount";
 import type { TFunction } from "i18next";
 import type { ReactNode } from "react";
-
 import type { BottomNavBars, IBottomNavbarItemConfig } from "../btmNavbarsState";
 import type { IConversationInputConfig, TConversationItem } from "../conversationState";
 import type { IDialogueItem } from "../dialogueState";
 import type { IFeed, IFeedComment } from "../moments";
 import type { TLoginDevicesConfig } from "../multipleDeviceLoginState";
 import type { IFriendsTotalCountDisplay, IProfile } from "../profile";
-import type { ITotalUnreadCountState } from "../totalUnreadCountState";
 import type { TTransactionDataWithType, TTransactionType } from "../transaction";
 import type { IWallet } from "../walletState";
 import type { MetaDataType } from "./consts";
@@ -50,10 +49,10 @@ declare namespace OverallMetaData {
 		treeItemDisplayName: string | ((data: IBottomNavbarItemConfig) => string);
 	}
 
-	interface IMetaDataTotalUnreadCount extends Base {
-		type: MetaDataType.TotalUnreadCount;
-		data: ITotalUnreadCountState;
-		treeItemDisplayName: string | ((data: ITotalUnreadCountState) => string);
+	interface IMetaDataUnreadCount extends Base {
+		type: MetaDataType.UnreadCount;
+		data: TStateUnreadCount;
+		treeItemDisplayName: string | ((data: TStateUnreadCount) => string);
 	}
 
 	interface IMetaDataConversationList extends Base {
@@ -173,7 +172,7 @@ declare namespace OverallMetaData {
 		| IMetaDataDialogueItem
 		| IMetaDataDialogueList
 		| IMetaDataNavigationBar
-		| IMetaDataTotalUnreadCount
+		| IMetaDataUnreadCount
 		| IMetaDataConversationList
 		| IMetaDataConversationItem
 		| IMetaDataConversationInput

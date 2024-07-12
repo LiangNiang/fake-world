@@ -1,5 +1,5 @@
+import { getUnreadCountSnapshot } from "@/stateV2/unreadCount";
 import { type GetRecoilValue, selectorFamily } from "recoil";
-
 import btmNavbarsState, { type BottomNavBars } from "../btmNavbarsState";
 import { conversationInputState, conversationState } from "../conversationState";
 import { dialogueItemState } from "../dialogueState";
@@ -7,7 +7,6 @@ import { feedState } from "../moments";
 import { multipleDeviceLoginState } from "../multipleDeviceLoginState";
 import { friendState, friendsIdsState, friendsTotalCountState, myProfileState } from "../profile";
 import { statusBarHideState } from "../statusBarState";
-import totalUnreadCountState from "../totalUnreadCountState";
 import { type TTransactionType, USED_STATE_MAP } from "../transaction";
 import { walletState } from "../walletState";
 import { MetaDataType } from "./consts";
@@ -28,7 +27,7 @@ type HandlerMap = {
 const handlerMap: HandlerMap = {
 	[MetaDataType.DialogueItem]: (get, index) => get(dialogueItemState(index as string)),
 	[MetaDataType.NavigationBar]: (get, index) => get(btmNavbarsState)[index as BottomNavBars],
-	[MetaDataType.TotalUnreadCount]: (get) => get(totalUnreadCountState),
+	[MetaDataType.UnreadCount]: () => getUnreadCountSnapshot(),
 	[MetaDataType.ConversationItem]: (get, index) =>
 		index && index.length === 2
 			? get(conversationState(index[0])).find((v) => v.id === index[1])

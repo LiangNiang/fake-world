@@ -188,6 +188,9 @@ importers:
       jotai:
         specifier: ^2.9.0
         version: 2.9.0(@types/react@18.3.3)(react@18.3.1)
+      jotai-effect:
+        specifier: ^1.0.0
+        version: 1.0.0(jotai@2.9.0(@types/react@18.3.3)(react@18.3.1))
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
@@ -2963,6 +2966,11 @@ packages:
   jiti@1.21.6:
     resolution: {integrity: sha512-2yTgeWTWzMWkHu6Jp9NKgePDaYHbntiwvYuuJLbbN9vl7DC9DvXKOB2BC3ZZ92D3cvV/aflH0osDfwpHepQ53w==}
     hasBin: true
+
+  jotai-effect@1.0.0:
+    resolution: {integrity: sha512-eCgKKG4BACDzuJGYTu0xZRk1C1MEOvbAhC3L8w7YufQ2lSLORwNX/WFnCuZxLFX0sDLkTUeoUzOYaw8wnXY+UQ==}
+    peerDependencies:
+      jotai: '>=2.5.0'
 
   jotai@2.9.0:
     resolution: {integrity: sha512-MioTpMvR78IGfJ+W8EwQj3kwTkb+u0reGnTyg3oJZMWK9rK9v8NBSC9Rhrg9jrrFYA6bGZtzJa96zsuAYF6W3w==}
@@ -7504,6 +7512,10 @@ snapshots:
       iterate-iterator: 1.0.2
 
   jiti@1.21.6: {}
+
+  jotai-effect@1.0.0(jotai@2.9.0(@types/react@18.3.3)(react@18.3.1)):
+    dependencies:
+      jotai: 2.9.0(@types/react@18.3.3)(react@18.3.1)
 
   jotai@2.9.0(@types/react@18.3.3)(react@18.3.1):
     optionalDependencies:

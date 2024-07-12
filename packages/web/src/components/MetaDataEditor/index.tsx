@@ -28,7 +28,7 @@ import FeedMetaDataEditor from "./FeedMetaDataEditor";
 import MultipleDeviceLoginEditor from "./MultipleDeviceLoginEditor";
 import NavigationBarMetaDataEditor from "./NavigationBarMetaDataEditor";
 import StatusBarMetaDataEditor from "./StatusBarMetaDataEditor";
-import TotalUnreadMetaDataEditor from "./TotalUnreadMetaDataEditor";
+import UnreadMetaDataEditor from "./UnreadMetaDataEditor";
 import TransactionRecordMetaDataEditor from "./TransactionRecordMetaDataEditor";
 import {
 	FriendProfileMetaDataEditor,
@@ -42,7 +42,7 @@ const TYPE_MAP_COMPONENT = {
 	[MetaDataType.DialogueItem]: DialogueItemMetaDataEditor,
 	[MetaDataType.NavigationBar]: NavigationBarMetaDataEditor,
 	[MetaDataType.DialogueList]: DialogueListMetaDataEditor,
-	[MetaDataType.TotalUnreadCount]: TotalUnreadMetaDataEditor,
+	[MetaDataType.UnreadCount]: UnreadMetaDataEditor,
 	[MetaDataType.ConversationInput]: ConversationInputMetaDataEditor,
 	[MetaDataType.ConversationList]: ConversationListMetaDataEditor,
 	[MetaDataType.ConversationItem]: ConversationItemMetaDataEditor,

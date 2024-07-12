@@ -6,7 +6,7 @@ export enum MetaDataType {
 	/** 底部操作栏 */
 	NavigationBar = "navigationBar",
 	/** 未读消息数量 */
-	TotalUnreadCount = "totalUnreadCount",
+	UnreadCount = "unreadCount",
 	/** 聊天记录列表 */
 	ConversationList = "conversationList",
 	/** 聊天记录每一项 */
