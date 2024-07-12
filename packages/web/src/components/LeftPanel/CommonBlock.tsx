@@ -1,3 +1,7 @@
+import { ALL_LANGUAGES, getCurrentLanguage } from "@/i18n";
+import { activatedNodeState, hoverdNodeState } from "@/state/detectedNode";
+import { tourTargetState } from "@/state/globalConfig/tourState";
+import { LOCALE_MAP } from "@/time";
 import { InfoCircleOutlined } from "@ant-design/icons";
 import { useKeyPress } from "ahooks";
 import { Radio, Space, Tooltip } from "antd";
@@ -5,13 +9,6 @@ import dayjs from "dayjs";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useSetRecoilState } from "recoil";
-
-import { ALL_LANGUAGES, getCurrentLanguage } from "@/i18n";
-import { activatedNodeState, hoverdNodeState } from "@/state/detectedNode";
-import { tourTargetState } from "@/state/globalConfig/tourState";
-import { ModeState } from "@/state/modeState";
-import { LOCALE_MAP } from "@/time";
-
 import ModeSwitch from "../ModeSwitch";
 import useMode from "../useMode";
 import QuickJumpSelect from "./QuickJumpSelect";
@@ -33,7 +30,7 @@ const CommonBlock = () => {
 	useKeyPress(
 		"shift.z",
 		() => {
-			setMode((prev) => (prev === ModeState.EDIT ? ModeState.PREVIEW : ModeState.EDIT));
+			setMode((prev) => (prev === "edit" ? "preview" : "edit"));
 		},
 		{ exactMatch: true },
 	);

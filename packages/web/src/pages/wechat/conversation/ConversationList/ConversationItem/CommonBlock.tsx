@@ -1,3 +1,8 @@
+import { h } from "@/components/HashAssets";
+import useModeNavigate from "@/components/useModeNavigate";
+import type { IConversationItemBase } from "@/state/conversationState";
+import { type IProfile, friendState } from "@/state/profile";
+import { getModeValueSnapshot } from "@/stateV2/mode";
 import { css } from "@emotion/react";
 import { useDebounceFn } from "ahooks";
 import type {
@@ -8,15 +13,7 @@ import type {
 	ReactNode,
 } from "react";
 import { useRecoilValue } from "recoil";
-import { getRecoil } from "recoil-nexus";
 import { twJoin, twMerge } from "tailwind-merge";
-
-import { h } from "@/components/HashAssets";
-import useModeNavigate from "@/components/useModeNavigate";
-import type { IConversationItemBase } from "@/state/conversationState";
-import { ModeState, modeState } from "@/state/modeState";
-import { type IProfile, friendState } from "@/state/profile";
-
 import { useConversationAPI } from "../../context";
 
 interface Props<P = AnyObject> {
@@ -59,7 +56,7 @@ const CommonBlock = <P extends AnyObject>({
 	};
 
 	const handleDoubliClick = () => {
-		if (getRecoil(modeState) === ModeState.EDIT) return;
+		if (getModeValueSnapshot() === "edit") return;
 		sendTickleText(senderId);
 	};
 

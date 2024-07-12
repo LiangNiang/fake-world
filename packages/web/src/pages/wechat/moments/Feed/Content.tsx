@@ -1,3 +1,15 @@
+import CommentOutlinedSVG from "@/assets/comment-outlined.svg?react";
+import LikeFilledSVG from "@/assets/like-filled.svg?react";
+import LikeOutlinedSVG from "@/assets/like-outlined.svg?react";
+import More2OutlinedSVG from "@/assets/more-2-outlined.svg?react";
+import PlayFilledSVG from "@/assets/play-filled.svg?react";
+import { h } from "@/components/HashAssets";
+import { generateInitFeedComment } from "@/faker/wechat/moments";
+import { MYSELF_ID } from "@/faker/wechat/user";
+import { type IFeed, feedState } from "@/state/moments";
+import { getModeValueSnapshot } from "@/stateV2/mode";
+import SlateText from "@/wechatComponents/SlateText";
+import { SLATE_EMPTY_VALUE } from "@/wechatComponents/SlateText/utils";
 import {
 	offset,
 	useClick,
@@ -11,21 +23,8 @@ import { isEqual } from "lodash-es";
 import { memo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useRecoilValue } from "recoil";
-import { getRecoil, setRecoil } from "recoil-nexus";
+import { setRecoil } from "recoil-nexus";
 import { twJoin } from "tailwind-merge";
-
-import CommentOutlinedSVG from "@/assets/comment-outlined.svg?react";
-import LikeFilledSVG from "@/assets/like-filled.svg?react";
-import LikeOutlinedSVG from "@/assets/like-outlined.svg?react";
-import More2OutlinedSVG from "@/assets/more-2-outlined.svg?react";
-import PlayFilledSVG from "@/assets/play-filled.svg?react";
-import { h } from "@/components/HashAssets";
-import { generateInitFeedComment } from "@/faker/wechat/moments";
-import { MYSELF_ID } from "@/faker/wechat/user";
-import { ModeState, modeState } from "@/state/modeState";
-import { type IFeed, feedState } from "@/state/moments";
-import SlateText from "@/wechatComponents/SlateText";
-import { SLATE_EMPTY_VALUE } from "@/wechatComponents/SlateText/utils";
 
 type Props = {
 	id: IFeed["id"];
@@ -38,7 +37,7 @@ const FeedContent = ({ id, fromDetail }: Props) => {
 	const { refs, floatingStyles, context } = useFloating({
 		open: operationsVisible,
 		onOpenChange: (v) => {
-			getRecoil(modeState) === ModeState.PREVIEW && setOperationsVisible(v);
+			getModeValueSnapshot() === "preview" && setOperationsVisible(v);
 		},
 		placement: "left",
 		middleware: [offset(8)],

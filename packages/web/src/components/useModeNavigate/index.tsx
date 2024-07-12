@@ -1,11 +1,9 @@
+import { getModeValueSnapshot } from "@/stateV2/mode";
+import { showToast } from "@/wechatComponents/Toast";
 import { noop } from "lodash-es";
 import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { type NavigateFunction, useNavigate } from "react-router-dom";
-import { getRecoil } from "recoil-nexus";
-
-import { ModeState, modeState } from "@/state/modeState";
-import { showToast } from "@/wechatComponents/Toast";
 
 type Options = {
 	errorMsg?: string;
@@ -19,8 +17,7 @@ export default function useModeNavigate(options?: Options): NavigateFunction {
 
 	const navigate = useCallback(
 		(...args: Parameters<NavigateFunction>) => {
-			const mode = getRecoil(modeState);
-			if (mode === ModeState.EDIT) {
+			if (getModeValueSnapshot() === "edit") {
 				!silence &&
 					showToast({
 						type: "error",

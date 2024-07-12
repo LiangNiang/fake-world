@@ -1,10 +1,3 @@
-import { AimOutlined } from "@ant-design/icons";
-import { Tooltip } from "antd";
-import { memo } from "react";
-import { useParams } from "react-router-dom";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { getRecoil } from "recoil-nexus";
-
 import { h } from "@/components/HashAssets";
 import { type InjectProps, canBeDetected } from "@/components/NodeDetected";
 import TopOperations from "@/components/TopOperations";
@@ -16,10 +9,14 @@ import {
 	conversationState,
 } from "@/state/conversationState";
 import { MetaDataType, activatedNodeState } from "@/state/detectedNode";
-import { ModeState, modeState } from "@/state/modeState";
+import { getModeValueSnapshot } from "@/stateV2/mode";
 import SlateText from "@/wechatComponents/SlateText";
 import UserName from "@/wechatComponents/User/UserName";
-
+import { AimOutlined } from "@ant-design/icons";
+import { Tooltip } from "antd";
+import { memo } from "react";
+import { useParams } from "react-router-dom";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import CommonBlock from "./CommonBlock";
 
 type Props = {
@@ -126,7 +123,7 @@ const TextReference = ({ referenceId, conversationItemId }: Props) => {
 			innerBlockClassName="bg-[#E7E7E7] text-[#7D7D7D] h-fit p-0 text-sm cursor-pointer"
 			blockClassName="!mt-1"
 			onClick={() => {
-				if (getRecoil(modeState) === ModeState.EDIT) return;
+				if (getModeValueSnapshot() === "edit") return;
 				const target = document.querySelector(`[data-conversation-id="${referenceId}"]`);
 				if (target) {
 					target.scrollIntoView({ behavior: "smooth" });

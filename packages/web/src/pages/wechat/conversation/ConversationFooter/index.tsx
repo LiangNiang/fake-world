@@ -1,8 +1,3 @@
-import { isArray, keys } from "lodash-es";
-import { useState } from "react";
-import { isMobileOnly } from "react-device-detect";
-import { getRecoil, setRecoil } from "recoil-nexus";
-
 import Add2OutlinedSVG from "@/assets/add2-outlined.svg?react";
 import KeyboardOutlinedSVG from "@/assets/keyboard-outlined.svg?react";
 import StickerOutlinedSVG from "@/assets/sticker-outlined.svg?react";
@@ -13,14 +8,19 @@ import {
 	allNodesState,
 	nodeInjectMetaState,
 } from "@/state/detectedNode";
-import { ModeState, modeState } from "@/state/modeState";
-
+import { modeAtom } from "@/stateV2/mode";
+import { useSetAtom } from "jotai";
+import { isArray, keys } from "lodash-es";
+import { useState } from "react";
+import { isMobileOnly } from "react-device-detect";
+import { getRecoil, setRecoil } from "recoil-nexus";
 import BottomPopup from "./BottomPopup";
 import EmojiPanel from "./EmojiPanel";
 import Input from "./Input";
 
 const ConversationFooter = () => {
 	const [showEmojiPanel, setShowEmojiPanel] = useState(false);
+	const setMode = useSetAtom(modeAtom);
 
 	const inputComponentProps = isMobileOnly
 		? {
@@ -52,7 +52,7 @@ const ConversationFooter = () => {
 						fill="#000"
 						className="h-8 w-8 cursor-pointer"
 						onClick={() => {
-							setRecoil(modeState, ModeState.EDIT);
+							setMode("edit");
 							const allNodes = getRecoil(allNodesState);
 							for (const key of keys(allNodes)) {
 								const metaData = getRecoil(nodeInjectMetaState(key));
