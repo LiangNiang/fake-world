@@ -1,17 +1,15 @@
+import { type IDialogueItem, dialogueItemAtom } from "@/stateV2/dialogueList";
 import { Button, Form, Input, InputNumber, Radio, Switch } from "antd";
 import dayjs from "dayjs";
+import { useSetAtom } from "jotai";
 import { useMemo } from "react";
-import { useSetRecoilState } from "recoil";
-
-import { type IDialogueItem, dialogueItemState } from "@/state/dialogueState";
-
 import FriendSelect from "./FriendSelect";
 import { specialValueFormatter } from "./utils";
 
 const DialogueItemMetaDataEditor = ({ data }: EditorProps<IDialogueItem, IDialogueItem["id"]>) => {
 	type FormValuesType = IDialogueItem;
 	const [form] = Form.useForm<FormValuesType>();
-	const setDialogue = useSetRecoilState(dialogueItemState(data.id));
+	const setDialogue = useSetAtom(dialogueItemAtom(data.id));
 
 	const initialValues = useMemo(() => {
 		const { isPinned, isMuted, unreadDisplayType, unreadMarkNumber } = data;

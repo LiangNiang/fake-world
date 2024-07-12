@@ -1,18 +1,16 @@
+import { type IDialogueItem, dialogueListAtom } from "@/stateV2/dialogueList";
 import { Button, Form, Input, InputNumber, Radio, Switch } from "antd";
 import dayjs from "dayjs";
+import { useSetAtom } from "jotai";
 import { nanoid } from "nanoid";
-import { useSetRecoilState } from "recoil";
-
-import { type IDialogueItem, dialogueListState } from "@/state/dialogueState";
-
 import FriendSelect from "./FriendSelect";
 
 const DialogueListMetaDataEditor = () => {
 	const [form] = Form.useForm<IDialogueItem>();
-	const setDialogueListState = useSetRecoilState(dialogueListState);
+	const setDialogueList = useSetAtom(dialogueListAtom);
 
 	const onFinish = (values: IDialogueItem) => {
-		setDialogueListState((prev) => [
+		setDialogueList((prev) => [
 			{
 				...values,
 				id: nanoid(5),

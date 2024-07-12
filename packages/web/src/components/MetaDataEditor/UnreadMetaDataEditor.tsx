@@ -1,14 +1,14 @@
-import { dialogueListState } from "@/state/dialogueState";
+import { dialogueListAtom } from "@/stateV2/dialogueList";
 import { type TStateUnreadCount, unreadCountAtom } from "@/stateV2/unreadCount";
 import { Form, InputNumber, Radio } from "antd";
-import { useSetAtom } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import { isNumber } from "lodash-es";
 import { useEffect } from "react";
-import { useRecoilValue } from "recoil";
 
 const UnreadMetaDataEditor = ({ data }: EditorProps<TStateUnreadCount>) => {
+	console.log(data);
 	const [form] = Form.useForm<TStateUnreadCount>();
-	const dialogueList = useRecoilValue(dialogueListState);
+	const dialogueList = useAtomValue(dialogueListAtom);
 	const setUnreadCount = useSetAtom(unreadCountAtom);
 	const calcuateTypeValue = Form.useWatch("calcuateType", form);
 
@@ -29,6 +29,7 @@ const UnreadMetaDataEditor = ({ data }: EditorProps<TStateUnreadCount>) => {
 	}, [calcuateTypeValue]);
 
 	const onFinish = (v: TStateUnreadCount) => {
+		console.log(v);
 		setUnreadCount(v);
 	};
 

@@ -1,39 +1,38 @@
-import { Modal } from "antd";
-import { memo } from "react";
-import { useNavigate } from "react-router-dom";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { twMerge } from "tailwind-merge";
-
 import MUTED_SVG from "@/assets/muted.svg";
 import Badge from "@/components/Badge";
 import { h } from "@/components/HashAssets";
 import { canBeDetected } from "@/components/NodeDetected";
 import TopOperations from "@/components/TopOperations";
 import { MetaDataType } from "@/state/detectedNode";
-import { type IDialogueItem, dialogueListState } from "@/state/dialogueState";
 import { friendState } from "@/state/profile";
-
+import { type IDialogueItem, dialogueItemAtom, dialogueListAtom } from "@/stateV2/dialogueList";
+import { Modal } from "antd";
+import { useAtomValue, useSetAtom } from "jotai";
+import { memo } from "react";
+import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { twMerge } from "tailwind-merge";
 import styles from "./style.module.scss";
 
 type Props = {
-	data: IDialogueItem;
+	itemId: IDialogueItem["id"];
 	className?: string;
 };
 
-const DialogueItem = ({ data, className }: Props) => {
+const DialogueItem = ({ itemId, className }: Props) => {
 	const {
+		friendId,
 		id,
 		isPinned,
 		unreadDisplayType,
 		unreadMarkNumber,
-		badgeHide,
-		lastMessageTime,
-		lastMessage,
 		isMuted,
-		friendId,
-	} = data;
+		badgeHide,
+		lastMessage,
+		lastMessageTime,
+	} = useAtomValue(dialogueItemAtom(itemId))!;
 	const friendProfile = useRecoilValue(friendState(friendId));
-	const setDialogueList = useSetRecoilState(dialogueListState);
+	const setDialogueList = useSetAtom(dialogueListAtom);
 	const navigate = useNavigate();
 
 	const { nickname, avatarInfo, remark } = friendProfile;

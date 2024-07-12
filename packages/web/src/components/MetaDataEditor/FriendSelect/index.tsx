@@ -1,12 +1,12 @@
+import { MYSELF_ID, addFakeUser, quickAddFakeUser } from "@/faker/wechat/user";
+import { type IProfile, friendState, friendsIdsState } from "@/state/profile";
+import { dialogueListAtom } from "@/stateV2/dialogueList";
 import { PlusCircleOutlined } from "@ant-design/icons";
 import { Button, Divider, Input, Select } from "antd";
 import type { DefaultOptionType, SelectProps } from "antd/es/select";
+import { useAtomValue } from "jotai";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
-
-import { MYSELF_ID, addFakeUser, quickAddFakeUser } from "@/faker/wechat/user";
-import { dialogueListState } from "@/state/dialogueState";
-import { type IProfile, friendState, friendsIdsState } from "@/state/profile";
 
 type Props = SelectProps<IProfile["id"] | IProfile["id"][]> & {
 	/** 是否过滤对话列表已经存在的对话 */
@@ -36,11 +36,12 @@ const FriendSelect = ({
 	if (!withMyself) {
 		usedIds.splice(friendIds.indexOf(MYSELF_ID), 1);
 	}
-	const existingFriends = useRecoilValue(dialogueListState).map((v) => v.friendId);
+	const dialogueList = useAtomValue(dialogueListAtom);
+	const existingFriendIds = dialogueList.map((v) => v.friendId);
 	const selectOptions: DefaultOptionType[] = usedIds.map((friend) => ({
 		label: <FriendItem id={friend} />,
 		value: friend,
-		disabled: filterExisting && existingFriends.includes(friend),
+		disabled: filterExisting && existingFriendIds.includes(friend),
 	}));
 
 	const quickAddFriend = () => {

@@ -1,11 +1,11 @@
 import { type EBottomNavBars, getBottomNavbarsValueSnapshot } from "@/stateV2/bottomNavbars";
+import { getDialogueListValueSnapshot } from "@/stateV2/dialogueList";
 import { getMultipleDeviceLoginValueSnapshot } from "@/stateV2/multipleDeviceLogin";
 import { getStatusBarHideVauleSnapshot } from "@/stateV2/statusBar";
 import { getUnreadCountValueSnapshot } from "@/stateV2/unreadCount";
 import { getWalletVauleSnapshot } from "@/stateV2/wallet";
 import { type GetRecoilValue, selectorFamily } from "recoil";
 import { conversationInputState, conversationState } from "../conversationState";
-import { dialogueItemState } from "../dialogueState";
 import { feedState } from "../moments";
 import { friendState, friendsIdsState, friendsTotalCountState, myProfileState } from "../profile";
 import { type TTransactionType, USED_STATE_MAP } from "../transaction";
@@ -25,7 +25,8 @@ type HandlerMap = {
 };
 
 const handlerMap: HandlerMap = {
-	[MetaDataType.DialogueItem]: (get, index) => get(dialogueItemState(index as string)),
+	[MetaDataType.DialogueItem]: (_, index) =>
+		getDialogueListValueSnapshot().find((v) => v.id === index),
 	[MetaDataType.NavigationBar]: (_, index) =>
 		getBottomNavbarsValueSnapshot()[index as EBottomNavBars],
 	[MetaDataType.UnreadCount]: () => getUnreadCountValueSnapshot(),

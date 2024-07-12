@@ -1,11 +1,3 @@
-import dayjs from "dayjs";
-import { isEmpty, isString } from "lodash-es";
-import { nanoid } from "nanoid";
-import { useTranslation } from "react-i18next";
-import { useParams } from "react-router-dom";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { twJoin } from "tailwind-merge";
-
 import ArrowOutlinedSVG from "@/assets/arrow-outlined.svg?react";
 import BackFilledSVG from "@/assets/back-filled.svg?react";
 import FemaleIMG from "@/assets/female.png";
@@ -19,8 +11,16 @@ import useModeNavigate from "@/components/useModeNavigate";
 import { MYSELF_ID } from "@/faker/wechat/user";
 import { MetaDataType } from "@/state/detectedNode";
 import type { StaticMetaData } from "@/state/detectedNode/typing";
-import { dialogueListState } from "@/state/dialogueState";
 import { type IProfile, PRIVACY_TEXT_MAP, friendState } from "@/state/profile";
+import { dialogueListAtom } from "@/stateV2/dialogueList";
+import dayjs from "dayjs";
+import { useSetAtom } from "jotai";
+import { isEmpty, isString } from "lodash-es";
+import { nanoid } from "nanoid";
+import { useTranslation } from "react-i18next";
+import { useParams } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { twJoin } from "tailwind-merge";
 
 const GENDER_IMAGES = {
 	male: MaleIMG,
@@ -29,7 +29,7 @@ const GENDER_IMAGES = {
 
 const Friend = () => {
 	const { id: userId } = useParams<{ id: string }>();
-	const setDialogueListState = useSetRecoilState(dialogueListState);
+	const setDialogueList = useSetAtom(dialogueListAtom);
 	const {
 		avatarInfo,
 		gender,
@@ -206,7 +206,7 @@ const Friend = () => {
 							onClick={() => {
 								if (userId) {
 									navigate(`/wechat/conversation/${userId}`);
-									setDialogueListState((prev) => {
+									setDialogueList((prev) => {
 										if (prev.some((v) => v.friendId === userId)) return prev;
 										return [
 											{

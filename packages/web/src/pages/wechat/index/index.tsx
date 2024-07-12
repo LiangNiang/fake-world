@@ -9,7 +9,6 @@ import { useAtom, useAtomValue } from "jotai";
 import { useTranslation } from "react-i18next";
 import DialogueList from "./DialogueList";
 import MultipleDeviceLogin from "./MultipleDeviceLogin";
-import StateEffect from "./StateEffect";
 
 const WechatIndex = () => {
 	const { count } = useAtomValue(unreadCountAtom);
@@ -19,7 +18,6 @@ const WechatIndex = () => {
 
 	return (
 		<>
-			<StateEffect />
 			<div className="grid grid-cols-3 bg-[rgba(237,237,237,1)] px-4 py-2">
 				<div className="flex items-center space-x-1 font-bold text-xs" />
 				<canBeDetected.span

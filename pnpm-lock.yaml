@@ -194,6 +194,9 @@ importers:
       jotai-effect:
         specifier: ^1.0.0
         version: 1.0.0(jotai@2.9.0(@types/react@18.3.3)(react@18.3.1))
+      jotai-optics:
+        specifier: ^0.4.0
+        version: 0.4.0(jotai@2.9.0(@types/react@18.3.3)(react@18.3.1))(optics-ts@2.4.1)
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
@@ -203,6 +206,9 @@ importers:
       nanoid:
         specifier: ^5.0.5
         version: 5.0.5
+      optics-ts:
+        specifier: ^2.4.1
+        version: 2.4.1
       pinyin-pro:
         specifier: ^3.19.5
         version: 3.19.5
@@ -2978,6 +2984,12 @@ packages:
     peerDependencies:
       jotai: '>=2.5.0'
 
+  jotai-optics@0.4.0:
+    resolution: {integrity: sha512-osbEt9AgS55hC4YTZDew2urXKZkaiLmLqkTS/wfW5/l0ib8bmmQ7kBXSFaosV6jDDWSp00IipITcJARFHdp42g==}
+    peerDependencies:
+      jotai: '>=2.0.0'
+      optics-ts: '>=2.0.0'
+
   jotai@2.9.0:
     resolution: {integrity: sha512-MioTpMvR78IGfJ+W8EwQj3kwTkb+u0reGnTyg3oJZMWK9rK9v8NBSC9Rhrg9jrrFYA6bGZtzJa96zsuAYF6W3w==}
     engines: {node: '>=12.20.0'}
@@ -3326,6 +3338,9 @@ packages:
   open@9.1.0:
     resolution: {integrity: sha512-OS+QTnw1/4vrf+9hh1jc1jnYjzSG4ttTBB8UxOwAnInG3Uo4ssetzC1ihqaIHjLJnA5GGlRl6QlZXOTQhRBUvg==}
     engines: {node: '>=14.16'}
+
+  optics-ts@2.4.1:
+    resolution: {integrity: sha512-HaYzMHvC80r7U/LqAd4hQyopDezC60PO2qF5GuIwALut2cl5rK1VWHsqTp0oqoJJWjiv6uXKqsO+Q2OO0C3MmQ==}
 
   ora@5.4.1:
     resolution: {integrity: sha512-5b6Y85tPxZZ7QytO+BQzysW31HJku27cRIlkbAXaNx+BdcVi+LlRFmVXzeF6a7JCwJpyw5c4b+YSVImQIrBpuQ==}
@@ -7525,6 +7540,11 @@ snapshots:
     dependencies:
       jotai: 2.9.0(@types/react@18.3.3)(react@18.3.1)
 
+  jotai-optics@0.4.0(jotai@2.9.0(@types/react@18.3.3)(react@18.3.1))(optics-ts@2.4.1):
+    dependencies:
+      jotai: 2.9.0(@types/react@18.3.3)(react@18.3.1)
+      optics-ts: 2.4.1
+
   jotai@2.9.0(@types/react@18.3.3)(react@18.3.1):
     optionalDependencies:
       '@types/react': 18.3.3
@@ -7837,6 +7857,8 @@ snapshots:
       define-lazy-prop: 3.0.0
       is-inside-container: 1.0.0
       is-wsl: 2.2.0
+
+  optics-ts@2.4.1: {}
 
   ora@5.4.1:
     dependencies:

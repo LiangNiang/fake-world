@@ -1,18 +1,17 @@
-import { Modal } from "antd";
-import { memo } from "react";
-import { getRecoil, resetRecoil, setRecoil } from "recoil-nexus";
-import { twJoin } from "tailwind-merge";
-
 import { h } from "@/components/HashAssets";
 import TopOperations from "@/components/TopOperations";
 import useModeNavigate from "@/components/useModeNavigate";
 import { MYSELF_ID } from "@/faker/wechat/user";
 import { MetaDataType } from "@/state/detectedNode";
-import { dialogueListState } from "@/state/dialogueState";
 import { allFeedsState, feedState } from "@/state/moments";
 import { friendState, friendsIdsState } from "@/state/profile";
+import { dialogueListAtom } from "@/stateV2/dialogueList";
 import List from "@/wechatComponents/List";
-
+import { Modal } from "antd";
+import { useSetAtom } from "jotai";
+import { memo } from "react";
+import { getRecoil, resetRecoil, setRecoil } from "recoil-nexus";
+import { twJoin } from "tailwind-merge";
 import type { TRenderUser } from "../utils";
 
 const UserItem = ({
@@ -24,7 +23,7 @@ const UserItem = ({
 	_key,
 }: TRenderUser) => {
 	const navigate = useModeNavigate();
-
+	const setDialogueList = useSetAtom(dialogueListAtom);
 	const withDescription = !!description;
 
 	const handleOperationDelete = () => {
@@ -34,7 +33,7 @@ const UserItem = ({
 			onOk: () => {
 				setRecoil(friendsIdsState, (pv) => pv.filter((v) => v !== id));
 				resetRecoil(friendState(id));
-				setRecoil(dialogueListState, (pv) => pv.filter((v) => v.friendId !== id));
+				setDialogueList((pv) => pv.filter((v) => v.friendId !== id));
 				const allFeeds = getRecoil(allFeedsState);
 				allFeeds.filter((v) => v.userId === id).forEach((v) => resetRecoil(feedState(v.id)));
 				setRecoil(allFeedsState, (pv) => pv.filter((v) => v.userId !== id));

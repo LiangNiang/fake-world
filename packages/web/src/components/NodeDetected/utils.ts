@@ -1,10 +1,9 @@
-import { getRecoil, resetRecoil, setRecoil } from "recoil-nexus";
-
 import { conversationState } from "@/state/conversationState";
 import { MetaDataType, allNodesTreeState, nodeFreshDataState } from "@/state/detectedNode";
 import type { StaticMetaData } from "@/state/detectedNode/typing";
-import { dialogueListState } from "@/state/dialogueState";
 import { type IFeed, allFeedsState } from "@/state/moments";
+import { setDialogueListValue } from "@/stateV2/dialogueList";
+import { getRecoil, resetRecoil, setRecoil } from "recoil-nexus";
 
 interface Data {
 	id: string;
@@ -50,7 +49,7 @@ export function doChangeOrder(
 			break;
 		}
 		case MetaDataType.DialogueItem: {
-			setRecoil(dialogueListState, (prev) => moveData(prev, fromDataId, toDataId));
+			setDialogueListValue((prev) => moveData(prev, fromDataId, toDataId));
 			break;
 		}
 		case MetaDataType.ConversationItem: {

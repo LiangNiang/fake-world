@@ -1,18 +1,18 @@
-import { useMemo } from "react";
-import { ReactSortable } from "react-sortablejs";
-import { useRecoilState, useResetRecoilState } from "recoil";
-
 import { canBeDetected } from "@/components/NodeDetected";
 import useMode from "@/components/useMode";
 import { MetaDataType, allNodesTreeState } from "@/state/detectedNode";
-import { dialogueListState } from "@/state/dialogueState";
-
+import { dialogueListAtom, dialogueListEffect } from "@/stateV2/dialogueList";
+import { useAtom } from "jotai";
+import { useMemo } from "react";
+import { ReactSortable } from "react-sortablejs";
+import { useResetRecoilState } from "recoil";
 import DialogueItem from "./DialogueItem";
 
 const DialogueList = () => {
 	const { isEdit } = useMode();
-	const [dialogueList, setDialogueList] = useRecoilState(dialogueListState);
+	const [dialogueList, setDialogueList] = useAtom(dialogueListAtom);
 	const resetTree = useResetRecoilState(allNodesTreeState);
+	useAtom(dialogueListEffect);
 
 	const mappedSortableListData = useMemo(() => {
 		return dialogueList.map((item) => ({
@@ -35,11 +35,14 @@ const DialogueList = () => {
 				animation={400}
 				setList={(v, sortable) => {
 					if (isEdit && sortable) {
-						setDialogueList(
-							v.map((i) => {
-								return dialogueList.find((d) => d.id === i.id)!;
-							}),
-						);
+						const needUpdate = v.some((_, i) => v[i].id !== dialogueList[i].id);
+						if (needUpdate) {
+							setDialogueList(
+								v.map((i) => {
+									return dialogueList.find((d) => d.id === i.id)!;
+								}),
+							);
+						}
 					}
 				}}
 				onSort={() => {
@@ -49,7 +52,7 @@ const DialogueList = () => {
 				}}
 			>
 				{dialogueList.map((item) => (
-					<DialogueItem data={item} key={item.id} className={isEdit ? "cursor-grab" : ""} />
+					<DialogueItem itemId={item.id} key={item.id} className={isEdit ? "cursor-grab" : ""} />
 				))}
 			</ReactSortable>
 		</canBeDetected.section>
