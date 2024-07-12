@@ -1,17 +1,18 @@
 import { EMenus, menuState } from "@/state/globalConfig";
-import { tourTargetState, touredState } from "@/state/globalConfig/tourState";
 import { modeAtom } from "@/stateV2/mode";
+import { tourTargetAtom, touredAtom } from "@/stateV2/tour";
 import { sleep } from "@/utils";
 import { useInViewport } from "ahooks";
 import { Tour as AntdTour } from "antd";
-import { useSetAtom } from "jotai";
+import { useAtom, useSetAtom } from "jotai";
+import { RESET } from "jotai/utils";
 import { memo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 
 const Tour = () => {
-	const [toured, setToured] = useRecoilState(touredState);
-	const { ref1, ref2 } = useRecoilValue(tourTargetState);
+	const [toured, setToured] = useAtom(touredAtom);
+	const [{ ref1, ref2 }, setTourTarget] = useAtom(tourTargetAtom);
 	const [current, setCurrent] = useState(0);
 	const setMenu = useSetRecoilState(menuState);
 	const setMode = useSetAtom(modeAtom);
@@ -28,9 +29,11 @@ const Tour = () => {
 				setMode("preview");
 				setToured(true);
 				setCurrent(0);
+				setTourTarget(RESET);
 			}}
 			onFinish={() => {
 				setMenu(EMenus.Main);
+				setTourTarget(RESET);
 			}}
 			steps={[
 				{

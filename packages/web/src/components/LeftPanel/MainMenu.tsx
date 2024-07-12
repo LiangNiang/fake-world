@@ -1,11 +1,9 @@
+import { imageDB, imageDBManager } from "@/dataSource";
+import { touredAtom } from "@/stateV2/tour";
 import { InfoCircleOutlined } from "@ant-design/icons";
 import { App, Button, Dropdown, Tooltip } from "antd";
+import { useSetAtom } from "jotai";
 import { useTranslation } from "react-i18next";
-import { useSetRecoilState } from "recoil";
-
-import { imageDB, imageDBManager } from "@/dataSource";
-import { touredState } from "@/state/globalConfig/tourState";
-
 import useAppInfo from "../useAppInfo";
 import AISection from "./AI";
 import GenerateRandomUser from "./GenerateRandomUser";
@@ -15,7 +13,7 @@ import ScreenshotButton from "./ScreenshotButton";
 const MainMenu = () => {
 	const { label, app } = useAppInfo();
 	const { t } = useTranslation();
-	const setToured = useSetRecoilState(touredState);
+	const setToured = useSetAtom(touredAtom);
 	const { modal } = App.useApp();
 
 	return (

@@ -1,11 +1,12 @@
 import { ALL_LANGUAGES, getCurrentLanguage } from "@/i18n";
 import { activatedNodeState, hoverdNodeState } from "@/state/detectedNode";
-import { tourTargetState } from "@/state/globalConfig/tourState";
+import { getTouredValueSnapshot, tourTargetAtom } from "@/stateV2/tour";
 import { LOCALE_MAP } from "@/time";
 import { InfoCircleOutlined } from "@ant-design/icons";
 import { useKeyPress } from "ahooks";
 import { Radio, Space, Tooltip } from "antd";
 import dayjs from "dayjs";
+import { useSetAtom } from "jotai";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useSetRecoilState } from "recoil";
@@ -18,7 +19,8 @@ const CommonBlock = () => {
 	const setHoverdNode = useSetRecoilState(hoverdNodeState);
 	const setActivatedNode = useSetRecoilState(activatedNodeState);
 	const { i18n, t } = useTranslation();
-	const setTourTarget = useSetRecoilState(tourTargetState);
+	const setTourTarget = useSetAtom(tourTargetAtom);
+	const canSet = !getTouredValueSnapshot();
 
 	useEffect(() => {
 		if (isPreview) {
@@ -48,10 +50,11 @@ const CommonBlock = () => {
 			<div
 				className="grid grid-cols-2 gap-1"
 				ref={(element) => {
-					setTourTarget((pv) => ({
-						...pv,
-						ref1: element,
-					}));
+					canSet &&
+						setTourTarget((pv) => ({
+							...pv,
+							ref1: element,
+						}));
 				}}
 			>
 				<div className="col-span-1">

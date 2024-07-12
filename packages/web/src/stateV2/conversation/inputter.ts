@@ -31,4 +31,6 @@ export const getInputterValueSnapshot = () => mainStore.get(inputterValueAtom);
  * 最近使用的表情
  */
 
-export const recentUsedEmojiAtom = atomWithStorage<string[]>("recentUsedEmoji", []);
+export const recentUsedEmojiAtom = atomWithStorage<string[]>("recentUsedEmoji", [], undefined, {
+	getOnInit: true,
+});

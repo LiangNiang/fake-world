@@ -1,25 +1,25 @@
+import { getTouredValueSnapshot, tourTargetAtom } from "@/stateV2/tour";
 import { Spin } from "antd";
+import { useSetAtom } from "jotai";
 import { Suspense } from "react";
 import { useTranslation } from "react-i18next";
-import { useSetRecoilState } from "recoil";
-
-import { tourTargetState } from "@/state/globalConfig/tourState";
-
 import NodeTree from "../NodeDetected/NodeTree";
 import useMode from "../useMode";
 
 const TreesMenu = () => {
 	const { isPreview } = useMode();
 	const { t } = useTranslation();
-	const setTourTarget = useSetRecoilState(tourTargetState);
+	const setTourTarget = useSetAtom(tourTargetAtom);
+	const canSet = !getTouredValueSnapshot();
 
 	return (
 		<div
 			ref={(element) => {
-				setTourTarget((pv) => ({
-					...pv,
-					ref2: element,
-				}));
+				canSet &&
+					setTourTarget((pv) => ({
+						...pv,
+						ref2: element,
+					}));
 			}}
 			className="flex flex-1 flex-col"
 		>
