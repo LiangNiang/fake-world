@@ -10,10 +10,17 @@ export type TStateWallet = {
 	miniFundYield: string;
 };
 
-export const walletAtom = atomWithStorage<TStateWallet>("wallet", {
-	balance: "520.00",
-	miniFund: "1314.00",
-	miniFundYield: "2.75",
-});
+export const walletAtom = atomWithStorage<TStateWallet>(
+	"wallet",
+	{
+		balance: "520.00",
+		miniFund: "1314.00",
+		miniFundYield: "2.75",
+	},
+	undefined,
+	{
+		getOnInit: true,
+	},
+);
 
 export const getWalletVauleSnapshot = () => mainStore.get(walletAtom);

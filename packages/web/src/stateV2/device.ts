@@ -42,7 +42,9 @@ export const SCREEN_SIZE = {
 	},
 };
 
-export const deviceAtom = atomWithStorage<MOBILE_LIST>("device", MOBILE_LIST.AUTO);
+export const deviceAtom = atomWithStorage<MOBILE_LIST>("device", MOBILE_LIST.AUTO, undefined, {
+	getOnInit: true,
+});
 
 window.setDevice = (v) => {
 	mainStore.set(deviceAtom, v as MOBILE_LIST);

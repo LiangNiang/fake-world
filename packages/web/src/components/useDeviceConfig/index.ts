@@ -4,7 +4,7 @@ import { useAtomValue } from "jotai";
 
 export default function useDeviceConfig() {
 	const device = useAtomValue(deviceAtom);
-	const size = useSize(() => document.querySelector("#center") || document.querySelector("#root"));
+	const size = useSize(() => document.querySelector("#center"));
 	let screenSize: {
 		width: number;
 		height: number;

@@ -20,6 +20,13 @@ export const setStatusBarValue = (args: SetStateAction<TStateStatusBar>) =>
 
 export const statusBarMountNodeAtom = atom<TStateStatusBarMountNode>(null);
 
-export const statusBarHideAtom = atomWithStorage<TStateStatusBarHide>("statusBarHide", false);
+export const statusBarHideAtom = atomWithStorage<TStateStatusBarHide>(
+	"statusBarHide",
+	false,
+	undefined,
+	{
+		getOnInit: true,
+	},
+);
 
 export const getStatusBarHideVauleSnapshot = () => mainStore.get(statusBarHideAtom);

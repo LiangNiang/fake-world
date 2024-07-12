@@ -8,10 +8,17 @@ export type TStateUnreadCount = {
 	calcuateType: "static" | "auto";
 };
 
-export const unreadCountAtom = atomWithStorage<TStateUnreadCount>("unreadCount", {
-	count: 13,
-	calcuateType: "auto",
-});
+export const unreadCountAtom = atomWithStorage<TStateUnreadCount>(
+	"unreadCount",
+	{
+		count: 13,
+		calcuateType: "auto",
+	},
+	undefined,
+	{
+		getOnInit: true,
+	},
+);
 
 export const getUnreadCountValueSnapshot = () => mainStore.get(unreadCountAtom);
 

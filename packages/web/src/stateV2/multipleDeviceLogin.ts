@@ -14,6 +14,10 @@ export const multipleDeviceLoginAtom = atomWithStorage<TStateMultipleDeviceLogin
 		devices: ["iPad"],
 		visible: true,
 	},
+	undefined,
+	{
+		getOnInit: true,
+	},
 );
 
 export const getMultipleDeviceLoginValueSnapshot = () => mainStore.get(multipleDeviceLoginAtom);
