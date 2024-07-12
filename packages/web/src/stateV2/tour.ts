@@ -6,7 +6,7 @@ export type TStateTourTarget = {
 	ref2: HTMLElement | null;
 };
 
-export const touredAtom = atomWithStorage("tour", false, undefined, { getOnInit: true });
+export const touredAtom = atomWithStorage("toured", false, undefined, { getOnInit: true });
 
 export const getTouredValueSnapshot = () => mainStore.get(touredAtom);
 

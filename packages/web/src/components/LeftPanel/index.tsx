@@ -1,19 +1,17 @@
+import { EMenus, activatedMenuAtom } from "@/stateV2/activatedMenu";
 import { BarsOutlined, CodepenOutlined, GithubOutlined, HomeOutlined } from "@ant-design/icons";
 import { Menu, type MenuProps } from "antd";
+import { useAtom } from "jotai";
 import { memo } from "react";
 import Marquee from "react-fast-marquee";
 import { useTranslation } from "react-i18next";
-import { useRecoilState } from "recoil";
-
-import { EMenus, menuState } from "@/state/globalConfig";
-
 import CodeMenu from "./CodeMenu";
 import CommonBlock from "./CommonBlock";
 import MainMenu from "./MainMenu";
 import TreesMenu from "./TreesMenu";
 
 const LeftPanel = () => {
-	const [menu, setMenu] = useRecoilState(menuState);
+	const [menu, setMenu] = useAtom(activatedMenuAtom);
 	const { t } = useTranslation();
 
 	const MENU_ITEMS: MenuProps["items"] = [

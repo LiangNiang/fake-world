@@ -5,9 +5,11 @@ import { canBeDetected } from "@/components/NodeDetected";
 import TopOperations from "@/components/TopOperations";
 import { MetaDataType } from "@/state/detectedNode";
 import { friendState } from "@/state/profile";
+import { conversationListAtom } from "@/stateV2/conversation";
 import { type IDialogueItem, dialogueItemAtom, dialogueListAtom } from "@/stateV2/dialogueList";
 import { Modal } from "antd";
 import { useAtomValue, useSetAtom } from "jotai";
+import { RESET } from "jotai/utils";
 import { memo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
@@ -32,6 +34,7 @@ const DialogueItem = ({ itemId, className }: Props) => {
 		lastMessageTime,
 	} = useAtomValue(dialogueItemAtom(itemId))!;
 	const friendProfile = useRecoilValue(friendState(friendId));
+	const setConversationList = useSetAtom(conversationListAtom(friendId));
 	const setDialogueList = useSetAtom(dialogueListAtom);
 	const navigate = useNavigate();
 
@@ -40,8 +43,10 @@ const DialogueItem = ({ itemId, className }: Props) => {
 	const handleOperationDelete = () => {
 		Modal.confirm({
 			title: "是否删除该对话项？",
+			content: "这将删除与该对话的聊天记录",
 			onOk: () => {
 				setDialogueList((prev) => prev.filter((v) => v.id !== id));
+				setConversationList(RESET);
 			},
 		});
 	};

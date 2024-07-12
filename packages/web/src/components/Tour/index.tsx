@@ -1,4 +1,4 @@
-import { EMenus, menuState } from "@/state/globalConfig";
+import { EMenus, activatedMenuAtom } from "@/stateV2/activatedMenu";
 import { modeAtom } from "@/stateV2/mode";
 import { tourTargetAtom, touredAtom } from "@/stateV2/tour";
 import { sleep } from "@/utils";
@@ -8,13 +8,12 @@ import { useAtom, useSetAtom } from "jotai";
 import { RESET } from "jotai/utils";
 import { memo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useSetRecoilState } from "recoil";
 
 const Tour = () => {
 	const [toured, setToured] = useAtom(touredAtom);
 	const [{ ref1, ref2 }, setTourTarget] = useAtom(tourTargetAtom);
 	const [current, setCurrent] = useState(0);
-	const setMenu = useSetRecoilState(menuState);
+	const setMenu = useSetAtom(activatedMenuAtom);
 	const setMode = useSetAtom(modeAtom);
 	const { t } = useTranslation();
 	const [inViewport] = useInViewport(document.getElementById("left-panel") as HTMLElement);
