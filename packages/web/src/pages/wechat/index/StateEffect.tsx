@@ -1,7 +1,5 @@
 import { dialogueListState } from "@/state/dialogueState";
-import { isNumber } from "lodash-es";
-import { useEffect } from "react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 
 const StateEffect = () => {
 	const dialogueList = useRecoilValue(dialogueListState);

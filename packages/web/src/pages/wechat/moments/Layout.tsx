@@ -1,15 +1,3 @@
-import { Global, css } from "@emotion/react";
-import { useScroll } from "ahooks";
-import { pick } from "lodash-es";
-import { type CSSProperties, useEffect, useMemo, useRef, useState } from "react";
-import { isDesktop } from "react-device-detect";
-import { useTranslation } from "react-i18next";
-import { Outlet } from "react-router-dom";
-import { CSSTransition, SwitchTransition } from "react-transition-group";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { getRecoil, setRecoil } from "recoil-nexus";
-import { twJoin } from "tailwind-merge";
-
 import BackFilledSVG from "@/assets/back-filled.svg?react";
 import CameraFilledSVG from "@/assets/camera-filled.svg?react";
 import CameraOutlinedSVG from "@/assets/camera-outlined.svg?react";
@@ -18,12 +6,22 @@ import { canBeDetected } from "@/components/NodeDetected";
 import { useMemoScrollPos } from "@/components/useMemoScrollPos";
 import useModeNavigate from "@/components/useModeNavigate";
 import {
-	type IStatusBar,
-	statusBarHideState,
-	statusBarMountNodeState,
-	statusBarState,
-} from "@/state/statusBarState";
-
+	type TStateStatusBar,
+	getStatusBarValueSnapshot,
+	setStatusBarValue,
+	statusBarHideAtom,
+	statusBarMountNodeAtom,
+} from "@/stateV2/statusBar";
+import { Global, css } from "@emotion/react";
+import { useScroll } from "ahooks";
+import { useAtomValue, useSetAtom } from "jotai";
+import { pick } from "lodash-es";
+import { type CSSProperties, useEffect, useMemo, useRef, useState } from "react";
+import { isDesktop } from "react-device-detect";
+import { useTranslation } from "react-i18next";
+import { Outlet } from "react-router-dom";
+import { CSSTransition, SwitchTransition } from "react-transition-group";
+import { twJoin } from "tailwind-merge";
 import CoverOperations from "./CoverOperations";
 import TopAvatar from "./TopAvatar";
 import { usePartMetaData, useProfile } from "./hook";
@@ -37,10 +35,10 @@ const SCROLL_HEIGHT_THRESHOLD = {
 	COMPLETELY_OPAQUE: 280,
 };
 
-const setStatusBarWhenNeeded = (newValue: Partial<IStatusBar>) => {
-	const statusBarPartData = pick(getRecoil(statusBarState), Object.keys(newValue));
+const setStatusBarWhenNeeded = (newValue: Partial<TStateStatusBar>) => {
+	const statusBarPartData = pick(getStatusBarValueSnapshot(), Object.keys(newValue));
 	if (JSON.stringify(statusBarPartData) !== JSON.stringify(newValue)) {
-		setRecoil(statusBarState, (prev) => ({
+		setStatusBarValue((prev) => ({
 			...prev,
 			...newValue,
 		}));
@@ -59,9 +57,9 @@ const MomentsLayout = () => {
 	});
 	const [bgExpand, setBgExpand] = useState(false);
 	const navigate = useModeNavigate();
-	const hidden = useRecoilValue(statusBarHideState);
+	const hidden = useAtomValue(statusBarHideAtom);
 	const { momentsBackgroundInfo } = useProfile();
-	const setStatusBarMountNode = useSetRecoilState(statusBarMountNodeState);
+	const setStatusBarMountNode = useSetAtom(statusBarMountNodeAtom);
 	const scroll = useScroll(divWrapperRef);
 	const { getScrollDataAndSave } = useMemoScrollPos(DATA_WHEEL_ID, divWrapperRef);
 	const { t } = useTranslation();

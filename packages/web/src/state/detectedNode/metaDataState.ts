@@ -1,5 +1,6 @@
 import { type EBottomNavBars, getBottomNavbarsValueSnapshot } from "@/stateV2/bottomNavbars";
 import { getMultipleDeviceLoginValueSnapshot } from "@/stateV2/multipleDeviceLogin";
+import { getStatusBarHideVauleSnapshot } from "@/stateV2/statusBar";
 import { getUnreadCountValueSnapshot } from "@/stateV2/unreadCount";
 import { getWalletVauleSnapshot } from "@/stateV2/wallet";
 import { type GetRecoilValue, selectorFamily } from "recoil";
@@ -7,7 +8,6 @@ import { conversationInputState, conversationState } from "../conversationState"
 import { dialogueItemState } from "../dialogueState";
 import { feedState } from "../moments";
 import { friendState, friendsIdsState, friendsTotalCountState, myProfileState } from "../profile";
-import { statusBarHideState } from "../statusBarState";
 import { type TTransactionType, USED_STATE_MAP } from "../transaction";
 import { MetaDataType } from "./consts";
 import type { OverallMetaData } from "./typing";
@@ -34,7 +34,7 @@ const handlerMap: HandlerMap = {
 			? get(conversationState(index[0])).find((v) => v.id === index[1])
 			: undefined,
 	[MetaDataType.ConversationInput]: (get) => get(conversationInputState),
-	[MetaDataType.StatusBar]: (get) => get(statusBarHideState),
+	[MetaDataType.StatusBar]: () => getStatusBarHideVauleSnapshot(),
 	[MetaDataType.MyProfile]: (get) => get(myProfileState),
 	[MetaDataType.FirendProfile]: (get, index) => get(friendState(index as string)),
 	[MetaDataType.Wallet]: () => getWalletVauleSnapshot(),
