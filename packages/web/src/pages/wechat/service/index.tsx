@@ -1,6 +1,3 @@
-import { useTranslation } from "react-i18next";
-import { useRecoilValue } from "recoil";
-
 import BackFilledSVG from "@/assets/back-filled.svg?react";
 import MoreFilledSVG from "@/assets/more-filled.svg?react";
 import PayVendorSVG from "@/assets/pay-vendor.svg?react";
@@ -8,8 +5,9 @@ import WalletOutlinedSVG from "@/assets/wallet-outlined.svg?react";
 import { canBeDetected } from "@/components/NodeDetected";
 import useModeNavigate from "@/components/useModeNavigate";
 import { MetaDataType } from "@/state/detectedNode";
-import { walletState } from "@/state/walletState";
-
+import { walletAtom } from "@/stateV2/wallet";
+import { useAtomValue } from "jotai";
+import { useTranslation } from "react-i18next";
 import BKZF_SVG from "./assets/bkzf.svg?react";
 import BXFW_SVG from "./assets/bxfw.svg?react";
 import CSFW_SVG from "./assets/csfw.svg?react";
@@ -35,7 +33,7 @@ import ZZES_SVG from "./assets/zzes.svg?react";
 
 const Service = () => {
 	const navigate = useModeNavigate();
-	const { balance } = useRecoilValue(walletState);
+	const { balance } = useAtomValue(walletAtom);
 	const { t } = useTranslation();
 
 	return (

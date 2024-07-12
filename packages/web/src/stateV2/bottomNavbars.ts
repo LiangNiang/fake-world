@@ -19,7 +19,7 @@ export type TStateBottomNavbars = {
 	[key in EBottomNavBars]: IBottomNavbarsItemConfig;
 };
 
-const INIT_VALUE: TStateBottomNavbars = {
+export const bottomNavbarsAtom = atomWithStorage<TStateBottomNavbars>("bottomNavbars", {
 	[EBottomNavBars.WECHAT]: {
 		badgeHide: false,
 		badgeNumber: 22,
@@ -29,8 +29,6 @@ const INIT_VALUE: TStateBottomNavbars = {
 		badgeType: "dot",
 	},
 	[EBottomNavBars.MY]: {},
-};
-
-export const bottomNavbarsAtom = atomWithStorage<TStateBottomNavbars>("bottomNavbars", INIT_VALUE);
+});
 
 export const getBottomNavbarsValueSnapshot = () => mainStore.get(bottomNavbarsAtom);

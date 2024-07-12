@@ -1,6 +1,3 @@
-import { useTranslation } from "react-i18next";
-import { useRecoilValue } from "recoil";
-
 import BackFilledSVG from "@/assets/back-filled.svg?react";
 import CoinOutlinedSVG from "@/assets/coin-outlined.svg?react";
 import PayCardsOutlinedSVG from "@/assets/pay-cards-outlined.svg?react";
@@ -8,16 +5,17 @@ import PayMiniFundOutlinedSVG from "@/assets/pay-mini-fund-outlined.svg?react";
 import PayRelativeCardsSVG from "@/assets/pay-relative-cards.svg?react";
 import useModeNavigate from "@/components/useModeNavigate";
 import { MetaDataType } from "@/state/detectedNode";
-import { walletState } from "@/state/walletState";
+import { walletAtom } from "@/stateV2/wallet";
 import List from "@/wechatComponents/List";
-
+import { useAtomValue } from "jotai";
+import { useTranslation } from "react-i18next";
 import SZRMB_SVG from "./assets/szrmb.svg?react";
 import XFZBH_SVG from "./assets/xfzbh.svg?react";
 import ZFF_SVG from "./assets/zff.svg?react";
 
 const Wallet = () => {
 	const navigate = useModeNavigate();
-	const { balance, miniFund, miniFundYield } = useRecoilValue(walletState);
+	const { balance, miniFund, miniFundYield } = useAtomValue(walletAtom);
 	const { t } = useTranslation();
 
 	return (

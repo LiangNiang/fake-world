@@ -1,6 +1,7 @@
 import type { EBottomNavBars, IBottomNavbarsItemConfig } from "@/stateV2/bottomNavbars";
 import type { TStateMultipleDeviceLogin } from "@/stateV2/multipleDeviceLogin";
 import type { TStateUnreadCount } from "@/stateV2/unreadCount";
+import type { TStateWallet } from "@/stateV2/wallet";
 import type { TFunction } from "i18next";
 import type { ReactNode } from "react";
 import type { IConversationInputConfig, TConversationItem } from "../conversationState";
@@ -8,7 +9,6 @@ import type { IDialogueItem } from "../dialogueState";
 import type { IFeed, IFeedComment } from "../moments";
 import type { IFriendsTotalCountDisplay, IProfile } from "../profile";
 import type { TTransactionDataWithType, TTransactionType } from "../transaction";
-import type { IWallet } from "../walletState";
 import type { MetaDataType } from "./consts";
 
 type MakeOptional<T, K extends keyof T> = {
@@ -95,8 +95,8 @@ declare namespace OverallMetaData {
 
 	interface IMetaDataWallet extends Base {
 		type: MetaDataType.Wallet;
-		data: IWallet;
-		treeItemDisplayName: string | ((data: IWallet) => string);
+		data: TStateWallet;
+		treeItemDisplayName: string | ((data: TStateWallet) => string);
 	}
 
 	interface IMetaDataFeed extends Base {
