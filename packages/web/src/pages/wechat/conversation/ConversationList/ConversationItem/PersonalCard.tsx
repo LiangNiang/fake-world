@@ -1,9 +1,7 @@
-import { memo } from "react";
-
 import { h } from "@/components/HashAssets";
-import type { IConversationTypePersonalCard } from "@/state/conversationState";
 import type { IProfile } from "@/state/profile";
-
+import type { IConversationTypePersonalCard } from "@/stateV2/conversation";
+import { memo } from "react";
 import CommonBlock from "./CommonBlock";
 
 type Props = {

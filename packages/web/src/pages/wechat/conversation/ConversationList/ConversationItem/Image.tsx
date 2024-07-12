@@ -1,13 +1,11 @@
-import { memo, useEffect, useState } from "react";
-import { twJoin } from "tailwind-merge";
-
 import PlayFilledSVG from "@/assets/play-filled.svg?react";
 import { h } from "@/components/HashAssets";
 import { ImageDBManager } from "@/dataSource";
-import type { IConversationTypeImage } from "@/state/conversationState";
 import type { IProfile } from "@/state/profile";
+import type { IConversationTypeImage } from "@/stateV2/conversation";
 import { isMD5 } from "@/utils";
-
+import { memo, useEffect, useState } from "react";
+import { twJoin } from "tailwind-merge";
 import CommonBlock from "./CommonBlock";
 
 type Props = {

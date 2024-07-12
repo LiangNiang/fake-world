@@ -1,16 +1,16 @@
+import type { IProfile } from "@/state/profile";
 import {
 	ConversationTypeLabel,
 	EConversationType,
 	type TConversationItem,
-	conversationState,
-} from "@/state/conversationState";
-import type { IProfile } from "@/state/profile";
+	conversationListAtom,
+} from "@/stateV2/conversation";
 import { SLATE_INITIAL_VALUE } from "@/wechatComponents/SlateText/utils";
 import { Button, Form, Input, InputNumber, Radio, Select, Switch } from "antd";
 import dayjs from "dayjs";
+import { useAtom } from "jotai";
 import { nanoid } from "nanoid";
 import { useCallback } from "react";
-import { useRecoilState } from "recoil";
 import LocalImageUploadWithPreview from "../LocalImageUpload";
 import WrapSlateInput from "../SlateInput";
 import GenerateConversation from "./GenerateConversation";
@@ -18,7 +18,7 @@ import { CONVERSATION_TYPE_OPTIONS } from "./consts";
 
 const ConversationListMetaDataEditor = ({ index }: EditorProps<unknown, IProfile["id"]>) => {
 	const [form] = Form.useForm<TConversationItem>();
-	const [conversationList, setConversationList] = useRecoilState(conversationState(index));
+	const [conversationList, setConversationList] = useAtom(conversationListAtom(index));
 
 	const scrollToBtm = useCallback(() => {
 		setTimeout(() => {

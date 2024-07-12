@@ -1,33 +1,30 @@
-import { SubnodeOutlined } from "@ant-design/icons";
-import { Modal, Tooltip } from "antd";
-import { useMemo } from "react";
-import { ReactSortable } from "react-sortablejs";
-import { useRecoilState, useResetRecoilState } from "recoil";
-import { getRecoil } from "recoil-nexus";
-import { twJoin } from "tailwind-merge";
-
 import { canBeDetected } from "@/components/NodeDetected";
 import TopOperations from "@/components/TopOperations";
 import useMode from "@/components/useMode";
+import { MetaDataType, allNodesTreeState } from "@/state/detectedNode";
+import type { StaticMetaData } from "@/state/detectedNode/typing";
 import {
 	ConversationTypeLabel,
 	EConversationType,
 	type IConversationTypeTransfer,
 	type TConversationItem,
-	conversationState,
-} from "@/state/conversationState";
-import { MetaDataType, allNodesTreeState } from "@/state/detectedNode";
-import type { StaticMetaData } from "@/state/detectedNode/typing";
-
+	conversationListAtom,
+	getConversationListValueSnapshot,
+} from "@/stateV2/conversation";
+import { SubnodeOutlined } from "@ant-design/icons";
+import { Modal, Tooltip } from "antd";
+import { useAtom } from "jotai";
+import { useMemo } from "react";
+import { ReactSortable } from "react-sortablejs";
+import { useResetRecoilState } from "recoil";
+import { twJoin } from "tailwind-merge";
 import { useConversationAPI } from "../context";
 import ConversationItem from "./ConversationItem";
 
 const ConversationList = () => {
 	const { listRef, conversationId, sendTransfer, sendRedPacketAcceptedReply } =
 		useConversationAPI();
-	const [conversationList, setConversationList] = useRecoilState(
-		conversationState(conversationId ?? ""),
-	);
+	const [conversationList, setConversationList] = useAtom(conversationListAtom(conversationId));
 	const resetTree = useResetRecoilState(allNodesTreeState);
 	const { isEdit } = useMode();
 
@@ -47,7 +44,7 @@ const ConversationList = () => {
 	};
 
 	const generateTransferReplyConversation = (conversationItemId: TConversationItem["id"]) => {
-		const item = getRecoil(conversationState(conversationId ?? "")).find(
+		const item = getConversationListValueSnapshot(conversationId).find(
 			(v) => v.id === conversationItemId,
 		);
 		const { amount, originalSender, role } = item as IConversationTypeTransfer;
@@ -62,7 +59,7 @@ const ConversationList = () => {
 			amount,
 			transferStatus: "accepted",
 			originalSender,
-			role: role === 'mine' ? 'friend' : 'mine',
+			role: role === "mine" ? "friend" : "mine",
 		});
 	};
 

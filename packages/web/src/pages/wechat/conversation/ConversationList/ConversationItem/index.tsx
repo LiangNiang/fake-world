@@ -1,9 +1,7 @@
+import { MYSELF_ID } from "@/faker/wechat/user";
+import { EConversationType, type TConversationItem } from "@/stateV2/conversation";
 import { memo } from "react";
 import { useParams } from "react-router-dom";
-
-import { MYSELF_ID } from "@/faker/wechat/user";
-import { EConversationType, type TConversationItem } from "@/state/conversationState";
-
 import CenterText from "./CenterText";
 import Image from "./Image";
 import PersonalCard from "./PersonalCard";

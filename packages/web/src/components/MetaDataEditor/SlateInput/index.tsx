@@ -1,17 +1,16 @@
-import { useCreation } from "ahooks";
-import { Button, Popover } from "antd";
-import { type MouseEvent, memo } from "react";
-import { useSetRecoilState } from "recoil";
-import { type Descendant, Transforms, createEditor } from "slate";
-import { withHistory } from "slate-history";
-import { Editable, ReactEditor, Slate, withReact } from "slate-react";
-
 import StickerOutlinedSVG from "@/assets/sticker-outlined.svg?react";
 import EmojiList from "@/pages/wechat/conversation/ConversationFooter/EmojiPanel/EmojiList";
-import { recentUseEmojiState } from "@/state/conversationState";
+import { recentUsedEmojiAtom } from "@/stateV2/conversation";
 import type { CustomElementEmoji } from "@/vite-env";
 import Element from "@/wechatComponents/SlateText/Element";
 import { withInlines } from "@/wechatComponents/SlateText/utils";
+import { useCreation } from "ahooks";
+import { Button, Popover } from "antd";
+import { useSetAtom } from "jotai";
+import { type MouseEvent, memo } from "react";
+import { type Descendant, Transforms, createEditor } from "slate";
+import { withHistory } from "slate-history";
+import { Editable, ReactEditor, Slate, withReact } from "slate-react";
 
 type Props = {
 	value?: Descendant[];
@@ -20,7 +19,7 @@ type Props = {
 };
 
 const WrapSlateInput = ({ value, onChange, inline }: Props) => {
-	const setRecentUseEmoji = useSetRecoilState(recentUseEmojiState);
+	const setRecentUsedEmoji = useSetAtom(recentUsedEmojiAtom);
 	const editor = useCreation(() => withInlines(withHistory(withReact(createEditor()))), []);
 	if (!value) return null;
 
@@ -31,7 +30,7 @@ const WrapSlateInput = ({ value, onChange, inline }: Props) => {
 			const emoji: CustomElementEmoji = { type: "emoji", emojiSymbol, children: [{ text: "" }] };
 			Transforms.insertNodes(editor, emoji);
 			Transforms.move(editor, { distance: 2 });
-			setRecentUseEmoji((prev) => Array.from(new Set([emojiSymbol, ...prev])).slice(0, 8));
+			setRecentUsedEmoji((prev) => Array.from(new Set([emojiSymbol, ...prev])).slice(0, 8));
 		}
 	};
 

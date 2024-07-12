@@ -2,21 +2,22 @@ import { h } from "@/components/HashAssets";
 import { type InjectProps, canBeDetected } from "@/components/NodeDetected";
 import TopOperations from "@/components/TopOperations";
 import { MYSELF_ID } from "@/faker/wechat/user";
+import { MetaDataType, activatedNodeState } from "@/state/detectedNode";
 import {
 	EConversationType,
 	type IConversationTypeText,
-	conversationItemReferenceState,
-	conversationState,
-} from "@/state/conversationState";
-import { MetaDataType, activatedNodeState } from "@/state/detectedNode";
+	conversationItemReferenceAtom,
+	conversationListAtom,
+} from "@/stateV2/conversation";
 import { getModeValueSnapshot } from "@/stateV2/mode";
 import SlateText from "@/wechatComponents/SlateText";
 import UserName from "@/wechatComponents/User/UserName";
 import { AimOutlined } from "@ant-design/icons";
 import { Tooltip } from "antd";
+import { useAtomValue, useSetAtom } from "jotai";
 import { memo } from "react";
 import { useParams } from "react-router-dom";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import CommonBlock from "./CommonBlock";
 
 type Props = {
@@ -26,10 +27,8 @@ type Props = {
 
 const TextReference = ({ referenceId, conversationItemId }: Props) => {
 	const { id } = useParams<{ id: string }>();
-	const referenceData = useRecoilValue(
-		conversationItemReferenceState({ profileId: id!, conversationId: referenceId! }),
-	);
-	const setConversationList = useSetRecoilState(conversationState(id!));
+	const referenceData = useAtomValue(conversationItemReferenceAtom(id!, referenceId!));
+	const setConversationList = useSetAtom(conversationListAtom(id!));
 	const setActivatedNode = useSetRecoilState(activatedNodeState);
 
 	if (!referenceData) return null;

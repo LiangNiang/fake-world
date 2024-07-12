@@ -1,14 +1,12 @@
-import { memo } from "react";
-import { useRecoilState } from "recoil";
-
 import RedPacketCloseIMG from "@/assets/red-packet-close.png";
 import {
 	type IConversationTypeRedPacket,
 	type IConversationTypeRedPacketAcceptedReply,
-	conversationState,
-} from "@/state/conversationState";
+	conversationListAtom,
+} from "@/stateV2/conversation";
 import UserName from "@/wechatComponents/User/UserName";
-
+import { useAtom } from "jotai";
+import { memo } from "react";
 import { useConversationAPI } from "../../context";
 
 type Props = {
@@ -19,7 +17,7 @@ type Props = {
 
 const RedPacketAcceptedReply = ({ redPacketId, upperText, id }: Props) => {
 	const { conversationId } = useConversationAPI();
-	const [conversationList, setConversationList] = useRecoilState(conversationState(conversationId));
+	const [conversationList, setConversationList] = useAtom(conversationListAtom(conversationId));
 	const redPacket = conversationList.find((v) => v.id === redPacketId);
 
 	if (!redPacket) {

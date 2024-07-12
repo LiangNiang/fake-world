@@ -1,9 +1,7 @@
-import { memo } from "react";
-
-import type { IConversationTypeText } from "@/state/conversationState";
 import type { IProfile } from "@/state/profile";
+import type { IConversationTypeText } from "@/stateV2/conversation";
 import SlateText from "@/wechatComponents/SlateText";
-
+import { memo } from "react";
 import CommonBlock from "./CommonBlock";
 import TextReference from "./TextReference";
 

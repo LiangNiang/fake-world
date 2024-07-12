@@ -1,10 +1,8 @@
+import VoiceSVG from "@/assets/voice.svg?react";
+import type { IProfile } from "@/state/profile";
+import type { IConversationTypeVoice } from "@/stateV2/conversation";
 import { memo } from "react";
 import { twJoin } from "tailwind-merge";
-
-import VoiceSVG from "@/assets/voice.svg?react";
-import type { IConversationTypeVoice } from "@/state/conversationState";
-import type { IProfile } from "@/state/profile";
-
 import CommonBlock from "./CommonBlock";
 
 type Props = {

@@ -1,11 +1,14 @@
 import { type EBottomNavBars, getBottomNavbarsValueSnapshot } from "@/stateV2/bottomNavbars";
+import {
+	getConversationListValueSnapshot,
+	getInputterConfigValueSnapshot,
+} from "@/stateV2/conversation";
 import { getDialogueListValueSnapshot } from "@/stateV2/dialogueList";
 import { getMultipleDeviceLoginValueSnapshot } from "@/stateV2/multipleDeviceLogin";
 import { getStatusBarHideVauleSnapshot } from "@/stateV2/statusBar";
 import { getUnreadCountValueSnapshot } from "@/stateV2/unreadCount";
 import { getWalletVauleSnapshot } from "@/stateV2/wallet";
 import { type GetRecoilValue, selectorFamily } from "recoil";
-import { conversationInputState, conversationState } from "../conversationState";
 import { feedState } from "../moments";
 import { friendState, friendsIdsState, friendsTotalCountState, myProfileState } from "../profile";
 import { type TTransactionType, USED_STATE_MAP } from "../transaction";
@@ -30,11 +33,11 @@ const handlerMap: HandlerMap = {
 	[MetaDataType.NavigationBar]: (_, index) =>
 		getBottomNavbarsValueSnapshot()[index as EBottomNavBars],
 	[MetaDataType.UnreadCount]: () => getUnreadCountValueSnapshot(),
-	[MetaDataType.ConversationItem]: (get, index) =>
+	[MetaDataType.ConversationItem]: (_, index) =>
 		index && index.length === 2
-			? get(conversationState(index[0])).find((v) => v.id === index[1])
+			? getConversationListValueSnapshot(index[0]).find((v) => v.id === index[1])
 			: undefined,
-	[MetaDataType.ConversationInput]: (get) => get(conversationInputState),
+	[MetaDataType.ConversationInput]: () => getInputterConfigValueSnapshot(),
 	[MetaDataType.StatusBar]: () => getStatusBarHideVauleSnapshot(),
 	[MetaDataType.MyProfile]: (get) => get(myProfileState),
 	[MetaDataType.FirendProfile]: (get, index) => get(friendState(index as string)),

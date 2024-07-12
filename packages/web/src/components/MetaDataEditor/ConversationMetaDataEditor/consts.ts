@@ -1,6 +1,5 @@
+import { ConversationTypeLabel, EConversationType } from "@/stateV2/conversation";
 import type { AbstractCheckboxGroupProps } from "antd/es/checkbox/Group";
-
-import { ConversationTypeLabel, EConversationType } from "@/state/conversationState";
 
 export const CONVERSATION_TYPE_OPTIONS: AbstractCheckboxGroupProps["options"] = Object.keys(
 	ConversationTypeLabel,

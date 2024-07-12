@@ -1,7 +1,7 @@
-import { conversationState } from "@/state/conversationState";
 import { MetaDataType, allNodesTreeState, nodeFreshDataState } from "@/state/detectedNode";
 import type { StaticMetaData } from "@/state/detectedNode/typing";
 import { type IFeed, allFeedsState } from "@/state/moments";
+import { setConversationListValue } from "@/stateV2/conversation";
 import { setDialogueListValue } from "@/stateV2/dialogueList";
 import { getRecoil, resetRecoil, setRecoil } from "recoil-nexus";
 
@@ -54,9 +54,7 @@ export function doChangeOrder(
 		}
 		case MetaDataType.ConversationItem: {
 			const [conversationId] = metaData?.index ?? [];
-			setRecoil(conversationState(conversationId ?? ""), (prev) =>
-				moveData(prev, fromDataId, toDataId),
-			);
+			setConversationListValue(conversationId, (prev) => moveData(prev, fromDataId, toDataId));
 			break;
 		}
 		default:

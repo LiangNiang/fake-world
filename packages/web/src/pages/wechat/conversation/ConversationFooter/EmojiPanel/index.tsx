@@ -1,14 +1,12 @@
-import { isEqual } from "lodash-es";
-import { type MouseEvent as ReactMouseEvent, useCallback, useEffect, useRef } from "react";
-import { useRecoilValue } from "recoil";
-
 import LikeOutlinedSVG from "@/assets/like-outlined.svg?react";
 import SearchOutlinedSVG from "@/assets/search-outlined.svg?react";
 import SELFIE_EXPRESSION_IMG from "@/assets/selfie-expression.png";
 import StickerOutlinedSVG from "@/assets/sticker-outlined.svg?react";
-import { conversationInputValueState } from "@/state/conversationState";
+import { inputterValueAtom } from "@/stateV2/conversation";
 import { SLATE_INITIAL_VALUE } from "@/wechatComponents/SlateText/utils";
-
+import { useAtom } from "jotai";
+import { isEqual } from "lodash-es";
+import { type MouseEvent as ReactMouseEvent, useCallback, useEffect, useRef } from "react";
 import { useConversationAPI } from "../../context";
 import { usePopup } from "../BottomPopup";
 import EmojiList from "./EmojiList";
@@ -18,9 +16,9 @@ const EmojiPanel = () => {
 	const { enteringStatusCallback, exitedStatusCallback, nodeRef } = usePopup();
 	const { insertEmojiNode, scrollConversationListToBtm, focusInput, setMobileInputMode } =
 		useConversationAPI();
-	const inputValue = useRecoilValue(conversationInputValueState);
+	const value = useAtom(inputterValueAtom);
 	const previousTouch = useRef<Touch | null>(null);
-	const isInitial = isEqual(inputValue, SLATE_INITIAL_VALUE);
+	const isInitial = isEqual(value, SLATE_INITIAL_VALUE);
 
 	useEffect(() => {
 		const onEnter = () => {

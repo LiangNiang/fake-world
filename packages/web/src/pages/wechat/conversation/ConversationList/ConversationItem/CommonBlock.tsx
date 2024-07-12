@@ -1,7 +1,7 @@
 import { h } from "@/components/HashAssets";
 import useModeNavigate from "@/components/useModeNavigate";
-import type { IConversationItemBase } from "@/state/conversationState";
 import { type IProfile, friendState } from "@/state/profile";
+import type { IConversationItemBase } from "@/stateV2/conversation";
 import { getModeValueSnapshot } from "@/stateV2/mode";
 import { css } from "@emotion/react";
 import { useDebounceFn } from "ahooks";

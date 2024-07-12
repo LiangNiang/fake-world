@@ -1,15 +1,15 @@
+import { type TStateConversationInputterConfig, inputterConfigAtom } from "@/stateV2/conversation";
 import { Form, Radio } from "antd";
-import { useSetRecoilState } from "recoil";
+import { useSetAtom } from "jotai";
 
-import { conversationInputState } from "@/state/conversationState";
-import type { IConversationInputConfig } from "@/state/conversationState";
+const ConversationInputMetaDataEditor = ({
+	data,
+}: EditorProps<TStateConversationInputterConfig>) => {
+	const [form] = Form.useForm<TStateConversationInputterConfig>();
+	const setInputterConfig = useSetAtom(inputterConfigAtom);
 
-const ConversationInputMetaDataEditor = ({ data }: EditorProps<IConversationInputConfig>) => {
-	const [form] = Form.useForm<IConversationInputConfig>();
-	const setConversationInput = useSetRecoilState(conversationInputState);
-
-	const onFinish = (values: IConversationInputConfig) => {
-		setConversationInput(values);
+	const onFinish = (values: TStateConversationInputterConfig) => {
+		setInputterConfig(values);
 	};
 
 	return (
@@ -25,7 +25,7 @@ const ConversationInputMetaDataEditor = ({ data }: EditorProps<IConversationInpu
 			}}
 			initialValues={data}
 		>
-			<Form.Item<IConversationInputConfig> name="sendRole" label="由谁发送">
+			<Form.Item<TStateConversationInputterConfig> name="sendRole" label="由谁发送">
 				<Radio.Group>
 					<Radio value="mine">我自己</Radio>
 					<Radio value="friend">朋友</Radio>
