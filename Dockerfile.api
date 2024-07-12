@@ -7,7 +7,7 @@ WORKDIR /app
 ADD package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc /app/
 ADD packages/api/package.json /app/packages/api/
 ADD packages/api/prisma /app/packages/api/prisma
-RUN npm i -g pnpm && cd packages/api && pnpm install --prod --no-optional && pnpx prisma generate
+RUN corepack enable && cd packages/api && pnpm install --prod --no-optional && pnpx prisma generate
 ADD . /app
 
 FROM oven/bun
@@ -18,16 +18,6 @@ ENV PORT=3000
 
 
 COPY --from=installer /app /app
-
-
-# RUN apt-get update \
-#     && apt-get install -y wget gnupg \
-#     && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
-#     && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
-#     && apt-get update \
-#     && apt-get install -y google-chrome-stable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst fonts-freefont-ttf libxss1 \
-#       --no-install-recommends \
-#     && rm -rf /var/lib/apt/lists/*
 
 CMD [ "bun", "run", "/app/packages/api/src/index.ts" ]
 EXPOSE 3000
