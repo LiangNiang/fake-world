@@ -1,10 +1,9 @@
+import { MOBILE_LIST, SCREEN_SIZE, deviceAtom } from "@/stateV2/device";
 import { useSize } from "ahooks";
-import { useRecoilValue } from "recoil";
-
-import { MOBILE_LIST, SCREEN_SIZE, deviceState } from "@/state/screenState";
+import { useAtomValue } from "jotai";
 
 export default function useDeviceConfig() {
-	const device = useRecoilValue(deviceState);
+	const device = useAtomValue(deviceAtom);
 	const size = useSize(() => document.querySelector("#center") || document.querySelector("#root"));
 	let screenSize: {
 		width: number;

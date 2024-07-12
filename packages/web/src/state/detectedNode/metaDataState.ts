@@ -1,10 +1,10 @@
+import { getMultipleDeviceLoginValueSnapshot } from "@/stateV2/multipleDeviceLogin";
 import { getUnreadCountSnapshot } from "@/stateV2/unreadCount";
 import { type GetRecoilValue, selectorFamily } from "recoil";
 import btmNavbarsState, { type BottomNavBars } from "../btmNavbarsState";
 import { conversationInputState, conversationState } from "../conversationState";
 import { dialogueItemState } from "../dialogueState";
 import { feedState } from "../moments";
-import { multipleDeviceLoginState } from "../multipleDeviceLoginState";
 import { friendState, friendsIdsState, friendsTotalCountState, myProfileState } from "../profile";
 import { statusBarHideState } from "../statusBarState";
 import { type TTransactionType, USED_STATE_MAP } from "../transaction";
@@ -51,7 +51,7 @@ const handlerMap: HandlerMap = {
 	}),
 	[MetaDataType.ContactsContainer]: (get) => get(friendsIdsState),
 	[MetaDataType.FriendsTotalCount]: (get) => get(friendsTotalCountState),
-	[MetaDataType.MultipleDeviceLogin]: (get) => get(multipleDeviceLoginState),
+	[MetaDataType.MultipleDeviceLogin]: () => getMultipleDeviceLoginValueSnapshot(),
 };
 
 export const nodeRuntimeState = selectorFamily<OverallMetaData.OverallData, ParamsType>({

@@ -1,8 +1,3 @@
-import type { ReactElement } from "react";
-import { useTranslation } from "react-i18next";
-import { useRecoilValue } from "recoil";
-import { twJoin } from "tailwind-merge";
-
 import AppleWatchOutlinedSVG from "@/assets/apple-watch-outlined.svg?react";
 import MultipleDeviceSVG from "@/assets/display-mobile-outlined.svg?react";
 import DisplayOutlinedSVG from "@/assets/display-outlined.svg?react";
@@ -10,10 +5,14 @@ import IMacOutlinedSVG from "@/assets/imac-outlined.svg?react";
 import PadOutlined from "@/assets/pad-outlined.svg?react";
 import { canBeDetected } from "@/components/NodeDetected";
 import { MetaDataType } from "@/state/detectedNode";
-import { type ALL_LOGIN_DEVICES, multipleDeviceLoginState } from "@/state/multipleDeviceLoginState";
+import { type ALL_LOGIN_DEVICES, multipleDeviceLoginAtom } from "@/stateV2/multipleDeviceLogin";
+import { useAtomValue } from "jotai";
+import type { ReactElement } from "react";
+import { useTranslation } from "react-i18next";
+import { twJoin } from "tailwind-merge";
 
 const MultipleDeviceLogin = () => {
-	const { visible, devices } = useRecoilValue(multipleDeviceLoginState);
+	const { visible, devices } = useAtomValue(multipleDeviceLoginAtom);
 	const { t } = useTranslation();
 
 	const show = visible && devices.length > 0;

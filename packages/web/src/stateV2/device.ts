@@ -1,11 +1,5 @@
-import { atom } from "recoil";
-import { setRecoil } from "recoil-nexus";
-
-import { persistAtom } from "./effects";
-
-window.setDevice = (v) => {
-	setRecoil(deviceState, v as MOBILE_LIST);
-};
+import { atomWithStorage } from "jotai/utils";
+import { mainStore } from "./store";
 
 export enum MOBILE_LIST {
 	AUTO = "auto",
@@ -48,8 +42,8 @@ export const SCREEN_SIZE = {
 	},
 };
 
-export const deviceState = atom<MOBILE_LIST>({
-	key: "deviceState",
-	default: MOBILE_LIST.AUTO,
-	effects_UNSTABLE: [persistAtom],
-});
+export const deviceAtom = atomWithStorage<MOBILE_LIST>("device", MOBILE_LIST.AUTO);
+
+window.setDevice = (v) => {
+	mainStore.set(deviceAtom, v as MOBILE_LIST);
+};

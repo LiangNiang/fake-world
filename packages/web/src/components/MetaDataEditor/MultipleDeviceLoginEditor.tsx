@@ -1,18 +1,17 @@
-import { Checkbox, Form, Switch } from "antd";
-import { useSetRecoilState } from "recoil";
-
 import {
 	ALL_LOGIN_DEVICES,
-	type TLoginDevicesConfig,
-	multipleDeviceLoginState,
-} from "@/state/multipleDeviceLoginState";
+	type TStateMultipleDeviceLogin,
+	multipleDeviceLoginAtom,
+} from "@/stateV2/multipleDeviceLogin";
+import { Checkbox, Form, Switch } from "antd";
+import { useSetAtom } from "jotai";
 
-const MultipleDeviceLoginEditor = ({ data }: EditorProps<TLoginDevicesConfig>) => {
-	const [form] = Form.useForm<TLoginDevicesConfig>();
-	const setConfig = useSetRecoilState(multipleDeviceLoginState);
+const MultipleDeviceLoginEditor = ({ data }: EditorProps<TStateMultipleDeviceLogin>) => {
+	const [form] = Form.useForm<TStateMultipleDeviceLogin>();
+	const setDevices = useSetAtom(multipleDeviceLoginAtom);
 
-	const onFinish = (vaules: TLoginDevicesConfig) => {
-		setConfig(vaules);
+	const onFinish = (vaules: TStateMultipleDeviceLogin) => {
+		setDevices(vaules);
 	};
 
 	return (
@@ -28,10 +27,10 @@ const MultipleDeviceLoginEditor = ({ data }: EditorProps<TLoginDevicesConfig>) =
 			}}
 			initialValues={data}
 		>
-			<Form.Item<TLoginDevicesConfig> name="visible" label="是否显示" valuePropName="checked">
+			<Form.Item<TStateMultipleDeviceLogin> name="visible" label="是否显示" valuePropName="checked">
 				<Switch />
 			</Form.Item>
-			<Form.Item<TLoginDevicesConfig> name="devices" label="选择设备">
+			<Form.Item<TStateMultipleDeviceLogin> name="devices" label="选择设备">
 				<Checkbox.Group options={ALL_LOGIN_DEVICES.map((v) => ({ value: v, label: v }))} />
 			</Form.Item>
 		</Form>

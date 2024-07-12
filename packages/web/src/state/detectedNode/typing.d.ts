@@ -1,3 +1,4 @@
+import type { TStateMultipleDeviceLogin } from "@/stateV2/multipleDeviceLogin";
 import type { TStateUnreadCount } from "@/stateV2/unreadCount";
 import type { TFunction } from "i18next";
 import type { ReactNode } from "react";
@@ -5,7 +6,6 @@ import type { BottomNavBars, IBottomNavbarItemConfig } from "../btmNavbarsState"
 import type { IConversationInputConfig, TConversationItem } from "../conversationState";
 import type { IDialogueItem } from "../dialogueState";
 import type { IFeed, IFeedComment } from "../moments";
-import type { TLoginDevicesConfig } from "../multipleDeviceLoginState";
 import type { IFriendsTotalCountDisplay, IProfile } from "../profile";
 import type { TTransactionDataWithType, TTransactionType } from "../transaction";
 import type { IWallet } from "../walletState";
@@ -160,8 +160,8 @@ declare namespace OverallMetaData {
 
 	interface IMetaDataMultipleDeviceLogin extends Base {
 		type: MetaDataType.MultipleDeviceLogin;
-		data: TLoginDevicesConfig;
-		treeItemDisplayName: string | ((data: TLoginDevicesConfig) => string);
+		data: TStateMultipleDeviceLogin;
+		treeItemDisplayName: string | ((data: TStateMultipleDeviceLogin) => string);
 	}
 
 	interface IMetaDataSimple extends Base {
