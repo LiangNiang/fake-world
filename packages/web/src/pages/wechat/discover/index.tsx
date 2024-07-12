@@ -1,5 +1,3 @@
-import { useTranslation } from "react-i18next";
-
 import FloatWindowOnOutlinedSVG from "@/assets/float-window-on-outlined.svg?react";
 import GamesSVG from "@/assets/games.svg?react";
 import MiniProgramOutlinedSVG from "@/assets/mini-program-2-outlined.svg?react";
@@ -8,17 +6,17 @@ import NewsOutlinedSVG from "@/assets/news-outlined.svg?react";
 import ScanOutlinedSVG from "@/assets/scan-outlined.svg?react";
 import SearchLogoOutlinedSVG from "@/assets/search-logo-outlined.svg?react";
 import useModeNavigate from "@/components/useModeNavigate";
-import { BottomNavBars } from "@/state/btmNavbarsState";
+import { EBottomNavBars } from "@/stateV2/bottomNavbars";
 import BottomNavbar, { useToggleNavbarActivated } from "@/wechatComponents/BottomNavbar";
 import List from "@/wechatComponents/List";
-
+import { useTranslation } from "react-i18next";
 import FjSVG from "./assets/fj.svg?react";
 import SphSVG from "./assets/sph.svg?react";
 
 const Discover = () => {
 	const navigate = useModeNavigate();
 	const { t } = useTranslation();
-	useToggleNavbarActivated(BottomNavBars.DISCOVER);
+	useToggleNavbarActivated(EBottomNavBars.DISCOVER);
 
 	return (
 		<>

@@ -1,9 +1,8 @@
 import PlusCircleSVG from "@/assets/plus-circle.svg?react";
 import SearchOutlinedSVG from "@/assets/search-outlined.svg?react";
 import { canBeDetected } from "@/components/NodeDetected";
-import {} from "@/components/StatusBar";
-import { BottomNavBars } from "@/state/btmNavbarsState";
 import { MetaDataType } from "@/state/detectedNode";
+import { EBottomNavBars } from "@/stateV2/bottomNavbars";
 import { unreadCountAtom, unreadCountEffect } from "@/stateV2/unreadCount";
 import BottomNavbar, { useToggleNavbarActivated } from "@/wechatComponents/BottomNavbar";
 import { useAtom, useAtomValue } from "jotai";
@@ -15,7 +14,7 @@ import StateEffect from "./StateEffect";
 const WechatIndex = () => {
 	const { count } = useAtomValue(unreadCountAtom);
 	const { t } = useTranslation();
-	useToggleNavbarActivated(BottomNavBars.WECHAT);
+	useToggleNavbarActivated(EBottomNavBars.WECHAT);
 	useAtom(unreadCountEffect);
 
 	return (

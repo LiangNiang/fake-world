@@ -1,8 +1,8 @@
+import type { EBottomNavBars, IBottomNavbarsItemConfig } from "@/stateV2/bottomNavbars";
 import type { TStateMultipleDeviceLogin } from "@/stateV2/multipleDeviceLogin";
 import type { TStateUnreadCount } from "@/stateV2/unreadCount";
 import type { TFunction } from "i18next";
 import type { ReactNode } from "react";
-import type { BottomNavBars, IBottomNavbarItemConfig } from "../btmNavbarsState";
 import type { IConversationInputConfig, TConversationItem } from "../conversationState";
 import type { IDialogueItem } from "../dialogueState";
 import type { IFeed, IFeedComment } from "../moments";
@@ -44,9 +44,9 @@ declare namespace OverallMetaData {
 
 	interface IMetaDataNavigationBar extends Base {
 		type: MetaDataType.NavigationBar;
-		index: BottomNavBars;
-		data: IBottomNavbarItemConfig;
-		treeItemDisplayName: string | ((data: IBottomNavbarItemConfig) => string);
+		index: EBottomNavBars;
+		data: IBottomNavbarsItemConfig;
+		treeItemDisplayName: string | ((data: IBottomNavbarsItemConfig) => string);
 	}
 
 	interface IMetaDataUnreadCount extends Base {

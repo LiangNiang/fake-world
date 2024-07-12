@@ -1,16 +1,14 @@
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useRecoilValue } from "recoil";
-
 import AddFriendSVG from "@/assets/add-friend-outlined.svg?react";
 import SearchOutlinedSVG from "@/assets/search-outlined.svg?react";
 import { canBeDetected } from "@/components/NodeDetected";
 import { useMemoScrollPos } from "@/components/useMemoScrollPos";
-import { BottomNavBars } from "@/state/btmNavbarsState";
 import { MetaDataType } from "@/state/detectedNode";
 import { allFriendsAnchorDataState } from "@/state/profile";
+import { EBottomNavBars } from "@/stateV2/bottomNavbars";
 import BottomNavbar, { useToggleNavbarActivated } from "@/wechatComponents/BottomNavbar";
-
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useRecoilValue } from "recoil";
 import ContactsList from "./ContactsList";
 import Anchor from "./RightAnchor";
 import TopMenus from "./TopMenus";
@@ -20,7 +18,7 @@ import { getStuckInfo } from "./utils";
 const DATA_WHEEL_ID = "contactsLayout";
 
 const Contacts = () => {
-	useToggleNavbarActivated(BottomNavBars.ADDRESS_BOOK);
+	useToggleNavbarActivated(EBottomNavBars.ADDRESS_BOOK);
 	const { t } = useTranslation();
 
 	const anchorData = useRecoilValue(allFriendsAnchorDataState);

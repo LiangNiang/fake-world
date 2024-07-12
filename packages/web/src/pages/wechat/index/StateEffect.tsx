@@ -1,13 +1,10 @@
+import { dialogueListState } from "@/state/dialogueState";
 import { isNumber } from "lodash-es";
 import { useEffect } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 
-import btmNavbarsState from "@/state/btmNavbarsState";
-import { dialogueListState } from "@/state/dialogueState";
-
 const StateEffect = () => {
 	const dialogueList = useRecoilValue(dialogueListState);
-	const setBtmNavbars = useSetRecoilState(btmNavbarsState);
 
 	// useEffect(() => {
 	// 	if (totalUnreadCount.calcuateType === CalcuateType.AUTO) {

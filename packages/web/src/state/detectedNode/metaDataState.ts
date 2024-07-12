@@ -1,7 +1,7 @@
+import { type EBottomNavBars, getBottomNavbarsValueSnapshot } from "@/stateV2/bottomNavbars";
 import { getMultipleDeviceLoginValueSnapshot } from "@/stateV2/multipleDeviceLogin";
-import { getUnreadCountSnapshot } from "@/stateV2/unreadCount";
+import { getUnreadCountValueSnapshot } from "@/stateV2/unreadCount";
 import { type GetRecoilValue, selectorFamily } from "recoil";
-import btmNavbarsState, { type BottomNavBars } from "../btmNavbarsState";
 import { conversationInputState, conversationState } from "../conversationState";
 import { dialogueItemState } from "../dialogueState";
 import { feedState } from "../moments";
@@ -26,8 +26,9 @@ type HandlerMap = {
 
 const handlerMap: HandlerMap = {
 	[MetaDataType.DialogueItem]: (get, index) => get(dialogueItemState(index as string)),
-	[MetaDataType.NavigationBar]: (get, index) => get(btmNavbarsState)[index as BottomNavBars],
-	[MetaDataType.UnreadCount]: () => getUnreadCountSnapshot(),
+	[MetaDataType.NavigationBar]: (_, index) =>
+		getBottomNavbarsValueSnapshot()[index as EBottomNavBars],
+	[MetaDataType.UnreadCount]: () => getUnreadCountValueSnapshot(),
 	[MetaDataType.ConversationItem]: (get, index) =>
 		index && index.length === 2
 			? get(conversationState(index[0])).find((v) => v.id === index[1])

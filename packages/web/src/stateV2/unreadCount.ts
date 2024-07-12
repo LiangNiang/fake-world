@@ -1,7 +1,6 @@
-import btmNavbarsState from "@/state/btmNavbarsState";
 import { atomEffect } from "jotai-effect";
 import { atomWithStorage } from "jotai/utils";
-import { setRecoil } from "recoil-nexus";
+import { bottomNavbarsAtom } from "./bottomNavbars";
 import { mainStore } from "./store";
 
 export type TStateUnreadCount = {
@@ -14,11 +13,11 @@ export const unreadCountAtom = atomWithStorage<TStateUnreadCount>("unreadCount",
 	calcuateType: "auto",
 });
 
-export const getUnreadCountSnapshot = () => mainStore.get(unreadCountAtom);
+export const getUnreadCountValueSnapshot = () => mainStore.get(unreadCountAtom);
 
 export const unreadCountEffect = atomEffect((get, set) => {
 	const { count } = get(unreadCountAtom);
-	setRecoil(btmNavbarsState, (pv) => ({
+	set(bottomNavbarsAtom, (pv) => ({
 		...pv,
 		WECHAT: {
 			...pv.WECHAT,
