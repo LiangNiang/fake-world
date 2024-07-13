@@ -61,8 +61,8 @@ importers:
         specifier: ^1.1.18
         version: 1.1.18
       bun-types:
-        specifier: ^1.1.10
-        version: 1.1.10
+        specifier: ^1.1.18
+        version: 1.1.20
       typescript:
         specifier: ^5.3.3
         version: 5.3.3
@@ -1779,8 +1779,8 @@ packages:
   bun-types@1.0.6:
     resolution: {integrity: sha512-5QwynfXiRCRxPW3ZnC0Dv+sHHmctP4SHIuzsRKOWYO0HF/qUpsxQVexoviaxpmwDsF1hoVDDFdc4xUuafOzx1g==}
 
-  bun-types@1.1.10:
-    resolution: {integrity: sha512-oBsZ0Bf9HEKr1Ta5bUYgVO6sHkZtTlfHlEj9DGpghZphNdhKI/38eZ5dk+/et/HrStT1sfykHBUW4ughmoNKog==}
+  bun-types@1.1.20:
+    resolution: {integrity: sha512-2u84HciDR3E7Uc0t0AEeXHmQAWe9uzRKTz120D3silIJOQlbGIMJMJiGaM8Yx7nEvMyfV0LfSdkEGnb77AN5AA==}
 
   bun@1.0.27:
     resolution: {integrity: sha512-7f5yrsJpppyhqi9uowS55xxu4jyb+4zrv0g9OGoLzu/nyOFjo9h4gugt/v6DjagCy8vZPlwqlaJkEBE7//opCQ==}
@@ -6200,7 +6200,7 @@ snapshots:
 
   bun-types@1.0.6: {}
 
-  bun-types@1.1.10:
+  bun-types@1.1.20:
     dependencies:
       '@types/node': 20.12.13
       '@types/ws': 8.5.10
