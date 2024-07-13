@@ -4,8 +4,8 @@ import useModeNavigate from "@/components/useModeNavigate";
 import { MYSELF_ID } from "@/faker/wechat/user";
 import { MetaDataType } from "@/state/detectedNode";
 import { allFeedsState, feedState } from "@/state/moments";
-import { friendState, friendsIdsState } from "@/state/profile";
 import { dialogueListAtom } from "@/stateV2/dialogueList";
+import { setAllProfilesValue } from "@/stateV2/profile";
 import List from "@/wechatComponents/List";
 import { Modal } from "antd";
 import { useSetAtom } from "jotai";
@@ -31,8 +31,7 @@ const UserItem = ({
 			title: "是否删除该好友",
 			content: "删除好友会同时删除与该好友的对话、该好友的朋友圈",
 			onOk: () => {
-				setRecoil(friendsIdsState, (pv) => pv.filter((v) => v !== id));
-				resetRecoil(friendState(id));
+				setAllProfilesValue((pv) => pv.filter((v) => v.id !== id));
 				setDialogueList((pv) => pv.filter((v) => v.friendId !== id));
 				const allFeeds = getRecoil(allFeedsState);
 				allFeeds.filter((v) => v.userId === id).forEach((v) => resetRecoil(feedState(v.id)));

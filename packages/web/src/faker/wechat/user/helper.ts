@@ -1,24 +1,23 @@
-import { getRecoil, resetRecoil, setRecoil } from "recoil-nexus";
-
-import { type IProfile, friendState, friendsIdsState } from "@/state/profile";
-
-import { generaterFakeUser, randomUserId } from "./generator";
+import {
+	type IStateProfile,
+	getAllProfilesValueSnapshot,
+	setAllProfilesValue,
+} from "@/stateV2/profile";
+import { generateFakeUser } from "./generator";
 
 type options = {
 	insertType?: "after" | "before";
 };
 
 export function addFakeUser(
-	preData: Partial<IProfile> = {},
+	preData: Partial<IStateProfile> = {},
 	options: options = {
 		insertType: "after",
 	},
 ) {
 	const { insertType } = options;
-	const id = randomUserId();
-	setRecoil(friendsIdsState, (prev) => (insertType === "after" ? [...prev, id] : [id, ...prev]));
-	const profile = generaterFakeUser({ ...preData, id, createdByFaker: true });
-	setRecoil(friendState(id), profile);
+	const profile = generateFakeUser({ ...preData, createdByFaker: true });
+	setAllProfilesValue((prev) => (insertType === "after" ? [...prev, profile] : [profile, ...prev]));
 }
 
 export function quickAddFakeUser(num = 20) {
@@ -28,15 +27,12 @@ export function quickAddFakeUser(num = 20) {
 }
 
 export function removeFakeUsers() {
-	const ids = getRecoil(friendsIdsState);
-	const needRemoveIds: IProfile["id"][] = [];
-	ids.forEach((id) => {
-		const profile = getRecoil(friendState(id));
+	const allProfiles = getAllProfilesValueSnapshot();
+	const needRemoveIds: IStateProfile["id"][] = [];
+	allProfiles.forEach((profile) => {
 		if (profile.createdByFaker) {
-			needRemoveIds.push(id);
-			setRecoil(friendState(id), (v) => v);
-			resetRecoil(friendState(id));
+			needRemoveIds.push(profile.id);
 		}
 	});
-	setRecoil(friendsIdsState, (prev) => prev.filter((id) => !needRemoveIds.includes(id)));
+	setAllProfilesValue((prev) => prev.filter((profile) => !needRemoveIds.includes(profile.id)));
 }

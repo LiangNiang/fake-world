@@ -1,4 +1,4 @@
-import type { IProfile } from "@/state/profile";
+import type { IStateProfile } from "../profile";
 import type { BUILT_IN_TRANSACTION_TYPES } from "./consts";
 
 export type TTransactionType = (typeof BUILT_IN_TRANSACTION_TYPES)[number];
@@ -16,14 +16,14 @@ export interface IStateTransactionQrTransfer extends IStateTransactionBase {
 }
 
 export interface IStateTransactionTransfer extends IStateTransactionBase {
-	toFriendId: IProfile["id"];
+	toFriendId: IStateProfile["id"];
 	collectionTime: number;
 }
 
 export interface IStateTransactionPayReward extends IStateTransactionBase {}
 
 export interface IStateTransactionRedPacket extends IStateTransactionBase {
-	toFriendId: IProfile["id"];
+	toFriendId: IStateProfile["id"];
 	merchantCode: string;
 }
 

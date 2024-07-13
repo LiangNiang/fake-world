@@ -1,4 +1,4 @@
-export interface IProfile {
+export interface IStateProfile {
 	id: string;
 	/** 昵称 */
 	nickname: string;
@@ -38,7 +38,17 @@ export interface IProfile {
 	createdByFaker?: boolean;
 }
 
-export interface IFriendsTotalCountDisplay {
+export interface TStateFriendsTotalCountDisplay {
 	calcuateType: "auto" | "static";
 	count?: number;
 }
+
+export type TNeedGroupDataItem = {
+	id: IStateProfile["id"];
+	name: string;
+	isStarred?: boolean;
+	description?: string;
+	avatarInfo: string;
+};
+
+export type TStateAllProfiles = IStateProfile[];

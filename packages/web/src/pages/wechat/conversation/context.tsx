@@ -1,5 +1,4 @@
 import { MYSELF_ID } from "@/faker/wechat/user";
-import { type IProfile, friendState, myProfileState } from "@/state/profile";
 import {
 	EConversationType,
 	type IConversationTypeRedPacket,
@@ -11,6 +10,11 @@ import {
 	recentUsedEmojiAtom,
 	setConversationListValue,
 } from "@/stateV2/conversation";
+import {
+	type IStateProfile,
+	getMyProfileValueSnapshot,
+	getProfileValueSnapshot,
+} from "@/stateV2/profile";
 import { animateElement } from "@/utils";
 import type { CustomElementEmoji } from "@/vite-env";
 import { SLATE_INITIAL_VALUE, withInlines } from "@/wechatComponents/SlateText/utils";
@@ -33,7 +37,6 @@ import {
 	useState,
 } from "react";
 import { useParams } from "react-router-dom";
-import { getRecoil } from "recoil-nexus";
 import { type BaseEditor, Editor, Node, Transforms, createEditor } from "slate";
 import { withHistory } from "slate-history";
 import { type ReactEditor, withReact } from "slate-react";
@@ -41,13 +44,13 @@ import { type ReactEditor, withReact } from "slate-react";
 type InputMode = HTMLAttributes<HTMLDivElement>["inputMode"];
 
 interface IConversationAPIContext {
-	conversationId: IProfile["id"];
+	conversationId: IStateProfile["id"];
 	listRef: RefObject<HTMLDivElement>;
 	scrollConversationListToBtm: () => void;
 	inputEditor: BaseEditor & ReactEditor;
 	insertEmojiNode: (emojiSymbol: string) => void;
 	sendTextMessage: () => void;
-	sendTickleText: (friendId: IProfile["id"]) => void;
+	sendTickleText: (friendId: IStateProfile["id"]) => void;
 	sendTransfer: (
 		data: Omit<IConversationTypeTransfer, "id" | "sendTimestamp" | "upperText" | "type">,
 	) => void;
@@ -120,9 +123,9 @@ export const ConversationAPIProvider = ({ children }: PropsWithChildren) => {
 
 	const sendTickleText = useCallback(
 		throttle(
-			(friendId: IProfile["id"]) => {
-				const friendProfile = getRecoil(friendState(friendId));
-				const myProfile = getRecoil(myProfileState);
+			(friendId: IStateProfile["id"]) => {
+				const friendProfile = getProfileValueSnapshot(friendId)!;
+				const myProfile = getMyProfileValueSnapshot()!;
 				let finalTickleText = "";
 				if (friendId === MYSELF_ID) {
 					finalTickleText = `我拍了拍自己${myProfile.tickleText ?? ""}`;

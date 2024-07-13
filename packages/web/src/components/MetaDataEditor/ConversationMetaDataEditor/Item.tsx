@@ -1,10 +1,10 @@
-import type { IProfile } from "@/state/profile";
 import {
 	ConversationTypeLabel,
 	EConversationType,
 	type TConversationItem,
 	conversationListAtom,
 } from "@/stateV2/conversation";
+import type { IStateProfile } from "@/stateV2/profile";
 import { Global, css } from "@emotion/react";
 import { useUpdateEffect } from "ahooks";
 import { Button, Form, Input, InputNumber, Radio, Select, Switch } from "antd";
@@ -17,7 +17,7 @@ import { CONVERSATION_TYPE_OPTIONS } from "./consts";
 const ConversationItemMetaDataEditor = ({
 	data,
 	index,
-}: EditorProps<TConversationItem, [IProfile["id"], TConversationItem["id"]]>) => {
+}: EditorProps<TConversationItem, [IStateProfile["id"], TConversationItem["id"]]>) => {
 	const [form] = Form.useForm<TConversationItem>();
 	const [conversationList, setConversationList] = useAtom(conversationListAtom(index[0]));
 

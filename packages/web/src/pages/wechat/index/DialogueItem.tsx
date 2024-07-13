@@ -4,15 +4,14 @@ import { h } from "@/components/HashAssets";
 import { canBeDetected } from "@/components/NodeDetected";
 import TopOperations from "@/components/TopOperations";
 import { MetaDataType } from "@/state/detectedNode";
-import { friendState } from "@/state/profile";
 import { conversationListAtom } from "@/stateV2/conversation";
 import { type IDialogueItem, dialogueItemAtom, dialogueListAtom } from "@/stateV2/dialogueList";
+import { profileAtom } from "@/stateV2/profile";
 import { Modal } from "antd";
 import { useAtomValue, useSetAtom } from "jotai";
 import { RESET } from "jotai/utils";
 import { memo } from "react";
 import { useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
 import { twMerge } from "tailwind-merge";
 import styles from "./style.module.scss";
 
@@ -33,7 +32,7 @@ const DialogueItem = ({ itemId, className }: Props) => {
 		lastMessage,
 		lastMessageTime,
 	} = useAtomValue(dialogueItemAtom(itemId))!;
-	const friendProfile = useRecoilValue(friendState(friendId));
+	const friendProfile = useAtomValue(profileAtom(friendId))!;
 	const setConversationList = useSetAtom(conversationListAtom(friendId));
 	const setDialogueList = useSetAtom(dialogueListAtom);
 	const navigate = useNavigate();

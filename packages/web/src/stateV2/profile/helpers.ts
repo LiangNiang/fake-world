@@ -1,20 +1,15 @@
+import { INIT_FRIENDS, generateFakeUser } from "@/faker/wechat/user";
 import { pinyin } from "pinyin-pro";
+import type { IStateProfile, TNeedGroupDataItem } from "./typing";
 
-import type { IProfile } from "@/state/profile";
+export const injectDefaultFriendsProfile = (id: IStateProfile["id"]): IStateProfile =>
+	INIT_FRIENDS.find((v) => v.id === id) ?? generateFakeUser({ id });
 
 export const searchS = Symbol("search");
 export const topS = Symbol("top");
 export const starS = Symbol("star");
 export const otherS = Symbol("other");
 export const NOT_SHOW_ANCHOR: (string | symbol)[] = [searchS];
-
-export type TNeedGroupDataItem = {
-	id: IProfile["id"];
-	name: string;
-	isStarred?: boolean;
-	description?: string;
-	avatarInfo: string;
-};
 
 export function generateNameAnchorGroup(data: TNeedGroupDataItem[]) {
 	const ANCHOR_DATA = new Map<string | symbol, TNeedGroupDataItem[]>([

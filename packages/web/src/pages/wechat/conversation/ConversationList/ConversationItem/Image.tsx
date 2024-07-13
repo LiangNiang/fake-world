@@ -1,8 +1,8 @@
 import PlayFilledSVG from "@/assets/play-filled.svg?react";
 import { h } from "@/components/HashAssets";
 import { ImageDBManager } from "@/dataSource";
-import type { IProfile } from "@/state/profile";
 import type { IConversationTypeImage } from "@/stateV2/conversation";
+import type { IStateProfile } from "@/stateV2/profile";
 import { isMD5 } from "@/utils";
 import { memo, useEffect, useState } from "react";
 import { twJoin } from "tailwind-merge";
@@ -11,7 +11,7 @@ import CommonBlock from "./CommonBlock";
 type Props = {
 	imageInfo: IConversationTypeImage["imageInfo"];
 	upperText: IConversationTypeImage["upperText"];
-	senderId: IProfile["id"];
+	senderId: IStateProfile["id"];
 	role: IConversationTypeImage["role"];
 	isVideo?: boolean;
 };

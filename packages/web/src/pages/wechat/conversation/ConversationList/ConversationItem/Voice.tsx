@@ -1,13 +1,13 @@
 import VoiceSVG from "@/assets/voice.svg?react";
-import type { IProfile } from "@/state/profile";
 import type { IConversationTypeVoice } from "@/stateV2/conversation";
+import type { IStateProfile } from "@/stateV2/profile";
 import { memo } from "react";
 import { twJoin } from "tailwind-merge";
 import CommonBlock from "./CommonBlock";
 
 type Props = {
 	duration: IConversationTypeVoice["duration"];
-	senderId: IProfile["id"];
+	senderId: IStateProfile["id"];
 	upperText: IConversationTypeVoice["upperText"];
 	isRead: IConversationTypeVoice["isRead"];
 	role: IConversationTypeVoice["role"];

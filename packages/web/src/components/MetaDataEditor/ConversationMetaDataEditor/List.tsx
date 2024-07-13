@@ -1,10 +1,10 @@
-import type { IProfile } from "@/state/profile";
 import {
 	ConversationTypeLabel,
 	EConversationType,
 	type TConversationItem,
 	conversationListAtom,
 } from "@/stateV2/conversation";
+import type { IStateProfile } from "@/stateV2/profile";
 import { SLATE_INITIAL_VALUE } from "@/wechatComponents/SlateText/utils";
 import { App, Button, Form, Input, InputNumber, Radio, Select, Switch } from "antd";
 import dayjs from "dayjs";
@@ -17,7 +17,7 @@ import WrapSlateInput from "../SlateInput";
 import GenerateConversation from "./GenerateConversation";
 import { CONVERSATION_TYPE_OPTIONS } from "./consts";
 
-const ConversationListMetaDataEditor = ({ index }: EditorProps<unknown, IProfile["id"]>) => {
+const ConversationListMetaDataEditor = ({ index }: EditorProps<unknown, IStateProfile["id"]>) => {
 	const [form] = Form.useForm<TConversationItem>();
 	const [conversationList, setConversationList] = useAtom(conversationListAtom(index));
 	const { modal } = App.useApp();

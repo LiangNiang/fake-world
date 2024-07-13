@@ -3,15 +3,14 @@ import MoreFilledSVG from "@/assets/more-filled.svg?react";
 import { canBeDetected } from "@/components/NodeDetected";
 import useModeNavigate from "@/components/useModeNavigate";
 import { MetaDataType } from "@/state/detectedNode";
-import { friendState } from "@/state/profile";
+import { profileAtom } from "@/stateV2/profile";
 import { unreadCountAtom } from "@/stateV2/unreadCount";
 import { useAtomValue } from "jotai";
 import { useParams } from "react-router-dom";
-import { useRecoilValue } from "recoil";
 
 const ConversationHeader = () => {
 	const { id } = useParams<{ id: string }>();
-	const friendProfile = useRecoilValue(friendState(id ?? ""));
+	const friendProfile = useAtomValue(profileAtom(id ?? ""))!;
 	const unreadCount = useAtomValue(unreadCountAtom);
 	const navigate = useModeNavigate();
 

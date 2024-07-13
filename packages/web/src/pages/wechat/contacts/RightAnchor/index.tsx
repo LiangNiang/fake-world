@@ -1,8 +1,6 @@
-import { memo } from "react";
-
 import SearchOutlinedSVG from "@/assets/search-outlined.svg?react";
-import { type generateNameAnchorGroup, otherS, searchS, starS } from "@/state/profile";
-
+import { type generateNameAnchorGroup, otherS, searchS, starS } from "@/stateV2/profile";
+import { memo } from "react";
 import { findLastStuckKey } from "../utils";
 import AnchorItem from "./AnchorItem";
 

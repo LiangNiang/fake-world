@@ -1,5 +1,4 @@
 import { ENV_API_BASE_URL } from "@/consts";
-import { type IProfile, friendState } from "@/state/profile";
 import {
 	EConversationType,
 	type TConversationItem,
@@ -7,6 +6,7 @@ import {
 	conversationListAtom,
 	getConversationListValueSnapshot,
 } from "@/stateV2/conversation";
+import { type IStateProfile, getProfileValueSnapshot } from "@/stateV2/profile";
 import { OpenAIOutlined } from "@ant-design/icons";
 import { useUnmount } from "ahooks";
 import { experimental_useObject as useObject } from "ai/react";
@@ -16,11 +16,10 @@ import { useSetAtom } from "jotai";
 import { isEmpty } from "lodash-es";
 import { nanoid } from "nanoid";
 import { memo, useEffect, useRef } from "react";
-import { getRecoil } from "recoil-nexus";
 import { z } from "zod";
 
 type Props = {
-	friendId: IProfile["id"];
+	friendId: IStateProfile["id"];
 	scrollToBtm: () => void;
 };
 
@@ -89,7 +88,7 @@ const GenerateConversation = ({ friendId, scrollToBtm }: Props) => {
 	}, [error]);
 
 	const handleSubmit = async () => {
-		const { remark: friendRemark, nickname } = getRecoil(friendState(friendId));
+		const { remark: friendRemark, nickname } = getProfileValueSnapshot(friendId)!;
 		let remark = "";
 		if (friendRemark) {
 			remark = `我给这个好友的备注是${friendRemark}`;

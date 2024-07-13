@@ -1,15 +1,14 @@
+import { type IStateProfile, profileAtom } from "@/stateV2/profile";
+import { useAtomValue } from "jotai";
 import { type ComponentPropsWithRef, memo } from "react";
-import { useRecoilValue } from "recoil";
 import { twMerge } from "tailwind-merge";
 
-import { type IProfile, friendState } from "@/state/profile";
-
 interface Props {
-	id: IProfile["id"];
+	id: IStateProfile["id"];
 }
 
 const UserName = ({ id, className, ...rest }: Props & ComponentPropsWithRef<"span">) => {
-	const { remark, nickname } = useRecoilValue(friendState(id));
+	const { remark, nickname } = useAtomValue(profileAtom(id))!;
 
 	return (
 		<span className={twMerge("text-wechatLink-1", className)} {...rest}>

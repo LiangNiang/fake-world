@@ -1,8 +1,6 @@
+import type { TNeedGroupDataItem } from "@/stateV2/profile";
 import { useUpdateEffect } from "ahooks";
 import { type Dispatch, type SetStateAction, memo, useEffect, useRef } from "react";
-
-import type { TNeedGroupDataItem } from "@/state/profile";
-
 import { findLastStuckKey, getStuckInfo, groupedMapToRenderArray, isBefore } from "../utils";
 import AnchorLabel from "./AnchorLabel";
 import UserItem from "./UserItem";

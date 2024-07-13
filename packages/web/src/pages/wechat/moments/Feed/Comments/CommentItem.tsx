@@ -1,27 +1,27 @@
-import { Modal } from "antd";
-import dayjs from "dayjs";
-import { memo } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-
 import { canBeDetected } from "@/components/NodeDetected";
 import TopOperations from "@/components/TopOperations";
 import useModeNavigate from "@/components/useModeNavigate";
 import { MetaDataType } from "@/state/detectedNode";
 import type { StaticMetaData } from "@/state/detectedNode/typing";
 import { type IFeed, type IFeedComment, feedState } from "@/state/moments";
-import { type IProfile, friendState } from "@/state/profile";
+import { type IStateProfile, profileAtom } from "@/stateV2/profile";
 import SlateText from "@/wechatComponents/SlateText";
 import UserAvatar from "@/wechatComponents/User/UserAvatar";
 import UserName from "@/wechatComponents/User/UserName";
+import { Modal } from "antd";
+import dayjs from "dayjs";
+import { useAtomValue } from "jotai";
+import { memo } from "react";
+import { useSetRecoilState } from "recoil";
 
 const CommentUserText = ({
 	fromUserId,
 	replyUserId,
 }: Pick<IFeedComment, "fromUserId" | "replyUserId">) => {
-	const { nickname: fromNickname, remark: fromRemark } = useRecoilValue(friendState(fromUserId));
-	const { nickname: replyNickname, remark: replyRemark } = useRecoilValue(
-		friendState(replyUserId || ""),
-	);
+	const { nickname: fromNickname, remark: fromRemark } = useAtomValue(profileAtom(fromUserId))!;
+	const { nickname: replyNickname, remark: replyRemark } = useAtomValue(
+		profileAtom(replyUserId || ""),
+	)!;
 	const navigate = useModeNavigate({ silence: true });
 
 	const renderReplyText = () => {
@@ -110,7 +110,7 @@ const CommentItem = ({
 		});
 	}
 
-	const toUser = (id: IProfile["id"]) => {
+	const toUser = (id: IStateProfile["id"]) => {
 		navigate(`/wechat/friend/${id}`);
 	};
 

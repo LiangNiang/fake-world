@@ -1,10 +1,8 @@
+import { quickAddFakeUser, removeFakeUsers } from "@/faker/wechat/user";
+import { getAllProfilesTotalCountValueSnapshot } from "@/stateV2/profile";
 import { DeleteOutlined } from "@ant-design/icons";
 import { App, Button } from "antd";
 import { useTranslation } from "react-i18next";
-import { getRecoil } from "recoil-nexus";
-
-import { quickAddFakeUser, removeFakeUsers } from "@/faker/wechat/user";
-import { friendsIdsState } from "@/state/profile";
 
 const GenerateRandomUser = () => {
 	const { message, modal } = App.useApp();
@@ -15,7 +13,7 @@ const GenerateRandomUser = () => {
 			<Button
 				onClick={() => {
 					requestIdleCallback(() => {
-						if (getRecoil(friendsIdsState).length > 300) {
+						if (getAllProfilesTotalCountValueSnapshot() - 1 >= 300) {
 							message.error(t("menu.mainBlock.friendsLimitedError"));
 							return;
 						}

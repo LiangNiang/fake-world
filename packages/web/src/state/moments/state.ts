@@ -1,10 +1,8 @@
+import { DEFAULT_FEED, INIT_FEEDS } from "@/faker/wechat/moments";
+import type { IStateProfile } from "@/stateV2/profile";
 import { groupBy } from "lodash-es";
 import { DefaultValue, atom, atomFamily, selector, selectorFamily } from "recoil";
-
-import { DEFAULT_FEED, INIT_FEEDS } from "@/faker/wechat/moments";
-
 import { persistAtom } from "../effects";
-import type { IProfile } from "../profile";
 import type { IFeed, IFeedBase } from "./typing";
 
 const injectDefaultFeed = (id: IFeed["id"]): IFeed =>
@@ -16,12 +14,12 @@ export const allFeedsState = atom<IFeedBase[]>({
 	effects_UNSTABLE: [persistAtom],
 });
 
-const __groupUserFeedState = selector<{ [key: IProfile["id"]]: IFeedBase[] }>({
+const __groupUserFeedState = selector<{ [key: IStateProfile["id"]]: IFeedBase[] }>({
 	key: "__groupUserFeedState",
 	get: ({ get }) => groupBy(get(allFeedsState), "userId"),
 });
 
-export const userFeedsState = selectorFamily<IFeedBase[], IProfile["id"]>({
+export const userFeedsState = selectorFamily<IFeedBase[], IStateProfile["id"]>({
 	key: "userFeedsState",
 	get:
 		(id) =>

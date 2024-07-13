@@ -1,17 +1,17 @@
-import type { IProfile } from "@/state/profile";
 import type { SetStateAction } from "jotai";
 import { atomEffect } from "jotai-effect";
 import { focusAtom } from "jotai-optics";
 import { atomWithStorage } from "jotai/utils";
 import type { OpticFor_ } from "optics-ts";
 import { useCallback } from "react";
+import type { IStateProfile } from "./profile";
 import { mainStore } from "./store";
 import { getUnreadCountValueSnapshot, unreadCountAtom } from "./unreadCount";
 
 export interface IDialogueItem {
 	id: string;
 	/** 对话关联的好友 id */
-	friendId: IProfile["id"];
+	friendId: IStateProfile["id"];
 	/** 最后一条消息，将显示在对话列表中 */
 	lastMessage: string;
 	/** 最后一条消息时间 */

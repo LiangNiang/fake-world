@@ -1,7 +1,6 @@
-import { nanoid } from "nanoid";
-
 import getFakerInstanceByLang from "@/faker/core";
-import type { IProfile } from "@/state/profile";
+import type { IStateProfile } from "@/stateV2/profile";
+import { nanoid } from "nanoid";
 
 export function randomAvatar() {
 	const faker = getFakerInstanceByLang();
@@ -25,7 +24,7 @@ export function randomNickname() {
 	});
 }
 
-export function generaterFakeUser(preData: Partial<IProfile> = {}): IProfile {
+export function generateFakeUser(preData: Partial<IStateProfile> = {}): IStateProfile {
 	const faker = getFakerInstanceByLang();
 	const gender = randomGender();
 	return {

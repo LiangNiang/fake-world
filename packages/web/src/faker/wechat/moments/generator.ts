@@ -1,9 +1,8 @@
-import dayjs from "dayjs";
-import { nanoid } from "nanoid";
-
 import getFakerInstanceByLang from "@/faker/core";
 import type { IFeed } from "@/state/moments";
-import type { IProfile } from "@/state/profile";
+import type { IStateProfile } from "@/stateV2/profile";
+import dayjs from "dayjs";
+import { nanoid } from "nanoid";
 
 export function randomFeedId() {
 	return nanoid(8);
@@ -18,7 +17,7 @@ export function randomFeedImage(num = 1) {
 	return Array.from({ length: num }).map(() => faker.image.url());
 }
 
-export function generateFakeFeed(userId: IProfile["id"]): IFeed {
+export function generateFakeFeed(userId: IStateProfile["id"]): IFeed {
 	return {
 		id: randomFeedId(),
 		sendTimestamp: dayjs().valueOf(),

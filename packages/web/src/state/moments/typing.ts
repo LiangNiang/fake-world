@@ -1,26 +1,25 @@
+import type { IStateProfile } from "@/stateV2/profile";
 import type { Descendant } from "slate";
-
-import type { IProfile } from "../profile";
 
 export type TFeedContentType = "text" | "textWithImages" | "video" | "link";
 
 export interface IFeedComment {
 	id: string;
 	text: Descendant[];
-	replyUserId?: IProfile["id"];
-	fromUserId: IProfile["id"];
+	replyUserId?: IStateProfile["id"];
+	fromUserId: IStateProfile["id"];
 	sendTimestamp: number;
 }
 
 export interface IFeedBase {
 	id: string;
-	userId: IProfile["id"];
+	userId: IStateProfile["id"];
 	sendTimestamp: number;
 }
 
 export interface IFeed extends IFeedBase {
 	content: IFeedContent;
-	likeUserIds?: IProfile["id"][];
+	likeUserIds?: IStateProfile["id"][];
 	comments?: IFeedComment[];
 }
 

@@ -5,13 +5,18 @@ import {
 } from "@/stateV2/conversation";
 import { getDialogueListValueSnapshot } from "@/stateV2/dialogueList";
 import { getMultipleDeviceLoginValueSnapshot } from "@/stateV2/multipleDeviceLogin";
+import {
+	getAllProfilesIdsValueSnapshot,
+	getFriendsTotalCountValueSnapshot,
+	getMyProfileValueSnapshot,
+	getProfileValueSnapshot,
+} from "@/stateV2/profile";
 import { getStatusBarHideVauleSnapshot } from "@/stateV2/statusBar";
 import { type TTransactionType, getUsedTransactionValueSnapshot } from "@/stateV2/transaction";
 import { getUnreadCountValueSnapshot } from "@/stateV2/unreadCount";
 import { getWalletVauleSnapshot } from "@/stateV2/wallet";
 import { type GetRecoilValue, selectorFamily } from "recoil";
 import { feedState } from "../moments";
-import { friendState, friendsIdsState, friendsTotalCountState, myProfileState } from "../profile";
 import { MetaDataType } from "./consts";
 import type { OverallMetaData } from "./typing";
 
@@ -39,8 +44,8 @@ const handlerMap: HandlerMap = {
 			: undefined,
 	[MetaDataType.ConversationInput]: () => getInputterConfigValueSnapshot(),
 	[MetaDataType.StatusBar]: () => getStatusBarHideVauleSnapshot(),
-	[MetaDataType.MyProfile]: (get) => get(myProfileState),
-	[MetaDataType.FirendProfile]: (get, index) => get(friendState(index as string)),
+	[MetaDataType.MyProfile]: () => getMyProfileValueSnapshot(),
+	[MetaDataType.FirendProfile]: (_, index) => getProfileValueSnapshot(index as string),
 	[MetaDataType.Wallet]: () => getWalletVauleSnapshot(),
 	[MetaDataType.MomentsFeed]: (get, index) => get(feedState(index as string)),
 	[MetaDataType.FeedLikes]: (get, index) => get(feedState(index as string))?.likeUserIds ?? [],
@@ -49,11 +54,11 @@ const handlerMap: HandlerMap = {
 			? get(feedState(index[0]))?.comments?.find((v) => v.id === index[1])
 			: undefined,
 	[MetaDataType.FeedCommentsList]: (get, index) => get(feedState(index as string))?.comments,
-	[MetaDataType.UserAllFeeds]: (get, index) => get(friendState(index as string)),
+	[MetaDataType.UserAllFeeds]: (_, index) => getProfileValueSnapshot(index as string),
 	[MetaDataType.TransactionRecord]: (_, index) =>
 		getUsedTransactionValueSnapshot(index as TTransactionType),
-	[MetaDataType.ContactsContainer]: (get) => get(friendsIdsState),
-	[MetaDataType.FriendsTotalCount]: (get) => get(friendsTotalCountState),
+	[MetaDataType.ContactsContainer]: () => getAllProfilesIdsValueSnapshot(),
+	[MetaDataType.FriendsTotalCount]: () => getFriendsTotalCountValueSnapshot(),
 	[MetaDataType.MultipleDeviceLogin]: () => getMultipleDeviceLoginValueSnapshot(),
 };
 

@@ -1,5 +1,5 @@
-import type { IProfile } from "@/state/profile";
 import type { IConversationTypeText } from "@/stateV2/conversation";
+import type { IStateProfile } from "@/stateV2/profile";
 import SlateText from "@/wechatComponents/SlateText";
 import { memo } from "react";
 import CommonBlock from "./CommonBlock";
@@ -8,7 +8,7 @@ import TextReference from "./TextReference";
 type Props = {
 	conversationItemId: IConversationTypeText["id"];
 	upperText: IConversationTypeText["upperText"];
-	senderId: IProfile["id"];
+	senderId: IStateProfile["id"];
 	textContent: IConversationTypeText["textContent"];
 	referenceId: IConversationTypeText["referenceId"];
 };

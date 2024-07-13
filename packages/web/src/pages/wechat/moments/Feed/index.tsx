@@ -1,11 +1,3 @@
-import { CommentOutlined, SelectOutlined, UserOutlined } from "@ant-design/icons";
-import { Modal, Tooltip } from "antd";
-import { memo, useCallback, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { setRecoil } from "recoil-nexus";
-import { twJoin, twMerge } from "tailwind-merge";
-
 import { canBeDetected } from "@/components/NodeDetected";
 import TopOperations from "@/components/TopOperations";
 import useModeNavigate from "@/components/useModeNavigate";
@@ -13,12 +5,19 @@ import { generateInitFeedComment } from "@/faker/wechat/moments";
 import { MYSELF_ID } from "@/faker/wechat/user";
 import { MetaDataType } from "@/state/detectedNode";
 import { type IFeedBase, allFeedsState, feedState } from "@/state/moments";
-import { friendState } from "@/state/profile";
 import UserAvatar from "@/wechatComponents/User/UserAvatar";
-
+import { CommentOutlined, SelectOutlined, UserOutlined } from "@ant-design/icons";
+import { Modal, Tooltip } from "antd";
+import { memo, useCallback, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
+import { setRecoil } from "recoil-nexus";
+import { twJoin, twMerge } from "tailwind-merge";
 import Comments from "./Comments";
 import FeedContent from "./Content";
 import LikeList from "./Likes";
+import { useAtomValue } from "jotai";
+import { profileAtom } from "@/stateV2/profile";
 
 type Props = {
 	classNames?: Partial<{
@@ -30,7 +29,7 @@ type Props = {
 };
 
 const Feed = ({ id, userId, classNames, fromDetail }: Omit<IFeedBase, "sendTimestamp"> & Props) => {
-	const { nickname, remark } = useRecoilValue(friendState(userId));
+	const { nickname, remark } = useAtomValue(profileAtom(userId))!;
 	const setAllFeeds = useSetRecoilState(allFeedsState);
 	const originalNavigate = useNavigate();
 	const navigate = useModeNavigate({ silence: true });

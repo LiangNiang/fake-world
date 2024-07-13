@@ -1,12 +1,11 @@
+import { h } from "@/components/HashAssets";
+import { type IStateProfile, profileAtom } from "@/stateV2/profile";
+import { useAtomValue } from "jotai";
 import { type ComponentProps, memo } from "react";
-import { useRecoilValue } from "recoil";
 import { twMerge } from "tailwind-merge";
 
-import { h } from "@/components/HashAssets";
-import { type IProfile, friendState } from "@/state/profile";
-
 interface Props {
-	id: IProfile["id"];
+	id: IStateProfile["id"];
 	size?: "default" | "small" | "large" | "middle";
 	toProfile?: boolean;
 }
@@ -24,7 +23,7 @@ const UserAvatar = ({
 	className,
 	...rest
 }: Props & Omit<ComponentProps<typeof h.img>, "size">) => {
-	const { avatarInfo } = useRecoilValue(friendState(id));
+	const { avatarInfo } = useAtomValue(profileAtom(id))!;
 
 	return (
 		<h.img

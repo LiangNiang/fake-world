@@ -3,8 +3,8 @@ import LikeFilledSVG from "@/assets/like-filled.svg?react";
 import LikeOutlinedSVG from "@/assets/like-outlined.svg?react";
 import { MYSELF_ID } from "@/faker/wechat/user";
 import { activatedNodeState, allNodesState } from "@/state/detectedNode";
-import { friendState } from "@/state/profile";
 import { getModeValueSnapshot, modeAtom } from "@/stateV2/mode";
+import { setProfileValue } from "@/stateV2/profile";
 import { usePrevious } from "ahooks";
 import { useSetAtom } from "jotai";
 import { values } from "lodash-es";
@@ -29,7 +29,7 @@ const CoverOperations = () => {
 
 	const handleChangeLike = () => {
 		if (getModeValueSnapshot() === "edit") return;
-		setRecoil(friendState(id), (prev) => ({
+		setProfileValue(id, (prev) => ({
 			...prev,
 			momentsBackgroundLike: !prev.momentsBackgroundLike,
 		}));

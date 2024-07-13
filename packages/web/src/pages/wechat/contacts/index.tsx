@@ -3,12 +3,12 @@ import SearchOutlinedSVG from "@/assets/search-outlined.svg?react";
 import { canBeDetected } from "@/components/NodeDetected";
 import { useMemoScrollPos } from "@/components/useMemoScrollPos";
 import { MetaDataType } from "@/state/detectedNode";
-import { allFriendsAnchorDataState } from "@/state/profile";
 import { EBottomNavBars } from "@/stateV2/bottomNavbars";
+import { allProfilesAnchorDataAtom } from "@/stateV2/profile";
 import BottomNavbar, { useToggleNavbarActivated } from "@/wechatComponents/BottomNavbar";
+import { useAtomValue } from "jotai";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useRecoilValue } from "recoil";
 import ContactsList from "./ContactsList";
 import Anchor from "./RightAnchor";
 import TopMenus from "./TopMenus";
@@ -21,7 +21,7 @@ const Contacts = () => {
 	useToggleNavbarActivated(EBottomNavBars.ADDRESS_BOOK);
 	const { t } = useTranslation();
 
-	const anchorData = useRecoilValue(allFriendsAnchorDataState);
+	const anchorData = useAtomValue(allProfilesAnchorDataAtom);
 
 	const { scrollRef } = useMemoScrollPos(DATA_WHEEL_ID);
 

@@ -2,13 +2,13 @@ import type { EBottomNavBars, IBottomNavbarsItemConfig } from "@/stateV2/bottomN
 import type { TConversationItem, TStateConversationInputterConfig } from "@/stateV2/conversation";
 import type { IDialogueItem } from "@/stateV2/dialogueList";
 import type { TStateMultipleDeviceLogin } from "@/stateV2/multipleDeviceLogin";
+import type { IStateProfile } from "@/stateV2/profile";
 import type { TTransactionDataWithType, TTransactionType } from "@/stateV2/transaction";
 import type { TStateUnreadCount } from "@/stateV2/unreadCount";
 import type { TStateWallet } from "@/stateV2/wallet";
 import type { TFunction } from "i18next";
 import type { ReactNode } from "react";
 import type { IFeed, IFeedComment } from "../moments";
-import type { IFriendsTotalCountDisplay, IProfile } from "../profile";
 import type { MetaDataType } from "./consts";
 
 type MakeOptional<T, K extends keyof T> = {
@@ -57,13 +57,13 @@ declare namespace OverallMetaData {
 
 	interface IMetaDataConversationList extends Base {
 		type: MetaDataType.ConversationList;
-		index: IProfile["id"];
+		index: IStateProfile["id"];
 		treeItemDisplayName: string;
 	}
 
 	interface IMetaDataConversationItem extends Base {
 		type: MetaDataType.ConversationItem;
-		index: [IProfile["id"], TConversationItem["id"]];
+		index: [IStateProfile["id"], TConversationItem["id"]];
 		data: TConversationItem;
 		treeItemDisplayName: string | ((data: TConversationItem) => string);
 	}
@@ -82,15 +82,15 @@ declare namespace OverallMetaData {
 
 	interface IMetaDataMyProfile extends Base {
 		type: MetaDataType.MyProfile;
-		data: IProfile;
-		treeItemDisplayName: string | ((data: IProfile) => string);
+		data: IStateProfile;
+		treeItemDisplayName: string | ((data: IStateProfile) => string);
 	}
 
 	interface IMetaDataFriendProfile extends Base {
 		type: MetaDataType.FirendProfile;
-		index: IProfile["id"];
-		data: IProfile;
-		treeItemDisplayName: string | ((data: IProfile) => string);
+		index: IStateProfile["id"];
+		data: IStateProfile;
+		treeItemDisplayName: string | ((data: IStateProfile) => string);
 	}
 
 	interface IMetaDataWallet extends Base {
@@ -113,16 +113,16 @@ declare namespace OverallMetaData {
 
 	interface IMetaDataUserAllFeeds extends Base {
 		type: MetaDataType.UserAllFeeds;
-		index: IProfile["id"];
-		data: IProfile;
-		treeItemDisplayName: string | ((data: IProfile) => string);
+		index: IStateProfile["id"];
+		data: IStateProfile;
+		treeItemDisplayName: string | ((data: IStateProfile) => string);
 	}
 
 	interface IMetaDataFeedLikes extends Base {
 		type: MetaDataType.FeedLikes;
 		index: IFeed["id"];
-		data: IProfile["id"][];
-		treeItemDisplayName: string | ((data: IProfile["id"][]) => string);
+		data: IStateProfile["id"][];
+		treeItemDisplayName: string | ((data: IStateProfile["id"][]) => string);
 	}
 
 	interface IMetaDataFeedCommentsList extends Base {
@@ -154,8 +154,8 @@ declare namespace OverallMetaData {
 
 	interface IMetaDataFriendsTotalCount extends Base {
 		type: MetaDataType.FriendsTotalCount;
-		data: IFriendsTotalCountDisplay;
-		treeItemDisplayName: string | ((data: IFriendsTotalCountDisplay) => string);
+		data: number;
+		treeItemDisplayName: string | ((data: number) => string);
 	}
 
 	interface IMetaDataMultipleDeviceLogin extends Base {

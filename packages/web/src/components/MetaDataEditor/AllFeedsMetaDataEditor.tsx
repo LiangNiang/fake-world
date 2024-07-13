@@ -1,20 +1,18 @@
+import { DEFAULT_FEED } from "@/faker/wechat/moments";
+import { allNodesTreeState } from "@/state/detectedNode";
+import { type IFeed, allFeedsState, feedState } from "@/state/moments";
+import type { IStateProfile } from "@/stateV2/profile";
 import { Button, DatePicker, Form, Radio, type RadioChangeEvent } from "antd";
 import dayjs from "dayjs";
 import { omit } from "lodash-es";
 import { nanoid } from "nanoid";
 import { resetRecoil, setRecoil } from "recoil-nexus";
-
-import { DEFAULT_FEED } from "@/faker/wechat/moments";
-import { allNodesTreeState } from "@/state/detectedNode";
-import { type IFeed, allFeedsState, feedState } from "@/state/moments";
-import type { IProfile } from "@/state/profile";
-
 import DragSort from "./DragSort";
 import FriendSelect, { FriendItem } from "./FriendSelect";
 import LocalImageUploadWithPreview from "./LocalImageUpload";
 import SlateInput from "./SlateInput";
 
-const AllFeedsMetaDataEditor = ({ index }: EditorProps<unknown, IProfile["id"]>) => {
+const AllFeedsMetaDataEditor = ({ index }: EditorProps<unknown, IStateProfile["id"]>) => {
 	const [form] = Form.useForm<IFeed>();
 
 	const withInitialUserId = index !== undefined;

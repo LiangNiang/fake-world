@@ -1,10 +1,11 @@
 import { h } from "@/components/HashAssets";
 import useModeNavigate from "@/components/useModeNavigate";
-import { type IProfile, friendState } from "@/state/profile";
 import type { IConversationItemBase } from "@/stateV2/conversation";
 import { getModeValueSnapshot } from "@/stateV2/mode";
+import { type IStateProfile, profileAtom } from "@/stateV2/profile";
 import { css } from "@emotion/react";
 import { useDebounceFn } from "ahooks";
+import { useAtomValue } from "jotai";
 import type {
 	CSSProperties,
 	ComponentType,
@@ -12,13 +13,12 @@ import type {
 	PropsWithChildren,
 	ReactNode,
 } from "react";
-import { useRecoilValue } from "recoil";
 import { twJoin, twMerge } from "tailwind-merge";
 import { useConversationAPI } from "../../context";
 
 interface Props<P = AnyObject> {
 	upperText: IConversationItemBase["upperText"];
-	senderId: IProfile["id"];
+	senderId: IStateProfile["id"];
 	innerBlockClassName?: string;
 	blockClassName?: string;
 	blockStyle?: CSSProperties;
@@ -42,7 +42,7 @@ const CommonBlock = <P extends AnyObject>({
 	innerBlockProps,
 	onClick,
 }: PropsWithChildren<Props<P>>) => {
-	const { avatarInfo } = useRecoilValue(friendState(senderId));
+	const { avatarInfo } = useAtomValue(profileAtom(senderId))!;
 	const navigate = useModeNavigate({ silence: true });
 	const { sendTickleText } = useConversationAPI();
 

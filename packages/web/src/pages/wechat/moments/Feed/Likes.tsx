@@ -1,10 +1,3 @@
-import { EditOutlined } from "@ant-design/icons";
-import { Tooltip } from "antd";
-import { isEmpty } from "lodash-es";
-import { memo } from "react";
-import { useRecoilValue } from "recoil";
-import { twJoin, twMerge } from "tailwind-merge";
-
 import LikeOutlinedSVG from "@/assets/like-outlined.svg?react";
 import { h } from "@/components/HashAssets";
 import { canBeDetected } from "@/components/NodeDetected";
@@ -13,15 +6,22 @@ import useModeNavigate from "@/components/useModeNavigate";
 import { MYSELF_ID } from "@/faker/wechat/user";
 import { MetaDataType } from "@/state/detectedNode";
 import { type IFeed, feedState } from "@/state/moments";
-import { type IProfile, friendState } from "@/state/profile";
+import { type IStateProfile, profileAtom } from "@/stateV2/profile";
+import { EditOutlined } from "@ant-design/icons";
+import { Tooltip } from "antd";
+import { useAtomValue } from "jotai";
+import { isEmpty } from "lodash-es";
+import { memo } from "react";
+import { useRecoilValue } from "recoil";
+import { twJoin, twMerge } from "tailwind-merge";
 
 type LikeItemProps = {
-	userId: IProfile["id"];
+	userId: IStateProfile["id"];
 	displayType: "avatar" | "name";
 };
 
 const LikeItem = ({ userId, displayType }: LikeItemProps) => {
-	const { nickname, remark, avatarInfo } = useRecoilValue(friendState(userId));
+	const { nickname, remark, avatarInfo } = useAtomValue(profileAtom(userId))!;
 	const navigate = useModeNavigate({ silence: true });
 
 	const showName = displayType === "name";
