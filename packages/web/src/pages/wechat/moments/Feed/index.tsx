@@ -4,20 +4,18 @@ import useModeNavigate from "@/components/useModeNavigate";
 import { generateInitFeedComment } from "@/faker/wechat/moments";
 import { MYSELF_ID } from "@/faker/wechat/user";
 import { MetaDataType } from "@/state/detectedNode";
-import { type IFeedBase, allFeedsState, feedState } from "@/state/moments";
+import { type IStateFeed, feedAtom, feedListAtom } from "@/stateV2/moments";
+import { profileAtom } from "@/stateV2/profile";
 import UserAvatar from "@/wechatComponents/User/UserAvatar";
 import { CommentOutlined, SelectOutlined, UserOutlined } from "@ant-design/icons";
 import { Modal, Tooltip } from "antd";
+import { useAtomValue, useSetAtom } from "jotai";
 import { memo, useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
-import { setRecoil } from "recoil-nexus";
 import { twJoin, twMerge } from "tailwind-merge";
 import Comments from "./Comments";
 import FeedContent from "./Content";
 import LikeList from "./Likes";
-import { useAtomValue } from "jotai";
-import { profileAtom } from "@/stateV2/profile";
 
 type Props = {
 	classNames?: Partial<{
@@ -28,9 +26,15 @@ type Props = {
 	fromDetail?: boolean;
 };
 
-const Feed = ({ id, userId, classNames, fromDetail }: Omit<IFeedBase, "sendTimestamp"> & Props) => {
+const Feed = ({
+	id,
+	userId,
+	classNames,
+	fromDetail,
+}: Omit<IStateFeed, "sendTimestamp" | "content"> & Props) => {
 	const { nickname, remark } = useAtomValue(profileAtom(userId))!;
-	const setAllFeeds = useSetRecoilState(allFeedsState);
+	const setFeedList = useSetAtom(feedListAtom);
+	const setFeed = useSetAtom(feedAtom(id));
 	const originalNavigate = useNavigate();
 	const navigate = useModeNavigate({ silence: true });
 
@@ -49,7 +53,7 @@ const Feed = ({ id, userId, classNames, fromDetail }: Omit<IFeedBase, "sendTimes
 		Modal.confirm({
 			title: "是否删除该条朋友圈？",
 			onOk: () => {
-				setAllFeeds((v) => v.filter((v) => v.id !== id));
+				setFeedList((v) => v.filter((v) => v.id !== id));
 			},
 		});
 	};
@@ -71,7 +75,7 @@ const Feed = ({ id, userId, classNames, fromDetail }: Omit<IFeedBase, "sendTimes
 		},
 		{
 			onClick: () => {
-				setRecoil(feedState(id), (prev) => ({
+				setFeed((prev) => ({
 					...prev,
 					comments: [...(prev.comments ?? []), generateInitFeedComment()],
 				}));

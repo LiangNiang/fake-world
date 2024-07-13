@@ -1,12 +1,10 @@
-import dayjs from "dayjs";
-import { groupBy, isEmpty, keys } from "lodash-es";
-import { useRecoilValue } from "recoil";
-
 import { canBeDetected } from "@/components/NodeDetected";
 import { MYSELF_ID } from "@/faker/wechat/user";
 import { MetaDataType } from "@/state/detectedNode";
-import { type IFeedBase, userFeedsState } from "@/state/moments";
-
+import { type IStateFeed, userFeedListAtom } from "@/stateV2/moments";
+import dayjs from "dayjs";
+import { useAtomValue } from "jotai";
+import { groupBy, isEmpty, keys } from "lodash-es";
 import PersonalContent from "./Feed/PersonalContent";
 import { useProfile } from "./hook";
 
@@ -27,7 +25,7 @@ const getTimeType = (timestamp: number) => {
 
 const PersonalMoments = () => {
 	const { signature, id, momentsPrivacy } = useProfile();
-	const userFeeds = useRecoilValue(userFeedsState(id));
+	const userFeeds = useAtomValue(userFeedListAtom(id));
 	const groupedFeeds = groupBy(
 		userFeeds
 			.slice()
@@ -45,7 +43,7 @@ const PersonalMoments = () => {
 		groupBy(groupedFeeds[year] ?? [], (v) => dayjs(v.sendTimestamp).format("MM-DD"));
 
 	const renderGroupedDateFeeds = (
-		data: Record<string, (IFeedBase & { timeType: ReturnType<typeof getTimeType> })[]>,
+		data: Record<string, (IStateFeed & { timeType: ReturnType<typeof getTimeType> })[]>,
 	) => {
 		const dataKeys = keys(data);
 		if (isEmpty(dataKeys)) return null;

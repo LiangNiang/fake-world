@@ -1,14 +1,11 @@
+import { ENV_SHARE_KEY } from "@/consts";
 import Dexie from "dexie";
 import { exportDB } from "dexie-export-import";
 import { isUndefined } from "lodash-es";
-
-import { ENV_SHARE_KEY } from "@/consts";
-import type { IDataSourceItem } from "@/state/globalConfig";
-
 import { FakeWorldImageDB, getAllStorageKey, getCurrentStorageKey } from ".";
 
 export class ImageDBManager {
-	dbs: Record<IDataSourceItem["id"], FakeWorldImageDB> = {};
+	dbs: Record<string, FakeWorldImageDB> = {};
 	static instance: ImageDBManager | null = null;
 	static IMAGES_CACHE = new Map<string, string>();
 	static __INIT_IMAGE_DB_PROMISE__: Promise<void> | undefined;
@@ -40,7 +37,7 @@ export class ImageDBManager {
 		return db;
 	}
 
-	async exportDBById(id: IDataSourceItem["id"]) {
+	async exportDBById(id: string) {
 		const db = this.getDBInstanceByKey(id);
 		const imagesCount = await db.images.count();
 		const isEmptyDB = imagesCount === 0;
@@ -62,7 +59,7 @@ export class ImageDBManager {
 		return ImageDBManager.instance;
 	}
 
-	static async removeDBById(id: IDataSourceItem["id"]) {
+	static async removeDBById(id: string) {
 		await Dexie.delete(id);
 	}
 

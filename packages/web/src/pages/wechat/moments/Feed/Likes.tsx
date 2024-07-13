@@ -5,14 +5,13 @@ import TopOperations from "@/components/TopOperations";
 import useModeNavigate from "@/components/useModeNavigate";
 import { MYSELF_ID } from "@/faker/wechat/user";
 import { MetaDataType } from "@/state/detectedNode";
-import { type IFeed, feedState } from "@/state/moments";
+import { type IStateFeed, feedAtom } from "@/stateV2/moments";
 import { type IStateProfile, profileAtom } from "@/stateV2/profile";
 import { EditOutlined } from "@ant-design/icons";
 import { Tooltip } from "antd";
 import { useAtomValue } from "jotai";
 import { isEmpty } from "lodash-es";
 import { memo } from "react";
-import { useRecoilValue } from "recoil";
 import { twJoin, twMerge } from "tailwind-merge";
 
 type LikeItemProps = {
@@ -71,12 +70,12 @@ const LikeItem = ({ userId, displayType }: LikeItemProps) => {
 };
 
 type LikeListProps = {
-	id: IFeed["id"];
+	id: IStateFeed["id"];
 	fromDetail?: boolean;
 };
 
 const LikeList = ({ id, fromDetail }: LikeListProps) => {
-	const { likeUserIds } = useRecoilValue(feedState(id));
+	const { likeUserIds } = useAtomValue(feedAtom(id))!;
 	if (isEmpty(likeUserIds)) return null;
 	return (
 		<canBeDetected.div

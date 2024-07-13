@@ -1,6 +1,7 @@
 import type { EBottomNavBars, IBottomNavbarsItemConfig } from "@/stateV2/bottomNavbars";
 import type { TConversationItem, TStateConversationInputterConfig } from "@/stateV2/conversation";
 import type { IDialogueItem } from "@/stateV2/dialogueList";
+import type { IFeedComment, IStateFeed } from "@/stateV2/moments";
 import type { TStateMultipleDeviceLogin } from "@/stateV2/multipleDeviceLogin";
 import type { IStateProfile, TStateFriendsTotalCountDisplayConfig } from "@/stateV2/profile";
 import type { TTransactionDataWithType, TTransactionType } from "@/stateV2/transaction";
@@ -8,7 +9,6 @@ import type { TStateUnreadCount } from "@/stateV2/unreadCount";
 import type { TStateWallet } from "@/stateV2/wallet";
 import type { TFunction } from "i18next";
 import type { ReactNode } from "react";
-import type { IFeed, IFeedComment } from "../moments";
 import type { MetaDataType } from "./consts";
 
 type MakeOptional<T, K extends keyof T> = {
@@ -101,9 +101,9 @@ declare namespace OverallMetaData {
 
 	interface IMetaDataFeed extends Base {
 		type: MetaDataType.MomentsFeed;
-		index: IFeed["id"];
-		data: IFeed;
-		treeItemDisplayName: string | ((data: IFeed) => string);
+		index: IStateFeed["id"];
+		data: IStateFeed;
+		treeItemDisplayName: string | ((data: IStateFeed) => string);
 	}
 
 	interface IMetaDataAllFeeds extends Base {
@@ -120,21 +120,21 @@ declare namespace OverallMetaData {
 
 	interface IMetaDataFeedLikes extends Base {
 		type: MetaDataType.FeedLikes;
-		index: IFeed["id"];
+		index: IStateFeed["id"];
 		data: IStateProfile["id"][];
 		treeItemDisplayName: string | ((data: IStateProfile["id"][]) => string);
 	}
 
 	interface IMetaDataFeedCommentsList extends Base {
 		type: MetaDataType.FeedCommentsList;
-		index: IFeed["id"];
-		data: IFeed["comments"];
+		index: IStateFeed["id"];
+		data: IStateFeed["comments"];
 		treeItemDisplayName: string;
 	}
 
 	interface IMetaDataFeedCommentsItem extends Base {
 		type: MetaDataType.FeedCommentsItem;
-		index: [IFeed["id"], IFeedComment["id"]];
+		index: [IStateFeed["id"], IFeedComment["id"]];
 		data: IFeedComment;
 		treeItemDisplayName: string | ((data: IFeedComment) => string);
 	}

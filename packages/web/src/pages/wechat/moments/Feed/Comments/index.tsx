@@ -1,28 +1,28 @@
-import { isEmpty } from "lodash-es";
-import { useMemo } from "react";
-import { ReactSortable } from "react-sortablejs";
-import { useRecoilValue, useResetRecoilState } from "recoil";
-import { setRecoil } from "recoil-nexus";
-import { twMerge } from "tailwind-merge";
-
 import CommentOutlinedSVG from "@/assets/comment-outlined.svg?react";
 import { canBeDetected } from "@/components/NodeDetected";
 import TopOperations from "@/components/TopOperations";
 import useMode from "@/components/useMode";
 import { MetaDataType, allNodesTreeState } from "@/state/detectedNode";
-import { type IFeed, feedState } from "@/state/moments";
-
+import { type IStateFeed, feedAtom } from "@/stateV2/moments";
+import { useAtom } from "jotai";
+import { isEmpty } from "lodash-es";
+import { useMemo } from "react";
+import { ReactSortable } from "react-sortablejs";
+import { useResetRecoilState } from "recoil";
+import { twMerge } from "tailwind-merge";
 import CommentItem from "./CommentItem";
 
 type CommentsProps = {
-	id: IFeed["id"];
+	id: IStateFeed["id"];
 	fromDetail?: boolean;
 };
 
 const Comments = ({ id, fromDetail }: CommentsProps) => {
-	const { comments, likeUserIds } = useRecoilValue(feedState(id));
+	const [feed, setFeed] = useAtom(feedAtom(id));
 	const resetTree = useResetRecoilState(allNodesTreeState);
 	const { isEdit } = useMode();
+
+	const { comments, likeUserIds } = feed ?? {};
 
 	const mappedSortableListData = useMemo(() => {
 		return comments?.map((v) => ({ id: v.id }));
@@ -61,7 +61,7 @@ const Comments = ({ id, fromDetail }: CommentsProps) => {
 					animation={400}
 					setList={(v, sortable) => {
 						if (isEdit && sortable) {
-							setRecoil(feedState(id), (prev) => ({
+							setFeed((prev) => ({
 								...prev,
 								comments: v.map((i) => prev.comments!.find((d) => d.id === i.id)!),
 							}));

@@ -1,10 +1,8 @@
+import type { IFeedComment, IStateFeed } from "@/stateV2/moments";
 import dayjs from "dayjs";
-
-import type { IFeed, IFeedComment } from "@/state/moments";
-
 import { MYSELF_ID } from "../user";
 
-export const DEFAULT_FEED: Omit<IFeed, "id"> = {
+export const DEFAULT_FEED: Omit<IStateFeed, "id"> = {
 	userId: MYSELF_ID,
 	sendTimestamp: dayjs().valueOf(),
 	content: {
@@ -26,7 +24,7 @@ export const DEFAULT_FEED_COMMENT: Omit<IFeedComment, "id"> = {
 	sendTimestamp: dayjs().valueOf(),
 };
 
-export const INIT_FEEDS: IFeed[] = [
+export const INIT_FEEDS: IStateFeed[] = [
 	{
 		id: "1",
 		userId: "1",

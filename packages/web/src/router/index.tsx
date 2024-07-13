@@ -1,5 +1,4 @@
 import App from "@/App";
-import ShareEntry from "@/pages/share";
 import Contacts from "@/pages/wechat/contacts";
 import Conversation from "@/pages/wechat/conversation";
 import Discover from "@/pages/wechat/discover";
@@ -16,7 +15,6 @@ import DetailAdapter from "@/pages/wechat/transaction";
 import Wallet from "@/pages/wechat/wallet";
 import Balance from "@/pages/wechat/wallet/Balance";
 import { BUILT_IN_TRANSACTION_TYPES_LABELS } from "@/stateV2/transaction";
-import { App as AntdApp } from "antd";
 import type { TFunction } from "i18next";
 import { Navigate, type RouteObject, type UIMatch } from "react-router-dom";
 
@@ -185,16 +183,4 @@ export const routes: RouteObject[] = [
 			},
 		],
 	},
-	{
-		path: "/s/:shareKey",
-		element: (
-			<AntdApp>
-				<ShareEntry />
-			</AntdApp>
-		),
-	},
-	// {
-	//   path: '/screenshot',
-	//   element: <ScreenshotApp />,
-	// },
 ];

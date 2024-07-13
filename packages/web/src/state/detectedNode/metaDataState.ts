@@ -4,11 +4,11 @@ import {
 	getInputterConfigValueSnapshot,
 } from "@/stateV2/conversation";
 import { getDialogueListValueSnapshot } from "@/stateV2/dialogueList";
+import { getFeedValueSnapshot } from "@/stateV2/moments";
 import { getMultipleDeviceLoginValueSnapshot } from "@/stateV2/multipleDeviceLogin";
 import {
 	getAllProfilesIdsValueSnapshot,
 	getFriendsTotalCountDisplayConfigValueSnapshot,
-	getFriendsTotalCountValueSnapshot,
 	getMyProfileValueSnapshot,
 	getProfileValueSnapshot,
 } from "@/stateV2/profile";
@@ -17,7 +17,6 @@ import { type TTransactionType, getUsedTransactionValueSnapshot } from "@/stateV
 import { getUnreadCountValueSnapshot } from "@/stateV2/unreadCount";
 import { getWalletVauleSnapshot } from "@/stateV2/wallet";
 import { type GetRecoilValue, selectorFamily } from "recoil";
-import { feedState } from "../moments";
 import { MetaDataType } from "./consts";
 import type { OverallMetaData } from "./typing";
 
@@ -48,13 +47,13 @@ const handlerMap: HandlerMap = {
 	[MetaDataType.MyProfile]: () => getMyProfileValueSnapshot(),
 	[MetaDataType.FirendProfile]: (_, index) => getProfileValueSnapshot(index as string),
 	[MetaDataType.Wallet]: () => getWalletVauleSnapshot(),
-	[MetaDataType.MomentsFeed]: (get, index) => get(feedState(index as string)),
-	[MetaDataType.FeedLikes]: (get, index) => get(feedState(index as string))?.likeUserIds ?? [],
-	[MetaDataType.FeedCommentsItem]: (get, index) =>
+	[MetaDataType.MomentsFeed]: (_, index) => getFeedValueSnapshot(index as string),
+	[MetaDataType.FeedLikes]: (_, index) => getFeedValueSnapshot(index as string)?.likeUserIds ?? [],
+	[MetaDataType.FeedCommentsItem]: (_, index) =>
 		index && index.length === 2
-			? get(feedState(index[0]))?.comments?.find((v) => v.id === index[1])
+			? getFeedValueSnapshot(index[0] as string)?.comments?.find((v) => v.id === index[1])
 			: undefined,
-	[MetaDataType.FeedCommentsList]: (get, index) => get(feedState(index as string))?.comments,
+	[MetaDataType.FeedCommentsList]: (_, index) => getFeedValueSnapshot(index as string)?.comments,
 	[MetaDataType.UserAllFeeds]: (_, index) => getProfileValueSnapshot(index as string),
 	[MetaDataType.TransactionRecord]: (_, index) =>
 		getUsedTransactionValueSnapshot(index as TTransactionType),

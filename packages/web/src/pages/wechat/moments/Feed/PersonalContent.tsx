@@ -1,8 +1,3 @@
-import { Modal } from "antd";
-import dayjs from "dayjs";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { twJoin } from "tailwind-merge";
-
 import PlayFilledSVG from "@/assets/play-filled.svg?react";
 import { h } from "@/components/HashAssets";
 import { canBeDetected } from "@/components/NodeDetected";
@@ -10,24 +5,28 @@ import TopOperations from "@/components/TopOperations";
 import useModeNavigate from "@/components/useModeNavigate";
 import { MYSELF_ID } from "@/faker/wechat/user";
 import { MetaDataType } from "@/state/detectedNode";
-import { type IFeed, allFeedsState, feedState } from "@/state/moments";
+import { type IStateFeed, feedAtom, feedListAtom } from "@/stateV2/moments";
 import SlateText from "@/wechatComponents/SlateText";
 import { SLATE_EMPTY_VALUE } from "@/wechatComponents/SlateText/utils";
+import { Modal } from "antd";
+import dayjs from "dayjs";
+import { useAtomValue, useSetAtom } from "jotai";
+import { twJoin } from "tailwind-merge";
 
 type Props = {
-	id: IFeed["id"];
+	id: IStateFeed["id"];
 };
 
 const PersonalContent = ({ id }: Props) => {
-	const { content, userId } = useRecoilValue(feedState(id));
-	const setAllFeeds = useSetRecoilState(allFeedsState);
+	const { content, userId } = useAtomValue(feedAtom(id))!;
+	const setFeedList = useSetAtom(feedListAtom);
 	const navigate = useModeNavigate();
 
 	const handleOperationDelete = () => {
 		Modal.confirm({
 			title: "是否删除该条朋友圈？",
 			onOk: () => {
-				setAllFeeds((v) => v.filter((v) => v.id !== id));
+				setFeedList((v) => v.filter((v) => v.id !== id));
 			},
 		});
 	};

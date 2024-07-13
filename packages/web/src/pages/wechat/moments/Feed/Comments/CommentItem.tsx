@@ -3,16 +3,15 @@ import TopOperations from "@/components/TopOperations";
 import useModeNavigate from "@/components/useModeNavigate";
 import { MetaDataType } from "@/state/detectedNode";
 import type { StaticMetaData } from "@/state/detectedNode/typing";
-import { type IFeed, type IFeedComment, feedState } from "@/state/moments";
+import { type IFeedComment, type IStateFeed, feedAtom } from "@/stateV2/moments";
 import { type IStateProfile, profileAtom } from "@/stateV2/profile";
 import SlateText from "@/wechatComponents/SlateText";
 import UserAvatar from "@/wechatComponents/User/UserAvatar";
 import UserName from "@/wechatComponents/User/UserName";
 import { Modal } from "antd";
 import dayjs from "dayjs";
-import { useAtomValue } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import { memo } from "react";
-import { useSetRecoilState } from "recoil";
 
 const CommentUserText = ({
 	fromUserId,
@@ -21,7 +20,7 @@ const CommentUserText = ({
 	const { nickname: fromNickname, remark: fromRemark } = useAtomValue(profileAtom(fromUserId))!;
 	const { nickname: replyNickname, remark: replyRemark } = useAtomValue(
 		profileAtom(replyUserId || ""),
-	)!;
+	) ?? {};
 	const navigate = useModeNavigate({ silence: true });
 
 	const renderReplyText = () => {
@@ -63,8 +62,8 @@ const CommentItem = ({
 	id,
 	fromDetail,
 	sendTimestamp,
-}: IFeedComment & { feedId: IFeed["id"]; fromDetail?: boolean }) => {
-	const setFeed = useSetRecoilState(feedState(feedId));
+}: IFeedComment & { feedId: IStateFeed["id"]; fromDetail?: boolean }) => {
+	const setFeed = useSetAtom(feedAtom(feedId));
 	const navigate = useModeNavigate({ silence: true });
 
 	const handleCommentItemDelete = () => {

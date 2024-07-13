@@ -1,19 +1,17 @@
+import { type IStateFeed, feedAtom } from "@/stateV2/moments";
 import { Form } from "antd";
-import { useSetRecoilState } from "recoil";
-
-import { type IFeed, feedState } from "@/state/moments";
-
+import { useSetAtom } from "jotai";
 import DragSort from "./DragSort";
 import FriendSelect, { FriendItem } from "./FriendSelect";
 
 const FeedLikeMetaDataEditor = ({
 	data,
 	index,
-}: EditorProps<IFeed["likeUserIds"], IFeed["id"]>) => {
-	const [form] = Form.useForm<IFeed>();
-	const setFeed = useSetRecoilState(feedState(index));
+}: EditorProps<IStateFeed["likeUserIds"], IStateFeed["id"]>) => {
+	const [form] = Form.useForm<IStateFeed>();
+	const setFeed = useSetAtom(feedAtom(index));
 
-	const onFinish = (values: IFeed) => {
+	const onFinish = (values: IStateFeed) => {
 		setFeed((prev) => ({
 			...prev,
 			likeUserIds: values.likeUserIds,
@@ -33,10 +31,10 @@ const FeedLikeMetaDataEditor = ({
 			}}
 			initialValues={{ likeUserIds: data }}
 		>
-			<Form.Item<IFeed> name="likeUserIds" label="点赞用户">
+			<Form.Item<IStateFeed> name="likeUserIds" label="点赞用户">
 				<FriendSelect mode="multiple" withMyself showSearch={false} withQuickAdd />
 			</Form.Item>
-			<Form.Item<IFeed> name="likeUserIds" label="点赞用户顺序">
+			<Form.Item<IStateFeed> name="likeUserIds" label="点赞用户顺序">
 				<DragSort LabelComponent={FriendItem} />
 			</Form.Item>
 		</Form>
