@@ -1,10 +1,8 @@
-import { isString } from "antd/es/button";
-import type { ReactNode } from "react";
-
 import PayRewardOutlinedSVG from "@/assets/pay-reward-outlined.svg?react";
 import { h } from "@/components/HashAssets";
-import type { TTransactionType } from "@/state/transaction";
-
+import type { TTransactionType } from "@/stateV2/transaction";
+import { isString } from "antd/es/button";
+import type { ReactNode } from "react";
 import CreditCardSVG from "./assets/credit-card.svg?react";
 import RedPacketPNG from "./assets/red-packet.png";
 

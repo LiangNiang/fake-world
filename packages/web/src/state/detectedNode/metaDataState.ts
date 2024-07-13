@@ -6,12 +6,12 @@ import {
 import { getDialogueListValueSnapshot } from "@/stateV2/dialogueList";
 import { getMultipleDeviceLoginValueSnapshot } from "@/stateV2/multipleDeviceLogin";
 import { getStatusBarHideVauleSnapshot } from "@/stateV2/statusBar";
+import { type TTransactionType, getUsedTransactionValueSnapshot } from "@/stateV2/transaction";
 import { getUnreadCountValueSnapshot } from "@/stateV2/unreadCount";
 import { getWalletVauleSnapshot } from "@/stateV2/wallet";
 import { type GetRecoilValue, selectorFamily } from "recoil";
 import { feedState } from "../moments";
 import { friendState, friendsIdsState, friendsTotalCountState, myProfileState } from "../profile";
-import { type TTransactionType, USED_STATE_MAP } from "../transaction";
 import { MetaDataType } from "./consts";
 import type { OverallMetaData } from "./typing";
 
@@ -50,10 +50,8 @@ const handlerMap: HandlerMap = {
 			: undefined,
 	[MetaDataType.FeedCommentsList]: (get, index) => get(feedState(index as string))?.comments,
 	[MetaDataType.UserAllFeeds]: (get, index) => get(friendState(index as string)),
-	[MetaDataType.TransactionRecord]: (get, index) => ({
-		...get(USED_STATE_MAP[index as TTransactionType]),
-		type: index,
-	}),
+	[MetaDataType.TransactionRecord]: (_, index) =>
+		getUsedTransactionValueSnapshot(index as TTransactionType),
 	[MetaDataType.ContactsContainer]: (get) => get(friendsIdsState),
 	[MetaDataType.FriendsTotalCount]: (get) => get(friendsTotalCountState),
 	[MetaDataType.MultipleDeviceLogin]: () => getMultipleDeviceLoginValueSnapshot(),

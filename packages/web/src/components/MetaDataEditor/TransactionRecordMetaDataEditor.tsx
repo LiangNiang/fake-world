@@ -1,10 +1,3 @@
-import { Button, DatePicker, Form, Input, Radio } from "antd";
-import dayjs from "dayjs";
-import { isEmpty, omit } from "lodash-es";
-import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
-import { setRecoil } from "recoil-nexus";
-
 import {
 	randomCreditCardName,
 	randomPaymentMethod,
@@ -15,9 +8,13 @@ import {
 	BUILT_IN_TRANSACTION_TYPES_LABELS,
 	type TTransactionDataWithType,
 	type TTransactionType,
-	USED_STATE_MAP,
-} from "@/state/transaction";
-
+	setUsedTransactionValue,
+} from "@/stateV2/transaction";
+import { Button, DatePicker, Form, Input, Radio } from "antd";
+import dayjs from "dayjs";
+import { isEmpty, omit } from "lodash-es";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import FriendSelect from "./FriendSelect";
 import LocalImageUploadWithPreview from "./LocalImageUpload";
 
@@ -31,8 +28,7 @@ const TransactionRecordMetaDataEditor = ({
 
 	const onFinish = (v: TTransactionDataWithType) => {
 		if (isEmpty(v)) return;
-		const stateFn = USED_STATE_MAP[v.type];
-		setRecoil(stateFn, (pv: any) => ({
+		setUsedTransactionValue(v.type, (pv) => ({
 			...pv,
 			...omit(v, ["type"]),
 		}));

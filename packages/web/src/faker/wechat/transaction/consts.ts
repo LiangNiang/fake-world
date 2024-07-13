@@ -1,13 +1,11 @@
-import dayjs from "dayjs";
-
 import type {
-	ITransactionCreditCardRepayments,
-	ITransactionPayReward,
-	ITransactionQrTransfer,
-	ITransactionRedPacket,
-	ITransactionTransfer,
-} from "@/state/transaction";
-
+	IStateTransactionCreditCardRepayments,
+	IStateTransactionPayReward,
+	IStateTransactionQrTransfer,
+	IStateTransactionRedPacket,
+	IStateTransactionTransfer,
+} from "@/stateV2/transaction";
+import dayjs from "dayjs";
 import { randomCreditCardName, randomPaymentMethod, randomTransactionCode } from ".";
 import { randomAvatar } from "../user";
 
@@ -32,7 +30,7 @@ export const BANK_LIST = [
 	"宁波银行",
 ];
 
-export const DEFAULT_QR_TRANSFER: ITransactionQrTransfer = {
+export const DEFAULT_QR_TRANSFER: IStateTransactionQrTransfer = {
 	amount: "30.00",
 	toUsername: "张三",
 	avatar: randomAvatar(),
@@ -41,7 +39,7 @@ export const DEFAULT_QR_TRANSFER: ITransactionQrTransfer = {
 	payentMethod: randomPaymentMethod(),
 };
 
-export const DEFAULT_TRANSFER: ITransactionTransfer = {
+export const DEFAULT_TRANSFER: IStateTransactionTransfer = {
 	toFriendId: "1",
 	amount: "200.00",
 	timestamp: dayjs().subtract(30, "minute").valueOf(),
@@ -50,14 +48,14 @@ export const DEFAULT_TRANSFER: ITransactionTransfer = {
 	payentMethod: randomPaymentMethod(),
 };
 
-export const DEFAULT_PAY_REWARD: ITransactionPayReward = {
+export const DEFAULT_PAY_REWARD: IStateTransactionPayReward = {
 	amount: "50.00",
 	timestamp: dayjs().valueOf(),
 	code: randomTransactionCode("pay-reward"),
 	payentMethod: randomPaymentMethod(),
 };
 
-export const DEFAULT_RED_PACKET: ITransactionRedPacket = {
+export const DEFAULT_RED_PACKET: IStateTransactionRedPacket = {
 	toFriendId: "2",
 	amount: "100.00",
 	timestamp: dayjs().valueOf(),
@@ -66,7 +64,7 @@ export const DEFAULT_RED_PACKET: ITransactionRedPacket = {
 	merchantCode: randomTransactionCode("red-packet-merchant"),
 };
 
-export const DEFAULT_CREDIT_CARD_REPAYMENTS: ITransactionCreditCardRepayments = {
+export const DEFAULT_CREDIT_CARD_REPAYMENTS: IStateTransactionCreditCardRepayments = {
 	toCreditCardName: randomCreditCardName(),
 	amount: "2000.00",
 	code: randomTransactionCode("credit-card-repayments"),
