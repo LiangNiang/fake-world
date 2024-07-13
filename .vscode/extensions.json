@@ -2,7 +2,6 @@
 	"recommendations": [
 		"bradlc.vscode-tailwindcss",
 		"editorconfig.editorconfig",
-		"lokalise.i18n-ally",
 		"biomejs.biome"
 	]
 }

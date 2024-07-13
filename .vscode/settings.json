@@ -7,9 +7,6 @@
 		"blockClassName",
 		"innerBlockClassName"
 	],
-	"i18n-ally.localesPaths": ["packages/web/public/locales"],
-	"i18n-ally.enabledFrameworks": ["react", "react-i18next"],
-	"i18n-ally.keystyle": "nested",
 	"[typescript]": {
 		"editor.defaultFormatter": "biomejs.biome"
 	},

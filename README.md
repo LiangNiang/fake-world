@@ -56,7 +56,7 @@
 * [React](https://react.dev/)
 * [TypeScript](https://www.typescriptlang.org/)
 * [Tailwindcss](https://tailwindcss.com/)
-* [Recoil](https://recoiljs.org/)
+* [Jotai](https://jotai.org/)
 * [Slate](https://www.slatejs.org/)
 * [Dexie.js](https://dexie.org/)
 * [Bun](https://bun.sh/)
@@ -121,7 +121,7 @@ OPENAI 相关的环境变量可以不配置，如果需要调试相关 AI 功能
 然后在项目根目录执行
 ```bash
 pnpm run dev:api 
-# or in packages/api do
+# 或者在 packages/api 执行
 pnpm run dev
 ```
 
@@ -132,7 +132,6 @@ liangniangbaby@gmail.com
 ### 版权说明
 
 该项目签署了 GPL v3.0 授权许可，详情请参阅 [LICENSE][license-url]
-
 
 
 [stars-shield]: https://img.shields.io/github/stars/LiangNiang/fake-world?style=flat-square

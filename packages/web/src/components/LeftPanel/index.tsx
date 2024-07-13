@@ -74,12 +74,12 @@ const LeftPanel = () => {
 					</a>
 					&nbsp;&&nbsp;
 					<a
-						href="https://recoiljs.org/"
+						href="https://jotai.org/"
 						target="_blank"
 						rel="noreferrer"
 						className="text-antDaybreakBlue-5"
 					>
-						Recoil
+						Jotai
 					</a>
 					&nbsp;&&nbsp;
 					<a
