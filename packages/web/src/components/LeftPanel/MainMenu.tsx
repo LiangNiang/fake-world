@@ -55,7 +55,7 @@ const MainMenu = () => {
 								content: t("menu.mainBlock.clearAllDesc"),
 								onOk: async () => {
 									localStorage.clear();
-									await imageDBManager.removeAllDBs();
+									await imageDBManager.removeDB();
 									window.location.reload();
 								},
 							});

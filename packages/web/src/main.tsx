@@ -17,7 +17,6 @@ import { backendHealthCheck } from "./utils.ts";
 
 initDayjs();
 ImageDBManager.initDBImagesCacheStore();
-ImageDBManager.initDBBridge();
 backendHealthCheck();
 
 const router = createBrowserRouter(routes);
