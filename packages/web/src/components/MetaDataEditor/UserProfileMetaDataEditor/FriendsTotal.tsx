@@ -1,15 +1,17 @@
 import {
-	type TStateFriendsTotalCountDisplay,
+	type TStateFriendsTotalCountDisplayConfig,
 	setFriendsTotalCountDisplayConfigValue,
 } from "@/stateV2/profile";
 import { Form, InputNumber, Radio } from "antd";
 
-const FriendsTotlaMetaDataEditor = ({ data }: EditorProps<TStateFriendsTotalCountDisplay>) => {
-	const [form] = Form.useForm<TStateFriendsTotalCountDisplay>();
+const FriendsTotlaMetaDataEditor = ({
+	data,
+}: EditorProps<TStateFriendsTotalCountDisplayConfig>) => {
+	const [form] = Form.useForm<TStateFriendsTotalCountDisplayConfig>();
 
 	const calcuateTypeValue = Form.useWatch("calcuateType", form);
 
-	const onFinish = (values: TStateFriendsTotalCountDisplay) => {
+	const onFinish = (values: TStateFriendsTotalCountDisplayConfig) => {
 		setFriendsTotalCountDisplayConfigValue(values);
 	};
 
@@ -26,13 +28,13 @@ const FriendsTotlaMetaDataEditor = ({ data }: EditorProps<TStateFriendsTotalCoun
 				});
 			}}
 		>
-			<Form.Item<TStateFriendsTotalCountDisplay> name="calcuateType" label="好友总数计算方式">
+			<Form.Item<TStateFriendsTotalCountDisplayConfig> name="calcuateType" label="好友总数计算方式">
 				<Radio.Group>
 					<Radio value="auto">自动</Radio>
 					<Radio value="static">静态值</Radio>
 				</Radio.Group>
 			</Form.Item>
-			<Form.Item<TStateFriendsTotalCountDisplay> name="count" label="好友总数">
+			<Form.Item<TStateFriendsTotalCountDisplayConfig> name="count" label="好友总数">
 				<InputNumber disabled={calcuateTypeValue === "auto"} min={1} />
 			</Form.Item>
 		</Form>

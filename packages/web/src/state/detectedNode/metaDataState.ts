@@ -7,6 +7,7 @@ import { getDialogueListValueSnapshot } from "@/stateV2/dialogueList";
 import { getMultipleDeviceLoginValueSnapshot } from "@/stateV2/multipleDeviceLogin";
 import {
 	getAllProfilesIdsValueSnapshot,
+	getFriendsTotalCountDisplayConfigValueSnapshot,
 	getFriendsTotalCountValueSnapshot,
 	getMyProfileValueSnapshot,
 	getProfileValueSnapshot,
@@ -58,7 +59,7 @@ const handlerMap: HandlerMap = {
 	[MetaDataType.TransactionRecord]: (_, index) =>
 		getUsedTransactionValueSnapshot(index as TTransactionType),
 	[MetaDataType.ContactsContainer]: () => getAllProfilesIdsValueSnapshot(),
-	[MetaDataType.FriendsTotalCount]: () => getFriendsTotalCountValueSnapshot(),
+	[MetaDataType.FriendsTotalCount]: () => getFriendsTotalCountDisplayConfigValueSnapshot(),
 	[MetaDataType.MultipleDeviceLogin]: () => getMultipleDeviceLoginValueSnapshot(),
 };
 

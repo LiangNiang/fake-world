@@ -38,7 +38,7 @@ export interface IStateProfile {
 	createdByFaker?: boolean;
 }
 
-export interface TStateFriendsTotalCountDisplay {
+export interface TStateFriendsTotalCountDisplayConfig {
 	calcuateType: "auto" | "static";
 	count?: number;
 }

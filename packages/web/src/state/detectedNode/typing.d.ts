@@ -2,7 +2,7 @@ import type { EBottomNavBars, IBottomNavbarsItemConfig } from "@/stateV2/bottomN
 import type { TConversationItem, TStateConversationInputterConfig } from "@/stateV2/conversation";
 import type { IDialogueItem } from "@/stateV2/dialogueList";
 import type { TStateMultipleDeviceLogin } from "@/stateV2/multipleDeviceLogin";
-import type { IStateProfile } from "@/stateV2/profile";
+import type { IStateProfile, TStateFriendsTotalCountDisplayConfig } from "@/stateV2/profile";
 import type { TTransactionDataWithType, TTransactionType } from "@/stateV2/transaction";
 import type { TStateUnreadCount } from "@/stateV2/unreadCount";
 import type { TStateWallet } from "@/stateV2/wallet";
@@ -154,8 +154,8 @@ declare namespace OverallMetaData {
 
 	interface IMetaDataFriendsTotalCount extends Base {
 		type: MetaDataType.FriendsTotalCount;
-		data: number;
-		treeItemDisplayName: string | ((data: number) => string);
+		data: TStateFriendsTotalCountDisplayConfig;
+		treeItemDisplayName: string | ((data: TStateFriendsTotalCountDisplayConfig) => string);
 	}
 
 	interface IMetaDataMultipleDeviceLogin extends Base {

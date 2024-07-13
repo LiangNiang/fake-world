@@ -6,7 +6,11 @@ import type { OpticFor_ } from "optics-ts";
 import { useCallback } from "react";
 import { mainStore } from "../store";
 import { generateNameAnchorGroup } from "./helpers";
-import type { IStateProfile, TStateAllProfiles, TStateFriendsTotalCountDisplay } from "./typing";
+import type {
+	IStateProfile,
+	TStateAllProfiles,
+	TStateFriendsTotalCountDisplayConfig,
+} from "./typing";
 
 /**
  * 所有人的信息
@@ -81,17 +85,21 @@ export const allProfilesAnchorDataAtom = atom((get) => {
 /**
  * 好友总数显示
  */
-export const friendsTotalCountDisplayConfigAtom = atomWithStorage<TStateFriendsTotalCountDisplay>(
-	"friendsTotalCountDisplayConfig",
-	{
-		calcuateType: "auto",
-	},
-	undefined,
-	{ getOnInit: true },
-);
+export const friendsTotalCountDisplayConfigAtom =
+	atomWithStorage<TStateFriendsTotalCountDisplayConfig>(
+		"friendsTotalCountDisplayConfig",
+		{
+			calcuateType: "auto",
+		},
+		undefined,
+		{ getOnInit: true },
+	);
+
+export const getFriendsTotalCountDisplayConfigValueSnapshot = () =>
+	mainStore.get(friendsTotalCountDisplayConfigAtom);
 
 export const setFriendsTotalCountDisplayConfigValue = (
-	args: SetStateAction<TStateFriendsTotalCountDisplay>,
+	args: SetStateAction<TStateFriendsTotalCountDisplayConfig>,
 ) => mainStore.set(friendsTotalCountDisplayConfigAtom, args);
 
 export const friendsTotalCountAtom = atom<number>((get) => {

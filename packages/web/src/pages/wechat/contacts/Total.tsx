@@ -12,7 +12,8 @@ const Total = () => {
 		<canBeDetected.div
 			metaData={{
 				type: MetaDataType.FriendsTotalCount,
-				treeItemDisplayName: (data) => `好友总数 ${data} 人`,
+				treeItemDisplayName: (data) =>
+					`好友总数 ${data.calcuateType === "auto" ? count : data.count} 人`,
 			}}
 			className="flex items-center justify-center py-3 text-black/60"
 		>
