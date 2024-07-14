@@ -20,9 +20,7 @@ backendHealthCheck();
 const router = createBrowserRouter(routes);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-	<React.StrictMode>
-		<Provider store={mainStore}>
-			<RouterProvider router={router} />
-		</Provider>
-	</React.StrictMode>,
+	<Provider store={mainStore}>
+		<RouterProvider router={router} />
+	</Provider>,
 );

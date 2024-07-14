@@ -5,7 +5,7 @@ import { useInterval, useUpdate } from "ahooks";
 import { Tooltip } from "antd";
 import dayjs from "dayjs";
 import { useAtom, useAtomValue } from "jotai";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { createPortal } from "react-dom";
 import { twJoin } from "tailwind-merge";
 import { canBeDetected } from "../NodeDetected";
@@ -84,6 +84,20 @@ const StatusBar = () => {
 		};
 	}, []);
 
+	const operations = useMemo(
+		() => [
+			{
+				onClick: update,
+				element: (
+					<Tooltip title="同步当前时间">
+						<ClockCircleOutlined />
+					</Tooltip>
+				),
+			},
+		],
+		[],
+	);
+
 	const renderContent = (isMount?: boolean) => {
 		const useWhiteColorText = theme === "dark";
 
@@ -98,16 +112,7 @@ const StatusBar = () => {
 				metaData={{
 					type: EMetaDataType.StatusBar,
 					treeItemDisplayName: "状态栏",
-					operations: [
-						{
-							onClick: update,
-							element: (
-								<Tooltip title="同步当前时间">
-									<ClockCircleOutlined />
-								</Tooltip>
-							),
-						},
-					],
+					operations,
 				}}
 				style={{
 					backgroundColor,

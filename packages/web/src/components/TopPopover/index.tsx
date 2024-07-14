@@ -12,7 +12,7 @@ const TopPopover = ({ children }: PopoverProps) => {
 
 	useTimeout(() => {
 		setOpen(true);
-	}, 1000);
+	}, 500);
 
 	return (
 		<Popover

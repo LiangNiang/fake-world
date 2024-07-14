@@ -2,14 +2,13 @@ import {
 	EMetaDataType,
 	type StaticMetaData,
 	activatedNodeAtom,
-	getAllNodesValueSnapshot,
 	getNodeFreshDataValueSnapshot,
 	nodeInjectMetaDataAtom,
 } from "@/stateV2/detectedNode";
 import { Global, css } from "@emotion/react";
 import { App, Tabs } from "antd";
 import { useAtomValue } from "jotai";
-import { useCallback } from "react";
+import { memo, useCallback } from "react";
 import useMode from "../useMode";
 import AllFeedsMetaDataEditor from "./AllFeedsMetaDataEditor";
 import ConversationInputMetaDataEditor from "./ConversationInputMetaDataEditor";
@@ -60,7 +59,7 @@ const TYPE_MAP_COMPONENT = {
 	[EMetaDataType.MultipleDeviceLogin]: MultipleDeviceLoginEditor,
 };
 
-export const MetaDataEditor = () => {
+const MetaDataEditor = () => {
 	const { isPreview } = useMode();
 	const activatedNode = useAtomValue(activatedNodeAtom);
 	const metaData = useAtomValue(nodeInjectMetaDataAtom(activatedNode ?? ""));
@@ -131,3 +130,5 @@ export const MetaDataEditor = () => {
 		</App>
 	);
 };
+
+export default memo(MetaDataEditor);

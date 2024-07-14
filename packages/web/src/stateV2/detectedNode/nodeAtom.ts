@@ -4,7 +4,6 @@ import { focusAtom } from "jotai-optics";
 import { atomFamily } from "jotai/utils";
 import { isArray, isEmpty } from "lodash-es";
 import type { OpticFor_ } from "optics-ts";
-import { useCallback, useMemo } from "react";
 import { mainStore } from "../store";
 import { nodeRuntimeDataAtom } from "./runtimeDataAtom";
 import type { OverallMetaData, StaticMetaData } from "./typing";
@@ -26,12 +25,15 @@ type TStateAllNodes = {
 export const allNodesAtom = atom<TStateAllNodes>({});
 
 export const getAllNodesValueSnapshot = () => mainStore.get(allNodesAtom);
+export const setAllNodesValue = (value: SetStateAction<TStateAllNodes>) =>
+	mainStore.set(allNodesAtom, value);
 
 /**
  * node 节点的 injectMetaData
  */
 export const nodeInjectMetaDataAtom = atomFamily(
-	(id: string) => atom((get) => get(allNodesAtom)[id]?.injectMetaData),
+	(id: string) =>
+		focusAtom(allNodesAtom, (optic) => optic.prop(id).optional().prop("injectMetaData")),
 	deepEqual,
 );
 
@@ -69,22 +71,15 @@ export const nodeFreshDataAtom = atomFamily((id: IStateNode["id"]) => {
 export const getNodeFreshDataValueSnapshot = (id: IStateNode["id"]) =>
 	mainStore.get(nodeFreshDataAtom(id));
 
-export const nodeAtom = (id: IStateNode["id"]) => {
-	const fa = focusAtom(
-		allNodesAtom,
-		useCallback((optic: OpticFor_<TStateAllNodes>) => optic.prop(id), []),
+export const nodeAtom = atomFamily((id: IStateNode["id"]) => {
+	const fa = focusAtom(allNodesAtom, (optic: OpticFor_<TStateAllNodes>) => optic.prop(id));
+	return atom(
+		(get) => ({
+			...get(fa),
+			freshData: get(nodeFreshDataAtom(id)),
+		}),
+		(_, set, newValue: SetStateAction<IStateNode>) => {
+			set(fa, newValue);
+		},
 	);
-	return useMemo(
-		() =>
-			atom(
-				(get) => ({
-					...get(fa),
-					freshData: get(nodeFreshDataAtom(id)),
-				}),
-				(_, set, newValue: SetStateAction<IStateNode>) => {
-					set(fa, newValue);
-				},
-			),
-		[],
-	);
-};
+});
