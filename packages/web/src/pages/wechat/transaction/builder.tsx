@@ -1,6 +1,6 @@
 import type { InjectProps } from "@/components/NodeDetected";
-import { MetaDataType } from "@/state/detectedNode";
 import type { StaticMetaData } from "@/state/detectedNode/typing";
+import { EMetaDataType } from "@/stateV2/detectedNode";
 import {
 	BUILT_IN_TRANSACTION_TYPES_LABELS,
 	type IStateTransactionCreditCardRepayments,
@@ -140,7 +140,7 @@ function generateColumnConfig(type: TTransactionType, data: unknown): TColumnCon
 
 function generateMetaData(type: TTransactionType, data: unknown): InjectProps["metaData"] | null {
 	const base: StaticMetaData.InjectMetaData = {
-		type: MetaDataType.TransactionRecord,
+		type: EMetaDataType.TransactionRecord,
 		index: type,
 		treeItemDisplayName: (data, t) => t(BUILT_IN_TRANSACTION_TYPES_LABELS[data.type]),
 	};
@@ -158,7 +158,7 @@ function generateMetaData(type: TTransactionType, data: unknown): InjectProps["m
 					label: "交易详情",
 				},
 				{
-					type: MetaDataType.FirendProfile,
+					type: EMetaDataType.FirendProfile,
 					index: toFriendId,
 					label: "好友信息",
 				},

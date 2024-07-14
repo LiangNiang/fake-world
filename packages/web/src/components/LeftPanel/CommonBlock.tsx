@@ -1,5 +1,5 @@
 import { ALL_LANGUAGES, getCurrentLanguage } from "@/i18n";
-import { activatedNodeState, hoverdNodeState } from "@/state/detectedNode";
+import { activatedNodeAtom, hoveredNodeAtom } from "@/stateV2/detectedNode";
 import { getTouredValueSnapshot, tourTargetAtom } from "@/stateV2/tour";
 import { LOCALE_MAP } from "@/time";
 import { InfoCircleOutlined } from "@ant-design/icons";
@@ -9,15 +9,14 @@ import dayjs from "dayjs";
 import { useSetAtom } from "jotai";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useSetRecoilState } from "recoil";
 import ModeSwitch from "../ModeSwitch";
 import useMode from "../useMode";
 import QuickJumpSelect from "./QuickJumpSelect";
 
 const CommonBlock = () => {
 	const { setMode, isPreview } = useMode();
-	const setHoverdNode = useSetRecoilState(hoverdNodeState);
-	const setActivatedNode = useSetRecoilState(activatedNodeState);
+	const setHoveredNode = useSetAtom(hoveredNodeAtom);
+	const setActivatedNode = useSetAtom(activatedNodeAtom);
 	const { i18n, t } = useTranslation();
 	const setTourTarget = useSetAtom(tourTargetAtom);
 	const canSet = !getTouredValueSnapshot();
@@ -25,7 +24,7 @@ const CommonBlock = () => {
 	useEffect(() => {
 		if (isPreview) {
 			setActivatedNode(null);
-			setHoverdNode(null);
+			setHoveredNode(null);
 		}
 	}, [isPreview]);
 

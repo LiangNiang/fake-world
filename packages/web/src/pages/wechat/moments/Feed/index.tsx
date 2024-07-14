@@ -3,7 +3,7 @@ import TopOperations from "@/components/TopOperations";
 import useModeNavigate from "@/components/useModeNavigate";
 import { generateInitFeedComment } from "@/faker/wechat/moments";
 import { MYSELF_ID } from "@/faker/wechat/user";
-import { MetaDataType } from "@/state/detectedNode";
+import { EMetaDataType } from "@/stateV2/detectedNode";
 import { type IStateFeed, feedAtom, feedListAtom } from "@/stateV2/moments";
 import { profileAtom } from "@/stateV2/profile";
 import UserAvatar from "@/wechatComponents/User/UserAvatar";
@@ -118,19 +118,19 @@ const Feed = ({
 			className={twMerge("flex flex-col border-black/5 border-b px-5 py-3", classNames?.container)}
 			metaData={[
 				{
-					type: MetaDataType.MomentsFeed,
+					type: EMetaDataType.MomentsFeed,
 					index: id,
 					operations,
 					label: "朋友圈",
 				},
 				userId === MYSELF_ID
 					? {
-							type: MetaDataType.MyProfile,
+							type: EMetaDataType.MyProfile,
 							treeItemDisplayName: (data) => `${data.nickname}的朋友圈`,
 							label: "用户信息",
 						}
 					: {
-							type: MetaDataType.FirendProfile,
+							type: EMetaDataType.FirendProfile,
 							index: userId,
 							treeItemDisplayName: (data) => `${data.nickname}的朋友圈`,
 							label: "用户信息",

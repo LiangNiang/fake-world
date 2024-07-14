@@ -3,14 +3,14 @@ import QRCODE_OUTLINED_SVG from "@/assets/qrcode-outlined.svg?react";
 import { h } from "@/components/HashAssets";
 import { canBeDetected } from "@/components/NodeDetected";
 import useModeNavigate from "@/components/useModeNavigate";
-import { MetaDataType } from "@/state/detectedNode";
+import { EMetaDataType } from "@/stateV2/detectedNode";
 import { myProfileAtom } from "@/stateV2/profile";
 import List from "@/wechatComponents/List";
 import { useAtomValue } from "jotai";
 import { useTranslation } from "react-i18next";
 
 const ProfileEdit = () => {
-	const { avatarInfo, nickname, tickleText, wechat, coin } = useAtomValue(myProfileAtom);
+	const { avatarInfo, nickname, tickleText, wechat, coin } = useAtomValue(myProfileAtom)!;
 	const navigate = useModeNavigate();
 	const { t } = useTranslation();
 
@@ -19,7 +19,7 @@ const ProfileEdit = () => {
 			className="flex flex-1 flex-col"
 			metaData={{
 				treeItemDisplayName: (data) => `个人信息编辑（${data.nickname}）`,
-				type: MetaDataType.MyProfile,
+				type: EMetaDataType.MyProfile,
 			}}
 		>
 			<div className="grid grid-cols-3 bg-[rgba(237,237,237,1)] px-4 py-2">

@@ -8,8 +8,8 @@ import WechatSVG from "@/assets/wechat.svg?react";
 import Badge from "@/components/Badge";
 import { canBeDetected } from "@/components/NodeDetected";
 import TopOperations from "@/components/TopOperations";
-import { MetaDataType } from "@/state/detectedNode";
 import { EBottomNavBars, bottomNavbarsAtom } from "@/stateV2/bottomNavbars";
+import { EMetaDataType } from "@/stateV2/detectedNode";
 import { useAtomValue, useSetAtom } from "jotai";
 import { mapValues } from "lodash-es";
 import { useEffect } from "react";
@@ -46,7 +46,7 @@ const BottomNavbar = () => {
 			<canBeDetected.div
 				className="flex cursor-pointer flex-col items-center justify-center space-y-1 py-2"
 				metaData={{
-					type: MetaDataType.NavigationBar,
+					type: EMetaDataType.NavigationBar,
 					index: EBottomNavBars.WECHAT,
 					treeItemDisplayName: "微信",
 					operations: commonOperations,
@@ -74,7 +74,7 @@ const BottomNavbar = () => {
 			<canBeDetected.div
 				className="flex cursor-pointer flex-col items-center justify-center space-y-1 py-2"
 				metaData={{
-					type: MetaDataType.NavigationBar,
+					type: EMetaDataType.NavigationBar,
 					index: EBottomNavBars.ADDRESS_BOOK,
 					treeItemDisplayName: "通讯录",
 					operations: commonOperations,
@@ -102,7 +102,7 @@ const BottomNavbar = () => {
 			<canBeDetected.div
 				className="flex cursor-pointer flex-col items-center justify-center space-y-1 py-2"
 				metaData={{
-					type: MetaDataType.NavigationBar,
+					type: EMetaDataType.NavigationBar,
 					index: EBottomNavBars.DISCOVER,
 					treeItemDisplayName: "发现",
 					operations: commonOperations,
@@ -130,7 +130,7 @@ const BottomNavbar = () => {
 			<canBeDetected.div
 				className="flex cursor-pointer flex-col items-center justify-center space-y-1 py-2"
 				metaData={{
-					type: MetaDataType.NavigationBar,
+					type: EMetaDataType.NavigationBar,
 					index: EBottomNavBars.MY,
 					treeItemDisplayName: "我",
 					operations: commonOperations,

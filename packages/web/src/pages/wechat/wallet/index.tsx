@@ -4,7 +4,7 @@ import PayCardsOutlinedSVG from "@/assets/pay-cards-outlined.svg?react";
 import PayMiniFundOutlinedSVG from "@/assets/pay-mini-fund-outlined.svg?react";
 import PayRelativeCardsSVG from "@/assets/pay-relative-cards.svg?react";
 import useModeNavigate from "@/components/useModeNavigate";
-import { MetaDataType } from "@/state/detectedNode";
+import { EMetaDataType } from "@/stateV2/detectedNode";
 import { walletAtom } from "@/stateV2/wallet";
 import List from "@/wechatComponents/List";
 import { useAtomValue } from "jotai";
@@ -38,7 +38,7 @@ const Wallet = () => {
 						icon={<CoinOutlinedSVG fill="#FFC300" />}
 						onClick={() => navigate("/wechat/wallet/balance")}
 						metaData={{
-							type: MetaDataType.Wallet,
+							type: EMetaDataType.Wallet,
 							treeItemDisplayName: (data) => `零钱余额：¥${data.balance}`,
 						}}
 					>
@@ -51,7 +51,7 @@ const Wallet = () => {
 						withJump
 						icon={<PayMiniFundOutlinedSVG fill="#FFC300" />}
 						metaData={{
-							type: MetaDataType.Wallet,
+							type: EMetaDataType.Wallet,
 							treeItemDisplayName: (data) => `零钱通余额：¥${data.miniFund}`,
 						}}
 					>

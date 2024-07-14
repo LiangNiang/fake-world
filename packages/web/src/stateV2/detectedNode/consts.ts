@@ -1,4 +1,4 @@
-export enum MetaDataType {
+export enum EMetaDataType {
 	/** 对话每一项 */
 	DialogueItem = "dialogueItem",
 	/** 对话列表 */

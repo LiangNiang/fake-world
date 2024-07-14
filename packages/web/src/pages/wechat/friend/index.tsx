@@ -9,8 +9,8 @@ import { h } from "@/components/HashAssets";
 import { canBeDetected } from "@/components/NodeDetected";
 import useModeNavigate from "@/components/useModeNavigate";
 import { MYSELF_ID } from "@/faker/wechat/user";
-import { MetaDataType } from "@/state/detectedNode";
 import type { StaticMetaData } from "@/state/detectedNode/typing";
+import { EMetaDataType } from "@/stateV2/detectedNode";
 import { dialogueListAtom } from "@/stateV2/dialogueList";
 import { type IStateProfile, PRIVACY_TEXT_MAP, profileAtom } from "@/stateV2/profile";
 import dayjs from "dayjs";
@@ -58,12 +58,12 @@ const Friend = () => {
 
 		if (isMyself) {
 			return {
-				type: MetaDataType.MyProfile,
+				type: EMetaDataType.MyProfile,
 				treeItemDisplayName,
 			};
 		}
 		return {
-			type: MetaDataType.FirendProfile,
+			type: EMetaDataType.FirendProfile,
 			index: userId!,
 			treeItemDisplayName,
 		};

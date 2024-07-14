@@ -3,8 +3,8 @@ import Badge from "@/components/Badge";
 import { h } from "@/components/HashAssets";
 import { canBeDetected } from "@/components/NodeDetected";
 import TopOperations from "@/components/TopOperations";
-import { MetaDataType } from "@/state/detectedNode";
 import { conversationListAtom } from "@/stateV2/conversation";
+import { EMetaDataType } from "@/stateV2/detectedNode";
 import { type IDialogueItem, dialogueItemAtom, dialogueListAtom } from "@/stateV2/dialogueList";
 import { profileAtom } from "@/stateV2/profile";
 import { Modal } from "antd";
@@ -60,7 +60,7 @@ const DialogueItem = ({ itemId, className }: Props) => {
 			)}
 			metaData={[
 				{
-					type: MetaDataType.DialogueItem,
+					type: EMetaDataType.DialogueItem,
 					index: id,
 					operations: [
 						{ onClick: handleOperationDelete, element: <TopOperations.OperaionDeleteBase /> },
@@ -72,7 +72,7 @@ const DialogueItem = ({ itemId, className }: Props) => {
 					label: "对话项目",
 				},
 				{
-					type: MetaDataType.FirendProfile,
+					type: EMetaDataType.FirendProfile,
 					index: friendId,
 					label: "好友个人信息",
 					treeItemDisplayName: (data) => `对话项目（${data.nickname}）`,

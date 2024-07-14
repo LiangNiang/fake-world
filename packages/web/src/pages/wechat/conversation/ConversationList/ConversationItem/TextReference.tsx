@@ -2,13 +2,13 @@ import { h } from "@/components/HashAssets";
 import { type InjectProps, canBeDetected } from "@/components/NodeDetected";
 import TopOperations from "@/components/TopOperations";
 import { MYSELF_ID } from "@/faker/wechat/user";
-import { MetaDataType, activatedNodeState } from "@/state/detectedNode";
 import {
 	EConversationType,
 	type IConversationTypeText,
 	conversationItemReferenceAtom,
 	conversationListAtom,
 } from "@/stateV2/conversation";
+import { activatedNodeAtom, EMetaDataType } from "@/stateV2/detectedNode";
 import { getModeValueSnapshot } from "@/stateV2/mode";
 import SlateText from "@/wechatComponents/SlateText";
 import UserName from "@/wechatComponents/User/UserName";
@@ -17,7 +17,6 @@ import { Tooltip } from "antd";
 import { useAtomValue, useSetAtom } from "jotai";
 import { memo } from "react";
 import { useParams } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
 import CommonBlock from "./CommonBlock";
 
 type Props = {
@@ -29,7 +28,7 @@ const TextReference = ({ referenceId, conversationItemId }: Props) => {
 	const { id } = useParams<{ id: string }>();
 	const referenceData = useAtomValue(conversationItemReferenceAtom(id!, referenceId!));
 	const setConversationList = useSetAtom(conversationListAtom(id!));
-	const setActivatedNode = useSetRecoilState(activatedNodeState);
+	const setActivatedNode = useSetAtom(activatedNodeAtom);
 
 	if (!referenceData) return null;
 
@@ -70,7 +69,7 @@ const TextReference = ({ referenceId, conversationItemId }: Props) => {
 			innerBlockProps={{
 				metaData: [
 					{
-						type: MetaDataType.ConversationItem,
+						type: EMetaDataType.ConversationItem,
 						index: [id!, referenceId!],
 						treeItemDisplayName: "引用消息",
 						label: "编辑引用消息",
@@ -109,12 +108,12 @@ const TextReference = ({ referenceId, conversationItemId }: Props) => {
 						],
 					},
 					{
-						type: MetaDataType.FirendProfile,
+						type: EMetaDataType.FirendProfile,
 						index: id!,
 						label: "好友个人信息",
 					},
 					{
-						type: MetaDataType.MyProfile,
+						type: EMetaDataType.MyProfile,
 						label: "个人信息",
 					},
 				],

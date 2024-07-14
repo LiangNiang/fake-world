@@ -4,7 +4,7 @@ import { canBeDetected } from "@/components/NodeDetected";
 import TopOperations from "@/components/TopOperations";
 import useModeNavigate from "@/components/useModeNavigate";
 import { MYSELF_ID } from "@/faker/wechat/user";
-import { MetaDataType } from "@/state/detectedNode";
+import { EMetaDataType } from "@/stateV2/detectedNode";
 import { type IStateFeed, feedAtom } from "@/stateV2/moments";
 import { type IStateProfile, profileAtom } from "@/stateV2/profile";
 import { EditOutlined } from "@ant-design/icons";
@@ -43,12 +43,12 @@ const LikeItem = ({ userId, displayType }: LikeItemProps) => {
 			metaData={
 				userId === MYSELF_ID
 					? {
-							type: MetaDataType.MyProfile,
+							type: EMetaDataType.MyProfile,
 							treeItemDisplayName: (data) => `点赞（${data.nickname}）`,
 							operations,
 						}
 					: {
-							type: MetaDataType.FirendProfile,
+							type: EMetaDataType.FirendProfile,
 							index: userId,
 							treeItemDisplayName: (data) => `点赞（${data.nickname}）`,
 							operations,
@@ -81,7 +81,7 @@ const LikeList = ({ id, fromDetail }: LikeListProps) => {
 		<canBeDetected.div
 			className={twMerge("flex p-1", fromDetail && "p-2")}
 			metaData={{
-				type: MetaDataType.FeedLikes,
+				type: EMetaDataType.FeedLikes,
 				index: id,
 				treeItemDisplayName: (data) => `${data.length}人点赞`,
 				operations: [

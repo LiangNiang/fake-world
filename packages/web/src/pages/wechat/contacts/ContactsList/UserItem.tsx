@@ -2,7 +2,6 @@ import { h } from "@/components/HashAssets";
 import TopOperations from "@/components/TopOperations";
 import useModeNavigate from "@/components/useModeNavigate";
 import { MYSELF_ID } from "@/faker/wechat/user";
-import { MetaDataType } from "@/state/detectedNode";
 import { dialogueListAtom } from "@/stateV2/dialogueList";
 import { feedListAtom } from "@/stateV2/moments";
 import { setAllProfilesValue } from "@/stateV2/profile";
@@ -12,6 +11,7 @@ import { useSetAtom } from "jotai";
 import { memo } from "react";
 import { twJoin } from "tailwind-merge";
 import type { TRenderUser } from "../utils";
+import { EMetaDataType } from "@/stateV2/detectedNode";
 
 const UserItem = ({
 	id,
@@ -45,9 +45,9 @@ const UserItem = ({
 			}
 			metaData={
 				id === MYSELF_ID
-					? { type: MetaDataType.MyProfile, treeItemDisplayName: "我自己" }
+					? { type: EMetaDataType.MyProfile, treeItemDisplayName: "我自己" }
 					: {
-							type: MetaDataType.FirendProfile,
+							type: EMetaDataType.FirendProfile,
 							index: id,
 							treeItemDisplayName: () => `好友（${name}）`,
 							operations: [

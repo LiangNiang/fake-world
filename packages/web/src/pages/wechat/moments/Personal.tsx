@@ -1,6 +1,6 @@
 import { canBeDetected } from "@/components/NodeDetected";
 import { MYSELF_ID } from "@/faker/wechat/user";
-import { MetaDataType } from "@/state/detectedNode";
+import { EMetaDataType } from "@/stateV2/detectedNode";
 import { type IStateFeed, userFeedListAtom } from "@/stateV2/moments";
 import dayjs from "dayjs";
 import { useAtomValue } from "jotai";
@@ -89,7 +89,7 @@ const PersonalMoments = () => {
 		<canBeDetected.div
 			className="mt-6 flex flex-col pb-3"
 			metaData={{
-				type: MetaDataType.UserAllFeeds,
+				type: EMetaDataType.UserAllFeeds,
 				index: id,
 				treeItemDisplayName: (data) => `${data.nickname}的所有朋友圈`,
 			}}
@@ -137,11 +137,11 @@ const PersonalMoments = () => {
 					metaData={
 						id === MYSELF_ID
 							? {
-									type: MetaDataType.MyProfile,
+									type: EMetaDataType.MyProfile,
 									treeItemDisplayName: "允许朋友查看朋友圈的范围",
 								}
 							: {
-									type: MetaDataType.FirendProfile,
+									type: EMetaDataType.FirendProfile,
 									index: id,
 									treeItemDisplayName: "允许朋友查看朋友圈的范围",
 								}

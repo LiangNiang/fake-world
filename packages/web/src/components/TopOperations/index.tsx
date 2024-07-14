@@ -1,8 +1,5 @@
-import { useRecoilValue } from "recoil";
-
-import { nodeInjectMetaState } from "@/state/detectedNode";
-import type { StaticMetaData } from "@/state/detectedNode/typing";
-
+import { type StaticMetaData, nodeInjectMetaDataAtom } from "@/stateV2/detectedNode";
+import { useAtomValue } from "jotai";
 import { OperaionDeleteBase, OperationNewBase, OperationSelectParent } from "./BuiltIn";
 
 type Props = {
@@ -10,7 +7,7 @@ type Props = {
 };
 
 const TopOperations = ({ nodeId }: Props) => {
-	const injectMetaData = useRecoilValue(nodeInjectMetaState(nodeId));
+	const injectMetaData = useAtomValue(nodeInjectMetaDataAtom(nodeId));
 
 	if (!injectMetaData) return null;
 

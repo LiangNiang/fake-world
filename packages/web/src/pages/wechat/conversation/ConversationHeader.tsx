@@ -2,7 +2,7 @@ import BackFilledSVG from "@/assets/back-filled.svg?react";
 import MoreFilledSVG from "@/assets/more-filled.svg?react";
 import { canBeDetected } from "@/components/NodeDetected";
 import useModeNavigate from "@/components/useModeNavigate";
-import { MetaDataType } from "@/state/detectedNode";
+import { EMetaDataType } from "@/stateV2/detectedNode";
 import { profileAtom } from "@/stateV2/profile";
 import { unreadCountAtom } from "@/stateV2/unreadCount";
 import { useAtomValue } from "jotai";
@@ -27,7 +27,7 @@ const ConversationHeader = () => {
 				<canBeDetected.div
 					className="ml-1 rounded-2xl bg-[rgba(0,0,0,0.15)] px-2 py-[2px] text-xs"
 					metaData={{
-						type: MetaDataType.UnreadCount,
+						type: EMetaDataType.UnreadCount,
 						treeItemDisplayName: "未读消息数",
 					}}
 				>

@@ -1,8 +1,8 @@
 import { canBeDetected } from "@/components/NodeDetected";
 import TopOperations from "@/components/TopOperations";
 import useModeNavigate from "@/components/useModeNavigate";
-import { MetaDataType } from "@/state/detectedNode";
 import type { StaticMetaData } from "@/state/detectedNode/typing";
+import { EMetaDataType } from "@/stateV2/detectedNode";
 import { type IFeedComment, type IStateFeed, feedAtom } from "@/stateV2/moments";
 import { type IStateProfile, profileAtom } from "@/stateV2/profile";
 import SlateText from "@/wechatComponents/SlateText";
@@ -18,9 +18,8 @@ const CommentUserText = ({
 	replyUserId,
 }: Pick<IFeedComment, "fromUserId" | "replyUserId">) => {
 	const { nickname: fromNickname, remark: fromRemark } = useAtomValue(profileAtom(fromUserId))!;
-	const { nickname: replyNickname, remark: replyRemark } = useAtomValue(
-		profileAtom(replyUserId || ""),
-	) ?? {};
+	const { nickname: replyNickname, remark: replyRemark } =
+		useAtomValue(profileAtom(replyUserId || "")) ?? {};
 	const navigate = useModeNavigate({ silence: true });
 
 	const renderReplyText = () => {
@@ -80,7 +79,7 @@ const CommentItem = ({
 
 	const metaData: StaticMetaData.InjectMetaData[] = [
 		{
-			type: MetaDataType.FeedCommentsItem,
+			type: EMetaDataType.FeedCommentsItem,
 			index: [feedId, id],
 			label: "评论",
 			operations: [
@@ -95,7 +94,7 @@ const CommentItem = ({
 			],
 		},
 		{
-			type: MetaDataType.FirendProfile,
+			type: EMetaDataType.FirendProfile,
 			index: fromUserId,
 			label: "评论发送者",
 			treeItemDisplayName: (data) => `${data.nickname}发出的评论`,
@@ -103,7 +102,7 @@ const CommentItem = ({
 	];
 	if (replyUserId) {
 		metaData.push({
-			type: MetaDataType.FirendProfile,
+			type: EMetaDataType.FirendProfile,
 			index: replyUserId,
 			label: "评论回复的人",
 		});

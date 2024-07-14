@@ -1,4 +1,4 @@
-import { MetaDataType } from "@/state/detectedNode";
+import { EMetaDataType } from "@/stateV2/detectedNode";
 import { statusBarAtom, statusBarHideAtom, statusBarMountNodeAtom } from "@/stateV2/statusBar";
 import { ClockCircleOutlined } from "@ant-design/icons";
 import { useInterval, useUpdate } from "ahooks";
@@ -96,7 +96,7 @@ const StatusBar = () => {
 					isMount && "pointer-events-auto z-10",
 				)}
 				metaData={{
-					type: MetaDataType.StatusBar,
+					type: EMetaDataType.StatusBar,
 					treeItemDisplayName: "状态栏",
 					operations: [
 						{

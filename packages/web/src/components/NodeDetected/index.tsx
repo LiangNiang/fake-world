@@ -1,5 +1,14 @@
+import {
+	type StaticMetaData,
+	activatedNodeAtom,
+	allNodesAtom,
+	getActivatedNodeValueSnapshot,
+	hoveredNodeAtom,
+	nodeAtom,
+} from "@/stateV2/detectedNode";
 import { useMergeRefs } from "@floating-ui/react";
 import { useUpdateEffect } from "ahooks";
+import { useSetAtom } from "jotai";
 import { isArray, omit } from "lodash-es";
 import {
 	type HTMLAttributes,
@@ -12,18 +21,7 @@ import {
 	useId,
 	useRef,
 } from "react";
-import { getRecoil, resetRecoil, setRecoil } from "recoil-nexus";
 import Sortable from "sortablejs";
-
-import {
-	activatedNodeState,
-	flag2State,
-	hoverdNodeState,
-	nodeDataState,
-	nodeInjectMetaState,
-} from "@/state/detectedNode";
-import type { StaticMetaData } from "@/state/detectedNode/typing";
-
 import useMode from "../useMode";
 
 export type InjectProps = {
@@ -46,6 +44,10 @@ function canBeDetected<T extends object>(
 	) => {
 		const { metaData: injectMetaData, innerRef, id: preId } = props;
 		const id = preId ?? useId();
+		const setHovered = useSetAtom(hoveredNodeAtom);
+		const setActivated = useSetAtom(activatedNodeAtom);
+		const setNode = useSetAtom(nodeAtom(id));
+		const setNodeList = useSetAtom(allNodesAtom);
 		const divRef = useRef<Element>(null);
 		const mergedRef = useMergeRefs([divRef, innerRef]);
 		const { isPreview } = useMode();
@@ -60,47 +62,50 @@ function canBeDetected<T extends object>(
 			: mapCompared(injectMetaData);
 
 		useEffect(() => {
-			setRecoil(flag2State, false);
 			setTimeout(() => {
 				if (divRef.current) {
-					setRecoil(nodeInjectMetaState(id), injectMetaData);
-					setRecoil(nodeDataState(id), {
+					setNode({
 						id,
-						domElement: divRef.current,
 						nodeTreeSort: !!props.nodeTreeSort,
+						injectMetaData,
 					});
 				}
 			});
 			return () => {
-				setRecoil(flag2State, false);
 				setTimeout(() => {
-					resetRecoil(nodeDataState(id));
-					if (getRecoil(activatedNodeState) === id) {
-						resetRecoil(activatedNodeState);
+					setNodeList((prev) => {
+						delete prev[id];
+						return prev;
+					});
+					if (getActivatedNodeValueSnapshot() === id) {
+						setActivated(null);
 					}
 				});
 			};
 		}, []);
 
 		useUpdateEffect(() => {
-			setRecoil(nodeInjectMetaState(id), injectMetaData);
+			setNode((pv) => ({
+				...pv,
+				injectMetaData,
+			}));
 		}, [JSON.stringify(comparedInjectMetaData)]);
 
 		const onClick = useCallback((ev: MouseEvent) => {
 			ev.stopPropagation();
-			setRecoil(activatedNodeState, id);
+			setActivated(id);
 		}, []);
 
 		const onMouseLeave = useCallback((ev: MouseEvent) => {
 			if (Sortable.active) return;
 			ev.stopPropagation();
-			setRecoil(hoverdNodeState, null);
+			setHovered(null);
 		}, []);
 
 		const onMouseOver = useCallback((ev: MouseEvent) => {
 			if (Sortable.active) return;
 			ev.stopPropagation();
-			setRecoil(hoverdNodeState, id);
+			setHovered(id);
 		}, []);
 
 		const fp = omit(props, ["metaData", "innerRef", "nodeTreeSort"]);

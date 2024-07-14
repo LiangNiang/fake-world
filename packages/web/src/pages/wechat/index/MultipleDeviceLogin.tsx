@@ -4,7 +4,7 @@ import DisplayOutlinedSVG from "@/assets/display-outlined.svg?react";
 import IMacOutlinedSVG from "@/assets/imac-outlined.svg?react";
 import PadOutlined from "@/assets/pad-outlined.svg?react";
 import { canBeDetected } from "@/components/NodeDetected";
-import { MetaDataType } from "@/state/detectedNode";
+import { EMetaDataType } from "@/stateV2/detectedNode";
 import { type ALL_LOGIN_DEVICES, multipleDeviceLoginAtom } from "@/stateV2/multipleDeviceLogin";
 import { useAtomValue } from "jotai";
 import type { ReactElement } from "react";
@@ -64,7 +64,7 @@ const MultipleDeviceLogin = () => {
 				show ? "visible" : "hidden",
 			)}
 			metaData={{
-				type: MetaDataType.MultipleDeviceLogin,
+				type: EMetaDataType.MultipleDeviceLogin,
 				treeItemDisplayName: (d) => `多设备登录显示，目前${d.devices.length}个设备`,
 			}}
 		>

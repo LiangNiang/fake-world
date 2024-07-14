@@ -1,5 +1,5 @@
 import { canBeDetected } from "@/components/NodeDetected";
-import { MetaDataType } from "@/state/detectedNode";
+import { EMetaDataType } from "@/stateV2/detectedNode";
 import { friendsTotalCountAtom } from "@/stateV2/profile";
 import { useAtomValue } from "jotai";
 import { memo } from "react";
@@ -11,7 +11,7 @@ const Total = () => {
 	return (
 		<canBeDetected.div
 			metaData={{
-				type: MetaDataType.FriendsTotalCount,
+				type: EMetaDataType.FriendsTotalCount,
 				treeItemDisplayName: (data) =>
 					`好友总数 ${data.calcuateType === "auto" ? count : data.count} 人`,
 			}}

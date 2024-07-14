@@ -2,14 +2,13 @@ import AlbumFilledSVG from "@/assets/album-filled.svg?react";
 import LikeFilledSVG from "@/assets/like-filled.svg?react";
 import LikeOutlinedSVG from "@/assets/like-outlined.svg?react";
 import { MYSELF_ID } from "@/faker/wechat/user";
-import { activatedNodeState, allNodesState } from "@/state/detectedNode";
+import { activatedNodeAtom, getAllNodesValueSnapshot } from "@/stateV2/detectedNode";
 import { getModeValueSnapshot, modeAtom } from "@/stateV2/mode";
 import { setProfileValue } from "@/stateV2/profile";
 import { usePrevious } from "ahooks";
 import { useSetAtom } from "jotai";
 import { values } from "lodash-es";
 import { useTranslation } from "react-i18next";
-import { getRecoil, setRecoil } from "recoil-nexus";
 import { twJoin } from "tailwind-merge";
 import { useProfile } from "./hook";
 
@@ -18,13 +17,14 @@ const CoverOperations = () => {
 	const previousMomentsBackgroundLike = usePrevious(momentsBackgroundLike);
 	const { t } = useTranslation();
 	const setMode = useSetAtom(modeAtom);
+	const setActivatedNode = useSetAtom(activatedNodeAtom);
 
 	const isMySelf = id === MYSELF_ID;
 
 	const handleChangeCover = () => {
 		setMode("edit");
-		const nodes = getRecoil(allNodesState);
-		setRecoil(activatedNodeState, values(nodes)[0].id);
+		const nodes = getAllNodesValueSnapshot();
+		setActivatedNode(values(nodes)[0].id);
 	};
 
 	const handleChangeLike = () => {

@@ -23,7 +23,6 @@ import { useAtom } from "jotai";
 import { isEqual } from "lodash-es";
 import { memo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { setRecoil } from "recoil-nexus";
 import { twJoin } from "tailwind-merge";
 
 type Props = {

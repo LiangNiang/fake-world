@@ -4,7 +4,7 @@ import PayVendorSVG from "@/assets/pay-vendor.svg?react";
 import WalletOutlinedSVG from "@/assets/wallet-outlined.svg?react";
 import { canBeDetected } from "@/components/NodeDetected";
 import useModeNavigate from "@/components/useModeNavigate";
-import { MetaDataType } from "@/state/detectedNode";
+import { EMetaDataType } from "@/stateV2/detectedNode";
 import { walletAtom } from "@/stateV2/wallet";
 import { useAtomValue } from "jotai";
 import { useTranslation } from "react-i18next";
@@ -55,7 +55,7 @@ const Service = () => {
 				<canBeDetected.div
 					className="mt-1 flex items-center justify-between rounded-md bg-wechatBrand-2 px-20 py-10"
 					metaData={{
-						type: MetaDataType.Wallet,
+						type: EMetaDataType.Wallet,
 						treeItemDisplayName: (data) => `钱包（余额：¥${data.balance}）`,
 					}}
 				>

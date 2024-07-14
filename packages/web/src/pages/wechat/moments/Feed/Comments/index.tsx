@@ -2,13 +2,12 @@ import CommentOutlinedSVG from "@/assets/comment-outlined.svg?react";
 import { canBeDetected } from "@/components/NodeDetected";
 import TopOperations from "@/components/TopOperations";
 import useMode from "@/components/useMode";
-import { MetaDataType, allNodesTreeState } from "@/state/detectedNode";
+import { EMetaDataType } from "@/stateV2/detectedNode";
 import { type IStateFeed, feedAtom } from "@/stateV2/moments";
 import { useAtom } from "jotai";
 import { isEmpty } from "lodash-es";
 import { useMemo } from "react";
 import { ReactSortable } from "react-sortablejs";
-import { useResetRecoilState } from "recoil";
 import { twMerge } from "tailwind-merge";
 import CommentItem from "./CommentItem";
 
@@ -19,7 +18,6 @@ type CommentsProps = {
 
 const Comments = ({ id, fromDetail }: CommentsProps) => {
 	const [feed, setFeed] = useAtom(feedAtom(id));
-	const resetTree = useResetRecoilState(allNodesTreeState);
 	const { isEdit } = useMode();
 
 	const { comments, likeUserIds } = feed ?? {};
@@ -36,7 +34,7 @@ const Comments = ({ id, fromDetail }: CommentsProps) => {
 			<canBeDetected.div
 				className={twMerge("p-[6px]", fromDetail && "flex p-2")}
 				metaData={{
-					type: MetaDataType.FeedCommentsList,
+					type: EMetaDataType.FeedCommentsList,
 					index: id,
 					treeItemDisplayName: "评论",
 					label: "新建评论",
@@ -66,11 +64,6 @@ const Comments = ({ id, fromDetail }: CommentsProps) => {
 								comments: v.map((i) => prev.comments!.find((d) => d.id === i.id)!),
 							}));
 						}
-					}}
-					onSort={() => {
-						setTimeout(() => {
-							resetTree();
-						});
 					}}
 				>
 					{comments!.map((v) => (

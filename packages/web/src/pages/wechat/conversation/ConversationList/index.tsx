@@ -1,8 +1,6 @@
 import { canBeDetected } from "@/components/NodeDetected";
 import TopOperations from "@/components/TopOperations";
 import useMode from "@/components/useMode";
-import { MetaDataType, allNodesTreeState } from "@/state/detectedNode";
-import type { StaticMetaData } from "@/state/detectedNode/typing";
 import {
 	ConversationTypeLabel,
 	EConversationType,
@@ -11,12 +9,12 @@ import {
 	conversationListAtom,
 	getConversationListValueSnapshot,
 } from "@/stateV2/conversation";
+import { EMetaDataType, type StaticMetaData } from "@/stateV2/detectedNode";
 import { SubnodeOutlined } from "@ant-design/icons";
 import { Modal, Tooltip } from "antd";
 import { useAtom } from "jotai";
 import { useMemo } from "react";
 import { ReactSortable } from "react-sortablejs";
-import { useResetRecoilState } from "recoil";
 import { twJoin } from "tailwind-merge";
 import { useConversationAPI } from "../context";
 import ConversationItem from "./ConversationItem";
@@ -25,7 +23,6 @@ const ConversationList = () => {
 	const { listRef, conversationId, sendTransfer, sendRedPacketAcceptedReply } =
 		useConversationAPI();
 	const [conversationList, setConversationList] = useAtom(conversationListAtom(conversationId));
-	const resetTree = useResetRecoilState(allNodesTreeState);
 	const { isEdit } = useMode();
 
 	const mappedSortableListData = useMemo(() => {
@@ -80,7 +77,7 @@ const ConversationList = () => {
 		<canBeDetected.div
 			className="flex flex-1 flex-col-reverse overflow-auto bg-[#F5F5F5] p-3"
 			metaData={{
-				type: MetaDataType.ConversationList,
+				type: EMetaDataType.ConversationList,
 				index: conversationId,
 				treeItemDisplayName: "聊天记录",
 			}}
@@ -95,11 +92,6 @@ const ConversationList = () => {
 					if (isEdit && sortable) {
 						setConversationList(v.map((i) => conversationList.find((d) => d.id === i.id)!));
 					}
-				}}
-				onSort={() => {
-					setTimeout(() => {
-						resetTree();
-					});
 				}}
 				className="mb-auto space-y-4"
 			>
@@ -146,7 +138,7 @@ const ConversationList = () => {
 							key={item.id}
 							metaData={[
 								{
-									type: MetaDataType.ConversationItem,
+									type: EMetaDataType.ConversationItem,
 									index: [conversationId, item.id],
 									treeItemDisplayName: (data) =>
 										`消息（${ConversationTypeLabel[data.type]}${
@@ -156,12 +148,12 @@ const ConversationList = () => {
 									label: "单个消息",
 								},
 								{
-									type: MetaDataType.FirendProfile,
+									type: EMetaDataType.FirendProfile,
 									index: conversationId,
 									label: "好友个人信息",
 								},
 								{
-									type: MetaDataType.MyProfile,
+									type: EMetaDataType.MyProfile,
 									label: "个人信息",
 								},
 							]}

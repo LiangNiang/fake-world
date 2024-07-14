@@ -1,25 +1,22 @@
-import { useSize } from "ahooks";
-import { Tree } from "antd";
-import { isArray } from "lodash-es";
-import { memo, useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
-import { getRecoil } from "recoil-nexus";
-
 import useMode from "@/components/useMode";
 import {
 	type TreeNode,
-	activatedNodeState,
-	allNodesTreeState,
-	nodeInjectMetaState,
-} from "@/state/detectedNode";
-
+	activatedNodeAtom,
+	allNodesTreeAtom,
+	getNodeInjectMetaDataValueSnapshot,
+} from "@/stateV2/detectedNode";
+import { useSize } from "ahooks";
+import { Tree } from "antd";
+import { useAtomValue } from "jotai";
+import { isArray } from "lodash-es";
+import { memo, useEffect, useState } from "react";
 import { doChangeOrder } from "../utils";
 import NodeTreeTitle from "./Title";
 
 const NodeTree = () => {
 	const [currentSelected, setCurrentSelected] = useState<string>();
-	const activatedNode = useRecoilValue(activatedNodeState);
-	const allNodeTree = useRecoilValue(allNodesTreeState);
+	const activatedNode = useAtomValue(activatedNodeAtom);
+	const allNodeTree = useAtomValue(allNodesTreeAtom);
 	const [expandKeys, setExpandKeys] = useState<string[]>([]);
 	const size = useSize(document.querySelector("#tree-container"));
 	const { isEdit, isPreview } = useMode();
@@ -74,7 +71,7 @@ const NodeTree = () => {
 				/** 放置的节点是否是拖拽列表的直接子节点 */
 				const isDropIsDirectChild = info.dragNode.parent?.key === info.node.parent?.key;
 				const dragKey = info.dragNode.key;
-				const dragMetaData = getRecoil(nodeInjectMetaState(dragKey as string));
+				const dragMetaData = getNodeInjectMetaDataValueSnapshot(dragKey as string);
 				const usedDragMetaData = isArray(dragMetaData) ? dragMetaData[0] : dragMetaData;
 				doChangeOrder(
 					dragKey as string,

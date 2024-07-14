@@ -1,6 +1,6 @@
 import type { InjectProps } from "@/components/NodeDetected";
 import { MYSELF_ID } from "@/faker/wechat/user";
-import { MetaDataType } from "@/state/detectedNode";
+import { EMetaDataType } from "@/stateV2/detectedNode";
 import { profileAtom } from "@/stateV2/profile";
 import { useAtomValue } from "jotai";
 import { isEmpty } from "lodash-es";
@@ -21,11 +21,11 @@ export const usePartMetaData = (): InjectProps["metaData"] => {
 	const id = useProfileId();
 	if (id === MYSELF_ID) {
 		return {
-			type: MetaDataType.MyProfile,
+			type: EMetaDataType.MyProfile,
 		};
 	}
 	return {
-		type: MetaDataType.FirendProfile,
+		type: EMetaDataType.FirendProfile,
 		index: id,
 	};
 };

@@ -7,8 +7,6 @@ import { Provider } from "jotai";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { RecoilRoot } from "recoil";
-import RecoilNexus from "recoil-nexus";
 import { ImageDBManager } from "./dataSource/DBManagers.ts";
 import { routes } from "./router/index.tsx";
 import { mainStore } from "./stateV2/store.ts";
@@ -24,10 +22,7 @@ const router = createBrowserRouter(routes);
 ReactDOM.createRoot(document.getElementById("root")!).render(
 	<React.StrictMode>
 		<Provider store={mainStore}>
-			<RecoilRoot>
-				<RecoilNexus />
-				<RouterProvider router={router} />
-			</RecoilRoot>
+			<RouterProvider router={router} />
 		</Provider>
 	</React.StrictMode>,
 );

@@ -10,8 +10,8 @@ import StickerOutlinedSVG from "@/assets/sticker-outlined.svg?react";
 import { h } from "@/components/HashAssets";
 import { canBeDetected } from "@/components/NodeDetected";
 import useModeNavigate from "@/components/useModeNavigate";
-import { MetaDataType } from "@/state/detectedNode";
 import { EBottomNavBars } from "@/stateV2/bottomNavbars";
+import { EMetaDataType } from "@/stateV2/detectedNode";
 import { myProfileAtom } from "@/stateV2/profile";
 import BottomNavbar, { useToggleNavbarActivated } from "@/wechatComponents/BottomNavbar";
 import List from "@/wechatComponents/List";
@@ -20,7 +20,7 @@ import { useTranslation } from "react-i18next";
 import CircularNotchSVG from "./assets/circular-notch.svg?react";
 
 const My = () => {
-	const { avatarInfo, wechat, nickname } = useAtomValue(myProfileAtom);
+	const { avatarInfo, wechat, nickname } = useAtomValue(myProfileAtom)!;
 	const navigate = useModeNavigate();
 	const { t } = useTranslation();
 	useToggleNavbarActivated(EBottomNavBars.MY);
@@ -33,7 +33,7 @@ const My = () => {
 					navigate("/wechat/my/profile-edit");
 				}}
 				metaData={{
-					type: MetaDataType.MyProfile,
+					type: EMetaDataType.MyProfile,
 					treeItemDisplayName: (data) => `个人信息编辑（${data.nickname}）`,
 				}}
 			>

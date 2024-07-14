@@ -2,8 +2,8 @@ import AddFriendSVG from "@/assets/add-friend-outlined.svg?react";
 import SearchOutlinedSVG from "@/assets/search-outlined.svg?react";
 import { canBeDetected } from "@/components/NodeDetected";
 import { useMemoScrollPos } from "@/components/useMemoScrollPos";
-import { MetaDataType } from "@/state/detectedNode";
 import { EBottomNavBars } from "@/stateV2/bottomNavbars";
+import { EMetaDataType } from "@/stateV2/detectedNode";
 import { allProfilesAnchorDataAtom } from "@/stateV2/profile";
 import BottomNavbar, { useToggleNavbarActivated } from "@/wechatComponents/BottomNavbar";
 import { useAtomValue } from "jotai";
@@ -44,7 +44,7 @@ const Contacts = () => {
 				innerRef={scrollRef}
 				data-wheel-id={DATA_WHEEL_ID}
 				metaData={{
-					type: MetaDataType.ContactsContainer,
+					type: EMetaDataType.ContactsContainer,
 					treeItemDisplayName: (data) => `通讯录（${data.length - 1}位好友）`,
 				}}
 			>

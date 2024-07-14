@@ -1,9 +1,11 @@
-import { MetaDataType, allNodesTreeState, nodeFreshDataState } from "@/state/detectedNode";
-import type { StaticMetaData } from "@/state/detectedNode/typing";
 import { setConversationListValue } from "@/stateV2/conversation";
+import {
+	EMetaDataType,
+	type StaticMetaData,
+	getNodeFreshDataValueSnapshot,
+} from "@/stateV2/detectedNode";
 import { setDialogueListValue } from "@/stateV2/dialogueList";
 import { type IStateFeed, setFeedListValue } from "@/stateV2/moments";
-import { getRecoil, resetRecoil } from "recoil-nexus";
 
 interface Data {
 	id: string;
@@ -37,22 +39,22 @@ export function doChangeOrder(
 	metaData: StaticMetaData.InjectMetaData | undefined,
 ) {
 	const { toNodeId, toFirst } = to;
-	const fromDataId = (getRecoil(nodeFreshDataState(fromNodeId)) as [IStateFeed])[0].id;
+	const fromDataId = (getNodeFreshDataValueSnapshot(fromNodeId) as [IStateFeed])[0].id;
 	let toDataId: string | null = null;
 	if (!toFirst) {
-		toDataId = (getRecoil(nodeFreshDataState(toNodeId)) as [IStateFeed])[0].id;
+		toDataId = (getNodeFreshDataValueSnapshot(toNodeId) as [IStateFeed])[0].id;
 	}
 	const { type } = metaData ?? {};
 	switch (type) {
-		case MetaDataType.MomentsFeed: {
+		case EMetaDataType.MomentsFeed: {
 			setFeedListValue((prev) => moveData(prev, fromDataId, toDataId));
 			break;
 		}
-		case MetaDataType.DialogueItem: {
+		case EMetaDataType.DialogueItem: {
 			setDialogueListValue((prev) => moveData(prev, fromDataId, toDataId));
 			break;
 		}
-		case MetaDataType.ConversationItem: {
+		case EMetaDataType.ConversationItem: {
 			const [conversationId] = metaData?.index ?? [];
 			setConversationListValue(conversationId, (prev) => moveData(prev, fromDataId, toDataId));
 			break;
@@ -60,7 +62,4 @@ export function doChangeOrder(
 		default:
 			return;
 	}
-	setTimeout(() => {
-		resetRecoil(allNodesTreeState);
-	});
 }

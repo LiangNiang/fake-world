@@ -4,7 +4,7 @@ import { canBeDetected } from "@/components/NodeDetected";
 import TopOperations from "@/components/TopOperations";
 import useModeNavigate from "@/components/useModeNavigate";
 import { MYSELF_ID } from "@/faker/wechat/user";
-import { MetaDataType } from "@/state/detectedNode";
+import { EMetaDataType } from "@/stateV2/detectedNode";
 import { type IStateFeed, feedAtom, feedListAtom } from "@/stateV2/moments";
 import SlateText from "@/wechatComponents/SlateText";
 import { SLATE_EMPTY_VALUE } from "@/wechatComponents/SlateText/utils";
@@ -142,7 +142,7 @@ const PersonalContent = ({ id }: Props) => {
 			onClick={() => navigate(`/wechat/moments/${id}`)}
 			metaData={[
 				{
-					type: MetaDataType.MomentsFeed,
+					type: EMetaDataType.MomentsFeed,
 					index: id,
 					label: "朋友圈",
 					treeItemDisplayName: (data) => `${dayjs(data.sendTimestamp).format("YYYY年MM月DD日")}`,
@@ -159,11 +159,11 @@ const PersonalContent = ({ id }: Props) => {
 				},
 				userId === MYSELF_ID
 					? {
-							type: MetaDataType.MyProfile,
+							type: EMetaDataType.MyProfile,
 							label: "用户信息",
 						}
 					: {
-							type: MetaDataType.FirendProfile,
+							type: EMetaDataType.FirendProfile,
 							index: userId,
 							treeItemDisplayName: (data) => `${data.nickname}的朋友圈`,
 							label: "用户信息",

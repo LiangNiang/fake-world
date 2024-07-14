@@ -1,8 +1,6 @@
+import { getActivatedNodeParent, setActivatedNodeValue } from "@/stateV2/detectedNode";
 import { DeleteOutlined, PlusOutlined, VerticalAlignTopOutlined } from "@ant-design/icons";
 import { Tooltip, type TooltipProps } from "antd";
-import { setRecoil } from "recoil-nexus";
-
-import { activatedNodeState, getActivatedNodeParent } from "@/state/detectedNode";
 
 type CommonOperationBaseProps = {
 	onClick?: () => void;
@@ -30,7 +28,7 @@ export const OperationNewBase = ({ onClick, tooltipProps }: CommonOperationBaseP
 const selectParentNode = async () => {
 	const parent = await getActivatedNodeParent();
 	if (parent) {
-		setRecoil(activatedNodeState, parent.id);
+		setActivatedNodeValue(parent.id);
 	}
 };
 

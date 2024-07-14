@@ -1,8 +1,8 @@
 import PlusCircleSVG from "@/assets/plus-circle.svg?react";
 import SearchOutlinedSVG from "@/assets/search-outlined.svg?react";
 import { canBeDetected } from "@/components/NodeDetected";
-import { MetaDataType } from "@/state/detectedNode";
 import { EBottomNavBars } from "@/stateV2/bottomNavbars";
+import { EMetaDataType } from "@/stateV2/detectedNode";
 import { unreadCountAtom, unreadCountEffect } from "@/stateV2/unreadCount";
 import BottomNavbar, { useToggleNavbarActivated } from "@/wechatComponents/BottomNavbar";
 import { useAtom, useAtomValue } from "jotai";
@@ -23,7 +23,7 @@ const WechatIndex = () => {
 				<canBeDetected.span
 					className="flex items-center justify-center font-medium"
 					metaData={{
-						type: MetaDataType.UnreadCount,
+						type: EMetaDataType.UnreadCount,
 						treeItemDisplayName: (d) => `顶栏 ${d.count} 个未读消息`,
 					}}
 				>
