@@ -2,8 +2,6 @@ import deepEqual from "fast-deep-equal";
 import type { SetStateAction } from "jotai";
 import { focusAtom } from "jotai-optics";
 import { atomFamily, atomWithStorage } from "jotai/utils";
-import type { OpticFor_ } from "optics-ts";
-import { useCallback } from "react";
 import type { IStateProfile } from "../profile";
 import { mainStore } from "../store";
 import { MOCK_INIT_CONVERSATION_LIST } from "./consts";

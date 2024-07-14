@@ -1,6 +1,5 @@
 import type { InjectProps } from "@/components/NodeDetected";
-import type { StaticMetaData } from "@/state/detectedNode/typing";
-import { EMetaDataType } from "@/stateV2/detectedNode";
+import { EMetaDataType, type StaticMetaData } from "@/stateV2/detectedNode";
 import {
 	BUILT_IN_TRANSACTION_TYPES_LABELS,
 	type IStateTransactionCreditCardRepayments,
