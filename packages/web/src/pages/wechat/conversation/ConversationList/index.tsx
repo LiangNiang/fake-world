@@ -90,7 +90,10 @@ const ConversationList = () => {
 				animation={400}
 				setList={(v, sortable) => {
 					if (isEdit && sortable) {
-						setConversationList(v.map((i) => conversationList.find((d) => d.id === i.id)!));
+						const needUpdate = v.some((_, i) => v[i].id !== conversationList[i].id);
+						if (needUpdate) {
+							setConversationList(v.map((i) => conversationList.find((d) => d.id === i.id)!));
+						}
 					}
 				}}
 				className="mb-auto space-y-4"

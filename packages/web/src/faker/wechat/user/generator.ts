@@ -4,7 +4,7 @@ import { nanoid } from "nanoid";
 
 export function randomAvatar() {
 	const faker = getFakerInstanceByLang();
-	return faker.image.avatarGitHub();
+	return faker.image.avatarLegacy();
 }
 
 export function randomUserId() {

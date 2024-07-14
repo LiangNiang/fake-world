@@ -36,7 +36,10 @@ const MomentsIndex = () => {
 				animation={400}
 				setList={(v, sortable) => {
 					if (isEdit && sortable) {
-						setFeedList(v.map((i) => feedList.find((d) => d.id === i.id)!));
+						const needUpdate = v.some((_, i) => v[i].id !== feedList[i].id);
+						if (needUpdate) {
+							setFeedList(v.map((i) => feedList.find((d) => d.id === i.id)!));
+						}
 					}
 				}}
 			>

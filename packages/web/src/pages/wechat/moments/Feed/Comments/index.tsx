@@ -59,15 +59,24 @@ const Comments = ({ id, fromDetail }: CommentsProps) => {
 					animation={400}
 					setList={(v, sortable) => {
 						if (isEdit && sortable) {
-							setFeed((prev) => ({
-								...prev,
-								comments: v.map((i) => prev.comments!.find((d) => d.id === i.id)!),
-							}));
+							const needUpdate = v.some((_, i) => v[i].id !== comments![i].id);
+							if (needUpdate) {
+								setFeed((prev) => ({
+									...prev,
+									comments: v.map((i) => prev.comments!.find((d) => d.id === i.id)!),
+								}));
+							}
 						}
 					}}
 				>
 					{comments!.map((v) => (
-						<CommentItem key={v.id} feedId={id} fromDetail={fromDetail} {...v} />
+						<CommentItem
+							key={v.id}
+							feedId={id}
+							fromDetail={fromDetail}
+							className={isEdit ? "cursor-grab" : ""}
+							{...v}
+						/>
 					))}
 				</ReactSortable>
 			</canBeDetected.div>

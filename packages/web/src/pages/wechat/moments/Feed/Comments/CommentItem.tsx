@@ -11,6 +11,7 @@ import { Modal } from "antd";
 import dayjs from "dayjs";
 import { useAtomValue, useSetAtom } from "jotai";
 import { memo } from "react";
+import { twJoin } from "tailwind-merge";
 
 const CommentUserText = ({
 	fromUserId,
@@ -60,7 +61,8 @@ const CommentItem = ({
 	id,
 	fromDetail,
 	sendTimestamp,
-}: IFeedComment & { feedId: IStateFeed["id"]; fromDetail?: boolean }) => {
+	className,
+}: IFeedComment & { feedId: IStateFeed["id"]; fromDetail?: boolean; className?: string }) => {
 	const setFeed = useSetAtom(feedAtom(feedId));
 	const navigate = useModeNavigate({ silence: true });
 
@@ -114,7 +116,10 @@ const CommentItem = ({
 	if (fromDetail) {
 		return (
 			<canBeDetected.div
-				className="relative flex border-black/5 border-b pb-2 last:border-none last:pb-0"
+				className={twJoin(
+					"relative flex border-black/5 border-b pb-2 last:border-none last:pb-0",
+					className,
+				)}
 				metaData={metaData}
 			>
 				<UserAvatar
