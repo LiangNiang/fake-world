@@ -21,7 +21,6 @@ const RedPacketAcceptedReply = ({ redPacketId, upperText, id }: Props) => {
 	const redPacket = conversationList.find((v) => v.id === redPacketId);
 
 	if (!redPacket) {
-		console.log(213);
 		setConversationList((prev) => prev.filter((v) => v.id !== id));
 		return null;
 	}

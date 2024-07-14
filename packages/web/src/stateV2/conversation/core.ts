@@ -1,3 +1,4 @@
+import deepEqual from "fast-deep-equal";
 import type { SetStateAction } from "jotai";
 import { focusAtom } from "jotai-optics";
 import { atomFamily, atomWithStorage } from "jotai/utils";
@@ -28,14 +29,10 @@ export const setConversationListValue = (
 	params: SetStateAction<TStateConversationList>,
 ) => mainStore.set(conversationListAtom(id), params);
 
-export const conversationItemReferenceAtom = (
-	friendId: IStateProfile["id"],
-	conversationId: TConversationItem["id"],
-) =>
-	focusAtom(
-		conversationListAtom(friendId),
-		useCallback(
-			(optic: OpticFor_<TStateConversationList>) => optic.find((v) => v.id === conversationId),
-			[],
+export const conversationItemReferenceAtom = atomFamily(
+	(params: { friendId: IStateProfile["id"]; conversationId: TConversationItem["id"] }) =>
+		focusAtom(conversationListAtom(params.friendId), (optic) =>
+			optic.find((v) => v.id === params.conversationId),
 		),
-	);
+	deepEqual,
+);

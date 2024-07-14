@@ -1,6 +1,6 @@
 import { ALL_LANGUAGES, getCurrentLanguage } from "@/i18n";
 import { activatedNodeAtom, hoveredNodeAtom } from "@/stateV2/detectedNode";
-import { getTouredValueSnapshot, tourTargetAtom } from "@/stateV2/tour";
+import { tourTargetAtom } from "@/stateV2/tour";
 import { LOCALE_MAP } from "@/time";
 import { InfoCircleOutlined } from "@ant-design/icons";
 import { useKeyPress } from "ahooks";
@@ -19,7 +19,6 @@ const CommonBlock = () => {
 	const setActivatedNode = useSetAtom(activatedNodeAtom);
 	const { i18n, t } = useTranslation();
 	const setTourTarget = useSetAtom(tourTargetAtom);
-	const canSet = !getTouredValueSnapshot();
 
 	useEffect(() => {
 		if (isPreview) {
@@ -49,11 +48,10 @@ const CommonBlock = () => {
 			<div
 				className="grid grid-cols-2 gap-1"
 				ref={(element) => {
-					canSet &&
-						setTourTarget((pv) => ({
-							...pv,
-							ref1: element,
-						}));
+					setTourTarget((pv) => ({
+						...pv,
+						ref1: element,
+					}));
 				}}
 			>
 				<div className="col-span-1">

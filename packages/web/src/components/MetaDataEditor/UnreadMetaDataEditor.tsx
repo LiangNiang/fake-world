@@ -6,7 +6,6 @@ import { isNumber } from "lodash-es";
 import { useEffect } from "react";
 
 const UnreadMetaDataEditor = ({ data }: EditorProps<TStateUnreadCount>) => {
-	console.log(data);
 	const [form] = Form.useForm<TStateUnreadCount>();
 	const dialogueList = useAtomValue(dialogueListAtom);
 	const setUnreadCount = useSetAtom(unreadCountAtom);
@@ -29,7 +28,6 @@ const UnreadMetaDataEditor = ({ data }: EditorProps<TStateUnreadCount>) => {
 	}, [calcuateTypeValue]);
 
 	const onFinish = (v: TStateUnreadCount) => {
-		console.log(v);
 		setUnreadCount(v);
 	};
 

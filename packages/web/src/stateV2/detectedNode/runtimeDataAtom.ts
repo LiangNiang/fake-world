@@ -48,7 +48,7 @@ const handlerMap: HandlerMap = {
 	[EMetaDataType.FeedCommentsItem]: (get, index) =>
 		index && index.length === 2
 			? get(feedListAtom)
-					.find((v) => v.id === index)
+					.find((v) => v.id === index[0])
 					?.comments?.find((v) => v.id === index[1])
 			: undefined,
 	[EMetaDataType.FeedCommentsList]: (get, index) =>

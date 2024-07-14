@@ -1,4 +1,5 @@
-import { atomWithReset, atomWithStorage } from "jotai/utils";
+import { atom } from "jotai";
+import { atomWithStorage } from "jotai/utils";
 import { mainStore } from "./store";
 
 export type TStateTourTarget = {
@@ -10,7 +11,7 @@ export const touredAtom = atomWithStorage("toured", false, undefined, { getOnIni
 
 export const getTouredValueSnapshot = () => mainStore.get(touredAtom);
 
-export const tourTargetAtom = atomWithReset<TStateTourTarget>({
+export const tourTargetAtom = atom<TStateTourTarget>({
 	ref1: null,
 	ref2: null,
 });

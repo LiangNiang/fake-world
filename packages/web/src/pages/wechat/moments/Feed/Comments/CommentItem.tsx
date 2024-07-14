@@ -1,8 +1,7 @@
 import { canBeDetected } from "@/components/NodeDetected";
 import TopOperations from "@/components/TopOperations";
 import useModeNavigate from "@/components/useModeNavigate";
-import type { StaticMetaData } from "@/state/detectedNode/typing";
-import { EMetaDataType } from "@/stateV2/detectedNode";
+import { EMetaDataType, type StaticMetaData } from "@/stateV2/detectedNode";
 import { type IFeedComment, type IStateFeed, feedAtom } from "@/stateV2/moments";
 import { type IStateProfile, profileAtom } from "@/stateV2/profile";
 import SlateText from "@/wechatComponents/SlateText";

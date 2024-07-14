@@ -4,14 +4,13 @@ import { tourTargetAtom, touredAtom } from "@/stateV2/tour";
 import { sleep } from "@/utils";
 import { useInViewport } from "ahooks";
 import { Tour as AntdTour } from "antd";
-import { useAtom, useSetAtom } from "jotai";
-import { RESET } from "jotai/utils";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { memo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 const Tour = () => {
 	const [toured, setToured] = useAtom(touredAtom);
-	const [{ ref1, ref2 }, setTourTarget] = useAtom(tourTargetAtom);
+	const { ref1, ref2 } = useAtomValue(tourTargetAtom);
 	const [current, setCurrent] = useState(0);
 	const setMenu = useSetAtom(activatedMenuAtom);
 	const setMode = useSetAtom(modeAtom);
@@ -28,11 +27,9 @@ const Tour = () => {
 				setMode("preview");
 				setToured(true);
 				setCurrent(0);
-				setTourTarget(RESET);
 			}}
 			onFinish={() => {
 				setMenu(EMenus.Main);
-				setTourTarget(RESET);
 			}}
 			steps={[
 				{

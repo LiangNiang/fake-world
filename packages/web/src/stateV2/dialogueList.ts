@@ -1,9 +1,9 @@
+import deepEqual from "fast-deep-equal";
 import type { SetStateAction } from "jotai";
 import { atomEffect } from "jotai-effect";
 import { focusAtom } from "jotai-optics";
-import { atomWithStorage } from "jotai/utils";
+import { atomFamily, atomWithStorage } from "jotai/utils";
 import type { OpticFor_ } from "optics-ts";
-import { useCallback } from "react";
 import type { IStateProfile } from "./profile";
 import { mainStore } from "./store";
 import { getUnreadCountValueSnapshot, unreadCountAtom } from "./unreadCount";
@@ -82,8 +82,10 @@ export const getDialogueListValueSnapshot = () => mainStore.get(dialogueListAtom
 export const setDialogueListValue = (args: SetStateAction<TStateDialogueList>) =>
 	mainStore.set(dialogueListAtom, args);
 
-export const dialogueItemAtom = (id: IDialogueItem["id"]) =>
-	focusAtom(
-		dialogueListAtom,
-		useCallback((optic: OpticFor_<TStateDialogueList>) => optic.find((v) => v.id === id), []),
-	);
+export const dialogueItemAtom = atomFamily(
+	(id: IDialogueItem["id"]) =>
+		focusAtom(dialogueListAtom, (optic: OpticFor_<TStateDialogueList>) =>
+			optic.find((v) => v.id === id),
+		),
+	deepEqual,
+);

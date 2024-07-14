@@ -1,9 +1,9 @@
 import { INIT_FRIENDS, INIT_MY_PROFILE, MYSELF_ID } from "@/faker/wechat/user";
+import deepEqual from "fast-deep-equal";
 import { type SetStateAction, atom } from "jotai";
 import { focusAtom } from "jotai-optics";
-import { atomWithStorage } from "jotai/utils";
+import { atomFamily, atomWithStorage } from "jotai/utils";
 import type { OpticFor_ } from "optics-ts";
-import { useCallback } from "react";
 import { mainStore } from "../store";
 import { generateNameAnchorGroup } from "./helpers";
 import type {
@@ -43,14 +43,15 @@ export const getAllProfilesTotalCountValueSnapshot = () => mainStore.get(allProf
 /**
  * 单个用户信息
  */
-export const profileAtom = (id: IStateProfile["id"]) =>
-	focusAtom(
-		allProfilesAtom,
-		useCallback((optic: OpticFor_<TStateAllProfiles>) => optic.find((v) => v.id === id), []),
-	);
+export const profileAtom = atomFamily(
+	(id: IStateProfile["id"]) =>
+		focusAtom(allProfilesAtom, (optic: OpticFor_<TStateAllProfiles>) =>
+			optic.find((v) => v.id === id),
+		),
+	deepEqual,
+);
 
-export const getProfileValueSnapshot = (id: IStateProfile["id"]) =>
-	mainStore.get(allProfilesAtom).find((v) => v.id === id);
+export const getProfileValueSnapshot = (id: IStateProfile["id"]) => mainStore.get(profileAtom(id));
 export const setProfileValue = (id: IStateProfile["id"], args: SetStateAction<IStateProfile>) =>
 	mainStore.set(profileAtom(id), args);
 
@@ -61,8 +62,7 @@ export const myProfileAtom = focusAtom(allProfilesAtom, (optic) =>
 	optic.find((v) => v.id === MYSELF_ID),
 );
 
-export const getMyProfileValueSnapshot = () =>
-	mainStore.get(allProfilesAtom).find((v) => v.id === MYSELF_ID);
+export const getMyProfileValueSnapshot = () => mainStore.get(myProfileAtom);
 
 /**
  * 用于通讯录界面的锚点数据

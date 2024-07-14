@@ -82,4 +82,4 @@ export const nodeAtom = atomFamily((id: IStateNode["id"]) => {
 			set(fa, newValue);
 		},
 	);
-});
+}, deepEqual);

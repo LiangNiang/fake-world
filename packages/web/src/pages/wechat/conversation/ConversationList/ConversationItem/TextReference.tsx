@@ -8,7 +8,7 @@ import {
 	conversationItemReferenceAtom,
 	conversationListAtom,
 } from "@/stateV2/conversation";
-import { activatedNodeAtom, EMetaDataType } from "@/stateV2/detectedNode";
+import { EMetaDataType, activatedNodeAtom } from "@/stateV2/detectedNode";
 import { getModeValueSnapshot } from "@/stateV2/mode";
 import SlateText from "@/wechatComponents/SlateText";
 import UserName from "@/wechatComponents/User/UserName";
@@ -26,7 +26,12 @@ type Props = {
 
 const TextReference = ({ referenceId, conversationItemId }: Props) => {
 	const { id } = useParams<{ id: string }>();
-	const referenceData = useAtomValue(conversationItemReferenceAtom(id!, referenceId!));
+	const referenceData = useAtomValue(
+		conversationItemReferenceAtom({
+			friendId: id!,
+			conversationId: referenceId!,
+		}),
+	);
 	const setConversationList = useSetAtom(conversationListAtom(id!));
 	const setActivatedNode = useSetAtom(activatedNodeAtom);
 

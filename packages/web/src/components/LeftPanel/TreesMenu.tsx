@@ -1,4 +1,4 @@
-import { getTouredValueSnapshot, tourTargetAtom } from "@/stateV2/tour";
+import { tourTargetAtom } from "@/stateV2/tour";
 import { Spin } from "antd";
 import { useSetAtom } from "jotai";
 import { Suspense } from "react";
@@ -10,16 +10,14 @@ const TreesMenu = () => {
 	const { isPreview } = useMode();
 	const { t } = useTranslation();
 	const setTourTarget = useSetAtom(tourTargetAtom);
-	const canSet = !getTouredValueSnapshot();
 
 	return (
 		<div
 			ref={(element) => {
-				canSet &&
-					setTourTarget((pv) => ({
-						...pv,
-						ref2: element,
-					}));
+				setTourTarget((pv) => ({
+					...pv,
+					ref2: element,
+				}));
 			}}
 			className="flex flex-1 flex-col"
 		>

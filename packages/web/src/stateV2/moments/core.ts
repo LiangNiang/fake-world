@@ -1,10 +1,10 @@
 import { INIT_FEEDS } from "@/faker/wechat/moments";
+import deepEqual from "fast-deep-equal";
 import { type SetStateAction, atom } from "jotai";
 import { focusAtom } from "jotai-optics";
 import { atomFamily, atomWithStorage } from "jotai/utils";
 import { groupBy } from "lodash-es";
 import type { OpticFor_ } from "optics-ts";
-import { useCallback } from "react";
 import type { IStateProfile } from "../profile";
 import { mainStore } from "../store";
 import type { IStateFeed, TStateFeedLst } from "./typing";
@@ -34,11 +34,10 @@ export const userFeedListAtom = atomFamily((userId: IStateProfile["id"]) => {
  * 单条朋友圈
  */
 
-export const feedAtom = (id: IStateFeed["id"]) =>
-	focusAtom(
-		feedListAtom,
-		useCallback((optic: OpticFor_<TStateFeedLst>) => optic.find((v) => v.id === id), []),
-	);
+export const feedAtom = atomFamily(
+	(id: IStateFeed["id"]) =>
+		focusAtom(feedListAtom, (optic: OpticFor_<TStateFeedLst>) => optic.find((v) => v.id === id)),
+	deepEqual,
+);
 
-export const getFeedValueSnapshot = (id: IStateFeed["id"]) =>
-	mainStore.get(feedListAtom).find((v) => v.id === id);
+export const getFeedValueSnapshot = (id: IStateFeed["id"]) => mainStore.get(feedAtom(id));
