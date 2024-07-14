@@ -4,7 +4,7 @@ import type { IDialogueItem } from "@/stateV2/dialogueList";
 import type { IFeedComment, IStateFeed } from "@/stateV2/moments";
 import type { TStateMultipleDeviceLogin } from "@/stateV2/multipleDeviceLogin";
 import type { IStateProfile, TStateFriendsTotalCountDisplayConfig } from "@/stateV2/profile";
-import type { TTransactionDataWithType, TTransactionType } from "@/stateV2/transaction";
+import type { TTransactionData, TTransactionType } from "@/stateV2/transaction";
 import type { TStateUnreadCount } from "@/stateV2/unreadCount";
 import type { TStateWallet } from "@/stateV2/wallet";
 import type { TFunction } from "i18next";
@@ -142,8 +142,8 @@ declare namespace OverallMetaData {
 	interface IMetaDataTransactionRecord extends Base {
 		type: EMetaDataType.TransactionRecord;
 		index: TTransactionType;
-		data: TTransactionDataWithType;
-		treeItemDisplayName: string | ((data: TTransactionDataWithType, t: TFunction) => string);
+		data: TTransactionData;
+		treeItemDisplayName: string | ((data: TTransactionData, t: TFunction) => string);
 	}
 
 	interface IMetaDataContactsContainer extends Base {

@@ -4,6 +4,7 @@ import type { BUILT_IN_TRANSACTION_TYPES } from "./consts";
 export type TTransactionType = (typeof BUILT_IN_TRANSACTION_TYPES)[number];
 
 export interface IStateTransactionBase {
+	type: TTransactionType;
 	amount: string;
 	timestamp: number;
 	code: string;
@@ -38,5 +39,3 @@ export type TTransactionData =
 	| IStateTransactionPayReward
 	| IStateTransactionRedPacket
 	| IStateTransactionCreditCardRepayments;
-
-export type TTransactionDataWithType = TTransactionData & { type: TTransactionType };

@@ -31,6 +31,7 @@ export const BANK_LIST = [
 ];
 
 export const DEFAULT_QR_TRANSFER: IStateTransactionQrTransfer = {
+	type: "qr-transfer",
 	amount: "30.00",
 	toUsername: "张三",
 	avatar: randomAvatar(),
@@ -40,6 +41,7 @@ export const DEFAULT_QR_TRANSFER: IStateTransactionQrTransfer = {
 };
 
 export const DEFAULT_TRANSFER: IStateTransactionTransfer = {
+	type: "transfer",
 	toFriendId: "1",
 	amount: "200.00",
 	timestamp: dayjs().subtract(30, "minute").valueOf(),
@@ -49,6 +51,7 @@ export const DEFAULT_TRANSFER: IStateTransactionTransfer = {
 };
 
 export const DEFAULT_PAY_REWARD: IStateTransactionPayReward = {
+	type: "pay-reward",
 	amount: "50.00",
 	timestamp: dayjs().valueOf(),
 	code: randomTransactionCode("pay-reward"),
@@ -56,6 +59,7 @@ export const DEFAULT_PAY_REWARD: IStateTransactionPayReward = {
 };
 
 export const DEFAULT_RED_PACKET: IStateTransactionRedPacket = {
+	type: "red-packet",
 	toFriendId: "2",
 	amount: "100.00",
 	timestamp: dayjs().valueOf(),
@@ -65,6 +69,7 @@ export const DEFAULT_RED_PACKET: IStateTransactionRedPacket = {
 };
 
 export const DEFAULT_CREDIT_CARD_REPAYMENTS: IStateTransactionCreditCardRepayments = {
+	type: "credit-card-repayments",
 	toCreditCardName: randomCreditCardName(),
 	amount: "2000.00",
 	code: randomTransactionCode("credit-card-repayments"),

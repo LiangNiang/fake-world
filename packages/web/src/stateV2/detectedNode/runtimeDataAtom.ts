@@ -10,11 +10,7 @@ import {
 	friendsTotalCountDisplayConfigAtom,
 } from "@/stateV2/profile";
 import { statusBarHideAtom } from "@/stateV2/statusBar";
-import {
-	type TTransactionDataWithType,
-	type TTransactionType,
-	USED_ATOM_MAP,
-} from "@/stateV2/transaction";
+import { type TTransactionData, type TTransactionType, USED_ATOM_MAP } from "@/stateV2/transaction";
 import { unreadCountAtom } from "@/stateV2/unreadCount";
 import { walletAtom } from "@/stateV2/wallet";
 import { type Getter, atom } from "jotai";
@@ -59,7 +55,7 @@ const handlerMap: HandlerMap = {
 		get(feedListAtom).find((v) => v.id === index)?.comments,
 	[EMetaDataType.UserAllFeeds]: (get, index) => get(allProfilesAtom).find((v) => v.id === index),
 	[EMetaDataType.TransactionRecord]: (get, index) =>
-		get(USED_ATOM_MAP[index as TTransactionType]) as TTransactionDataWithType,
+		get(USED_ATOM_MAP[index as TTransactionType]) as TTransactionData,
 	[EMetaDataType.ContactsContainer]: (get) => get(allProfilesIdsAtom),
 	[EMetaDataType.FriendsTotalCount]: (get) => get(friendsTotalCountDisplayConfigAtom),
 	[EMetaDataType.MultipleDeviceLogin]: (get) => get(multipleDeviceLoginAtom),
