@@ -1,5 +1,5 @@
 import { INIT_FRIENDS, INIT_MY_PROFILE, MYSELF_ID } from "@/faker/wechat/user";
-import deepEqual from "fast-deep-equal";
+import { dequal } from "dequal/lite";
 import { type SetStateAction, atom } from "jotai";
 import { focusAtom } from "jotai-optics";
 import { atomFamily, atomWithStorage } from "jotai/utils";
@@ -48,7 +48,7 @@ export const profileAtom = atomFamily(
 		focusAtom(allProfilesAtom, (optic: OpticFor_<TStateAllProfiles>) =>
 			optic.find((v) => v.id === id),
 		),
-	deepEqual,
+	dequal,
 );
 
 export const getProfileValueSnapshot = (id: IStateProfile["id"]) => mainStore.get(profileAtom(id));

@@ -1,4 +1,4 @@
-import deepEqual from "fast-deep-equal";
+import { dequal } from "dequal/lite";
 import type { SetStateAction } from "jotai";
 import { focusAtom } from "jotai-optics";
 import { atomFamily, atomWithStorage } from "jotai/utils";
@@ -32,5 +32,5 @@ export const conversationItemReferenceAtom = atomFamily(
 		focusAtom(conversationListAtom(params.friendId), (optic) =>
 			optic.find((v) => v.id === params.conversationId),
 		),
-	deepEqual,
+	dequal,
 );

@@ -1,4 +1,4 @@
-import deepEqual from "fast-deep-equal";
+import { dequal } from "dequal/lite";
 import type { SetStateAction } from "jotai";
 import { atomEffect } from "jotai-effect";
 import { focusAtom } from "jotai-optics";
@@ -87,5 +87,5 @@ export const dialogueItemAtom = atomFamily(
 		focusAtom(dialogueListAtom, (optic: OpticFor_<TStateDialogueList>) =>
 			optic.find((v) => v.id === id),
 		),
-	deepEqual,
+	dequal,
 );

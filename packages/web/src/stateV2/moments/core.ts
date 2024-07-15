@@ -1,5 +1,5 @@
 import { INIT_FEEDS } from "@/faker/wechat/moments";
-import deepEqual from "fast-deep-equal";
+import { dequal } from "dequal/lite";
 import { type SetStateAction, atom } from "jotai";
 import { focusAtom } from "jotai-optics";
 import { atomFamily, atomWithStorage } from "jotai/utils";
@@ -37,7 +37,7 @@ export const userFeedListAtom = atomFamily((userId: IStateProfile["id"]) => {
 export const feedAtom = atomFamily(
 	(id: IStateFeed["id"]) =>
 		focusAtom(feedListAtom, (optic: OpticFor_<TStateFeedLst>) => optic.find((v) => v.id === id)),
-	deepEqual,
+	dequal,
 );
 
 export const getFeedValueSnapshot = (id: IStateFeed["id"]) => mainStore.get(feedAtom(id));

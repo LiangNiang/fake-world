@@ -1,4 +1,4 @@
-import deepEqual from "fast-deep-equal";
+import { dequal } from "dequal/lite";
 import { type SetStateAction, atom } from "jotai";
 import { focusAtom } from "jotai-optics";
 import { atomFamily } from "jotai/utils";
@@ -34,7 +34,7 @@ export const setAllNodesValue = (value: SetStateAction<TStateAllNodes>) =>
 export const nodeInjectMetaDataAtom = atomFamily(
 	(id: string) =>
 		focusAtom(allNodesAtom, (optic) => optic.prop(id).optional().prop("injectMetaData")),
-	deepEqual,
+	dequal,
 );
 
 export const getNodeInjectMetaDataValueSnapshot = (id: string) =>
@@ -66,7 +66,7 @@ export const nodeFreshDataAtom = atomFamily((id: IStateNode["id"]) => {
 		}
 		return get(nodeRuntimeDataAtom({ type: metaData.type, index: metaData.index }));
 	});
-}, deepEqual);
+}, dequal);
 
 export const getNodeFreshDataValueSnapshot = (id: IStateNode["id"]) =>
 	mainStore.get(nodeFreshDataAtom(id));
@@ -82,4 +82,4 @@ export const nodeAtom = atomFamily((id: IStateNode["id"]) => {
 			set(fa, newValue);
 		},
 	);
-}, deepEqual);
+}, dequal);
