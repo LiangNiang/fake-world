@@ -5,7 +5,7 @@ import { focusAtom } from "jotai-optics";
 import { atomFamily, atomWithStorage } from "jotai/utils";
 import type { OpticFor_ } from "optics-ts";
 import { mainStore } from "../store";
-import { generateNameAnchorGroup } from "./helpers";
+import { debounceGenerateNameAnchorGroup, type generateNameAnchorGroup } from "./helpers";
 import type {
 	IStateProfile,
 	TStateAllProfiles,
@@ -67,20 +67,20 @@ export const getMyProfileValueSnapshot = () => mainStore.get(myProfileAtom);
 /**
  * 用于通讯录界面的锚点数据
  */
-export const allProfilesAnchorDataAtom = atom((get) => {
-	console.time("allFriendsAnchorDataState");
-	const res = generateNameAnchorGroup(
-		get(allProfilesAtom).map((v) => ({
+export const allProfilesAnchorDataAtom = atom<Promise<ReturnType<typeof generateNameAnchorGroup>>>(
+	(get) => {
+		const payload = get(allProfilesAtom).map((v) => ({
 			id: v.id,
 			name: v.remark ?? v.nickname,
 			description: v.description,
 			isStarred: v.isStarred,
 			avatarInfo: v.avatarInfo,
-		})),
-	);
-	console.timeEnd("allFriendsAnchorDataState");
-	return res;
-});
+		}));
+		return new Promise((resolve) => {
+			debounceGenerateNameAnchorGroup(payload, resolve);
+		});
+	},
+);
 
 /**
  * 好友总数显示

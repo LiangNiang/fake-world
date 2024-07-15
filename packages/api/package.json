@@ -12,12 +12,12 @@
 		"@elysiajs/cors": "^1.0.4",
 		"@elysiajs/static": "^1.0.3",
 		"@elysiajs/stream": "^1.0.3",
-		"@prisma/client": "5.9.1",
+		"@prisma/client": "5.16.2",
 		"ai": "^3.2.19",
 		"elysia": "^1.0.27",
 		"elysia-rate-limit": "^4.1.0",
 		"nanoid": "^5.0.5",
-		"prisma": "^5.14.0",
+		"prisma": "^5.16.2",
 		"zod": "^3.23.8"
 	},
 	"devDependencies": {

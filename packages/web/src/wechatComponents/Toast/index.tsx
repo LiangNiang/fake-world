@@ -40,9 +40,9 @@ export const Toast = ({ content, onExited, type = "text" }: ToastProps) => {
 	const renderIcon = () => {
 		switch (type) {
 			case "error":
-				return <ErrorFilledSVG fill="white" className="h-11 w-11" />;
+				return <ErrorFilledSVG fill="white" className="h-11 w-11 flex-shrink-0" />;
 			case "success":
-				return <DoneFilledSVG fill="white" className="h-11 w-11" />;
+				return <DoneFilledSVG fill="white" className="h-11 w-11 flex-shrink-0" />;
 			default:
 				return null;
 		}
@@ -61,7 +61,12 @@ export const Toast = ({ content, onExited, type = "text" }: ToastProps) => {
 					)}
 				>
 					{renderIcon()}
-					<div className={twJoin("px-3 text-center", type === "text" && "text-sm")}>{content}</div>
+					<div
+						title={content}
+						className={twJoin("line-clamp-2 px-3 text-center", type === "text" && "text-sm")}
+					>
+						{content}
+					</div>
 				</div>
 			)}
 		</Transition>

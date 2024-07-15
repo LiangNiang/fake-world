@@ -1,31 +1,14 @@
 import AddFriendSVG from "@/assets/add-friend-outlined.svg?react";
-import SearchOutlinedSVG from "@/assets/search-outlined.svg?react";
-import { canBeDetected } from "@/components/NodeDetected";
-import { useMemoScrollPos } from "@/components/useMemoScrollPos";
 import { EBottomNavBars } from "@/stateV2/bottomNavbars";
-import { EMetaDataType } from "@/stateV2/detectedNode";
-import { allProfilesAnchorDataAtom } from "@/stateV2/profile";
 import BottomNavbar, { useToggleNavbarActivated } from "@/wechatComponents/BottomNavbar";
-import { useAtomValue } from "jotai";
-import { useState } from "react";
+import Loading from "@/wechatComponents/Loading";
+import { Suspense } from "react";
 import { useTranslation } from "react-i18next";
-import ContactsList from "./ContactsList";
-import Anchor from "./RightAnchor";
-import TopMenus from "./TopMenus";
-import Total from "./Total";
-import { getStuckInfo } from "./utils";
-
-const DATA_WHEEL_ID = "contactsLayout";
+import MainSection from "./MainSection";
 
 const Contacts = () => {
 	useToggleNavbarActivated(EBottomNavBars.ADDRESS_BOOK);
 	const { t } = useTranslation();
-
-	const anchorData = useAtomValue(allProfilesAnchorDataAtom);
-
-	const { scrollRef } = useMemoScrollPos(DATA_WHEEL_ID);
-
-	const [stuckInfo, setStuckInfo] = useState<Map<string, boolean>>(() => getStuckInfo(anchorData));
 
 	return (
 		<>
@@ -38,37 +21,15 @@ const Contacts = () => {
 					<AddFriendSVG height={20} width={20} fill="black" className="cursor-pointer" />
 				</div>
 			</div>
-			<canBeDetected.div
-				className="flex flex-1 flex-col overflow-y-auto bg-white"
-				id="contacts-container"
-				innerRef={scrollRef}
-				data-wheel-id={DATA_WHEEL_ID}
-				metaData={{
-					type: EMetaDataType.ContactsContainer,
-					treeItemDisplayName: (data) => `通讯录（${data.length - 1}位好友）`,
-				}}
-			>
-				<div className="flex bg-[rgba(237,237,237,1)] px-2 pb-3">
-					<div className="flex flex-1 items-center justify-center rounded-[4px] bg-white p-2 text-xs">
-						<SearchOutlinedSVG fill="rgba(0, 0, 0, 0.5)" width={17} height={16} />
-						<span className="ml-2 opacity-50">{t("wechatPage.main.search")}</span>
+			<Suspense
+				fallback={
+					<div className="flex flex-1 items-center justify-center">
+						<Loading className="h-8 w-8 text-wechatBrand-2" />
 					</div>
-				</div>
-				<TopMenus />
-				<ContactsList anchorData={anchorData} stuckInfo={stuckInfo} setStuckInfo={setStuckInfo} />
-				<Total />
-			</canBeDetected.div>
-
-			<Anchor
-				data={anchorData}
-				stuckInfo={stuckInfo}
-				handleQuickJump={(key) => {
-					const el = document.getElementById(key);
-					if (el) {
-						el.scrollIntoView();
-					}
-				}}
-			/>
+				}
+			>
+				<MainSection />
+			</Suspense>
 			<BottomNavbar />
 		</>
 	);

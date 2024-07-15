@@ -1,4 +1,5 @@
 import { INIT_FRIENDS, generateFakeUser } from "@/faker/wechat/user";
+import { debounce } from "lodash-es";
 import { pinyin } from "pinyin-pro";
 import type { IStateProfile, TNeedGroupDataItem } from "./typing";
 
@@ -12,6 +13,7 @@ export const otherS = Symbol("other");
 export const NOT_SHOW_ANCHOR: (string | symbol)[] = [searchS];
 
 export function generateNameAnchorGroup(data: TNeedGroupDataItem[]) {
+	console.time("allFriendsAnchorDataState");
 	const ANCHOR_DATA = new Map<string | symbol, TNeedGroupDataItem[]>([
 		[searchS, []],
 		// [topS, []],
@@ -55,5 +57,17 @@ export function generateNameAnchorGroup(data: TNeedGroupDataItem[]) {
 			ANCHOR_DATA.get(otherS)!.push(d);
 		}
 	}
+	console.timeEnd("allFriendsAnchorDataState");
 	return ANCHOR_DATA;
 }
+
+export const debounceGenerateNameAnchorGroup = debounce(
+	(
+		payload: TNeedGroupDataItem[],
+		callback: (result: ReturnType<typeof generateNameAnchorGroup>) => void,
+	) => {
+		const res = generateNameAnchorGroup(payload);
+		callback(res);
+	},
+	100,
+);

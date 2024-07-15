@@ -1,62 +1,6 @@
-import { isEmpty } from "lodash-es";
-import { type IStateNode, getActivatedNodeValueSnapshot, setAllNodesValue } from "./nodeAtom";
-import { type TreeNode, getAllNodesTreeValueSnapshot, setTreeFlagAtom } from "./nodeTreeAtom";
-
-type Task = {
-	key: string;
-	payload: any;
-};
-export class ListTaskManager {
-	insertTasks: Record<Task["key"], Task["payload"]> = {};
-	deleteTasks: Task["key"][] = [];
-	private timer: NodeJS.Timeout | null = null;
-	private readonly delay = 100;
-	static instance: ListTaskManager | null = null;
-
-	static getInstace() {
-		if (!ListTaskManager.instance) {
-			ListTaskManager.instance = new ListTaskManager();
-		}
-		return ListTaskManager.instance;
-	}
-
-	addInsertTask(task: Task) {
-		const { key, payload } = task;
-		this.insertTasks[key] = payload;
-		this.resetTimer();
-	}
-
-	addDeleteTask(key: string) {
-		delete this.insertTasks[key];
-		this.deleteTasks.push(key);
-		this.resetTimer();
-	}
-
-	private onNoChange() {
-		if (isEmpty(this.insertTasks) && isEmpty(this.deleteTasks)) return;
-
-		setAllNodesValue((prev) => {
-			this.deleteTasks.forEach((key) => {
-				delete prev[key];
-			});
-			return {
-				...prev,
-				...this.insertTasks,
-			};
-		});
-
-		setTreeFlagAtom(true);
-		this.insertTasks = {};
-		this.deleteTasks = [];
-	}
-
-	private resetTimer() {
-		if (this.timer) {
-			clearTimeout(this.timer);
-		}
-		this.timer = setTimeout(() => this.onNoChange(), this.delay);
-	}
-}
+import { debounce } from "lodash-es";
+import { type IStateNode, getActivatedNodeValueSnapshot } from "./nodeAtom";
+import { type TreeNode, getAllNodesTreeValueSnapshot } from "./nodeTreeAtom";
 
 export async function getActivatedNodeParent() {
 	const activatedNode = getActivatedNodeValueSnapshot();
@@ -66,7 +10,7 @@ export async function getActivatedNodeParent() {
 	}
 }
 
-export async function buildTree(nodes: IStateNode[]): Promise<TreeNode[]> {
+export function buildTree(nodes: IStateNode[]): TreeNode[] {
 	console.time("buildTree");
 	const idToTreeNodeAndNodeState: { [id: string]: [TreeNode, IStateNode] } = {};
 	const childToParent: { [id: string]: string } = {};
@@ -149,6 +93,14 @@ export async function buildTree(nodes: IStateNode[]): Promise<TreeNode[]> {
 
 	return finalRes;
 }
+
+export const debounceBuildTree = debounce(
+	(payload: IStateNode[], callback: (result: TreeNode[]) => void) => {
+		const res = buildTree(payload);
+		callback(res);
+	},
+	300,
+);
 
 export function findNodeInTree(nodeId: string, nodeTree: TreeNode[]) {
 	const findNode = (node: TreeNode): TreeNode | null => {

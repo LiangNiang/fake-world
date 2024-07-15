@@ -1,12 +1,10 @@
 import {
-	ListTaskManager,
 	type StaticMetaData,
 	activatedNodeAtom,
 	allNodesAtom,
 	getActivatedNodeValueSnapshot,
 	hoveredNodeAtom,
 	nodeAtom,
-	treeFlagAtom,
 } from "@/stateV2/detectedNode";
 import { useMergeRefs } from "@floating-ui/react";
 import { useUpdateEffect } from "ahooks";
@@ -50,7 +48,6 @@ function canBeDetected<T extends object>(
 		const setActivated = useSetAtom(activatedNodeAtom);
 		const setNode = useSetAtom(nodeAtom(id));
 		const setNodeList = useSetAtom(allNodesAtom);
-		const setTreeFlag = useSetAtom(treeFlagAtom);
 		const divRef = useRef<Element>(null);
 		const mergedRef = useMergeRefs([divRef, innerRef]);
 		const { isPreview } = useMode();
@@ -65,8 +62,6 @@ function canBeDetected<T extends object>(
 			: mapCompared(injectMetaData);
 
 		useEffect(() => {
-			const listTaskManager = ListTaskManager.getInstace();
-			setTreeFlag(false);
 			setTimeout(() => {
 				if (divRef.current) {
 					const payload = {
@@ -75,20 +70,14 @@ function canBeDetected<T extends object>(
 						injectMetaData,
 					};
 					setNode(payload);
-					listTaskManager.addInsertTask({
-						key: id,
-						payload,
-					});
 				}
 			});
 			return () => {
-				setTreeFlag(false);
 				setTimeout(() => {
 					setNodeList((prev) => {
 						delete prev[id];
 						return prev;
 					});
-					listTaskManager.addDeleteTask(id);
 					if (getActivatedNodeValueSnapshot() === id) {
 						setActivated(null);
 					}
