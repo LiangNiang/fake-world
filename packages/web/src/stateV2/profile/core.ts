@@ -2,7 +2,7 @@ import { INIT_FRIENDS, INIT_MY_PROFILE, MYSELF_ID } from "@/faker/wechat/user";
 import { dequal } from "dequal/lite";
 import { type SetStateAction, atom } from "jotai";
 import { focusAtom } from "jotai-optics";
-import { atomFamily, atomWithStorage } from "jotai/utils";
+import { atomFamily, atomWithStorage, selectAtom } from "jotai/utils";
 import type { OpticFor_ } from "optics-ts";
 import { mainStore } from "../store";
 import { debounceGenerateNameAnchorGroup, type generateNameAnchorGroup } from "./helpers";
@@ -22,6 +22,8 @@ export const allProfilesAtom = atomWithStorage<TStateAllProfiles>(
 	{ getOnInit: true },
 );
 
+export const allProfilesDEqualCompareAtom = selectAtom(allProfilesAtom, (v) => v, dequal);
+
 export const getAllProfilesValueSnapshot = () => mainStore.get(allProfilesAtom);
 export const setAllProfilesValue = (args: SetStateAction<TStateAllProfiles>) =>
 	mainStore.set(allProfilesAtom, args);
@@ -29,14 +31,14 @@ export const setAllProfilesValue = (args: SetStateAction<TStateAllProfiles>) =>
 /**
  * 所有人的信息 id
  */
-export const allProfilesIdsAtom = atom((get) => get(allProfilesAtom).map((v) => v.id));
+export const allProfilesIdsAtom = atom((get) => get(allProfilesDEqualCompareAtom).map((v) => v.id));
 
 export const getAllProfilesIdsValueSnapshot = () => mainStore.get(allProfilesIdsAtom);
 
 /**
- * 实际上的好友总数
+ * 信息总数
  */
-export const allProfilesTotalCountAtom = atom((get) => get(allProfilesIdsAtom).length);
+export const allProfilesTotalCountAtom = atom((get) => get(allProfilesDEqualCompareAtom).length);
 
 export const getAllProfilesTotalCountValueSnapshot = () => mainStore.get(allProfilesTotalCountAtom);
 
@@ -69,7 +71,7 @@ export const getMyProfileValueSnapshot = () => mainStore.get(myProfileAtom);
  */
 export const allProfilesAnchorDataAtom = atom<Promise<ReturnType<typeof generateNameAnchorGroup>>>(
 	(get) => {
-		const payload = get(allProfilesAtom).map((v) => ({
+		const payload = get(allProfilesDEqualCompareAtom).map((v) => ({
 			id: v.id,
 			name: v.remark ?? v.nickname,
 			description: v.description,
