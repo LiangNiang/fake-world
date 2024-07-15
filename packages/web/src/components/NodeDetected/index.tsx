@@ -62,26 +62,22 @@ function canBeDetected<T extends object>(
 			: mapCompared(injectMetaData);
 
 		useEffect(() => {
-			setTimeout(() => {
-				if (divRef.current) {
-					const payload = {
-						id,
-						nodeTreeSort: !!props.nodeTreeSort,
-						injectMetaData,
-					};
-					setNode(payload);
-				}
-			});
+			if (divRef.current) {
+				const payload = {
+					id,
+					nodeTreeSort: !!props.nodeTreeSort,
+					injectMetaData,
+				};
+				setNode(payload);
+			}
 			return () => {
-				setTimeout(() => {
-					setNodeList((prev) => {
-						delete prev[id];
-						return prev;
-					});
-					if (getActivatedNodeValueSnapshot() === id) {
-						setActivated(null);
-					}
+				setNodeList((prev) => {
+					delete prev[id];
+					return { ...prev };
 				});
+				if (getActivatedNodeValueSnapshot() === id) {
+					setActivated(null);
+				}
 			};
 		}, []);
 
