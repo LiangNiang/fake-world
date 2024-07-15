@@ -7,7 +7,7 @@ import {
 } from "@/stateV2/detectedNode";
 import { useSize } from "ahooks";
 import { Tree } from "antd";
-import { useAtomValue } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import { isArray } from "lodash-es";
 import { memo, useEffect, useState } from "react";
 import { doChangeOrder } from "../utils";
@@ -16,7 +16,7 @@ import NodeTreeTitle from "./Title";
 const NodeTree = () => {
 	const [currentSelected, setCurrentSelected] = useState<string>();
 	const activatedNode = useAtomValue(activatedNodeAtom);
-	const allNodeTree = useAtomValue(allNodesTreeAtom);
+	const [allNodeTree, rebuildTree] = useAtom(allNodesTreeAtom);
 	const [expandKeys, setExpandKeys] = useState<string[]>([]);
 	const size = useSize(document.querySelector("#tree-container"));
 	const { isEdit, isPreview } = useMode();
@@ -80,6 +80,7 @@ const NodeTree = () => {
 						toFirst: !isDropIsDirectChild,
 					},
 					usedDragMetaData,
+					rebuildTree,
 				);
 			}}
 			allowDrop={({ dropPosition, dropNode, dragNode }) => {

@@ -9,10 +9,10 @@ import {
 	conversationListAtom,
 	getConversationListValueSnapshot,
 } from "@/stateV2/conversation";
-import { EMetaDataType, type StaticMetaData } from "@/stateV2/detectedNode";
+import { EMetaDataType, type StaticMetaData, allNodesTreeAtom } from "@/stateV2/detectedNode";
 import { SubnodeOutlined } from "@ant-design/icons";
 import { Modal, Tooltip } from "antd";
-import { useAtom } from "jotai";
+import { useAtom, useSetAtom } from "jotai";
 import { useMemo } from "react";
 import { ReactSortable } from "react-sortablejs";
 import { twJoin } from "tailwind-merge";
@@ -24,6 +24,7 @@ const ConversationList = () => {
 		useConversationAPI();
 	const [conversationList, setConversationList] = useAtom(conversationListAtom(conversationId));
 	const { isEdit } = useMode();
+	const rebuildTree = useSetAtom(allNodesTreeAtom);
 
 	const mappedSortableListData = useMemo(() => {
 		return conversationList.map((item) => ({
@@ -97,6 +98,9 @@ const ConversationList = () => {
 					}
 				}}
 				className="mb-auto space-y-4"
+				onSort={() => {
+					rebuildTree();
+				}}
 			>
 				{conversationList.map((item) => {
 					const operations: StaticMetaData.InjectMetaData["operations"] = [

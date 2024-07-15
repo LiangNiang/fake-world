@@ -2,9 +2,9 @@ import CommentOutlinedSVG from "@/assets/comment-outlined.svg?react";
 import { canBeDetected } from "@/components/NodeDetected";
 import TopOperations from "@/components/TopOperations";
 import useMode from "@/components/useMode";
-import { EMetaDataType } from "@/stateV2/detectedNode";
+import { EMetaDataType, allNodesTreeAtom } from "@/stateV2/detectedNode";
 import { type IStateFeed, feedAtom } from "@/stateV2/moments";
-import { useAtom } from "jotai";
+import { useAtom, useSetAtom } from "jotai";
 import { isEmpty } from "lodash-es";
 import { useMemo } from "react";
 import { ReactSortable } from "react-sortablejs";
@@ -19,6 +19,7 @@ type CommentsProps = {
 const Comments = ({ id, fromDetail }: CommentsProps) => {
 	const [feed, setFeed] = useAtom(feedAtom(id));
 	const { isEdit } = useMode();
+	const rebuildTree = useSetAtom(allNodesTreeAtom);
 
 	const { comments, likeUserIds } = feed ?? {};
 
@@ -67,6 +68,9 @@ const Comments = ({ id, fromDetail }: CommentsProps) => {
 								}));
 							}
 						}
+					}}
+					onSort={() => {
+						rebuildTree();
 					}}
 				>
 					{comments!.map((v) => (

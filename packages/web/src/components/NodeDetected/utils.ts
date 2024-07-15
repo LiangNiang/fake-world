@@ -37,6 +37,7 @@ export function doChangeOrder(
 	fromNodeId: string,
 	to: { toNodeId: string; toFirst: boolean },
 	metaData: StaticMetaData.InjectMetaData | undefined,
+	rebuildTree: () => void,
 ) {
 	const { toNodeId, toFirst } = to;
 	const fromDataId = (getNodeFreshDataValueSnapshot(fromNodeId) as [IStateFeed])[0].id;
@@ -62,4 +63,5 @@ export function doChangeOrder(
 		default:
 			return;
 	}
+	rebuildTree();
 }

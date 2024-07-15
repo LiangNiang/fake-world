@@ -1,8 +1,8 @@
 import { canBeDetected } from "@/components/NodeDetected";
 import useMode from "@/components/useMode";
-import { EMetaDataType } from "@/stateV2/detectedNode";
+import { EMetaDataType, allNodesTreeAtom } from "@/stateV2/detectedNode";
 import { feedListAtom } from "@/stateV2/moments";
-import { useAtom } from "jotai";
+import { useAtom, useSetAtom } from "jotai";
 import { useMemo } from "react";
 import { ReactSortable } from "react-sortablejs";
 import Feed from "./Feed";
@@ -10,6 +10,7 @@ import Feed from "./Feed";
 const MomentsIndex = () => {
 	const [feedList, setFeedList] = useAtom(feedListAtom);
 	const { isEdit } = useMode();
+	const rebuildTree = useSetAtom(allNodesTreeAtom);
 
 	const mappedSortableListData = useMemo(() => {
 		return feedList.map((v) => ({ id: v.id }));
@@ -41,6 +42,9 @@ const MomentsIndex = () => {
 							setFeedList(v.map((i) => feedList.find((d) => d.id === i.id)!));
 						}
 					}
+				}}
+				onSort={() => {
+					rebuildTree();
 				}}
 			>
 				{feedList.map((feed) => (

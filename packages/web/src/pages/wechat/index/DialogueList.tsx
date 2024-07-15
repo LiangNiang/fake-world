@@ -1,8 +1,8 @@
 import { canBeDetected } from "@/components/NodeDetected";
 import useMode from "@/components/useMode";
-import { EMetaDataType } from "@/stateV2/detectedNode";
+import { EMetaDataType, allNodesTreeAtom } from "@/stateV2/detectedNode";
 import { dialogueListAtom, dialogueListEffect } from "@/stateV2/dialogueList";
-import { useAtom } from "jotai";
+import { useAtom, useSetAtom } from "jotai";
 import { useMemo } from "react";
 import { ReactSortable } from "react-sortablejs";
 import DialogueItem from "./DialogueItem";
@@ -10,6 +10,7 @@ import DialogueItem from "./DialogueItem";
 const DialogueList = () => {
 	const { isEdit } = useMode();
 	const [dialogueList, setDialogueList] = useAtom(dialogueListAtom);
+	const rebuildTree = useSetAtom(allNodesTreeAtom);
 	useAtom(dialogueListEffect);
 
 	const mappedSortableListData = useMemo(() => {
@@ -42,6 +43,9 @@ const DialogueList = () => {
 							);
 						}
 					}
+				}}
+				onSort={() => {
+					rebuildTree();
 				}}
 			>
 				{dialogueList.map((item) => (

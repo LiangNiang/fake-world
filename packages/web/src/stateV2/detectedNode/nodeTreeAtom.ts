@@ -1,5 +1,5 @@
 import type { DataNode } from "antd/es/tree";
-import { atom } from "jotai";
+import { atomWithRefresh } from "jotai/utils";
 import { values } from "lodash-es";
 import { mainStore } from "../store";
 import { allNodesAtom } from "./nodeAtom";
@@ -12,7 +12,7 @@ export interface TreeNode extends DataNode {
 	nodeTreeSort: boolean;
 }
 
-export const allNodesTreeAtom = atom<Promise<TreeNode[]>>((get) => {
+export const allNodesTreeAtom = atomWithRefresh<Promise<TreeNode[]>>((get) => {
 	const allNodes = get(allNodesAtom);
 	return new Promise((resolve) => {
 		debounceBuildTree(values(allNodes), resolve);
