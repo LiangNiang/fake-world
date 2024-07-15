@@ -67,7 +67,7 @@ const WrapSlateInput = ({ value, onChange, inline }: Props) => {
 								}
 							: undefined
 					}
-					className="rounded border bg-white py-1 pr-7 pl-1 caret-wechatBrand-3 focus:border-antDaybreakBlue-5 hover:border-antDaybreakBlue-5 focus:shadow-[0_0_0_2px_rgba(5,145,255,0.1)] focus:outline-none"
+					className="rounded border bg-white py-1 pr-7 pl-1 caret-wechatBrand-3 hover:border-antDaybreakBlue-5 focus:border-antDaybreakBlue-5 focus:shadow-[0_0_0_2px_rgba(5,145,255,0.1)] focus:outline-none"
 				/>
 			</Slate>
 		</div>

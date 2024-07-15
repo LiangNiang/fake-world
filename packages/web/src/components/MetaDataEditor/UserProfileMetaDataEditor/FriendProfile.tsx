@@ -2,9 +2,9 @@ import { MYSELF_ID } from "@/faker/wechat/user";
 import { type IStateProfile, MOMENTS_PRIVACY_TEXT_MAP, profileAtom } from "@/stateV2/profile";
 import { MinusCircleOutlined, PhoneOutlined, TagOutlined } from "@ant-design/icons";
 import { Button, Form, Input, InputNumber, Radio, Select, Switch } from "antd";
+import { useSetAtom } from "jotai";
 import { isEmpty, keys } from "lodash-es";
 import LocalImageUploadWithPreview from "../LocalImageUpload";
-import { useSetAtom } from "jotai";
 
 const FriendProfileMetaDataEditor = ({
 	data,

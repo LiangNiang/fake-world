@@ -1,4 +1,8 @@
-import type { IConversationTypeRedPacket, IConversationTypeTransfer, TConversationRole } from "@/stateV2/conversation";
+import type {
+	IConversationTypeRedPacket,
+	IConversationTypeTransfer,
+	TConversationRole,
+} from "@/stateV2/conversation";
 
 export const TRANSFER_TEXT_NOTE_MAP: Record<
 	IConversationTypeTransfer["originalSender"],

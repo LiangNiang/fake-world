@@ -88,7 +88,7 @@ const CommonBlock = <P extends AnyObject>({
             }
           `}
 					className={twMerge(
-						"group-[.friend]:before:-left-[1px] group-[.mine]:before:-right-[1px] group-[.mine]:before:-rotate-[135deg] relative max-w-[85%] break-words rounded p-[10px] before:absolute before:top-[6px] before:h-7 before:w-7 group-[.friend]:before:rotate-45 before:rounded-sm",
+						"group-[.friend]:before:-left-[1px] group-[.mine]:before:-right-[1px] group-[.mine]:before:-rotate-[135deg] relative max-w-[85%] break-words rounded p-[10px] before:absolute before:top-[6px] before:h-7 before:w-7 before:rounded-sm group-[.friend]:before:rotate-45",
 						innerBlockClassName,
 					)}
 					{...(innerBlockProps as P)}

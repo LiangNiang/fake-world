@@ -1,13 +1,12 @@
-import { mkdir, unlink } from "node:fs/promises";
+import { mkdir } from "node:fs/promises";
 import { resolve } from "node:path";
 import { cors } from "@elysiajs/cors";
 import { staticPlugin } from "@elysiajs/static";
 import { PrismaClient } from "@prisma/client";
 import { generateObject, streamObject } from "ai";
 import { env } from "bun";
-import { Elysia, NotFoundError, t } from "elysia";
+import { Elysia, t } from "elysia";
 import { rateLimit } from "elysia-rate-limit";
-import { nanoid } from "nanoid";
 import { z } from "zod";
 import "./shim";
 import { openai } from "./provider";

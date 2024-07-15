@@ -29,7 +29,7 @@ const TopOperations = ({ nodeId }: Props) => {
 				<div
 					onClick={v.onClick}
 					key={key}
-					className="relative flex h-full cursor-pointer items-center justify-center px-2 text-white after:absolute after:right-0 after:ml-2 last:after:hidden after:h-3 after:w-[1px] after:bg-white/40"
+					className="relative flex h-full cursor-pointer items-center justify-center px-2 text-white after:absolute after:right-0 after:ml-2 after:h-3 after:w-[1px] after:bg-white/40 last:after:hidden"
 				>
 					{v.element}
 				</div>

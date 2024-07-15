@@ -2,6 +2,7 @@ import { h } from "@/components/HashAssets";
 import TopOperations from "@/components/TopOperations";
 import useModeNavigate from "@/components/useModeNavigate";
 import { MYSELF_ID } from "@/faker/wechat/user";
+import { EMetaDataType } from "@/stateV2/detectedNode";
 import { dialogueListAtom } from "@/stateV2/dialogueList";
 import { feedListAtom } from "@/stateV2/moments";
 import { setAllProfilesValue } from "@/stateV2/profile";
@@ -11,7 +12,6 @@ import { useSetAtom } from "jotai";
 import { memo } from "react";
 import { twJoin } from "tailwind-merge";
 import type { TRenderUser } from "../utils";
-import { EMetaDataType } from "@/stateV2/detectedNode";
 
 const UserItem = ({
 	id,
