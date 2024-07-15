@@ -1,8 +1,8 @@
 import "./preflight.css";
 import "./index.css";
 import "animate.css";
-import "./i18n";
 
+import "./i18n";
 import { Provider } from "jotai";
 import React from "react";
 import ReactDOM from "react-dom/client";
