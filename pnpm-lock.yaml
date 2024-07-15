@@ -140,9 +140,6 @@ importers:
       '@floating-ui/react':
         specifier: ^0.26.12
         version: 0.26.12(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@monaco-editor/react':
-        specifier: ^4.6.0
-        version: 4.6.0(monaco-editor@0.46.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       ahooks:
         specifier: ^3.8.0
         version: 3.8.0(react@18.3.1)
@@ -158,9 +155,6 @@ importers:
       axios:
         specifier: ^1.7.2
         version: 1.7.2
-      copy-to-clipboard:
-        specifier: ^3.3.3
-        version: 3.3.3
       dayjs:
         specifier: ^1.11.10
         version: 1.11.10
@@ -200,9 +194,6 @@ importers:
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
-      monaco-editor:
-        specifier: ^0.46.0
-        version: 0.46.0
       nanoid:
         specifier: ^5.0.5
         version: 5.0.5
@@ -288,9 +279,6 @@ importers:
       '@types/spark-md5':
         specifier: ^3.0.4
         version: 3.0.4
-      '@types/ua-parser-js':
-        specifier: ^0.7.39
-        version: 0.7.39
       '@vitejs/plugin-react-swc':
         specifier: ^3.7.0
         version: 3.7.0(vite@5.3.3(@types/node@20.12.13)(sass@1.70.0))
@@ -902,18 +890,6 @@ packages:
     resolution: {integrity: sha512-/gKJun8NNiWGZJkGzI/Ragc53cOdcLNdzjLaIa+GEjguQs0ulsurx8WN0jijdK9yPqDvziX995sMRLyLt1uZMQ==}
     engines: {node: '>= 0.4'}
 
-  '@monaco-editor/loader@1.4.0':
-    resolution: {integrity: sha512-00ioBig0x642hytVspPl7DbQyaSWRaolYie/UFNjoTdvoKPzo6xrXLhTk9ixgIKcLH5b5vDOjVNiGyY+uDCUlg==}
-    peerDependencies:
-      monaco-editor: '>= 0.21.0 < 1'
-
-  '@monaco-editor/react@4.6.0':
-    resolution: {integrity: sha512-RFkU9/i7cN2bsq/iTkurMWOEErmYcY6JiQI3Jn+WeR/FGISH8JbHERjpS9oRuSOPvDMJI0Z8nJeKkbOs9sBYQw==}
-    peerDependencies:
-      monaco-editor: '>= 0.25.0 < 1'
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
     engines: {node: '>= 8'}
@@ -1494,9 +1470,6 @@ packages:
 
   '@types/spark-md5@3.0.4':
     resolution: {integrity: sha512-qtOaDz+IXiNndPgYb6t1YoutnGvFRtWSNzpVjkAPCfB2UzTyybuD4Tjgs7VgRawum3JnJNRwNQd4N//SvrHg1Q==}
-
-  '@types/ua-parser-js@0.7.39':
-    resolution: {integrity: sha512-P/oDfpofrdtF5xw433SPALpdSchtJmY7nsJItf8h3KXqOslkbySh8zq4dSWXH2oTjRvJ5PczVEoCZPow6GicLg==}
 
   '@types/wrap-ansi@3.0.0':
     resolution: {integrity: sha512-ltIpx+kM7g/MLRZfkbL7EsCEjfzCcScLpkg37eXEtx5kmrAKBkTJwd1GIAjDSL8wTpM6Hzn5YO4pSb91BEwu1g==}
@@ -3165,9 +3138,6 @@ packages:
     resolution: {integrity: sha512-FP+p8RB8OWpF3YZBCrP5gtADmtXApB5AMLn+vdyA+PyxCjrCs00mjyUozssO33cwDeT3wNGdLxJ5M//YqtHAJw==}
     hasBin: true
 
-  monaco-editor@0.46.0:
-    resolution: {integrity: sha512-ADwtLIIww+9FKybWscd7OCfm9odsFYHImBRI1v9AviGce55QY8raT+9ihH8jX/E/e6QVSGM+pKj4jSUSRmALNQ==}
-
   ms@2.0.0:
     resolution: {integrity: sha512-Tpp60P6IUJDTuOq/5Z8cdskzJujfwqfOTkrwIwj7IRISpnkJnT6SyJ4PCPnGMoFjC9ddhal5KVIYtAt97ix05A==}
 
@@ -4122,9 +4092,6 @@ packages:
     resolution: {integrity: sha512-Cqc355SYlTAaUt8iDPaC/4DPPXK925PePLMxyBKuWd5kKc5mwsG3nT9+Mq2tyguL5s7b4Jg+IRMpTRsNTAfpSQ==}
     peerDependencies:
       svelte: ^4.0.0 || ^5.0.0-next.0
-
-  state-local@1.0.7:
-    resolution: {integrity: sha512-HTEHMNieakEnoe33shBYcZ7NX83ACUjCu8c40iOGEZsngj9zRnkqS9j1pqQPXwobB0ZcVTk27REb7COQ0UR59w==}
 
   statuses@1.5.0:
     resolution: {integrity: sha512-OpZ3zP+jT1PI7I8nemJX4AKmAX070ZkYPVWV/AaKTJl+tXCTGyVdC1a4SL8RUQYEwk/f34ZX8UTykN68FwrqAA==}
@@ -5221,18 +5188,6 @@ snapshots:
     dependencies:
       call-bind: 1.0.7
 
-  '@monaco-editor/loader@1.4.0(monaco-editor@0.46.0)':
-    dependencies:
-      monaco-editor: 0.46.0
-      state-local: 1.0.7
-
-  '@monaco-editor/react@4.6.0(monaco-editor@0.46.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
-    dependencies:
-      '@monaco-editor/loader': 1.4.0(monaco-editor@0.46.0)
-      monaco-editor: 0.46.0
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
       '@nodelib/fs.stat': 2.0.5
@@ -5749,8 +5704,6 @@ snapshots:
   '@types/sortablejs@1.15.7': {}
 
   '@types/spark-md5@3.0.4': {}
-
-  '@types/ua-parser-js@0.7.39': {}
 
   '@types/wrap-ansi@3.0.0': {}
 
@@ -7666,8 +7619,6 @@ snapshots:
     dependencies:
       minimist: 1.2.8
 
-  monaco-editor@0.46.0: {}
-
   ms@2.0.0: {}
 
   ms@2.1.2: {}
@@ -8819,8 +8770,6 @@ snapshots:
       svelte: 4.2.18
       swrev: 4.0.0
 
-  state-local@1.0.7: {}
-
   statuses@1.5.0: {}
 
   statuses@2.0.1: {}
@@ -9133,13 +9082,13 @@ snapshots:
     dependencies:
       browserslist: 4.22.1
       escalade: 3.1.1
-      picocolors: 1.0.0
+      picocolors: 1.0.1
 
   update-browserslist-db@1.0.13(browserslist@4.22.3):
     dependencies:
       browserslist: 4.22.3
       escalade: 3.1.1
-      picocolors: 1.0.0
+      picocolors: 1.0.1
 
   update-notifier@7.0.0:
     dependencies:

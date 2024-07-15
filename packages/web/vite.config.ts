@@ -1,5 +1,4 @@
 import path from "node:path";
-
 import react from "@vitejs/plugin-react-swc";
 import { CodeInspectorPlugin } from "code-inspector-plugin";
 import { defineConfig } from "vite";
