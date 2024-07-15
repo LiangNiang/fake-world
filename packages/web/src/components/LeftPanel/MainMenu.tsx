@@ -5,7 +5,6 @@ import { App, Button, Dropdown, Tooltip } from "antd";
 import { useSetAtom } from "jotai";
 import { useTranslation } from "react-i18next";
 import useAppInfo from "../useAppInfo";
-import AISection from "./AI";
 import GenerateRandomUser from "./GenerateRandomUser";
 import ScreenDevicesSelect from "./ScreenDevicesSelect";
 import ScreenshotButton from "./ScreenshotButton";
@@ -87,10 +86,6 @@ const MainMenu = () => {
 					>
 						开启使用指引
 					</Button>
-				</div>
-
-				<div className="!mt-6">
-					<AISection />
 				</div>
 			</div>
 		</>

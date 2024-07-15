@@ -22,7 +22,7 @@ export const allProfilesAtom = atomWithStorage<TStateAllProfiles>(
 	{ getOnInit: true },
 );
 
-export const allProfilesDEqualCompareAtom = selectAtom(allProfilesAtom, (v) => v, dequal);
+const allProfilesDEqualCompareAtom = selectAtom(allProfilesAtom, (v) => v, dequal);
 
 export const getAllProfilesValueSnapshot = () => mainStore.get(allProfilesAtom);
 export const setAllProfilesValue = (args: SetStateAction<TStateAllProfiles>) =>
