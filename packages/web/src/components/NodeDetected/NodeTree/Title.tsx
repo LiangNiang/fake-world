@@ -1,4 +1,9 @@
-import { type StaticMetaData, type TreeNode, nodeAtom } from "@/stateV2/detectedNode";
+import {
+	type StaticMetaData,
+	type TreeNode,
+	nodeFreshDataAtom,
+	nodeInjectMetaDataAtom,
+} from "@/stateV2/detectedNode";
 import { useAtomValue } from "jotai";
 import { isFunction, isNil, isString } from "lodash-es";
 import { memo } from "react";
@@ -6,10 +11,9 @@ import { useTranslation } from "react-i18next";
 
 const NodeTreeTitle = ({ item }: { item: TreeNode }) => {
 	const { t } = useTranslation();
-	const node = useAtomValue(nodeAtom(item.id));
-	if (!node) return <></>;
+	const injectMetaData = useAtomValue(nodeInjectMetaDataAtom(item.id));
+	const freshData = useAtomValue(nodeFreshDataAtom(item.id));
 
-	const { injectMetaData, freshData } = node;
 	if (!injectMetaData) return <div>{item.id}</div>;
 
 	const renderTitleFunctional = (

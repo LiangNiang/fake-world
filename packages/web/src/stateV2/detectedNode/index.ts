@@ -3,4 +3,4 @@ export * from "./nodeAtom";
 export * from "./typing.d";
 export * from "./utils";
 export * from "./nodeTreeAtom";
-export * from "./runtimeDataAtom";
+export * from "./nodeAtom";

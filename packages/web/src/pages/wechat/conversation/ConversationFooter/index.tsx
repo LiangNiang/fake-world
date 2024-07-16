@@ -5,9 +5,9 @@ import VoiceSVG from "@/assets/voice-outlined.svg?react";
 import {
 	EMetaDataType,
 	activatedNodeAtom,
-	getAllNodesValueSnapshot,
 	getNodeInjectMetaDataValueSnapshot,
 } from "@/stateV2/detectedNode";
+import { getNodesAtomsValueSnapshot } from "@/stateV2/detectedNode/nodeAtom";
 import { modeAtom } from "@/stateV2/mode";
 import { useSetAtom } from "jotai";
 import { isArray, keys } from "lodash-es";
@@ -53,8 +53,8 @@ const ConversationFooter = () => {
 						className="h-8 w-8 cursor-pointer"
 						onClick={() => {
 							setMode("edit");
-							const allNodes = getAllNodesValueSnapshot();
-							for (const key of keys(allNodes)) {
+							const nodesAtoms = getNodesAtomsValueSnapshot();
+							for (const key of keys(nodesAtoms)) {
 								const metaData = getNodeInjectMetaDataValueSnapshot(key);
 								if (!isArray(metaData) && metaData?.type === EMetaDataType.ConversationList) {
 									setActivatedNode(key);

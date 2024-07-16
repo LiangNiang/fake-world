@@ -1,11 +1,9 @@
 import { dequal } from "dequal/lite";
-import { type SetStateAction, atom } from "jotai";
-import { focusAtom } from "jotai-optics";
-import { atomFamily } from "jotai/utils";
-import { isArray, isEmpty } from "lodash-es";
-import type { OpticFor_ } from "optics-ts";
+import { type PrimitiveAtom, atom } from "jotai";
+import { atomFamily, selectAtom } from "jotai/utils";
+import { isArray, isEmpty, isUndefined } from "lodash-es";
 import { mainStore } from "../store";
-import { nodeRuntimeDataAtom } from "./runtimeDataAtom";
+import handlerMap from "./handlerMap";
 import type { OverallMetaData, StaticMetaData } from "./typing";
 
 export interface IStateNode {
@@ -15,30 +13,11 @@ export interface IStateNode {
 	nodeTreeSort: boolean;
 }
 
-type TStateAllNodes = {
-	[key: string]: IStateNode;
+type TStateNodesAtoms = {
+	[ksy: string]: PrimitiveAtom<IStateNode>;
 };
 
-/**
- * 所有的可探测节点集合
- */
-export const allNodesAtom = atom<TStateAllNodes>({});
-
-export const getAllNodesValueSnapshot = () => mainStore.get(allNodesAtom);
-export const setAllNodesValue = (value: SetStateAction<TStateAllNodes>) =>
-	mainStore.set(allNodesAtom, value);
-
-/**
- * node 节点的 injectMetaData
- */
-export const nodeInjectMetaDataAtom = atomFamily(
-	(id: string) =>
-		focusAtom(allNodesAtom, (optic) => optic.prop(id).optional().prop("injectMetaData")),
-	dequal,
-);
-
-export const getNodeInjectMetaDataValueSnapshot = (id: string) =>
-	mainStore.get(nodeInjectMetaDataAtom(id));
+const atomUndefined = atom(undefined);
 
 /**
  * hover 状态的节点
@@ -54,32 +33,44 @@ export const getActivatedNodeValueSnapshot = () => mainStore.get(activatedNodeAt
 
 export const setActivatedNodeValue = (id: string | null) => mainStore.set(activatedNodeAtom, id);
 
-/**
- * node 实时数据
- */
-export const nodeFreshDataAtom = atomFamily((id: IStateNode["id"]) => {
+export const nodesAtomsAtom = atom<TStateNodesAtoms>({});
+
+export const getNodesAtomsValueSnapshot = () => mainStore.get(nodesAtomsAtom);
+
+export const nodeAtom = atomFamily((id: IStateNode["id"]) => {
 	return atom((get) => {
+		const nodesAtoms = get(nodesAtomsAtom);
+		const targetAtom = nodesAtoms[id];
+		return targetAtom ? get(targetAtom) : undefined;
+	});
+}, dequal);
+
+export const getNodeValueSnapshot = (id: IStateNode["id"]) => mainStore.get(nodeAtom(id));
+
+export const nodeInjectMetaDataAtom = atomFamily((id: IStateNode["id"]) => {
+	if (isEmpty(id)) return atomUndefined;
+	return selectAtom(nodeAtom(id), (node) => node?.injectMetaData, dequal);
+}, dequal);
+
+export const getNodeInjectMetaDataValueSnapshot = (id: string) =>
+	mainStore.get(nodeInjectMetaDataAtom(id));
+
+export const nodeFreshDataAtom = atomFamily((id: IStateNode["id"]) => {
+	if (isEmpty(id)) return atomUndefined;
+	return atom((get) => {
+		function getFreshData(type: OverallMetaData.OverallType, index: OverallMetaData.OverallIndex) {
+			const handler = handlerMap[type!];
+			if (isUndefined(handler)) return undefined;
+			return handler(get, index);
+		}
 		const metaData = get(nodeInjectMetaDataAtom(id));
 		if (isEmpty(metaData)) return undefined;
 		if (isArray(metaData)) {
-			return metaData.map((m) => get(nodeRuntimeDataAtom({ type: m.type, index: m.index })));
+			return metaData.map((m) => getFreshData(m.type, m.index));
 		}
-		return get(nodeRuntimeDataAtom({ type: metaData.type, index: metaData.index }));
+		return getFreshData(metaData.type, metaData.index);
 	});
 }, dequal);
 
 export const getNodeFreshDataValueSnapshot = (id: IStateNode["id"]) =>
 	mainStore.get(nodeFreshDataAtom(id));
-
-export const nodeAtom = atomFamily((id: IStateNode["id"]) => {
-	const fa = focusAtom(allNodesAtom, (optic: OpticFor_<TStateAllNodes>) => optic.prop(id));
-	return atom(
-		(get) => ({
-			...get(fa),
-			freshData: get(nodeFreshDataAtom(id)),
-		}),
-		(_, set, newValue: SetStateAction<IStateNode>) => {
-			set(fa, newValue);
-		},
-	);
-}, dequal);

@@ -1,9 +1,9 @@
 import {
 	EMetaDataType,
 	activatedNodeAtom,
-	getAllNodesValueSnapshot,
 	getNodeInjectMetaDataValueSnapshot,
 } from "@/stateV2/detectedNode";
+import { getNodesAtomsValueSnapshot } from "@/stateV2/detectedNode/nodeAtom";
 import { PlusOutlined } from "@ant-design/icons";
 import { Tooltip } from "antd";
 import { useSetAtom } from "jotai";
@@ -17,8 +17,8 @@ const TopOperationNew = ({ onSetActivatedNodeEnd }: Props) => {
 	const setActivatedNode = useSetAtom(activatedNodeAtom);
 
 	const selectInput = () => {
-		const allNodes = getAllNodesValueSnapshot();
-		const inputEleId = keys(allNodes).find((id) => {
+		const nodesAtoms = getNodesAtomsValueSnapshot();
+		const inputEleId = keys(nodesAtoms).find((id) => {
 			const metaData = getNodeInjectMetaDataValueSnapshot(id);
 			return !isArray(metaData) && metaData?.type === EMetaDataType.ConversationInput;
 		});

@@ -2,12 +2,13 @@ import AlbumFilledSVG from "@/assets/album-filled.svg?react";
 import LikeFilledSVG from "@/assets/like-filled.svg?react";
 import LikeOutlinedSVG from "@/assets/like-outlined.svg?react";
 import { MYSELF_ID } from "@/faker/wechat/user";
-import { activatedNodeAtom, getAllNodesValueSnapshot } from "@/stateV2/detectedNode";
+import { activatedNodeAtom } from "@/stateV2/detectedNode";
+import { getNodesAtomsValueSnapshot } from "@/stateV2/detectedNode/nodeAtom";
 import { getModeValueSnapshot, modeAtom } from "@/stateV2/mode";
 import { setProfileValue } from "@/stateV2/profile";
 import { usePrevious } from "ahooks";
 import { useSetAtom } from "jotai";
-import { values } from "lodash-es";
+import { keys } from "lodash-es";
 import { useTranslation } from "react-i18next";
 import { twJoin } from "tailwind-merge";
 import { useProfile } from "./hook";
@@ -23,8 +24,8 @@ const CoverOperations = () => {
 
 	const handleChangeCover = () => {
 		setMode("edit");
-		const nodes = getAllNodesValueSnapshot();
-		setActivatedNode(values(nodes)[0].id);
+		const nodesAtoms = getNodesAtomsValueSnapshot();
+		setActivatedNode(keys(nodesAtoms)[0]);
 	};
 
 	const handleChangeLike = () => {

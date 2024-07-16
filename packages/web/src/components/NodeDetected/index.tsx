@@ -1,14 +1,14 @@
 import {
+	type IStateNode,
 	type StaticMetaData,
 	activatedNodeAtom,
-	allNodesAtom,
 	getActivatedNodeValueSnapshot,
 	hoveredNodeAtom,
-	nodeAtom,
 } from "@/stateV2/detectedNode";
+import { nodesAtomsAtom } from "@/stateV2/detectedNode/nodeAtom";
 import { useMergeRefs } from "@floating-ui/react";
-import { useUpdateEffect } from "ahooks";
-import { useSetAtom } from "jotai";
+import { useCreation, useUpdateEffect } from "ahooks";
+import { atom, useSetAtom } from "jotai";
 import { isArray, omit } from "lodash-es";
 import {
 	type HTMLAttributes,
@@ -42,12 +42,21 @@ function canBeDetected<T extends object>(
 	const NodeDetected = (
 		props: InjectProps & T & HTMLAttributes<void> & { innerRef?: Ref<any> },
 	) => {
-		const { metaData: injectMetaData, innerRef, id: preId } = props;
+		const { metaData: injectMetaData, innerRef, id: preId, nodeTreeSort } = props;
 		const id = preId ?? useId();
+		const currentNodeAtom = useCreation(
+			() =>
+				atom<IStateNode>({
+					id,
+					injectMetaData,
+					nodeTreeSort: !!nodeTreeSort,
+				}),
+			[],
+		);
+		const setCurrentNode = useSetAtom(currentNodeAtom);
 		const setHovered = useSetAtom(hoveredNodeAtom);
 		const setActivated = useSetAtom(activatedNodeAtom);
-		const setNode = useSetAtom(nodeAtom(id));
-		const setNodeList = useSetAtom(allNodesAtom);
+		const setNodesAtoms = useSetAtom(nodesAtomsAtom);
 		const divRef = useRef<Element>(null);
 		const mergedRef = useMergeRefs([divRef, innerRef]);
 		const { isPreview } = useMode();
@@ -63,15 +72,13 @@ function canBeDetected<T extends object>(
 
 		useEffect(() => {
 			if (divRef.current) {
-				const payload = {
-					id,
-					nodeTreeSort: !!props.nodeTreeSort,
-					injectMetaData,
-				};
-				setNode(payload);
+				setNodesAtoms((prev) => {
+					prev[id] = currentNodeAtom;
+					return { ...prev };
+				});
 			}
 			return () => {
-				setNodeList((prev) => {
+				setNodesAtoms((prev) => {
 					delete prev[id];
 					return { ...prev };
 				});
@@ -82,7 +89,7 @@ function canBeDetected<T extends object>(
 		}, []);
 
 		useUpdateEffect(() => {
-			setNode((pv) => ({
+			setCurrentNode((pv) => ({
 				...pv,
 				injectMetaData,
 			}));

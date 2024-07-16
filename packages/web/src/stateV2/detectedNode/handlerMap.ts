@@ -13,8 +13,8 @@ import { statusBarHideAtom } from "@/stateV2/statusBar";
 import { type TTransactionData, type TTransactionType, USED_ATOM_MAP } from "@/stateV2/transaction";
 import { unreadCountAtom } from "@/stateV2/unreadCount";
 import { walletAtom } from "@/stateV2/wallet";
-import { type Getter, atom } from "jotai";
-import { EMetaDataType } from "../../stateV2/detectedNode/consts";
+import type { Getter } from "jotai";
+import { EMetaDataType } from "./consts";
 import type { OverallMetaData } from "./typing";
 
 export type ParamsType = {
@@ -61,9 +61,4 @@ const handlerMap: HandlerMap = {
 	[EMetaDataType.MultipleDeviceLogin]: (get) => get(multipleDeviceLoginAtom),
 };
 
-export const nodeRuntimeDataAtom = ({ type, index }: ParamsType) => {
-	return atom((get) => {
-		const handler = handlerMap[type!];
-		return handler ? handler(get, index) : undefined;
-	});
-};
+export default handlerMap;
