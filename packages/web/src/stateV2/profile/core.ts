@@ -92,6 +92,7 @@ export const friendsTotalCountDisplayConfigAtom =
 		"friendsTotalCountDisplayConfig",
 		{
 			calcuateType: "auto",
+			count: 4,
 		},
 		undefined,
 		{ getOnInit: true },

@@ -1,3 +1,5 @@
+import "./shim";
+
 import { mkdir } from "node:fs/promises";
 import { resolve } from "node:path";
 import { cors } from "@elysiajs/cors";
@@ -8,7 +10,6 @@ import { env } from "bun";
 import { Elysia, t } from "elysia";
 import { rateLimit } from "elysia-rate-limit";
 import { z } from "zod";
-import "./shim";
 import { openai } from "./provider";
 
 const prisma = new PrismaClient();
