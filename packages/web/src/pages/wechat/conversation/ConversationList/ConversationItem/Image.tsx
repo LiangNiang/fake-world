@@ -1,6 +1,6 @@
 import PlayFilledSVG from "@/assets/play-filled.svg?react";
 import { h } from "@/components/HashAssets";
-import { ImageDBManager } from "@/dataSource";
+import { IMAGES_CACHE, initDBImagesCacheStore } from "@/db";
 import type { IConversationTypeImage } from "@/stateV2/conversation";
 import type { IStateProfile } from "@/stateV2/profile";
 import { isMD5 } from "@/utils";
@@ -21,8 +21,8 @@ const Image = ({ imageInfo, upperText, senderId, role, isVideo }: Props) => {
 
 	useEffect(() => {
 		if (isMD5(imageInfo)) {
-			ImageDBManager.initDBImagesCacheStore().then(() => {
-				calcShape(ImageDBManager.IMAGES_CACHE.get(imageInfo) ?? "");
+			initDBImagesCacheStore().then(() => {
+				calcShape(IMAGES_CACHE.get(imageInfo) ?? "");
 			});
 		} else {
 			calcShape(imageInfo);

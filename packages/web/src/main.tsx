@@ -7,14 +7,14 @@ import { Provider } from "jotai";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { ImageDBManager } from "./dataSource/DBManagers.ts";
+import { initDBImagesCacheStore } from "./db";
 import { routes } from "./router/index.tsx";
 import { mainStore } from "./stateV2/store.ts";
 import { initDayjs } from "./time.ts";
 import { backendHealthCheck } from "./utils.ts";
 
 initDayjs();
-ImageDBManager.initDBImagesCacheStore();
+initDBImagesCacheStore();
 backendHealthCheck();
 
 const router = createBrowserRouter(routes);

@@ -28,7 +28,7 @@ const ConversationListMetaDataEditor = ({ index }: EditorProps<unknown, IStatePr
 			if (listElement) {
 				listElement.scrollTop = 9999999;
 			}
-		});
+		}, 100);
 	}, []);
 
 	const onFinish = (values: TConversationItem) => {

@@ -28,7 +28,7 @@ export default defineConfig({
 				manualChunks: {
 					react: ["react", "react-dom", "react-router-dom"],
 					antd: ["antd", "@ant-design/icons"],
-					dexie: ["dexie", "dexie-react-hooks", "dexie-export-import"],
+					dexie: ["dexie"],
 					slate: ["slate", "slate-history", "slate-react"],
 					faker: ["@faker-js/faker"],
 					i18n: [

@@ -1,7 +1,8 @@
-import { imageDB, imageDBManager } from "@/dataSource";
+import { HASH_ASSETS_DB_NAME, hashAssetsDB } from "@/db";
 import { touredAtom } from "@/stateV2/tour";
 import { InfoCircleOutlined } from "@ant-design/icons";
 import { App, Button, Dropdown, Tooltip } from "antd";
+import Dexie from "dexie";
 import { useSetAtom } from "jotai";
 import { useTranslation } from "react-i18next";
 import useAppInfo from "../useAppInfo";
@@ -54,7 +55,7 @@ const MainMenu = () => {
 								content: t("menu.mainBlock.clearAllDesc"),
 								onOk: async () => {
 									localStorage.clear();
-									await imageDBManager.removeDB();
+									await Dexie.delete(HASH_ASSETS_DB_NAME);
 									window.location.reload();
 								},
 							});
@@ -68,7 +69,7 @@ const MainMenu = () => {
 							],
 							onClick: async ({ key }) => {
 								if (key === "1") {
-									await imageDB.images.clear();
+									await hashAssetsDB.images.clear();
 									window.location.reload();
 								}
 							},
