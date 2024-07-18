@@ -24,12 +24,13 @@
 		"yes": "Yes",
 		"no": "No",
 		"operation": "Operation",
-		"delete": "Delete"
+		"delete": "Delete",
+		"copySuccess": "Copy Success"
 	},
 	"menu": {
 		"main": "Main Page",
 		"trees": "Editable Node Outline",
-		"code": "Edit Current Metadata",
+		"code": "Current Metadata",
 		"dataSource": "Data Source",
 		"settings": "Settings",
 		"treesBlock": {
@@ -49,32 +50,6 @@
 			"clearFriends": "Delete all randomly added friends?",
 			"device": {
 				"auto": "Auto"
-			}
-		},
-		"dataSourceManage": {
-			"name": "Name",
-			"type": "Type",
-			"local": "Local",
-			"share": "Share",
-			"used": "Used",
-			"shareKey": "Share Key",
-			"defaultData": "Default Data Source",
-			"manage": "Manage Data Sources",
-			"new": "Create New Data Source",
-			"autoGenerate": "Auto-generate",
-			"create": "Create",
-			"loadShare": {
-				"title": "Load External Shared Data Source",
-				"placeholder": "Please enter the data source sharing ID",
-				"load": "Load",
-				"errorEmpty": "The sharing ID cannot be empty",
-				"errorLoaded": "This data source has already been loaded"
-			},
-			"list": "List of Data Sources",
-			"operation": {
-				"share": "Share",
-				"unShare": "Cancel Sharing",
-				"enable": "Enable"
 			}
 		},
 		"tourTip1": "Click the switch on the right or use the shortcut Shift + Z to enter editing mode. Select a block on the canvas in the middle and edit the page in WYSIWYG (What You See Is What You Get) mode.",

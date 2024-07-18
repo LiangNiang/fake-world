@@ -24,12 +24,13 @@
 		"yes": "是",
 		"no": "否",
 		"operation": "操作",
-		"delete": "刪除"
+		"delete": "刪除",
+    "copySuccess": "複製成功"
 	},
 	"menu": {
 		"main": "主頁",
 		"trees": "可編輯節點大綱",
-		"code": "編輯當前元數據",
+		"code": "當前元數據",
 		"dataSource": "數據源",
 		"settings": "設定",
 		"treesBlock": {
@@ -49,32 +50,6 @@
 			"clearFriends": "刪除所有隨機新增好友？",
 			"device": {
 				"auto": "自動"
-			}
-		},
-		"dataSourceManage": {
-			"name": "名字",
-			"type": "類型",
-			"local": "本地",
-			"share": "共享",
-			"used": "是否使用",
-			"shareKey": "分享 Key",
-			"defaultData": "預設數據源",
-			"manage": "管理數據源",
-			"new": "新建數據源",
-			"autoGenerate": "自動生成",
-			"create": "創建",
-			"loadShare": {
-				"title": "加載外部分享數據源",
-				"placeholder": "請輸入數據源分享 ID",
-				"load": "加載",
-				"errorEmpty": "分享 ID 不能為空",
-				"errorLoaded": "該數據源已經加載過了"
-			},
-			"list": "數據源列表",
-			"operation": {
-				"share": "分享",
-				"unShare": "取消分享",
-				"enable": "啟用"
 			}
 		},
 		"tourTip1": "點擊右側的開關或使用快捷鍵 Shift + Z 進入編輯模式，在中間畫布中選取區塊，對頁面進行所見即所得的編輯",

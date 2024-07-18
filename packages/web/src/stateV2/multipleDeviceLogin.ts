@@ -1,4 +1,4 @@
-import atomWithStorage from "./base";
+import atomWithStorage from "./atomWithStorage";
 import { mainStore } from "./store";
 
 export const ALL_LOGIN_DEVICES = ["Windows", "iPad", "Mac", "Watch", "Desktop"] as const;

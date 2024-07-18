@@ -4,7 +4,7 @@ import { type SetStateAction, atom } from "jotai";
 import { focusAtom } from "jotai-optics";
 import { atomFamily, selectAtom } from "jotai/utils";
 import type { OpticFor_ } from "optics-ts";
-import atomWithStorage from "../base";
+import atomWithStorage from "../atomWithStorage";
 import { mainStore } from "../store";
 import { debounceGenerateNameAnchorGroup, type generateNameAnchorGroup } from "./helpers";
 import type {

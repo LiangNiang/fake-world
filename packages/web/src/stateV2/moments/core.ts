@@ -5,7 +5,7 @@ import { focusAtom } from "jotai-optics";
 import { atomFamily } from "jotai/utils";
 import { groupBy } from "lodash-es";
 import type { OpticFor_ } from "optics-ts";
-import atomWithStorage from "../base";
+import atomWithStorage from "../atomWithStorage";
 import type { IStateProfile } from "../profile";
 import { mainStore } from "../store";
 import type { IStateFeed, TStateFeedLst } from "./typing";

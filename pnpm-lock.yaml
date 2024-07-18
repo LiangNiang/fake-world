@@ -158,6 +158,9 @@ importers:
       axios:
         specifier: ^1.7.2
         version: 1.7.2
+      copy-to-clipboard:
+        specifier: ^3.3.3
+        version: 3.3.3
       dayjs:
         specifier: ^1.11.11
         version: 1.11.11

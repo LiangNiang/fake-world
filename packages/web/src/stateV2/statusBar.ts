@@ -1,6 +1,6 @@
 import { type SetStateAction, atom } from "jotai";
 import type { CSSProperties } from "react";
-import atomWithStorage from "./base";
+import atomWithStorage from "./atomWithStorage";
 import { mainStore } from "./store";
 
 export type TStateStatusBar = {

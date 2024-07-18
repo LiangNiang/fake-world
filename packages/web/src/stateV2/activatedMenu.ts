@@ -1,4 +1,4 @@
-import atomWithStorage from "./base";
+import atomWithStorage from "./atomWithStorage";
 
 export enum EMenus {
 	Main = "main",

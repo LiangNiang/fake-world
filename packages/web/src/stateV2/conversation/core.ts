@@ -2,7 +2,7 @@ import { dequal } from "dequal/lite";
 import type { SetStateAction } from "jotai";
 import { focusAtom } from "jotai-optics";
 import { atomFamily } from "jotai/utils";
-import atomWithStorage from "../base";
+import atomWithStorage from "../atomWithStorage";
 import type { IStateProfile } from "../profile";
 import { mainStore } from "../store";
 import { MOCK_INIT_CONVERSATION_LIST } from "./consts";

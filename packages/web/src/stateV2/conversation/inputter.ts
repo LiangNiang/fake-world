@@ -1,7 +1,7 @@
 import { SLATE_INITIAL_VALUE } from "@/wechatComponents/SlateText/utils";
 import { atom } from "jotai";
 import type { Descendant } from "slate";
-import atomWithStorage from "../base";
+import atomWithStorage from "../atomWithStorage";
 import { mainStore } from "../store";
 import type { TConversationRole } from "./typing";
 

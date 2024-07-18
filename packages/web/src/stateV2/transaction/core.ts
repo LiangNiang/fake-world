@@ -6,7 +6,7 @@ import {
 	DEFAULT_TRANSFER,
 } from "@/faker/wechat/transaction";
 import type { SetStateAction } from "jotai";
-import atomWithStorage from "../base";
+import atomWithStorage from "../atomWithStorage";
 import { mainStore } from "../store";
 import type {
 	IStateTransactionCreditCardRepayments,

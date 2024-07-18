@@ -1,5 +1,5 @@
 import { atomEffect } from "jotai-effect";
-import atomWithStorage from "./base";
+import atomWithStorage from "./atomWithStorage";
 import { bottomNavbarsAtom } from "./bottomNavbars";
 import { mainStore } from "./store";
 

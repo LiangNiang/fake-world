@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import atomWithStorage from "./base";
+import atomWithStorage from "./atomWithStorage";
 import { mainStore } from "./store";
 
 export type TStateTourTarget = {

@@ -4,7 +4,7 @@ import { atomEffect } from "jotai-effect";
 import { focusAtom } from "jotai-optics";
 import { atomFamily } from "jotai/utils";
 import type { OpticFor_ } from "optics-ts";
-import atomWithStorage from "./base";
+import atomWithStorage from "./atomWithStorage";
 import type { IStateProfile } from "./profile";
 import { mainStore } from "./store";
 import { getUnreadCountValueSnapshot, unreadCountAtom } from "./unreadCount";

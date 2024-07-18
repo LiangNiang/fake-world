@@ -24,12 +24,13 @@
 		"yes": "是",
 		"no": "否",
 		"operation": "操作",
-		"delete": "删除"
+		"delete": "删除",
+		"copySuccess": "复制成功"
 	},
 	"menu": {
 		"main": "主页",
 		"trees": "可编辑节点大纲",
-		"code": "编辑当前元数据",
+		"code": "当前元数据",
 		"dataSource": "数据源",
 		"settings": "设置",
 		"treesBlock": {
@@ -49,32 +50,6 @@
 			"clearFriends": "删除所有随机添加好友？",
 			"device": {
 				"auto": "自动"
-			}
-		},
-		"dataSourceManage": {
-			"name": "名字",
-			"type": "类型",
-			"local": "本地",
-			"share": "共享",
-			"used": "是否使用",
-			"shareKey": "分享 Key",
-			"defaultData": "默认数据源",
-			"manage": "管理数据源",
-			"new": "新建数据源",
-			"autoGenerate": "自动生成",
-			"create": "创建",
-			"loadShare": {
-				"title": "加载外部分享数据源",
-				"placeholder": "请输入数据源分享 ID",
-				"load": "加载",
-				"errorEmpty": "分享 ID 不能为空",
-				"errorLoaded": "该数据源已经加载过了"
-			},
-			"list": "数据源列表",
-			"operation": {
-				"share": "分享",
-				"unShare": "取消分享",
-				"enable": "启用"
 			}
 		},
 		"tourTip1": "点击右边的开关或者使用快捷键 shift + z 进入编辑模式，在中间画布中选取区块，对页面进行所见即所得的编辑",

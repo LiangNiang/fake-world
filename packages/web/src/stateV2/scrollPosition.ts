@@ -1,6 +1,6 @@
 import { dequal } from "dequal/lite";
 import { atomFamily } from "jotai/utils";
-import atomWithStorage from "./base";
+import atomWithStorage from "./atomWithStorage";
 import { mainStore } from "./store";
 
 export const scrollPositionAtomFamily = atomFamily((param: string) => {
