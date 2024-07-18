@@ -29,15 +29,6 @@ importers:
       '@elysiajs/cors':
         specifier: ^1.0.4
         version: 1.0.4(elysia@1.0.27(@sinclair/typebox@0.32.31)(typescript@5.3.3))
-      '@elysiajs/static':
-        specifier: ^1.0.3
-        version: 1.0.3(elysia@1.0.27(@sinclair/typebox@0.32.31)(typescript@5.3.3))
-      '@elysiajs/stream':
-        specifier: ^1.0.3
-        version: 1.0.3(elysia@1.0.27(@sinclair/typebox@0.32.31)(typescript@5.3.3))
-      '@prisma/client':
-        specifier: 5.16.2
-        version: 5.16.2(prisma@5.16.2)
       ai:
         specifier: ^3.2.19
         version: 3.2.19(react@18.3.1)(svelte@4.2.18)(vue@3.4.31(typescript@5.3.3))(zod@3.23.8)
@@ -50,9 +41,6 @@ importers:
       nanoid:
         specifier: ^5.0.5
         version: 5.0.5
-      prisma:
-        specifier: ^5.16.2
-        version: 5.16.2
       zod:
         specifier: ^3.23.8
         version: 3.23.8
@@ -590,16 +578,6 @@ packages:
     peerDependencies:
       elysia: '>= 1.0.2'
 
-  '@elysiajs/static@1.0.3':
-    resolution: {integrity: sha512-+oMDfqRC8OFgzsrHQBUjlMHTUqYAyFpq3HPaHochgs9a+i/SBKfX6Ow4kepBIOMTlf43knw3wfHu6sEVsXzLRw==}
-    peerDependencies:
-      elysia: '>= 1.0.2'
-
-  '@elysiajs/stream@1.0.3':
-    resolution: {integrity: sha512-P9Cq6iLyFjlTWkdkKm6zWtASAIWVPgTH+RMKb2TwXTGzd83WiWhZsnbiA35tScgqUZpgG32EsUz/RkCt7nHHsQ==}
-    peerDependencies:
-      elysia: '>= 1.0.2'
-
   '@emotion/babel-plugin@11.11.0':
     resolution: {integrity: sha512-m4HEDZleaaCH+XgDDsPF15Ht6wTLsgDTeR3WYj9Q/k76JtWhrJjcP4+/XlG8LGT/Rol9qUfOIztXeA84ATpqPQ==}
 
@@ -1067,30 +1045,6 @@ packages:
   '@pnpm/npm-conf@2.2.2':
     resolution: {integrity: sha512-UA91GwWPhFExt3IizW6bOeY/pQ0BkuNwKjk9iQW9KqxluGCrg4VenZ0/L+2Y0+ZOtme72EVvg6v0zo3AMQRCeA==}
     engines: {node: '>=12'}
-
-  '@prisma/client@5.16.2':
-    resolution: {integrity: sha512-+1lmkhR9gHWcTC5oghm2ZKpWljyWdzfazCVlLKUWXVmwHSf52g81aZ8qb6Km5Bs025yBi7puLp3qSLEvktoUtw==}
-    engines: {node: '>=16.13'}
-    peerDependencies:
-      prisma: '*'
-    peerDependenciesMeta:
-      prisma:
-        optional: true
-
-  '@prisma/debug@5.16.2':
-    resolution: {integrity: sha512-ItzB4nR4O8eLzuJiuP3WwUJfoIvewMHqpGCad+64gvThcKEVOtaUza9AEJo2DPqAOa/AWkFyK54oM4WwHeew+A==}
-
-  '@prisma/engines-version@5.16.0-24.34ace0eb2704183d2c05b60b52fba5c43c13f303':
-    resolution: {integrity: sha512-HkT2WbfmFZ9WUPyuJHhkiADxazHg8Y4gByrTSVeb3OikP6tjQ7txtSUGu9OBOBH0C13dPKN2qqH12xKtHu/Hiw==}
-
-  '@prisma/engines@5.16.2':
-    resolution: {integrity: sha512-qUxwMtrwoG3byd4PbX6T7EjHJ8AUhzTuwniOGkh/hIznBfcE2QQnGakyEq4VnwNuttMqvh/GgPFapHQ3lCuRHg==}
-
-  '@prisma/fetch-engine@5.16.2':
-    resolution: {integrity: sha512-sq51lfHKfH2jjYSjBtMjP+AznFqOJzXpqmq6B9auWrlTJrMgZ7lPyhWUW7VU7LsQU48/TJ+DZeIz8s9bMYvcHg==}
-
-  '@prisma/get-platform@5.16.2':
-    resolution: {integrity: sha512-cXiHPgNLNyj22vLouPVNegklpRL/iX2jxTeap5GRO3DmCoVyIHmJAV1CgUMUJhHlcol9yYy7EHvsnXTDJ/PKEA==}
 
   '@puppeteer/browsers@1.7.1':
     resolution: {integrity: sha512-nIb8SOBgDEMFY2iS2MdnUZOg2ikcYchRrBoF+wtdjieRFKR2uGRipHY/oFLo+2N6anDualyClPzGywTHRGrLfw==}
@@ -1863,10 +1817,6 @@ packages:
 
   clone@1.0.4:
     resolution: {integrity: sha512-JQHZ2QMW6l3aH/j6xCqQThY/9OH4D/9ls34cgkUBiEeocRTU04tHfKPBsUK1PqZCUQM7GiA0IIXJSuXHI64Kbg==}
-    engines: {node: '>=0.8'}
-
-  clone@2.1.2:
-    resolution: {integrity: sha512-3Pe/CF1Nn94hyhIYpjtiLhdCoEoz0DqQ+988E9gmeEdQZlojxnOb74wctFyuwWQHzqyf9X7C7MG8juUpqBJT8w==}
     engines: {node: '>=0.8'}
 
   code-inspector-core@0.14.2:
@@ -3058,10 +3008,6 @@ packages:
   no-case@3.0.4:
     resolution: {integrity: sha512-fgAN3jGAh+RoxUGZHTSOLJIqUc2wmoBwGR4tbpNAKmmovFoWq0OdRkb0VkldReO2a2iBT/OEulG9XSUc10r3zg==}
 
-  node-cache@5.1.2:
-    resolution: {integrity: sha512-t1QzWwnk4sjLWaQAS8CHgOJ+RAfmHpxFWmc36IWTiWHQfs0w5JDMBS1b1ZxQteo0vVVuWJvIUKHDkkeK7vIGCg==}
-    engines: {node: '>= 8.0.0'}
-
   node-domexception@1.0.0:
     resolution: {integrity: sha512-/jKZoMpw0F8GRwl4/eLROPA3cfcXtLApP0QzLmUT/HuPCZWyB7IY9ZrMeKw2O/nFIqPQB3PVM9aYm0F312AXDQ==}
     engines: {node: '>=10.5.0'}
@@ -3298,11 +3244,6 @@ packages:
   postcss@8.4.39:
     resolution: {integrity: sha512-0vzE+lAiG7hZl1/9I8yzKLx3aR9Xbof3fBHKunvMfOCYAtMhrsnccJY2iTURb9EZd5+pLuiNV9/c/GZJOHsgIw==}
     engines: {node: ^10 || ^12 || >=14}
-
-  prisma@5.16.2:
-    resolution: {integrity: sha512-rFV/xoBR2hBGGlu4LPLQd4U8WVA+tSAmYyFWGPRVfj+xg7N4kiZV4lSk38htSpF+/IuHKzlrbh4SFk8Z18cI8A==}
-    engines: {node: '>=16.13'}
-    hasBin: true
 
   progress@2.0.3:
     resolution: {integrity: sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==}
@@ -4708,16 +4649,6 @@ snapshots:
     dependencies:
       elysia: 1.0.27(@sinclair/typebox@0.32.31)(typescript@5.3.3)
 
-  '@elysiajs/static@1.0.3(elysia@1.0.27(@sinclair/typebox@0.32.31)(typescript@5.3.3))':
-    dependencies:
-      elysia: 1.0.27(@sinclair/typebox@0.32.31)(typescript@5.3.3)
-      node-cache: 5.1.2
-
-  '@elysiajs/stream@1.0.3(elysia@1.0.27(@sinclair/typebox@0.32.31)(typescript@5.3.3))':
-    dependencies:
-      elysia: 1.0.27(@sinclair/typebox@0.32.31)(typescript@5.3.3)
-      nanoid: 5.0.5
-
   '@emotion/babel-plugin@11.11.0':
     dependencies:
       '@babel/helper-module-imports': 7.22.15
@@ -5149,31 +5080,6 @@ snapshots:
       '@pnpm/config.env-replace': 1.1.0
       '@pnpm/network.ca-file': 1.0.2
       config-chain: 1.1.13
-
-  '@prisma/client@5.16.2(prisma@5.16.2)':
-    optionalDependencies:
-      prisma: 5.16.2
-
-  '@prisma/debug@5.16.2': {}
-
-  '@prisma/engines-version@5.16.0-24.34ace0eb2704183d2c05b60b52fba5c43c13f303': {}
-
-  '@prisma/engines@5.16.2':
-    dependencies:
-      '@prisma/debug': 5.16.2
-      '@prisma/engines-version': 5.16.0-24.34ace0eb2704183d2c05b60b52fba5c43c13f303
-      '@prisma/fetch-engine': 5.16.2
-      '@prisma/get-platform': 5.16.2
-
-  '@prisma/fetch-engine@5.16.2':
-    dependencies:
-      '@prisma/debug': 5.16.2
-      '@prisma/engines-version': 5.16.0-24.34ace0eb2704183d2c05b60b52fba5c43c13f303
-      '@prisma/get-platform': 5.16.2
-
-  '@prisma/get-platform@5.16.2':
-    dependencies:
-      '@prisma/debug': 5.16.2
 
   '@puppeteer/browsers@1.7.1':
     dependencies:
@@ -6049,8 +5955,6 @@ snapshots:
       wrap-ansi: 7.0.0
 
   clone@1.0.4: {}
-
-  clone@2.1.2: {}
 
   code-inspector-core@0.14.2:
     dependencies:
@@ -7301,10 +7205,6 @@ snapshots:
       lower-case: 2.0.2
       tslib: 2.6.2
 
-  node-cache@5.1.2:
-    dependencies:
-      clone: 2.1.2
-
   node-domexception@1.0.0: {}
 
   node-fetch@2.7.0:
@@ -7546,10 +7446,6 @@ snapshots:
       nanoid: 3.3.7
       picocolors: 1.0.1
       source-map-js: 1.2.0
-
-  prisma@5.16.2:
-    dependencies:
-      '@prisma/engines': 5.16.2
 
   progress@2.0.3: {}
 

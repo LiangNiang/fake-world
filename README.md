@@ -99,23 +99,15 @@ pnpm run dev:web
 ```
 #### 启动后端项目 （非必需）
 
-如果是初次启动，需要配置本地的数据库环境，
-
-```bash
-docker compose -f packages/api/compose/docker-compose.yaml up -d
-```
-
 在 packages/apis/.env.local 中配置相关环境变量信息，写入如下内容
 
 ```
 PORT=9000
-DATABASE_URL="mongodb://root:prisma@localhost:27017/fake-world?authSource=admin&retryWrites=true&w=majority"
-API_URL=http://localhost:9000
 OPENAI_baseURL=
 OPENAI_apiKey=
 OPENAI_model=
 ```
-OPENAI 相关的环境变量可以不配置，如果需要调试相关 AI 功能，请自行填入
+这些环境变量都不是必需的，PORT 是后端服务占用的端口号，默认为 9000，OPENAI 相关的环境变量如果需要调试相关 AI 功能，可以自行填入。
 
 
 然后在项目根目录执行
