@@ -6,7 +6,7 @@ import {
 	DEFAULT_TRANSFER,
 } from "@/faker/wechat/transaction";
 import type { SetStateAction } from "jotai";
-import { atomWithStorage } from "jotai/utils";
+import atomWithStorage from "../base";
 import { mainStore } from "../store";
 import type {
 	IStateTransactionCreditCardRepayments,
@@ -20,36 +20,26 @@ import type {
 export const qrTransferAtom = atomWithStorage<IStateTransactionQrTransfer>(
 	"qrTransfer",
 	DEFAULT_QR_TRANSFER,
-	undefined,
-	{ getOnInit: true },
 );
 
 export const payRewardAtom = atomWithStorage<IStateTransactionPayReward>(
 	"payReward",
 	DEFAULT_PAY_REWARD,
-	undefined,
-	{ getOnInit: true },
 );
 
 export const transferAtom = atomWithStorage<IStateTransactionTransfer>(
 	"transfer",
 	DEFAULT_TRANSFER,
-	undefined,
-	{ getOnInit: true },
 );
 
 export const redPacketAtom = atomWithStorage<IStateTransactionRedPacket>(
 	"redPacket",
 	DEFAULT_RED_PACKET,
-	undefined,
-	{ getOnInit: true },
 );
 
 export const creditCardRepaymentsAtom = atomWithStorage<IStateTransactionCreditCardRepayments>(
 	"creditCardRepayments",
 	DEFAULT_CREDIT_CARD_REPAYMENTS,
-	undefined,
-	{ getOnInit: true },
 );
 
 export const USED_ATOM_MAP = {

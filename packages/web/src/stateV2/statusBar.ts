@@ -1,6 +1,6 @@
 import { type SetStateAction, atom } from "jotai";
-import { atomWithStorage } from "jotai/utils";
 import type { CSSProperties } from "react";
+import atomWithStorage from "./base";
 import { mainStore } from "./store";
 
 export type TStateStatusBar = {
@@ -20,13 +20,6 @@ export const setStatusBarValue = (args: SetStateAction<TStateStatusBar>) =>
 
 export const statusBarMountNodeAtom = atom<TStateStatusBarMountNode>(null);
 
-export const statusBarHideAtom = atomWithStorage<TStateStatusBarHide>(
-	"statusBarHide",
-	false,
-	undefined,
-	{
-		getOnInit: true,
-	},
-);
+export const statusBarHideAtom = atomWithStorage<TStateStatusBarHide>("statusBarHide", false);
 
 export const getStatusBarHideVauleSnapshot = () => mainStore.get(statusBarHideAtom);

@@ -1,4 +1,4 @@
-import { atomWithStorage } from "jotai/utils";
+import atomWithStorage from "./base";
 
 export enum EMenus {
 	Main = "main",
@@ -9,9 +9,4 @@ export enum EMenus {
 
 export type IStateActivatedMenu = EMenus;
 
-export const activatedMenuAtom = atomWithStorage<IStateActivatedMenu>(
-	"activatedMenu",
-	EMenus.Main,
-	undefined,
-	{ getOnInit: true },
-);
+export const activatedMenuAtom = atomWithStorage<IStateActivatedMenu>("activatedMenu", EMenus.Main);

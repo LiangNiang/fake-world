@@ -27,7 +27,7 @@ export default defineConfig({
 			output: {
 				manualChunks: {
 					react: ["react", "react-dom", "react-router-dom"],
-					antd: ["antd", "@ant-design/icons"],
+					antd: ["antd", "@ant-design/icons", "dayjs"],
 					dexie: ["dexie"],
 					slate: ["slate", "slate-history", "slate-react"],
 					faker: ["@faker-js/faker"],
@@ -37,6 +37,7 @@ export default defineConfig({
 						"i18next-http-backend",
 						"react-i18next",
 					],
+					"pinyin-pro": ["pinyin-pro"],
 				},
 			},
 		},

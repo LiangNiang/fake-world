@@ -2,9 +2,10 @@ import { INIT_FEEDS } from "@/faker/wechat/moments";
 import { dequal } from "dequal/lite";
 import { type SetStateAction, atom } from "jotai";
 import { focusAtom } from "jotai-optics";
-import { atomFamily, atomWithStorage } from "jotai/utils";
+import { atomFamily } from "jotai/utils";
 import { groupBy } from "lodash-es";
 import type { OpticFor_ } from "optics-ts";
+import atomWithStorage from "../base";
 import type { IStateProfile } from "../profile";
 import { mainStore } from "../store";
 import type { IStateFeed, TStateFeedLst } from "./typing";
@@ -12,9 +13,7 @@ import type { IStateFeed, TStateFeedLst } from "./typing";
 /**
  * 所有朋友圈
  */
-export const feedListAtom = atomWithStorage<TStateFeedLst>("feedList", INIT_FEEDS, undefined, {
-	getOnInit: true,
-});
+export const feedListAtom = atomWithStorage<TStateFeedLst>("feedList", INIT_FEEDS);
 
 export const getFeedListValueSnapshot = () => mainStore.get(feedListAtom);
 

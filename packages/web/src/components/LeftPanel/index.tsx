@@ -1,5 +1,5 @@
 import { EMenus, activatedMenuAtom } from "@/stateV2/activatedMenu";
-import { BarsOutlined, GithubOutlined, HomeOutlined } from "@ant-design/icons";
+import { CodeOutlined, GithubOutlined, HomeOutlined, NodeIndexOutlined } from "@ant-design/icons";
 import { Menu, type MenuProps } from "antd";
 import { useAtom } from "jotai";
 import { memo } from "react";
@@ -7,6 +7,7 @@ import Marquee from "react-fast-marquee";
 import { useTranslation } from "react-i18next";
 import CommonBlock from "./CommonBlock";
 import MainMenu from "./MainMenu";
+import SourceCodeMenu from "./SourceCodeMenu";
 import TreesMenu from "./TreesMenu";
 
 const LeftPanel = () => {
@@ -21,10 +22,14 @@ const LeftPanel = () => {
 		},
 		{
 			key: EMenus.Trees,
-			icon: <BarsOutlined />,
+			icon: <NodeIndexOutlined />,
 			title: t("menu.trees"),
 		},
-
+		{
+			key: EMenus.Code,
+			icon: <CodeOutlined />,
+			title: t("menu.code"),
+		},
 		{
 			key: EMenus.Git,
 			icon: <GithubOutlined />,
@@ -54,6 +59,7 @@ const LeftPanel = () => {
 					<CommonBlock />
 					{menu === EMenus.Main && <MainMenu />}
 					{menu === EMenus.Trees && <TreesMenu />}
+					{menu === EMenus.Code && <SourceCodeMenu />}
 				</div>
 			</div>
 			<div className="mt-auto p-4">

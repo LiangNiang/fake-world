@@ -1,4 +1,4 @@
-import { atomWithStorage } from "jotai/utils";
+import atomWithStorage from "./base";
 import { mainStore } from "./store";
 
 export enum EBottomNavBars {
@@ -19,23 +19,16 @@ export type TStateBottomNavbars = {
 	[key in EBottomNavBars]: IBottomNavbarsItemConfig;
 };
 
-export const bottomNavbarsAtom = atomWithStorage<TStateBottomNavbars>(
-	"bottomNavbars",
-	{
-		[EBottomNavBars.WECHAT]: {
-			badgeHide: false,
-			badgeNumber: 22,
-		},
-		[EBottomNavBars.ADDRESS_BOOK]: {},
-		[EBottomNavBars.DISCOVER]: {
-			badgeType: "dot",
-		},
-		[EBottomNavBars.MY]: {},
+export const bottomNavbarsAtom = atomWithStorage<TStateBottomNavbars>("bottomNavbars", {
+	[EBottomNavBars.WECHAT]: {
+		badgeHide: false,
+		badgeNumber: 22,
 	},
-	undefined,
-	{
-		getOnInit: true,
+	[EBottomNavBars.ADDRESS_BOOK]: {},
+	[EBottomNavBars.DISCOVER]: {
+		badgeType: "dot",
 	},
-);
+	[EBottomNavBars.MY]: {},
+});
 
 export const getBottomNavbarsValueSnapshot = () => mainStore.get(bottomNavbarsAtom);

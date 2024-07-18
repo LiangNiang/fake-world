@@ -1,4 +1,4 @@
-import { atomWithStorage } from "jotai/utils";
+import atomWithStorage from "./base";
 import { mainStore } from "./store";
 
 export const ALL_LOGIN_DEVICES = ["Windows", "iPad", "Mac", "Watch", "Desktop"] as const;
@@ -13,10 +13,6 @@ export const multipleDeviceLoginAtom = atomWithStorage<TStateMultipleDeviceLogin
 	{
 		devices: ["iPad"],
 		visible: true,
-	},
-	undefined,
-	{
-		getOnInit: true,
 	},
 );
 

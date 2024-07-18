@@ -1,7 +1,7 @@
 import { SLATE_INITIAL_VALUE } from "@/wechatComponents/SlateText/utils";
 import { atom } from "jotai";
-import { atomWithStorage } from "jotai/utils";
 import type { Descendant } from "slate";
+import atomWithStorage from "../base";
 import { mainStore } from "../store";
 import type { TConversationRole } from "./typing";
 
@@ -31,6 +31,4 @@ export const getInputterValueSnapshot = () => mainStore.get(inputterValueAtom);
  * 最近使用的表情
  */
 
-export const recentUsedEmojiAtom = atomWithStorage<string[]>("recentUsedEmoji", [], undefined, {
-	getOnInit: true,
-});
+export const recentUsedEmojiAtom = atomWithStorage<string[]>("recentUsedEmoji", []);

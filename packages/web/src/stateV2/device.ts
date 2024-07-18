@@ -1,4 +1,4 @@
-import { atomWithStorage } from "jotai/utils";
+import atomWithStorage from "./base";
 import { mainStore } from "./store";
 
 export enum MOBILE_LIST {
@@ -42,9 +42,7 @@ export const SCREEN_SIZE = {
 	},
 };
 
-export const deviceAtom = atomWithStorage<MOBILE_LIST>("device", MOBILE_LIST.AUTO, undefined, {
-	getOnInit: true,
-});
+export const deviceAtom = atomWithStorage<MOBILE_LIST>("device", MOBILE_LIST.AUTO);
 
 window.setDevice = (v) => {
 	mainStore.set(deviceAtom, v as MOBILE_LIST);

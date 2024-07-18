@@ -1,5 +1,5 @@
 import { atomEffect } from "jotai-effect";
-import { atomWithStorage } from "jotai/utils";
+import atomWithStorage from "./base";
 import { bottomNavbarsAtom } from "./bottomNavbars";
 import { mainStore } from "./store";
 
@@ -8,17 +8,10 @@ export type TStateUnreadCount = {
 	calcuateType: "static" | "auto";
 };
 
-export const unreadCountAtom = atomWithStorage<TStateUnreadCount>(
-	"unreadCount",
-	{
-		count: 13,
-		calcuateType: "auto",
-	},
-	undefined,
-	{
-		getOnInit: true,
-	},
-);
+export const unreadCountAtom = atomWithStorage<TStateUnreadCount>("unreadCount", {
+	count: 13,
+	calcuateType: "auto",
+});
 
 export const getUnreadCountValueSnapshot = () => mainStore.get(unreadCountAtom);
 

@@ -2,8 +2,9 @@ import { INIT_FRIENDS, INIT_MY_PROFILE, MYSELF_ID } from "@/faker/wechat/user";
 import { dequal } from "dequal/lite";
 import { type SetStateAction, atom } from "jotai";
 import { focusAtom } from "jotai-optics";
-import { atomFamily, atomWithStorage, selectAtom } from "jotai/utils";
+import { atomFamily, selectAtom } from "jotai/utils";
 import type { OpticFor_ } from "optics-ts";
+import atomWithStorage from "../base";
 import { mainStore } from "../store";
 import { debounceGenerateNameAnchorGroup, type generateNameAnchorGroup } from "./helpers";
 import type {
@@ -15,12 +16,10 @@ import type {
 /**
  * 所有人的信息
  */
-export const allProfilesAtom = atomWithStorage<TStateAllProfiles>(
-	"allProfiles",
-	[INIT_MY_PROFILE, ...INIT_FRIENDS],
-	undefined,
-	{ getOnInit: true },
-);
+export const allProfilesAtom = atomWithStorage<TStateAllProfiles>("allProfiles", [
+	INIT_MY_PROFILE,
+	...INIT_FRIENDS,
+]);
 
 const allProfilesDEqualCompareAtom = selectAtom(allProfilesAtom, (v) => v, dequal);
 
@@ -88,15 +87,10 @@ export const allProfilesAnchorDataAtom = atom<Promise<ReturnType<typeof generate
  * 好友总数显示
  */
 export const friendsTotalCountDisplayConfigAtom =
-	atomWithStorage<TStateFriendsTotalCountDisplayConfig>(
-		"friendsTotalCountDisplayConfig",
-		{
-			calcuateType: "auto",
-			count: 4,
-		},
-		undefined,
-		{ getOnInit: true },
-	);
+	atomWithStorage<TStateFriendsTotalCountDisplayConfig>("friendsTotalCountDisplayConfig", {
+		calcuateType: "auto",
+		count: 4,
+	});
 
 export const getFriendsTotalCountDisplayConfigValueSnapshot = () =>
 	mainStore.get(friendsTotalCountDisplayConfigAtom);

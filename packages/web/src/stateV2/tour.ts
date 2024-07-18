@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { atomWithStorage } from "jotai/utils";
+import atomWithStorage from "./base";
 import { mainStore } from "./store";
 
 export type TStateTourTarget = {
@@ -7,7 +7,7 @@ export type TStateTourTarget = {
 	ref2: HTMLElement | null;
 };
 
-export const touredAtom = atomWithStorage("toured", false, undefined, { getOnInit: true });
+export const touredAtom = atomWithStorage("toured", false);
 
 export const getTouredValueSnapshot = () => mainStore.get(touredAtom);
 

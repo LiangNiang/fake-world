@@ -1,7 +1,8 @@
 import { dequal } from "dequal/lite";
 import type { SetStateAction } from "jotai";
 import { focusAtom } from "jotai-optics";
-import { atomFamily, atomWithStorage } from "jotai/utils";
+import { atomFamily } from "jotai/utils";
+import atomWithStorage from "../base";
 import type { IStateProfile } from "../profile";
 import { mainStore } from "../store";
 import { MOCK_INIT_CONVERSATION_LIST } from "./consts";
@@ -13,10 +14,6 @@ export const conversationListAtom = atomFamily((id: IStateProfile["id"]) => {
 	return atomWithStorage<TStateConversationList>(
 		`conversationList-${id}`,
 		MOCK_INIT_CONVERSATION_LIST,
-		undefined,
-		{
-			getOnInit: true,
-		},
 	);
 });
 
