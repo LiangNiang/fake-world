@@ -1,10 +1,11 @@
-import { getRecoil, resetRecoil, setRecoil } from "recoil-nexus";
-
-import { conversationState } from "@/state/conversationState";
-import { MetaDataType, allNodesTreeState, nodeFreshDataState } from "@/state/detectedNode";
-import type { StaticMetaData } from "@/state/detectedNode/typing";
-import { dialogueListState } from "@/state/dialogueState";
-import { type IFeed, allFeedsState } from "@/state/moments";
+import { setConversationListValue } from "@/stateV2/conversation";
+import {
+	EMetaDataType,
+	type StaticMetaData,
+	getNodeFreshDataValueSnapshot,
+} from "@/stateV2/detectedNode";
+import { setDialogueListValue } from "@/stateV2/dialogueList";
+import { type IStateFeed, setFeedListValue } from "@/stateV2/moments";
 
 interface Data {
 	id: string;
@@ -36,34 +37,31 @@ export function doChangeOrder(
 	fromNodeId: string,
 	to: { toNodeId: string; toFirst: boolean },
 	metaData: StaticMetaData.InjectMetaData | undefined,
+	rebuildTree: () => void,
 ) {
 	const { toNodeId, toFirst } = to;
-	const fromDataId = (getRecoil(nodeFreshDataState(fromNodeId)) as [IFeed])[0].id;
+	const fromDataId = (getNodeFreshDataValueSnapshot(fromNodeId) as [IStateFeed])[0].id;
 	let toDataId: string | null = null;
 	if (!toFirst) {
-		toDataId = (getRecoil(nodeFreshDataState(toNodeId)) as [IFeed])[0].id;
+		toDataId = (getNodeFreshDataValueSnapshot(toNodeId) as [IStateFeed])[0].id;
 	}
 	const { type } = metaData ?? {};
 	switch (type) {
-		case MetaDataType.MomentsFeed: {
-			setRecoil(allFeedsState, (prev) => moveData(prev, fromDataId, toDataId));
+		case EMetaDataType.MomentsFeed: {
+			setFeedListValue((prev) => moveData(prev, fromDataId, toDataId));
 			break;
 		}
-		case MetaDataType.DialogueItem: {
-			setRecoil(dialogueListState, (prev) => moveData(prev, fromDataId, toDataId));
+		case EMetaDataType.DialogueItem: {
+			setDialogueListValue((prev) => moveData(prev, fromDataId, toDataId));
 			break;
 		}
-		case MetaDataType.ConversationItem: {
+		case EMetaDataType.ConversationItem: {
 			const [conversationId] = metaData?.index ?? [];
-			setRecoil(conversationState(conversationId ?? ""), (prev) =>
-				moveData(prev, fromDataId, toDataId),
-			);
+			setConversationListValue(conversationId, (prev) => moveData(prev, fromDataId, toDataId));
 			break;
 		}
 		default:
 			return;
 	}
-	setTimeout(() => {
-		resetRecoil(allNodesTreeState);
-	});
+	rebuildTree();
 }

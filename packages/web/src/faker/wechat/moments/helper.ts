@@ -1,5 +1,4 @@
-import type { IFeedComment } from "@/state/moments";
-
+import type { IFeedComment } from "@/stateV2/moments";
 import { DEFAULT_FEED_COMMENT } from "./consts";
 import { randomFeedCommentId } from "./generator";
 

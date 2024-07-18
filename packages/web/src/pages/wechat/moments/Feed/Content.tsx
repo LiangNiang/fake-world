@@ -1,3 +1,15 @@
+import CommentOutlinedSVG from "@/assets/comment-outlined.svg?react";
+import LikeFilledSVG from "@/assets/like-filled.svg?react";
+import LikeOutlinedSVG from "@/assets/like-outlined.svg?react";
+import More2OutlinedSVG from "@/assets/more-2-outlined.svg?react";
+import PlayFilledSVG from "@/assets/play-filled.svg?react";
+import { h } from "@/components/HashAssets";
+import { generateInitFeedComment } from "@/faker/wechat/moments";
+import { MYSELF_ID } from "@/faker/wechat/user";
+import { getModeValueSnapshot } from "@/stateV2/mode";
+import { type IStateFeed, feedAtom } from "@/stateV2/moments";
+import SlateText from "@/wechatComponents/SlateText";
+import { SLATE_EMPTY_VALUE } from "@/wechatComponents/SlateText/utils";
 import {
 	offset,
 	useClick,
@@ -7,38 +19,24 @@ import {
 	useTransitionStyles,
 } from "@floating-ui/react";
 import dayjs from "dayjs";
+import { useAtom } from "jotai";
 import { isEqual } from "lodash-es";
 import { memo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useRecoilValue } from "recoil";
-import { getRecoil, setRecoil } from "recoil-nexus";
 import { twJoin } from "tailwind-merge";
 
-import CommentOutlinedSVG from "@/assets/comment-outlined.svg?react";
-import LikeFilledSVG from "@/assets/like-filled.svg?react";
-import LikeOutlinedSVG from "@/assets/like-outlined.svg?react";
-import More2OutlinedSVG from "@/assets/more-2-outlined.svg?react";
-import PlayFilledSVG from "@/assets/play-filled.svg?react";
-import { h } from "@/components/HashAssets";
-import { generateInitFeedComment } from "@/faker/wechat/moments";
-import { MYSELF_ID } from "@/faker/wechat/user";
-import { ModeState, modeState } from "@/state/modeState";
-import { type IFeed, feedState } from "@/state/moments";
-import SlateText from "@/wechatComponents/SlateText";
-import { SLATE_EMPTY_VALUE } from "@/wechatComponents/SlateText/utils";
-
 type Props = {
-	id: IFeed["id"];
+	id: IStateFeed["id"];
 	fromDetail?: boolean;
 };
 
 const FeedContent = ({ id, fromDetail }: Props) => {
-	const { content, sendTimestamp, likeUserIds } = useRecoilValue(feedState(id));
+	const [feed, setFeed] = useAtom(feedAtom(id));
 	const [operationsVisible, setOperationsVisible] = useState(false);
 	const { refs, floatingStyles, context } = useFloating({
 		open: operationsVisible,
 		onOpenChange: (v) => {
-			getRecoil(modeState) === ModeState.PREVIEW && setOperationsVisible(v);
+			getModeValueSnapshot() === "preview" && setOperationsVisible(v);
 		},
 		placement: "left",
 		middleware: [offset(8)],
@@ -52,6 +50,10 @@ const FeedContent = ({ id, fromDetail }: Props) => {
 	});
 	const { getReferenceProps, getFloatingProps } = useInteractions([click, dismiss]);
 	const { t, i18n } = useTranslation();
+
+	if (!feed) return null;
+
+	const { content, sendTimestamp, likeUserIds } = feed;
 
 	const isLiked = likeUserIds?.includes(MYSELF_ID);
 	const isEN = i18n.language === "en-US";
@@ -123,7 +125,7 @@ const FeedContent = ({ id, fromDetail }: Props) => {
 
 	const handleLikeByMyself = () => {
 		setOperationsVisible(false);
-		setRecoil(feedState(id), (prev) => ({
+		setFeed((prev) => ({
 			...prev,
 			likeUserIds: isLiked
 				? [...(prev.likeUserIds ?? []).filter((v) => v !== MYSELF_ID)]
@@ -133,7 +135,7 @@ const FeedContent = ({ id, fromDetail }: Props) => {
 
 	const handleClickComment = () => {
 		setOperationsVisible(false);
-		setRecoil(feedState(id), (prev) => ({
+		setFeed((prev) => ({
 			...prev,
 			comments: [...(prev.comments ?? []), generateInitFeedComment()],
 		}));

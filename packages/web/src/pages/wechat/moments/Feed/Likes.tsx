@@ -1,27 +1,26 @@
-import { EditOutlined } from "@ant-design/icons";
-import { Tooltip } from "antd";
-import { isEmpty } from "lodash-es";
-import { memo } from "react";
-import { useRecoilValue } from "recoil";
-import { twJoin, twMerge } from "tailwind-merge";
-
 import LikeOutlinedSVG from "@/assets/like-outlined.svg?react";
 import { h } from "@/components/HashAssets";
 import { canBeDetected } from "@/components/NodeDetected";
 import TopOperations from "@/components/TopOperations";
 import useModeNavigate from "@/components/useModeNavigate";
 import { MYSELF_ID } from "@/faker/wechat/user";
-import { MetaDataType } from "@/state/detectedNode";
-import { type IFeed, feedState } from "@/state/moments";
-import { type IProfile, friendState } from "@/state/profile";
+import { EMetaDataType } from "@/stateV2/detectedNode";
+import { type IStateFeed, feedAtom } from "@/stateV2/moments";
+import { type IStateProfile, profileAtom } from "@/stateV2/profile";
+import { EditOutlined } from "@ant-design/icons";
+import { Tooltip } from "antd";
+import { useAtomValue } from "jotai";
+import { isEmpty } from "lodash-es";
+import { memo } from "react";
+import { twJoin, twMerge } from "tailwind-merge";
 
 type LikeItemProps = {
-	userId: IProfile["id"];
+	userId: IStateProfile["id"];
 	displayType: "avatar" | "name";
 };
 
 const LikeItem = ({ userId, displayType }: LikeItemProps) => {
-	const { nickname, remark, avatarInfo } = useRecoilValue(friendState(userId));
+	const { nickname, remark, avatarInfo } = useAtomValue(profileAtom(userId))!;
 	const navigate = useModeNavigate({ silence: true });
 
 	const showName = displayType === "name";
@@ -44,12 +43,12 @@ const LikeItem = ({ userId, displayType }: LikeItemProps) => {
 			metaData={
 				userId === MYSELF_ID
 					? {
-							type: MetaDataType.MyProfile,
+							type: EMetaDataType.MyProfile,
 							treeItemDisplayName: (data) => `点赞（${data.nickname}）`,
 							operations,
 						}
 					: {
-							type: MetaDataType.FirendProfile,
+							type: EMetaDataType.FirendProfile,
 							index: userId,
 							treeItemDisplayName: (data) => `点赞（${data.nickname}）`,
 							operations,
@@ -58,7 +57,7 @@ const LikeItem = ({ userId, displayType }: LikeItemProps) => {
 			className={twJoin(
 				"cursor-pointer",
 				showName &&
-					`text-sm text-wechatLink-1 after:mr-2 after:ml-[2px] last:after:hidden after:text-black after:content-[',']`,
+					`text-sm text-wechatLink-1 after:mr-2 after:ml-[2px] after:text-black after:content-[','] last:after:hidden`,
 			)}
 			onClick={() => navigate(`/wechat/friend/${userId}`)}
 		>
@@ -71,18 +70,18 @@ const LikeItem = ({ userId, displayType }: LikeItemProps) => {
 };
 
 type LikeListProps = {
-	id: IFeed["id"];
+	id: IStateFeed["id"];
 	fromDetail?: boolean;
 };
 
 const LikeList = ({ id, fromDetail }: LikeListProps) => {
-	const { likeUserIds } = useRecoilValue(feedState(id));
+	const { likeUserIds } = useAtomValue(feedAtom(id))!;
 	if (isEmpty(likeUserIds)) return null;
 	return (
 		<canBeDetected.div
 			className={twMerge("flex p-1", fromDetail && "p-2")}
 			metaData={{
-				type: MetaDataType.FeedLikes,
+				type: EMetaDataType.FeedLikes,
 				index: id,
 				treeItemDisplayName: (data) => `${data.length}人点赞`,
 				operations: [

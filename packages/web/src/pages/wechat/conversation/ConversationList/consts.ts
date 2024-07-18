@@ -2,7 +2,7 @@ import type {
 	IConversationTypeRedPacket,
 	IConversationTypeTransfer,
 	TConversationRole,
-} from "@/state/conversationState";
+} from "@/stateV2/conversation";
 
 export const TRANSFER_TEXT_NOTE_MAP: Record<
 	IConversationTypeTransfer["originalSender"],

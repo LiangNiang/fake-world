@@ -1,20 +1,18 @@
+import { type IFeedComment, type IStateFeed, feedAtom } from "@/stateV2/moments";
 import { DatePicker, Form } from "antd";
 import dayjs from "dayjs";
-import { useSetRecoilState } from "recoil";
-
-import { type IFeed, type IFeedComment, feedState } from "@/state/moments";
-
+import { useSetAtom } from "jotai";
 import FriendSelect from "./FriendSelect";
 import SlateInput from "./SlateInput";
 
 const FeedCommentItemMetaDataEditor = ({
 	data,
 	index,
-}: EditorProps<IFeedComment, [IFeed["id"], IFeedComment["id"]]>) => {
+}: EditorProps<IFeedComment, [IStateFeed["id"], IFeedComment["id"]]>) => {
 	const [feedId, commentId] = index;
 
 	const [form] = Form.useForm<IFeedComment>();
-	const setFeed = useSetRecoilState(feedState(feedId));
+	const setFeed = useSetAtom(feedAtom(feedId));
 
 	const onFinish = (values: IFeedComment) => {
 		setFeed((prev) => ({

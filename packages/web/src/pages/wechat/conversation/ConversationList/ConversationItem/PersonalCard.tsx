@@ -1,16 +1,14 @@
-import { memo } from "react";
-
 import { h } from "@/components/HashAssets";
-import type { IConversationTypePersonalCard } from "@/state/conversationState";
-import type { IProfile } from "@/state/profile";
-
+import type { IConversationTypePersonalCard } from "@/stateV2/conversation";
+import type { IStateProfile } from "@/stateV2/profile";
+import { memo } from "react";
 import CommonBlock from "./CommonBlock";
 
 type Props = {
 	upperText: IConversationTypePersonalCard["upperText"];
 	avatarInfo: IConversationTypePersonalCard["avatarInfo"];
 	nickname: IConversationTypePersonalCard["nickname"];
-	senderId: IProfile["id"];
+	senderId: IStateProfile["id"];
 };
 
 const PersonalCard = ({ upperText, senderId, avatarInfo, nickname }: Props) => {

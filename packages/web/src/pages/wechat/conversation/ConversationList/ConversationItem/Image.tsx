@@ -1,19 +1,17 @@
-import { memo, useEffect, useState } from "react";
-import { twJoin } from "tailwind-merge";
-
 import PlayFilledSVG from "@/assets/play-filled.svg?react";
 import { h } from "@/components/HashAssets";
-import { ImageDBManager } from "@/dataSource";
-import type { IConversationTypeImage } from "@/state/conversationState";
-import type { IProfile } from "@/state/profile";
+import { IMAGES_CACHE, initDBImagesCacheStore } from "@/db";
+import type { IConversationTypeImage } from "@/stateV2/conversation";
+import type { IStateProfile } from "@/stateV2/profile";
 import { isMD5 } from "@/utils";
-
+import { memo, useEffect, useState } from "react";
+import { twJoin } from "tailwind-merge";
 import CommonBlock from "./CommonBlock";
 
 type Props = {
 	imageInfo: IConversationTypeImage["imageInfo"];
 	upperText: IConversationTypeImage["upperText"];
-	senderId: IProfile["id"];
+	senderId: IStateProfile["id"];
 	role: IConversationTypeImage["role"];
 	isVideo?: boolean;
 };
@@ -23,8 +21,8 @@ const Image = ({ imageInfo, upperText, senderId, role, isVideo }: Props) => {
 
 	useEffect(() => {
 		if (isMD5(imageInfo)) {
-			ImageDBManager.initDBImagesCacheStore().then(() => {
-				calcShape(ImageDBManager.IMAGES_CACHE.get(imageInfo) ?? "");
+			initDBImagesCacheStore().then(() => {
+				calcShape(IMAGES_CACHE.get(imageInfo) ?? "");
 			});
 		} else {
 			calcShape(imageInfo);

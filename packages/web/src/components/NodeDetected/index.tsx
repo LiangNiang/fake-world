@@ -1,5 +1,14 @@
+import {
+	type IStateNode,
+	type StaticMetaData,
+	activatedNodeAtom,
+	getActivatedNodeValueSnapshot,
+	hoveredNodeAtom,
+} from "@/stateV2/detectedNode";
+import { nodesAtomsAtom } from "@/stateV2/detectedNode/nodeAtom";
 import { useMergeRefs } from "@floating-ui/react";
-import { useUpdateEffect } from "ahooks";
+import { useCreation, useUpdateEffect } from "ahooks";
+import { atom, useSetAtom } from "jotai";
 import { isArray, omit } from "lodash-es";
 import {
 	type HTMLAttributes,
@@ -12,18 +21,7 @@ import {
 	useId,
 	useRef,
 } from "react";
-import { getRecoil, resetRecoil, setRecoil } from "recoil-nexus";
 import Sortable from "sortablejs";
-
-import {
-	activatedNodeState,
-	flag2State,
-	hoverdNodeState,
-	nodeDataState,
-	nodeInjectMetaState,
-} from "@/state/detectedNode";
-import type { StaticMetaData } from "@/state/detectedNode/typing";
-
 import useMode from "../useMode";
 
 export type InjectProps = {
@@ -44,8 +42,21 @@ function canBeDetected<T extends object>(
 	const NodeDetected = (
 		props: InjectProps & T & HTMLAttributes<void> & { innerRef?: Ref<any> },
 	) => {
-		const { metaData: injectMetaData, innerRef, id: preId } = props;
+		const { metaData: injectMetaData, innerRef, id: preId, nodeTreeSort } = props;
 		const id = preId ?? useId();
+		const currentNodeAtom = useCreation(
+			() =>
+				atom<IStateNode>({
+					id,
+					injectMetaData,
+					nodeTreeSort: !!nodeTreeSort,
+				}),
+			[],
+		);
+		const setCurrentNode = useSetAtom(currentNodeAtom);
+		const setHovered = useSetAtom(hoveredNodeAtom);
+		const setActivated = useSetAtom(activatedNodeAtom);
+		const setNodesAtoms = useSetAtom(nodesAtomsAtom);
 		const divRef = useRef<Element>(null);
 		const mergedRef = useMergeRefs([divRef, innerRef]);
 		const { isPreview } = useMode();
@@ -60,47 +71,45 @@ function canBeDetected<T extends object>(
 			: mapCompared(injectMetaData);
 
 		useEffect(() => {
-			setRecoil(flag2State, false);
-			setTimeout(() => {
-				if (divRef.current) {
-					setRecoil(nodeInjectMetaState(id), injectMetaData);
-					setRecoil(nodeDataState(id), {
-						id,
-						domElement: divRef.current,
-						nodeTreeSort: !!props.nodeTreeSort,
-					});
-				}
-			});
-			return () => {
-				setRecoil(flag2State, false);
-				setTimeout(() => {
-					resetRecoil(nodeDataState(id));
-					if (getRecoil(activatedNodeState) === id) {
-						resetRecoil(activatedNodeState);
-					}
+			if (divRef.current) {
+				setNodesAtoms((prev) => {
+					prev[id] = currentNodeAtom;
+					return { ...prev };
 				});
+			}
+			return () => {
+				setNodesAtoms((prev) => {
+					delete prev[id];
+					return { ...prev };
+				});
+				if (getActivatedNodeValueSnapshot() === id) {
+					setActivated(null);
+				}
 			};
 		}, []);
 
 		useUpdateEffect(() => {
-			setRecoil(nodeInjectMetaState(id), injectMetaData);
+			setCurrentNode((pv) => ({
+				...pv,
+				injectMetaData,
+			}));
 		}, [JSON.stringify(comparedInjectMetaData)]);
 
 		const onClick = useCallback((ev: MouseEvent) => {
 			ev.stopPropagation();
-			setRecoil(activatedNodeState, id);
+			setActivated(id);
 		}, []);
 
 		const onMouseLeave = useCallback((ev: MouseEvent) => {
 			if (Sortable.active) return;
 			ev.stopPropagation();
-			setRecoil(hoverdNodeState, null);
+			setHovered(null);
 		}, []);
 
 		const onMouseOver = useCallback((ev: MouseEvent) => {
 			if (Sortable.active) return;
 			ev.stopPropagation();
-			setRecoil(hoverdNodeState, id);
+			setHovered(id);
 		}, []);
 
 		const fp = omit(props, ["metaData", "innerRef", "nodeTreeSort"]);
@@ -127,8 +136,7 @@ function canBeDetected<T extends object>(
 
 	NodeDetected.displayName = `NodeDetected(${componentName})`;
 
-	const wrappedComponent =
-		propsAreEqual === false ? NodeDetected : memo(NodeDetected, propsAreEqual);
+	const wrappedComponent = propsAreEqual === false ? NodeDetected : memo(NodeDetected);
 
 	return wrappedComponent as typeof NodeDetected;
 }

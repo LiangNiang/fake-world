@@ -1,39 +1,36 @@
+import { ALL_LANGUAGES, getCurrentLanguage } from "@/i18n";
+import { activatedNodeAtom, hoveredNodeAtom } from "@/stateV2/detectedNode";
+import { tourTargetAtom } from "@/stateV2/tour";
+import { LOCALE_MAP } from "@/time";
 import { InfoCircleOutlined } from "@ant-design/icons";
 import { useKeyPress } from "ahooks";
 import { Radio, Space, Tooltip } from "antd";
 import dayjs from "dayjs";
+import { useSetAtom } from "jotai";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useSetRecoilState } from "recoil";
-
-import { ALL_LANGUAGES, getCurrentLanguage } from "@/i18n";
-import { activatedNodeState, hoverdNodeState } from "@/state/detectedNode";
-import { tourTargetState } from "@/state/globalConfig/tourState";
-import { ModeState } from "@/state/modeState";
-import { LOCALE_MAP } from "@/time";
-
 import ModeSwitch from "../ModeSwitch";
 import useMode from "../useMode";
 import QuickJumpSelect from "./QuickJumpSelect";
 
 const CommonBlock = () => {
 	const { setMode, isPreview } = useMode();
-	const setHoverdNode = useSetRecoilState(hoverdNodeState);
-	const setActivatedNode = useSetRecoilState(activatedNodeState);
+	const setHoveredNode = useSetAtom(hoveredNodeAtom);
+	const setActivatedNode = useSetAtom(activatedNodeAtom);
 	const { i18n, t } = useTranslation();
-	const setTourTarget = useSetRecoilState(tourTargetState);
+	const setTourTarget = useSetAtom(tourTargetAtom);
 
 	useEffect(() => {
 		if (isPreview) {
 			setActivatedNode(null);
-			setHoverdNode(null);
+			setHoveredNode(null);
 		}
 	}, [isPreview]);
 
 	useKeyPress(
 		"shift.z",
 		() => {
-			setMode((prev) => (prev === ModeState.EDIT ? ModeState.PREVIEW : ModeState.EDIT));
+			setMode((prev) => (prev === "edit" ? "preview" : "edit"));
 		},
 		{ exactMatch: true },
 	);

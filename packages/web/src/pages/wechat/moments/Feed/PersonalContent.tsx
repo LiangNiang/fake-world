@@ -1,33 +1,32 @@
-import { Modal } from "antd";
-import dayjs from "dayjs";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { twJoin } from "tailwind-merge";
-
 import PlayFilledSVG from "@/assets/play-filled.svg?react";
 import { h } from "@/components/HashAssets";
 import { canBeDetected } from "@/components/NodeDetected";
 import TopOperations from "@/components/TopOperations";
 import useModeNavigate from "@/components/useModeNavigate";
 import { MYSELF_ID } from "@/faker/wechat/user";
-import { MetaDataType } from "@/state/detectedNode";
-import { type IFeed, allFeedsState, feedState } from "@/state/moments";
+import { EMetaDataType } from "@/stateV2/detectedNode";
+import { type IStateFeed, feedAtom, feedListAtom } from "@/stateV2/moments";
 import SlateText from "@/wechatComponents/SlateText";
 import { SLATE_EMPTY_VALUE } from "@/wechatComponents/SlateText/utils";
+import { Modal } from "antd";
+import dayjs from "dayjs";
+import { useAtomValue, useSetAtom } from "jotai";
+import { twJoin } from "tailwind-merge";
 
 type Props = {
-	id: IFeed["id"];
+	id: IStateFeed["id"];
 };
 
 const PersonalContent = ({ id }: Props) => {
-	const { content, userId } = useRecoilValue(feedState(id));
-	const setAllFeeds = useSetRecoilState(allFeedsState);
+	const { content, userId } = useAtomValue(feedAtom(id))!;
+	const setFeedList = useSetAtom(feedListAtom);
 	const navigate = useModeNavigate();
 
 	const handleOperationDelete = () => {
 		Modal.confirm({
 			title: "是否删除该条朋友圈？",
 			onOk: () => {
-				setAllFeeds((v) => v.filter((v) => v.id !== id));
+				setFeedList((v) => v.filter((v) => v.id !== id));
 			},
 		});
 	};
@@ -143,7 +142,7 @@ const PersonalContent = ({ id }: Props) => {
 			onClick={() => navigate(`/wechat/moments/${id}`)}
 			metaData={[
 				{
-					type: MetaDataType.MomentsFeed,
+					type: EMetaDataType.MomentsFeed,
 					index: id,
 					label: "朋友圈",
 					treeItemDisplayName: (data) => `${dayjs(data.sendTimestamp).format("YYYY年MM月DD日")}`,
@@ -160,11 +159,11 @@ const PersonalContent = ({ id }: Props) => {
 				},
 				userId === MYSELF_ID
 					? {
-							type: MetaDataType.MyProfile,
+							type: EMetaDataType.MyProfile,
 							label: "用户信息",
 						}
 					: {
-							type: MetaDataType.FirendProfile,
+							type: EMetaDataType.FirendProfile,
 							index: userId,
 							treeItemDisplayName: (data) => `${data.nickname}的朋友圈`,
 							label: "用户信息",

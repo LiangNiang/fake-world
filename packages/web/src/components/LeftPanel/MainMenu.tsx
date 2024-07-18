@@ -1,11 +1,10 @@
+import { HASH_ASSETS_DB_NAME, hashAssetsDB } from "@/db";
+import { touredAtom } from "@/stateV2/tour";
 import { InfoCircleOutlined } from "@ant-design/icons";
 import { App, Button, Dropdown, Tooltip } from "antd";
+import Dexie from "dexie";
+import { useSetAtom } from "jotai";
 import { useTranslation } from "react-i18next";
-import { useSetRecoilState } from "recoil";
-
-import { imageDB, imageDBManager } from "@/dataSource";
-import { touredState } from "@/state/globalConfig/tourState";
-
 import useAppInfo from "../useAppInfo";
 import GenerateRandomUser from "./GenerateRandomUser";
 import ScreenDevicesSelect from "./ScreenDevicesSelect";
@@ -14,7 +13,7 @@ import ScreenshotButton from "./ScreenshotButton";
 const MainMenu = () => {
 	const { label, app } = useAppInfo();
 	const { t } = useTranslation();
-	const setToured = useSetRecoilState(touredState);
+	const setToured = useSetAtom(touredAtom);
 	const { modal } = App.useApp();
 
 	return (
@@ -56,7 +55,7 @@ const MainMenu = () => {
 								content: t("menu.mainBlock.clearAllDesc"),
 								onOk: async () => {
 									localStorage.clear();
-									await imageDBManager.removeAllDBs();
+									await Dexie.delete(HASH_ASSETS_DB_NAME);
 									window.location.reload();
 								},
 							});
@@ -70,7 +69,7 @@ const MainMenu = () => {
 							],
 							onClick: async ({ key }) => {
 								if (key === "1") {
-									await imageDB.images.clear();
+									await hashAssetsDB.images.clear();
 									window.location.reload();
 								}
 							},

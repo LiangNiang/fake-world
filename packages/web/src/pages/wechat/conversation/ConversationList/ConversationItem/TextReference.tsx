@@ -1,10 +1,3 @@
-import { AimOutlined } from "@ant-design/icons";
-import { Tooltip } from "antd";
-import { memo } from "react";
-import { useParams } from "react-router-dom";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { getRecoil } from "recoil-nexus";
-
 import { h } from "@/components/HashAssets";
 import { type InjectProps, canBeDetected } from "@/components/NodeDetected";
 import TopOperations from "@/components/TopOperations";
@@ -12,14 +5,18 @@ import { MYSELF_ID } from "@/faker/wechat/user";
 import {
 	EConversationType,
 	type IConversationTypeText,
-	conversationItemReferenceState,
-	conversationState,
-} from "@/state/conversationState";
-import { MetaDataType, activatedNodeState } from "@/state/detectedNode";
-import { ModeState, modeState } from "@/state/modeState";
+	conversationItemReferenceAtom,
+	conversationListAtom,
+} from "@/stateV2/conversation";
+import { EMetaDataType, activatedNodeAtom } from "@/stateV2/detectedNode";
+import { getModeValueSnapshot } from "@/stateV2/mode";
 import SlateText from "@/wechatComponents/SlateText";
 import UserName from "@/wechatComponents/User/UserName";
-
+import { AimOutlined } from "@ant-design/icons";
+import { Tooltip } from "antd";
+import { useAtomValue, useSetAtom } from "jotai";
+import { memo } from "react";
+import { useParams } from "react-router-dom";
 import CommonBlock from "./CommonBlock";
 
 type Props = {
@@ -29,11 +26,14 @@ type Props = {
 
 const TextReference = ({ referenceId, conversationItemId }: Props) => {
 	const { id } = useParams<{ id: string }>();
-	const referenceData = useRecoilValue(
-		conversationItemReferenceState({ profileId: id!, conversationId: referenceId! }),
+	const referenceData = useAtomValue(
+		conversationItemReferenceAtom({
+			friendId: id!,
+			conversationId: referenceId!,
+		}),
 	);
-	const setConversationList = useSetRecoilState(conversationState(id!));
-	const setActivatedNode = useSetRecoilState(activatedNodeState);
+	const setConversationList = useSetAtom(conversationListAtom(id!));
+	const setActivatedNode = useSetAtom(activatedNodeAtom);
 
 	if (!referenceData) return null;
 
@@ -74,7 +74,7 @@ const TextReference = ({ referenceId, conversationItemId }: Props) => {
 			innerBlockProps={{
 				metaData: [
 					{
-						type: MetaDataType.ConversationItem,
+						type: EMetaDataType.ConversationItem,
 						index: [id!, referenceId!],
 						treeItemDisplayName: "引用消息",
 						label: "编辑引用消息",
@@ -113,12 +113,12 @@ const TextReference = ({ referenceId, conversationItemId }: Props) => {
 						],
 					},
 					{
-						type: MetaDataType.FirendProfile,
+						type: EMetaDataType.FirendProfile,
 						index: id!,
 						label: "好友个人信息",
 					},
 					{
-						type: MetaDataType.MyProfile,
+						type: EMetaDataType.MyProfile,
 						label: "个人信息",
 					},
 				],
@@ -126,7 +126,7 @@ const TextReference = ({ referenceId, conversationItemId }: Props) => {
 			innerBlockClassName="bg-[#E7E7E7] text-[#7D7D7D] h-fit p-0 text-sm cursor-pointer"
 			blockClassName="!mt-1"
 			onClick={() => {
-				if (getRecoil(modeState) === ModeState.EDIT) return;
+				if (getModeValueSnapshot() === "edit") return;
 				const target = document.querySelector(`[data-conversation-id="${referenceId}"]`);
 				if (target) {
 					target.scrollIntoView({ behavior: "smooth" });

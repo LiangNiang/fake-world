@@ -2,23 +2,25 @@ import {
 	ConversationTypeLabel,
 	EConversationType,
 	type TConversationItem,
-	conversationState,
-} from "@/state/conversationState";
-import type { IProfile } from "@/state/profile";
+	conversationListAtom,
+} from "@/stateV2/conversation";
+import type { IStateProfile } from "@/stateV2/profile";
 import { SLATE_INITIAL_VALUE } from "@/wechatComponents/SlateText/utils";
-import { Button, Form, Input, InputNumber, Radio, Select, Switch } from "antd";
+import { App, Button, Form, Input, InputNumber, Radio, Select, Switch } from "antd";
 import dayjs from "dayjs";
+import { useAtom } from "jotai";
+import { RESET } from "jotai/utils";
 import { nanoid } from "nanoid";
 import { useCallback } from "react";
-import { useRecoilState } from "recoil";
 import LocalImageUploadWithPreview from "../LocalImageUpload";
 import WrapSlateInput from "../SlateInput";
 import GenerateConversation from "./GenerateConversation";
 import { CONVERSATION_TYPE_OPTIONS } from "./consts";
 
-const ConversationListMetaDataEditor = ({ index }: EditorProps<unknown, IProfile["id"]>) => {
+const ConversationListMetaDataEditor = ({ index }: EditorProps<unknown, IStateProfile["id"]>) => {
 	const [form] = Form.useForm<TConversationItem>();
-	const [conversationList, setConversationList] = useRecoilState(conversationState(index));
+	const [conversationList, setConversationList] = useAtom(conversationListAtom(index));
+	const { modal } = App.useApp();
 
 	const scrollToBtm = useCallback(() => {
 		setTimeout(() => {
@@ -26,7 +28,7 @@ const ConversationListMetaDataEditor = ({ index }: EditorProps<unknown, IProfile
 			if (listElement) {
 				listElement.scrollTop = 9999999;
 			}
-		});
+		}, 100);
 	}, []);
 
 	const onFinish = (values: TConversationItem) => {
@@ -289,6 +291,20 @@ const ConversationListMetaDataEditor = ({ index }: EditorProps<unknown, IProfile
 					<div className="space-x-2">
 						<Button type="primary" htmlType="submit">
 							创建
+						</Button>
+						<Button
+							danger
+							htmlType="button"
+							onClick={() => {
+								modal.confirm({
+									title: "是否重置当前对话聊天记录？",
+									onOk: () => {
+										setConversationList(RESET);
+									},
+								});
+							}}
+						>
+							重置当前对话聊天记录
 						</Button>
 					</div>
 				</Form.Item>

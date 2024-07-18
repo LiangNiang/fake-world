@@ -1,14 +1,13 @@
-import { useRecoilState } from "recoil";
-
-import { ModeState, modeState } from "@/state/modeState";
+import { modeAtom } from "@/stateV2/mode";
+import { useAtom } from "jotai";
 
 export default function useMode() {
-	const [mode, setMode] = useRecoilState(modeState);
+	const [mode, setMode] = useAtom(modeAtom);
 
 	return {
 		mode,
-		isEdit: mode === ModeState.EDIT,
-		isPreview: mode === ModeState.PREVIEW,
+		isEdit: mode === "edit",
+		isPreview: mode === "preview",
 		setMode,
 	};
 }

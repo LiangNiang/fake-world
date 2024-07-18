@@ -1,11 +1,3 @@
-import { SubnodeOutlined } from "@ant-design/icons";
-import { Modal, Tooltip } from "antd";
-import { useMemo } from "react";
-import { ReactSortable } from "react-sortablejs";
-import { useRecoilState, useResetRecoilState } from "recoil";
-import { getRecoil } from "recoil-nexus";
-import { twJoin } from "tailwind-merge";
-
 import { canBeDetected } from "@/components/NodeDetected";
 import TopOperations from "@/components/TopOperations";
 import useMode from "@/components/useMode";
@@ -14,22 +6,25 @@ import {
 	EConversationType,
 	type IConversationTypeTransfer,
 	type TConversationItem,
-	conversationState,
-} from "@/state/conversationState";
-import { MetaDataType, allNodesTreeState } from "@/state/detectedNode";
-import type { StaticMetaData } from "@/state/detectedNode/typing";
-
+	conversationListAtom,
+	getConversationListValueSnapshot,
+} from "@/stateV2/conversation";
+import { EMetaDataType, type StaticMetaData, allNodesTreeAtom } from "@/stateV2/detectedNode";
+import { SubnodeOutlined } from "@ant-design/icons";
+import { Modal, Tooltip } from "antd";
+import { useAtom, useSetAtom } from "jotai";
+import { useMemo } from "react";
+import { ReactSortable } from "react-sortablejs";
+import { twJoin } from "tailwind-merge";
 import { useConversationAPI } from "../context";
 import ConversationItem from "./ConversationItem";
 
 const ConversationList = () => {
 	const { listRef, conversationId, sendTransfer, sendRedPacketAcceptedReply } =
 		useConversationAPI();
-	const [conversationList, setConversationList] = useRecoilState(
-		conversationState(conversationId ?? ""),
-	);
-	const resetTree = useResetRecoilState(allNodesTreeState);
+	const [conversationList, setConversationList] = useAtom(conversationListAtom(conversationId));
 	const { isEdit } = useMode();
+	const rebuildTree = useSetAtom(allNodesTreeAtom);
 
 	const mappedSortableListData = useMemo(() => {
 		return conversationList.map((item) => ({
@@ -47,7 +42,7 @@ const ConversationList = () => {
 	};
 
 	const generateTransferReplyConversation = (conversationItemId: TConversationItem["id"]) => {
-		const item = getRecoil(conversationState(conversationId ?? "")).find(
+		const item = getConversationListValueSnapshot(conversationId).find(
 			(v) => v.id === conversationItemId,
 		);
 		const { amount, originalSender, role } = item as IConversationTypeTransfer;
@@ -62,7 +57,7 @@ const ConversationList = () => {
 			amount,
 			transferStatus: "accepted",
 			originalSender,
-			role: role === 'mine' ? 'friend' : 'mine',
+			role: role === "mine" ? "friend" : "mine",
 		});
 	};
 
@@ -83,7 +78,7 @@ const ConversationList = () => {
 		<canBeDetected.div
 			className="flex flex-1 flex-col-reverse overflow-auto bg-[#F5F5F5] p-3"
 			metaData={{
-				type: MetaDataType.ConversationList,
+				type: EMetaDataType.ConversationList,
 				index: conversationId,
 				treeItemDisplayName: "聊天记录",
 			}}
@@ -96,15 +91,16 @@ const ConversationList = () => {
 				animation={400}
 				setList={(v, sortable) => {
 					if (isEdit && sortable) {
-						setConversationList(v.map((i) => conversationList.find((d) => d.id === i.id)!));
+						const needUpdate = v.some((_, i) => v[i].id !== conversationList[i].id);
+						if (needUpdate) {
+							setConversationList(v.map((i) => conversationList.find((d) => d.id === i.id)!));
+						}
 					}
 				}}
-				onSort={() => {
-					setTimeout(() => {
-						resetTree();
-					});
-				}}
 				className="mb-auto space-y-4"
+				onSort={() => {
+					rebuildTree();
+				}}
 			>
 				{conversationList.map((item) => {
 					const operations: StaticMetaData.InjectMetaData["operations"] = [
@@ -149,7 +145,7 @@ const ConversationList = () => {
 							key={item.id}
 							metaData={[
 								{
-									type: MetaDataType.ConversationItem,
+									type: EMetaDataType.ConversationItem,
 									index: [conversationId, item.id],
 									treeItemDisplayName: (data) =>
 										`消息（${ConversationTypeLabel[data.type]}${
@@ -159,12 +155,12 @@ const ConversationList = () => {
 									label: "单个消息",
 								},
 								{
-									type: MetaDataType.FirendProfile,
+									type: EMetaDataType.FirendProfile,
 									index: conversationId,
 									label: "好友个人信息",
 								},
 								{
-									type: MetaDataType.MyProfile,
+									type: EMetaDataType.MyProfile,
 									label: "个人信息",
 								},
 							]}

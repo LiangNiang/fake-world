@@ -1,10 +1,3 @@
-import { Button, DatePicker, Form, Input, Radio } from "antd";
-import dayjs from "dayjs";
-import { isEmpty, omit } from "lodash-es";
-import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
-import { setRecoil } from "recoil-nexus";
-
 import {
 	randomCreditCardName,
 	randomPaymentMethod,
@@ -13,26 +6,29 @@ import {
 import {
 	BUILT_IN_TRANSACTION_TYPES,
 	BUILT_IN_TRANSACTION_TYPES_LABELS,
-	type TTransactionDataWithType,
+	type TTransactionData,
 	type TTransactionType,
-	USED_STATE_MAP,
-} from "@/state/transaction";
-
+	setUsedTransactionValue,
+} from "@/stateV2/transaction";
+import { Button, DatePicker, Form, Input, Radio } from "antd";
+import dayjs from "dayjs";
+import { isEmpty, omit } from "lodash-es";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import FriendSelect from "./FriendSelect";
 import LocalImageUploadWithPreview from "./LocalImageUpload";
 
 const TransactionRecordMetaDataEditor = ({
 	data,
-}: EditorProps<TTransactionDataWithType, TTransactionType>) => {
-	const [form] = Form.useForm<TTransactionDataWithType>();
+}: EditorProps<TTransactionData, TTransactionType>) => {
+	const [form] = Form.useForm<TTransactionData>();
 	const { getFieldValue, setFieldValue } = form;
 	const navigate = useNavigate();
 	const { t } = useTranslation();
 
-	const onFinish = (v: TTransactionDataWithType) => {
+	const onFinish = (v: TTransactionData) => {
 		if (isEmpty(v)) return;
-		const stateFn = USED_STATE_MAP[v.type];
-		setRecoil(stateFn, (pv: any) => ({
+		setUsedTransactionValue(v.type, (pv) => ({
 			...pv,
 			...omit(v, ["type"]),
 		}));
@@ -67,12 +63,7 @@ const TransactionRecordMetaDataEditor = ({
 					))}
 				</Radio.Group>
 			</Form.Item>
-			<Form.Item<TTransactionDataWithType>
-				name="amount"
-				label="金额"
-				required
-				rules={[{ required: true }]}
-			>
+			<Form.Item<TTransactionData> name="amount" label="金额" required rules={[{ required: true }]}>
 				<Input
 					addonBefore="¥"
 					suffix={
@@ -90,7 +81,7 @@ const TransactionRecordMetaDataEditor = ({
 					}
 				/>
 			</Form.Item>
-			<Form.Item<TTransactionDataWithType>
+			<Form.Item<TTransactionData>
 				name="code"
 				label="交易单号"
 				required
@@ -110,7 +101,7 @@ const TransactionRecordMetaDataEditor = ({
 					}
 				/>
 			</Form.Item>
-			<Form.Item<TTransactionDataWithType>
+			<Form.Item<TTransactionData>
 				name="payentMethod"
 				label="交易方式"
 				required
@@ -135,7 +126,7 @@ const TransactionRecordMetaDataEditor = ({
 					}
 				/>
 			</Form.Item>
-			<Form.Item<TTransactionDataWithType>
+			<Form.Item<TTransactionData>
 				name="timestamp"
 				label="交易时间"
 				required
@@ -156,7 +147,7 @@ const TransactionRecordMetaDataEditor = ({
 						case "qr-transfer":
 							return (
 								<>
-									<Form.Item<TTransactionDataWithType>
+									<Form.Item<TTransactionData>
 										name="toUsername"
 										label="发给谁"
 										required
@@ -164,7 +155,7 @@ const TransactionRecordMetaDataEditor = ({
 									>
 										<Input />
 									</Form.Item>
-									<Form.Item<TTransactionDataWithType>
+									<Form.Item<TTransactionData>
 										name="avatar"
 										label="头像"
 										required
@@ -177,7 +168,7 @@ const TransactionRecordMetaDataEditor = ({
 						case "transfer":
 							return (
 								<>
-									<Form.Item<TTransactionDataWithType>
+									<Form.Item<TTransactionData>
 										name="toFriendId"
 										label="转账给谁"
 										required
@@ -185,7 +176,7 @@ const TransactionRecordMetaDataEditor = ({
 									>
 										<FriendSelect withQuickAdd />
 									</Form.Item>
-									<Form.Item<TTransactionDataWithType>
+									<Form.Item<TTransactionData>
 										name="collectionTime"
 										label="转账接受时间"
 										required
@@ -204,7 +195,7 @@ const TransactionRecordMetaDataEditor = ({
 						case "red-packet":
 							return (
 								<>
-									<Form.Item<TTransactionDataWithType>
+									<Form.Item<TTransactionData>
 										name="toFriendId"
 										label="发红包给谁"
 										required
@@ -212,7 +203,7 @@ const TransactionRecordMetaDataEditor = ({
 									>
 										<FriendSelect withQuickAdd />
 									</Form.Item>
-									<Form.Item<TTransactionDataWithType>
+									<Form.Item<TTransactionData>
 										name="merchantCode"
 										label="商户单号"
 										required
@@ -239,7 +230,7 @@ const TransactionRecordMetaDataEditor = ({
 						case "credit-card-repayments":
 							return (
 								<>
-									<Form.Item<TTransactionDataWithType>
+									<Form.Item<TTransactionData>
 										name="toCreditCardName"
 										label="还款的信用卡名"
 										required
@@ -258,7 +249,7 @@ const TransactionRecordMetaDataEditor = ({
 											}
 										/>
 									</Form.Item>
-									<Form.Item<TTransactionDataWithType>
+									<Form.Item<TTransactionData>
 										name="merchantCode"
 										label="商户单号"
 										required

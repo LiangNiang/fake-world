@@ -1,6 +1,3 @@
-import { useTranslation } from "react-i18next";
-import { useRecoilValue } from "recoil";
-
 import ADD_OUTLINED_SVG from "@/assets/add-outlined.svg?react";
 import ALBUM_OUTLINED_SVG from "@/assets/album-outlined.svg?react";
 import ARROW_OUTLINED_SVG from "@/assets/arrow-outlined.svg?react";
@@ -13,19 +10,20 @@ import StickerOutlinedSVG from "@/assets/sticker-outlined.svg?react";
 import { h } from "@/components/HashAssets";
 import { canBeDetected } from "@/components/NodeDetected";
 import useModeNavigate from "@/components/useModeNavigate";
-import { BottomNavBars } from "@/state/btmNavbarsState";
-import { MetaDataType } from "@/state/detectedNode";
-import { myProfileState } from "@/state/profile";
+import { EBottomNavBars } from "@/stateV2/bottomNavbars";
+import { EMetaDataType } from "@/stateV2/detectedNode";
+import { myProfileAtom } from "@/stateV2/profile";
 import BottomNavbar, { useToggleNavbarActivated } from "@/wechatComponents/BottomNavbar";
 import List from "@/wechatComponents/List";
-
+import { useAtomValue } from "jotai";
+import { useTranslation } from "react-i18next";
 import CircularNotchSVG from "./assets/circular-notch.svg?react";
 
 const My = () => {
-	const { avatarInfo, wechat, nickname } = useRecoilValue(myProfileState);
+	const { avatarInfo, wechat, nickname } = useAtomValue(myProfileAtom)!;
 	const navigate = useModeNavigate();
 	const { t } = useTranslation();
-	useToggleNavbarActivated(BottomNavBars.MY);
+	useToggleNavbarActivated(EBottomNavBars.MY);
 
 	return (
 		<>
@@ -35,7 +33,7 @@ const My = () => {
 					navigate("/wechat/my/profile-edit");
 				}}
 				metaData={{
-					type: MetaDataType.MyProfile,
+					type: EMetaDataType.MyProfile,
 					treeItemDisplayName: (data) => `个人信息编辑（${data.nickname}）`,
 				}}
 			>

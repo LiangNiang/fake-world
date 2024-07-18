@@ -1,20 +1,19 @@
+import { EMenus, activatedMenuAtom } from "@/stateV2/activatedMenu";
+import { modeAtom } from "@/stateV2/mode";
+import { tourTargetAtom, touredAtom } from "@/stateV2/tour";
+import { sleep } from "@/utils";
 import { useInViewport } from "ahooks";
 import { Tour as AntdTour } from "antd";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { memo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-
-import { EMenus, menuState } from "@/state/globalConfig";
-import { tourTargetState, touredState } from "@/state/globalConfig/tourState";
-import { ModeState, modeState } from "@/state/modeState";
-import { sleep } from "@/utils";
 
 const Tour = () => {
-	const [toured, setToured] = useRecoilState(touredState);
-	const { ref1, ref2 } = useRecoilValue(tourTargetState);
+	const [toured, setToured] = useAtom(touredAtom);
+	const { ref1, ref2 } = useAtomValue(tourTargetAtom);
 	const [current, setCurrent] = useState(0);
-	const setMenu = useSetRecoilState(menuState);
-	const setMode = useSetRecoilState(modeState);
+	const setMenu = useSetAtom(activatedMenuAtom);
+	const setMode = useSetAtom(modeAtom);
 	const { t } = useTranslation();
 	const [inViewport] = useInViewport(document.getElementById("left-panel") as HTMLElement);
 
@@ -25,7 +24,7 @@ const Tour = () => {
 			current={current}
 			open={!toured}
 			onClose={() => {
-				setMode(ModeState.PREVIEW);
+				setMode("preview");
 				setToured(true);
 				setCurrent(0);
 			}}
@@ -39,7 +38,7 @@ const Tour = () => {
 					target: ref1,
 					nextButtonProps: {
 						onClick: async () => {
-							setMode(ModeState.EDIT);
+							setMode("edit");
 							setMenu(EMenus.Trees);
 							await sleep(10);
 							setCurrent(1);
@@ -57,7 +56,7 @@ const Tour = () => {
 					target: ref2,
 					prevButtonProps: {
 						onClick: async () => {
-							setMode(ModeState.PREVIEW);
+							setMode("preview");
 							await sleep(10);
 							setCurrent(0);
 						},

@@ -7,6 +7,7 @@ import isToday from "dayjs/plugin/isToday";
 import isYesterday from "dayjs/plugin/isYesterday";
 import relativeTime from "dayjs/plugin/relativeTime";
 import updateLocale from "dayjs/plugin/updateLocale";
+import weekday from "dayjs/plugin/weekday";
 
 import { getCurrentLanguage } from "./i18n";
 
@@ -32,4 +33,5 @@ export const initDayjs = () => {
 	dayjs.extend(isYesterday);
 	dayjs.extend(relativeTime);
 	dayjs.extend(isCurrentYear);
+	dayjs.extend(weekday);
 };

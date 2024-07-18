@@ -1,16 +1,15 @@
-import { useTranslation } from "react-i18next";
-import { useRecoilValue } from "recoil";
-
 import ArrowOutlinedSVG from "@/assets/arrow-outlined.svg?react";
 import BackFilledSVG from "@/assets/back-filled.svg?react";
 import CoinFilledSVG from "@/assets/coin-filled.svg?react";
 import { canBeDetected } from "@/components/NodeDetected";
 import useModeNavigate from "@/components/useModeNavigate";
-import { MetaDataType } from "@/state/detectedNode";
-import { walletState } from "@/state/walletState";
+import { EMetaDataType } from "@/stateV2/detectedNode";
+import { walletAtom } from "@/stateV2/wallet";
+import { useAtomValue } from "jotai";
+import { useTranslation } from "react-i18next";
 
 const Balance = () => {
-	const { balance } = useRecoilValue(walletState);
+	const { balance } = useAtomValue(walletAtom);
 	const navigate = useModeNavigate();
 	const { t } = useTranslation();
 
@@ -28,7 +27,7 @@ const Balance = () => {
 			<canBeDetected.div
 				className="relative flex flex-1 flex-col items-center pt-8"
 				metaData={{
-					type: MetaDataType.Wallet,
+					type: EMetaDataType.Wallet,
 					treeItemDisplayName: (data) => `我的零钱余额：¥${data.balance}`,
 				}}
 			>

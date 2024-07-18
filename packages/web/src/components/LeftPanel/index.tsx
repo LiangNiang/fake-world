@@ -1,19 +1,17 @@
-import { BarsOutlined, CodepenOutlined, GithubOutlined, HomeOutlined } from "@ant-design/icons";
+import { EMenus, activatedMenuAtom } from "@/stateV2/activatedMenu";
+import { CodeOutlined, GithubOutlined, HomeOutlined, NodeIndexOutlined } from "@ant-design/icons";
 import { Menu, type MenuProps } from "antd";
+import { useAtom } from "jotai";
 import { memo } from "react";
 import Marquee from "react-fast-marquee";
 import { useTranslation } from "react-i18next";
-import { useRecoilState } from "recoil";
-
-import { EMenus, menuState } from "@/state/globalConfig";
-
-import CodeMenu from "./CodeMenu";
 import CommonBlock from "./CommonBlock";
 import MainMenu from "./MainMenu";
+import SourceCodeMenu from "./SourceCodeMenu";
 import TreesMenu from "./TreesMenu";
 
 const LeftPanel = () => {
-	const [menu, setMenu] = useRecoilState(menuState);
+	const [menu, setMenu] = useAtom(activatedMenuAtom);
 	const { t } = useTranslation();
 
 	const MENU_ITEMS: MenuProps["items"] = [
@@ -24,13 +22,13 @@ const LeftPanel = () => {
 		},
 		{
 			key: EMenus.Trees,
-			icon: <BarsOutlined />,
+			icon: <NodeIndexOutlined />,
 			title: t("menu.trees"),
 		},
 		{
 			key: EMenus.Code,
-			icon: <CodepenOutlined />,
-			title: t("menu.dataSource"),
+			icon: <CodeOutlined />,
+			title: t("menu.code"),
 		},
 		{
 			key: EMenus.Git,
@@ -61,7 +59,7 @@ const LeftPanel = () => {
 					<CommonBlock />
 					{menu === EMenus.Main && <MainMenu />}
 					{menu === EMenus.Trees && <TreesMenu />}
-					{menu === EMenus.Code && <CodeMenu />}
+					{menu === EMenus.Code && <SourceCodeMenu />}
 				</div>
 			</div>
 			<div className="mt-auto p-4">
@@ -82,12 +80,12 @@ const LeftPanel = () => {
 					</a>
 					&nbsp;&&nbsp;
 					<a
-						href="https://recoiljs.org/"
+						href="https://jotai.org/"
 						target="_blank"
 						rel="noreferrer"
 						className="text-antDaybreakBlue-5"
 					>
-						Recoil
+						Jotai
 					</a>
 					&nbsp;&&nbsp;
 					<a

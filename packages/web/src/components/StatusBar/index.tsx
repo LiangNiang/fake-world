@@ -1,28 +1,22 @@
+import { EMetaDataType } from "@/stateV2/detectedNode";
+import { statusBarAtom, statusBarHideAtom, statusBarMountNodeAtom } from "@/stateV2/statusBar";
 import { ClockCircleOutlined } from "@ant-design/icons";
 import { useInterval, useUpdate } from "ahooks";
 import { Tooltip } from "antd";
 import dayjs from "dayjs";
-import { useEffect, useRef } from "react";
+import { useAtom, useAtomValue } from "jotai";
+import { useEffect, useMemo, useRef } from "react";
 import { createPortal } from "react-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
 import { twJoin } from "tailwind-merge";
-
-import { MetaDataType } from "@/state/detectedNode";
-import {
-	statusBarHideState,
-	statusBarMountNodeState,
-	statusBarState,
-} from "@/state/statusBarState";
-
 import { canBeDetected } from "../NodeDetected";
 import BatterySVG from "./assets/battery.svg?react";
 import SingalSVG from "./assets/singal.svg?react";
 import WifiSVG from "./assets/wifi.svg?react";
 
 const StatusBar = () => {
-	const mountNode = useRecoilValue(statusBarMountNodeState);
-	const [{ backgroundColor, theme }, setStatusBar] = useRecoilState(statusBarState);
-	const hidden = useRecoilValue(statusBarHideState);
+	const mountNode = useAtomValue(statusBarMountNodeAtom);
+	const [{ backgroundColor, theme }, setStatusBar] = useAtom(statusBarAtom);
+	const hidden = useAtomValue(statusBarHideAtom);
 	const update = useUpdate();
 	const divRef = useRef<HTMLDivElement>(null);
 
@@ -59,6 +53,10 @@ const StatusBar = () => {
 						nextSibling = node as Element;
 						break;
 					}
+					if ((node as Element).id === myId) {
+						nextSibling = node.nextSibling as Element;
+						break;
+					}
 				}
 			}
 		}
@@ -86,6 +84,20 @@ const StatusBar = () => {
 		};
 	}, []);
 
+	const operations = useMemo(
+		() => [
+			{
+				onClick: update,
+				element: (
+					<Tooltip title="同步当前时间">
+						<ClockCircleOutlined />
+					</Tooltip>
+				),
+			},
+		],
+		[],
+	);
+
 	const renderContent = (isMount?: boolean) => {
 		const useWhiteColorText = theme === "dark";
 
@@ -98,18 +110,9 @@ const StatusBar = () => {
 					isMount && "pointer-events-auto z-10",
 				)}
 				metaData={{
-					type: MetaDataType.StatusBar,
+					type: EMetaDataType.StatusBar,
 					treeItemDisplayName: "状态栏",
-					operations: [
-						{
-							onClick: update,
-							element: (
-								<Tooltip title="同步当前时间">
-									<ClockCircleOutlined />
-								</Tooltip>
-							),
-						},
-					],
+					operations,
 				}}
 				style={{
 					backgroundColor,

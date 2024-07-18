@@ -1,28 +1,27 @@
-import { isEmpty } from "lodash-es";
-import { useMemo } from "react";
-import { ReactSortable } from "react-sortablejs";
-import { useRecoilValue, useResetRecoilState } from "recoil";
-import { setRecoil } from "recoil-nexus";
-import { twMerge } from "tailwind-merge";
-
 import CommentOutlinedSVG from "@/assets/comment-outlined.svg?react";
 import { canBeDetected } from "@/components/NodeDetected";
 import TopOperations from "@/components/TopOperations";
 import useMode from "@/components/useMode";
-import { MetaDataType, allNodesTreeState } from "@/state/detectedNode";
-import { type IFeed, feedState } from "@/state/moments";
-
+import { EMetaDataType, allNodesTreeAtom } from "@/stateV2/detectedNode";
+import { type IStateFeed, feedAtom } from "@/stateV2/moments";
+import { useAtom, useSetAtom } from "jotai";
+import { isEmpty } from "lodash-es";
+import { useMemo } from "react";
+import { ReactSortable } from "react-sortablejs";
+import { twMerge } from "tailwind-merge";
 import CommentItem from "./CommentItem";
 
 type CommentsProps = {
-	id: IFeed["id"];
+	id: IStateFeed["id"];
 	fromDetail?: boolean;
 };
 
 const Comments = ({ id, fromDetail }: CommentsProps) => {
-	const { comments, likeUserIds } = useRecoilValue(feedState(id));
-	const resetTree = useResetRecoilState(allNodesTreeState);
+	const [feed, setFeed] = useAtom(feedAtom(id));
 	const { isEdit } = useMode();
+	const rebuildTree = useSetAtom(allNodesTreeAtom);
+
+	const { comments, likeUserIds } = feed ?? {};
 
 	const mappedSortableListData = useMemo(() => {
 		return comments?.map((v) => ({ id: v.id }));
@@ -36,7 +35,7 @@ const Comments = ({ id, fromDetail }: CommentsProps) => {
 			<canBeDetected.div
 				className={twMerge("p-[6px]", fromDetail && "flex p-2")}
 				metaData={{
-					type: MetaDataType.FeedCommentsList,
+					type: EMetaDataType.FeedCommentsList,
 					index: id,
 					treeItemDisplayName: "评论",
 					label: "新建评论",
@@ -61,20 +60,27 @@ const Comments = ({ id, fromDetail }: CommentsProps) => {
 					animation={400}
 					setList={(v, sortable) => {
 						if (isEdit && sortable) {
-							setRecoil(feedState(id), (prev) => ({
-								...prev,
-								comments: v.map((i) => prev.comments!.find((d) => d.id === i.id)!),
-							}));
+							const needUpdate = v.some((_, i) => v[i].id !== comments![i].id);
+							if (needUpdate) {
+								setFeed((prev) => ({
+									...prev,
+									comments: v.map((i) => prev.comments!.find((d) => d.id === i.id)!),
+								}));
+							}
 						}
 					}}
 					onSort={() => {
-						setTimeout(() => {
-							resetTree();
-						});
+						rebuildTree();
 					}}
 				>
 					{comments!.map((v) => (
-						<CommentItem key={v.id} feedId={id} fromDetail={fromDetail} {...v} />
+						<CommentItem
+							key={v.id}
+							feedId={id}
+							fromDetail={fromDetail}
+							className={isEdit ? "cursor-grab" : ""}
+							{...v}
+						/>
 					))}
 				</ReactSortable>
 			</canBeDetected.div>

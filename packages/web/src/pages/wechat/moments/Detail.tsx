@@ -1,14 +1,11 @@
-import { useParams } from "react-router-dom";
-import { useRecoilValue } from "recoil";
-import { setRecoil } from "recoil-nexus";
-
 import BackFilledSVG from "@/assets/back-filled.svg?react";
 import MoreFilledSVG from "@/assets/more-filled.svg?react";
 import StickerOutlinedSVG from "@/assets/sticker-outlined.svg?react";
 import useModeNavigate from "@/components/useModeNavigate";
 import { generateInitFeedComment } from "@/faker/wechat/moments";
-import { feedState } from "@/state/moments";
-
+import { feedAtom } from "@/stateV2/moments";
+import { useAtom } from "jotai";
+import { useParams } from "react-router-dom";
 import Feed from "./Feed";
 
 const feedClassNames = {
@@ -18,8 +15,10 @@ const feedClassNames = {
 
 const MomentDetail = () => {
 	const { id: feedId } = useParams();
-	const { userId } = useRecoilValue(feedState(feedId ?? ""));
+	const [feed, setFeed] = useAtom(feedAtom(feedId ?? ""))!;
 	const navigate = useModeNavigate();
+
+	if (!feed) return null;
 
 	return (
 		<>
@@ -34,11 +33,11 @@ const MomentDetail = () => {
 					<MoreFilledSVG fill="black" className="h-5 w-5" />
 				</div>
 			</div>
-			<Feed id={feedId ?? ""} userId={userId} classNames={feedClassNames} fromDetail />
+			<Feed id={feedId ?? ""} userId={feed.userId} classNames={feedClassNames} fromDetail />
 			<div
 				className="flex cursor-pointer space-x-1 bg-wechatBG-3 py-2 pr-3 pb-2 pl-1"
 				onClick={() => {
-					setRecoil(feedState(feedId as string), (prev) => ({
+					setFeed((prev) => ({
 						...prev,
 						comments: [...(prev.comments ?? []), generateInitFeedComment()],
 					}));

@@ -1,35 +1,36 @@
-import { usePrevious } from "ahooks";
-import { values } from "lodash-es";
-import { useTranslation } from "react-i18next";
-import { getRecoil, setRecoil } from "recoil-nexus";
-import { twJoin } from "tailwind-merge";
-
 import AlbumFilledSVG from "@/assets/album-filled.svg?react";
 import LikeFilledSVG from "@/assets/like-filled.svg?react";
 import LikeOutlinedSVG from "@/assets/like-outlined.svg?react";
 import { MYSELF_ID } from "@/faker/wechat/user";
-import { activatedNodeState, allNodesState } from "@/state/detectedNode";
-import { ModeState, modeState } from "@/state/modeState";
-import { friendState } from "@/state/profile";
-
+import { activatedNodeAtom } from "@/stateV2/detectedNode";
+import { getNodesAtomsValueSnapshot } from "@/stateV2/detectedNode/nodeAtom";
+import { getModeValueSnapshot, modeAtom } from "@/stateV2/mode";
+import { setProfileValue } from "@/stateV2/profile";
+import { usePrevious } from "ahooks";
+import { useSetAtom } from "jotai";
+import { keys } from "lodash-es";
+import { useTranslation } from "react-i18next";
+import { twJoin } from "tailwind-merge";
 import { useProfile } from "./hook";
 
 const CoverOperations = () => {
 	const { id, momentsBackgroundLike } = useProfile();
 	const previousMomentsBackgroundLike = usePrevious(momentsBackgroundLike);
 	const { t } = useTranslation();
+	const setMode = useSetAtom(modeAtom);
+	const setActivatedNode = useSetAtom(activatedNodeAtom);
 
 	const isMySelf = id === MYSELF_ID;
 
 	const handleChangeCover = () => {
-		setRecoil(modeState, ModeState.EDIT);
-		const nodes = getRecoil(allNodesState);
-		setRecoil(activatedNodeState, values(nodes)[0].id);
+		setMode("edit");
+		const nodesAtoms = getNodesAtomsValueSnapshot();
+		setActivatedNode(keys(nodesAtoms)[0]);
 	};
 
 	const handleChangeLike = () => {
-		if (getRecoil(modeState) === ModeState.EDIT) return;
-		setRecoil(friendState(id), (prev) => ({
+		if (getModeValueSnapshot() === "edit") return;
+		setProfileValue(id, (prev) => ({
 			...prev,
 			momentsBackgroundLike: !prev.momentsBackgroundLike,
 		}));

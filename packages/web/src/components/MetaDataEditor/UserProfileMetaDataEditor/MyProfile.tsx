@@ -1,17 +1,15 @@
+import { type IStateProfile, MOMENTS_PRIVACY_TEXT_MAP, myProfileAtom } from "@/stateV2/profile";
 import { Form, Input, InputNumber, Radio, Select } from "antd";
+import { useSetAtom } from "jotai";
 import { keys } from "lodash-es";
-import { useSetRecoilState } from "recoil";
-
-import { type IProfile, MOMENTS_PRIVACY_TEXT_MAP, myProfileState } from "@/state/profile";
-
 import LocalImageUploadWithPreview from "../LocalImageUpload";
 
-const MyProfileMetaDataEditor = ({ data }: EditorProps<IProfile>) => {
-	const setMyProfile = useSetRecoilState(myProfileState);
+const MyProfileMetaDataEditor = ({ data }: EditorProps<IStateProfile>) => {
+	const setMyProfile = useSetAtom(myProfileAtom);
 
 	const [form] = Form.useForm();
 
-	const onFinish = (values: IProfile) => {
+	const onFinish = (values: IStateProfile) => {
 		setMyProfile((prev) => ({
 			...prev,
 			...values,
@@ -31,19 +29,19 @@ const MyProfileMetaDataEditor = ({ data }: EditorProps<IProfile>) => {
 				});
 			}}
 		>
-			<Form.Item<IProfile> name="avatarInfo" label="头像">
+			<Form.Item<IStateProfile> name="avatarInfo" label="头像">
 				<LocalImageUploadWithPreview />
 			</Form.Item>
-			<Form.Item<IProfile> name="nickname" label="昵称" required rules={[{ required: true }]}>
+			<Form.Item<IStateProfile> name="nickname" label="昵称" required rules={[{ required: true }]}>
 				<Input />
 			</Form.Item>
-			<Form.Item<IProfile> name="wechat" label="微信号" required rules={[{ required: true }]}>
+			<Form.Item<IStateProfile> name="wechat" label="微信号" required rules={[{ required: true }]}>
 				<Input />
 			</Form.Item>
-			<Form.Item<IProfile> name="momentsBackgroundInfo" label="朋友圈背景图">
+			<Form.Item<IStateProfile> name="momentsBackgroundInfo" label="朋友圈背景图">
 				<LocalImageUploadWithPreview />
 			</Form.Item>
-			<Form.Item<IProfile> name="momentsPrivacy" label="允许朋友查看朋友圈的范围">
+			<Form.Item<IStateProfile> name="momentsPrivacy" label="允许朋友查看朋友圈的范围">
 				<Select
 					options={keys(MOMENTS_PRIVACY_TEXT_MAP).map((k) => ({
 						label: MOMENTS_PRIVACY_TEXT_MAP[k as keyof typeof MOMENTS_PRIVACY_TEXT_MAP],
@@ -51,22 +49,22 @@ const MyProfileMetaDataEditor = ({ data }: EditorProps<IProfile>) => {
 					}))}
 				/>
 			</Form.Item>
-			<Form.Item<IProfile> name="signature" label="个性签名">
+			<Form.Item<IStateProfile> name="signature" label="个性签名">
 				<Input />
 			</Form.Item>
-			<Form.Item<IProfile> name="gender" label="性别">
+			<Form.Item<IStateProfile> name="gender" label="性别">
 				<Radio.Group>
 					<Radio value="male">男</Radio>
 					<Radio value="female">女</Radio>
 				</Radio.Group>
 			</Form.Item>
-			<Form.Item<IProfile> name="area" label="地区">
+			<Form.Item<IStateProfile> name="area" label="地区">
 				<Input />
 			</Form.Item>
-			<Form.Item<IProfile> name="tickleText" label="拍一拍文本">
+			<Form.Item<IStateProfile> name="tickleText" label="拍一拍文本">
 				<Input addonBefore="朋友拍了拍我" />
 			</Form.Item>
-			<Form.Item<IProfile> name="coin" label="微信豆个数">
+			<Form.Item<IStateProfile> name="coin" label="微信豆个数">
 				<InputNumber min={0} />
 			</Form.Item>
 		</Form>

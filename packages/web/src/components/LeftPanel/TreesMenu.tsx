@@ -1,17 +1,15 @@
+import { tourTargetAtom } from "@/stateV2/tour";
 import { Spin } from "antd";
+import { useSetAtom } from "jotai";
 import { Suspense } from "react";
 import { useTranslation } from "react-i18next";
-import { useSetRecoilState } from "recoil";
-
-import { tourTargetState } from "@/state/globalConfig/tourState";
-
 import NodeTree from "../NodeDetected/NodeTree";
 import useMode from "../useMode";
 
 const TreesMenu = () => {
 	const { isPreview } = useMode();
 	const { t } = useTranslation();
-	const setTourTarget = useSetRecoilState(tourTargetState);
+	const setTourTarget = useSetAtom(tourTargetAtom);
 
 	return (
 		<div

@@ -1,19 +1,17 @@
+import { type IStateFeed, feedAtom } from "@/stateV2/moments";
 import { DatePicker, Form, Radio } from "antd";
 import dayjs from "dayjs";
-import { useSetRecoilState } from "recoil";
-
-import { type IFeed, feedState } from "@/state/moments";
-
+import { useSetAtom } from "jotai";
 import DragSort from "./DragSort";
 import FriendSelect, { FriendItem } from "./FriendSelect";
 import LocalImageUploadWithPreview from "./LocalImageUpload";
 import WrapSlateInput from "./SlateInput";
 
-const FeedMetaDataEditor = ({ data, index }: EditorProps<IFeed, IFeed["id"]>) => {
-	const [form] = Form.useForm<IFeed>();
-	const setFeed = useSetRecoilState(feedState(index));
+const FeedMetaDataEditor = ({ data, index }: EditorProps<IStateFeed, IStateFeed["id"]>) => {
+	const [form] = Form.useForm<IStateFeed>();
+	const setFeed = useSetAtom(feedAtom(index));
 
-	const onFinish = (values: IFeed) => {
+	const onFinish = (values: IStateFeed) => {
 		setFeed((prev) => ({
 			...prev,
 			...values,
@@ -37,10 +35,10 @@ const FeedMetaDataEditor = ({ data, index }: EditorProps<IFeed, IFeed["id"]>) =>
 			}}
 			initialValues={data}
 		>
-			<Form.Item<IFeed> name="userId" label="发送者" rules={[{ required: true }]}>
+			<Form.Item<IStateFeed> name="userId" label="发送者" rules={[{ required: true }]}>
 				<FriendSelect withQuickAdd withMyself />
 			</Form.Item>
-			<Form.Item<IFeed>
+			<Form.Item<IStateFeed>
 				name="sendTimestamp"
 				label="发送时间"
 				required
@@ -54,7 +52,7 @@ const FeedMetaDataEditor = ({ data, index }: EditorProps<IFeed, IFeed["id"]>) =>
 			>
 				<DatePicker showTime allowClear={false} />
 			</Form.Item>
-			<Form.Item<IFeed>
+			<Form.Item<IStateFeed>
 				name={["content", "type"]}
 				label="类型"
 				tooltip="不支持直接修改类型，请删除后重新创建"
@@ -65,16 +63,16 @@ const FeedMetaDataEditor = ({ data, index }: EditorProps<IFeed, IFeed["id"]>) =>
 					<Radio value="video">视频</Radio>
 				</Radio.Group>
 			</Form.Item>
-			<Form.Item<IFeed> name={["content", "text"]} label="文本内容">
+			<Form.Item<IStateFeed> name={["content", "text"]} label="文本内容">
 				<WrapSlateInput />
 			</Form.Item>
-			<Form.Item<IFeed> noStyle shouldUpdate={(pv, cv) => pv.content.type !== cv.content.type}>
+			<Form.Item<IStateFeed> noStyle shouldUpdate={(pv, cv) => pv.content.type !== cv.content.type}>
 				{({ getFieldValue }) => {
 					const type = getFieldValue(["content", "type"]);
 					switch (type) {
 						case "textWithImages":
 							return (
-								<Form.Item<IFeed>
+								<Form.Item<IStateFeed>
 									name={["content", "imagesInfo"]}
 									label="图片"
 									tooltip="最多九张图片"
@@ -84,7 +82,7 @@ const FeedMetaDataEditor = ({ data, index }: EditorProps<IFeed, IFeed["id"]>) =>
 							);
 						case "video":
 							return (
-								<Form.Item<IFeed>
+								<Form.Item<IStateFeed>
 									name={["content", "videoInfo"]}
 									label="视频"
 									tooltip="视频和图片一样，仅仅只是展示的时候加一个播放图标"
@@ -97,16 +95,16 @@ const FeedMetaDataEditor = ({ data, index }: EditorProps<IFeed, IFeed["id"]>) =>
 					}
 				}}
 			</Form.Item>
-			<Form.Item<IFeed> name="likeUserIds" label="点赞用户">
+			<Form.Item<IStateFeed> name="likeUserIds" label="点赞用户">
 				<FriendSelect mode="multiple" withMyself showSearch={false} withQuickAdd allowClear />
 			</Form.Item>
-			<Form.Item<IFeed>
+			<Form.Item<IStateFeed>
 				noStyle
 				shouldUpdate={(pv, cv) => pv.likeUserIds?.length !== cv.likeUserIds?.length}
 			>
 				{({ getFieldValue }) =>
 					getFieldValue("likeUserIds")?.length ? (
-						<Form.Item<IFeed> name="likeUserIds" label="点赞用户顺序">
+						<Form.Item<IStateFeed> name="likeUserIds" label="点赞用户顺序">
 							<DragSort LabelComponent={FriendItem} />
 						</Form.Item>
 					) : null

@@ -1,12 +1,11 @@
+import HashAssets from "@/components/HashAssets";
+import { hashAssetsDB } from "@/db";
+import { getFileMD5 } from "@/utils";
 import { DeleteTwoTone } from "@ant-design/icons";
 import { Button, Input, message } from "antd";
 import { isArray } from "lodash-es";
 import { type ChangeEvent, useMemo, useState } from "react";
 import { ReactSortable } from "react-sortablejs";
-
-import HashAssets from "@/components/HashAssets";
-import { imageDB } from "@/dataSource";
-import { getFileMD5 } from "@/utils";
 
 type Props = {
 	onChange?: (v: string | string[]) => void;
@@ -17,7 +16,7 @@ type Props = {
 const saveFileToDB = async (file: File) => {
 	const hash = await getFileMD5(file);
 
-	await imageDB.images.put({
+	await hashAssetsDB.images.put({
 		id: hash,
 		file,
 	});

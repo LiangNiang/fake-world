@@ -1,27 +1,25 @@
-import { Modal } from "antd";
-import dayjs from "dayjs";
-import { memo } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-
 import { canBeDetected } from "@/components/NodeDetected";
 import TopOperations from "@/components/TopOperations";
 import useModeNavigate from "@/components/useModeNavigate";
-import { MetaDataType } from "@/state/detectedNode";
-import type { StaticMetaData } from "@/state/detectedNode/typing";
-import { type IFeed, type IFeedComment, feedState } from "@/state/moments";
-import { type IProfile, friendState } from "@/state/profile";
+import { EMetaDataType, type StaticMetaData } from "@/stateV2/detectedNode";
+import { type IFeedComment, type IStateFeed, feedAtom } from "@/stateV2/moments";
+import { type IStateProfile, profileAtom } from "@/stateV2/profile";
 import SlateText from "@/wechatComponents/SlateText";
 import UserAvatar from "@/wechatComponents/User/UserAvatar";
 import UserName from "@/wechatComponents/User/UserName";
+import { Modal } from "antd";
+import dayjs from "dayjs";
+import { useAtomValue, useSetAtom } from "jotai";
+import { memo } from "react";
+import { twJoin } from "tailwind-merge";
 
 const CommentUserText = ({
 	fromUserId,
 	replyUserId,
 }: Pick<IFeedComment, "fromUserId" | "replyUserId">) => {
-	const { nickname: fromNickname, remark: fromRemark } = useRecoilValue(friendState(fromUserId));
-	const { nickname: replyNickname, remark: replyRemark } = useRecoilValue(
-		friendState(replyUserId || ""),
-	);
+	const { nickname: fromNickname, remark: fromRemark } = useAtomValue(profileAtom(fromUserId))!;
+	const { nickname: replyNickname, remark: replyRemark } =
+		useAtomValue(profileAtom(replyUserId || "")) ?? {};
 	const navigate = useModeNavigate({ silence: true });
 
 	const renderReplyText = () => {
@@ -63,8 +61,9 @@ const CommentItem = ({
 	id,
 	fromDetail,
 	sendTimestamp,
-}: IFeedComment & { feedId: IFeed["id"]; fromDetail?: boolean }) => {
-	const setFeed = useSetRecoilState(feedState(feedId));
+	className,
+}: IFeedComment & { feedId: IStateFeed["id"]; fromDetail?: boolean; className?: string }) => {
+	const setFeed = useSetAtom(feedAtom(feedId));
 	const navigate = useModeNavigate({ silence: true });
 
 	const handleCommentItemDelete = () => {
@@ -81,7 +80,7 @@ const CommentItem = ({
 
 	const metaData: StaticMetaData.InjectMetaData[] = [
 		{
-			type: MetaDataType.FeedCommentsItem,
+			type: EMetaDataType.FeedCommentsItem,
 			index: [feedId, id],
 			label: "评论",
 			operations: [
@@ -96,7 +95,7 @@ const CommentItem = ({
 			],
 		},
 		{
-			type: MetaDataType.FirendProfile,
+			type: EMetaDataType.FirendProfile,
 			index: fromUserId,
 			label: "评论发送者",
 			treeItemDisplayName: (data) => `${data.nickname}发出的评论`,
@@ -104,20 +103,23 @@ const CommentItem = ({
 	];
 	if (replyUserId) {
 		metaData.push({
-			type: MetaDataType.FirendProfile,
+			type: EMetaDataType.FirendProfile,
 			index: replyUserId,
 			label: "评论回复的人",
 		});
 	}
 
-	const toUser = (id: IProfile["id"]) => {
+	const toUser = (id: IStateProfile["id"]) => {
 		navigate(`/wechat/friend/${id}`);
 	};
 
 	if (fromDetail) {
 		return (
 			<canBeDetected.div
-				className="relative flex border-black/5 border-b pb-2 last:border-none last:pb-0"
+				className={twJoin(
+					"relative flex border-black/5 border-b pb-2 last:border-none last:pb-0",
+					className,
+				)}
 				metaData={metaData}
 			>
 				<UserAvatar

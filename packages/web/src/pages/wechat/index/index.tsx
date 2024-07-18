@@ -1,33 +1,29 @@
-import { useTranslation } from "react-i18next";
-import { useRecoilValue } from "recoil";
-
 import PlusCircleSVG from "@/assets/plus-circle.svg?react";
 import SearchOutlinedSVG from "@/assets/search-outlined.svg?react";
 import { canBeDetected } from "@/components/NodeDetected";
-import {} from "@/components/StatusBar";
-import { BottomNavBars } from "@/state/btmNavbarsState";
-import { MetaDataType } from "@/state/detectedNode";
-import totalUnreadCountState from "@/state/totalUnreadCountState";
+import { EBottomNavBars } from "@/stateV2/bottomNavbars";
+import { EMetaDataType } from "@/stateV2/detectedNode";
+import { unreadCountAtom, unreadCountEffect } from "@/stateV2/unreadCount";
 import BottomNavbar, { useToggleNavbarActivated } from "@/wechatComponents/BottomNavbar";
-
+import { useAtom, useAtomValue } from "jotai";
+import { useTranslation } from "react-i18next";
 import DialogueList from "./DialogueList";
 import MultipleDeviceLogin from "./MultipleDeviceLogin";
-import StateEffect from "./StateEffect";
 
 const WechatIndex = () => {
-	const { count } = useRecoilValue(totalUnreadCountState);
+	const { count } = useAtomValue(unreadCountAtom);
 	const { t } = useTranslation();
-	useToggleNavbarActivated(BottomNavBars.WECHAT);
+	useToggleNavbarActivated(EBottomNavBars.WECHAT);
+	useAtom(unreadCountEffect);
 
 	return (
 		<>
-			<StateEffect />
 			<div className="grid grid-cols-3 bg-[rgba(237,237,237,1)] px-4 py-2">
 				<div className="flex items-center space-x-1 font-bold text-xs" />
 				<canBeDetected.span
 					className="flex items-center justify-center font-medium"
 					metaData={{
-						type: MetaDataType.TotalUnreadCount,
+						type: EMetaDataType.UnreadCount,
 						treeItemDisplayName: (d) => `顶栏 ${d.count} 个未读消息`,
 					}}
 				>

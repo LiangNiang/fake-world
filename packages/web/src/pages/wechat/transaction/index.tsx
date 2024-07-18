@@ -1,8 +1,6 @@
-import { useParams } from "react-router-dom";
-
-import { BUILT_IN_TRANSACTION_TYPES, type TTransactionType } from "@/state/transaction";
+import { BUILT_IN_TRANSACTION_TYPES, type TTransactionType } from "@/stateV2/transaction";
 import { showToast } from "@/wechatComponents/Toast";
-
+import { useParams } from "react-router-dom";
 import { buildDetailComponent } from "./builder";
 
 const DetailAdapter = () => {

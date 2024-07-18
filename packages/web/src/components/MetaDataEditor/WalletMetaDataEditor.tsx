@@ -1,13 +1,12 @@
+import { type TStateWallet, walletAtom } from "@/stateV2/wallet";
 import { Button, Form, Input } from "antd";
-import { useSetRecoilState } from "recoil";
+import { useSetAtom } from "jotai";
 
-import { type IWallet, walletState } from "@/state/walletState";
+const WalletMetaDataEditor = ({ data }: EditorProps<TStateWallet>) => {
+	const setWallet = useSetAtom(walletAtom);
+	const [form] = Form.useForm<TStateWallet>();
 
-const WalletMetaDataEditor = ({ data }: EditorProps<IWallet>) => {
-	const setWallet = useSetRecoilState(walletState);
-	const [form] = Form.useForm<IWallet>();
-
-	const onFinish = (values: IWallet) => {
+	const onFinish = (values: TStateWallet) => {
 		setWallet((prev) => ({
 			...prev,
 			...values,
@@ -27,7 +26,7 @@ const WalletMetaDataEditor = ({ data }: EditorProps<IWallet>) => {
 				});
 			}}
 		>
-			<Form.Item<IWallet> name="balance" label="零钱余额">
+			<Form.Item<TStateWallet> name="balance" label="零钱余额">
 				<Input
 					addonBefore="¥"
 					suffix={
@@ -45,7 +44,7 @@ const WalletMetaDataEditor = ({ data }: EditorProps<IWallet>) => {
 					}
 				/>
 			</Form.Item>
-			<Form.Item<IWallet> name="miniFund" label="零钱通余额">
+			<Form.Item<TStateWallet> name="miniFund" label="零钱通余额">
 				<Input
 					addonBefore="¥"
 					suffix={
@@ -63,7 +62,7 @@ const WalletMetaDataEditor = ({ data }: EditorProps<IWallet>) => {
 					}
 				/>
 			</Form.Item>
-			<Form.Item<IWallet> name="miniFundYield" label="零钱通收益率">
+			<Form.Item<TStateWallet> name="miniFundYield" label="零钱通收益率">
 				<Input addonAfter="%" />
 			</Form.Item>
 		</Form>

@@ -1,17 +1,17 @@
+import { randomFeedId } from "@/faker/wechat/moments";
+import { type IFeedComment, type IStateFeed, feedAtom } from "@/stateV2/moments";
+import { SLATE_EMPTY_VALUE } from "@/wechatComponents/SlateText/utils";
 import { Button, DatePicker, Form } from "antd";
 import dayjs from "dayjs";
-import { useSetRecoilState } from "recoil";
-
-import { randomFeedId } from "@/faker/wechat/moments";
-import { type IFeed, type IFeedComment, feedState } from "@/state/moments";
-import { SLATE_EMPTY_VALUE } from "@/wechatComponents/SlateText/utils";
-
+import { useSetAtom } from "jotai";
 import FriendSelect from "./FriendSelect";
 import SlateInput from "./SlateInput";
 
-const FeedCommentsListMetaDataEditor = ({ index }: EditorProps<IFeed["comments"], IFeed["id"]>) => {
+const FeedCommentsListMetaDataEditor = ({
+	index,
+}: EditorProps<IStateFeed["comments"], IStateFeed["id"]>) => {
 	const [form] = Form.useForm<IFeedComment>();
-	const setFeed = useSetRecoilState(feedState(index));
+	const setFeed = useSetAtom(feedAtom(index));
 
 	const onFinish = (values: IFeedComment) => {
 		setFeed((prev) => ({

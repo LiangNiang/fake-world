@@ -56,7 +56,7 @@
 * [React](https://react.dev/)
 * [TypeScript](https://www.typescriptlang.org/)
 * [Tailwindcss](https://tailwindcss.com/)
-* [Recoil](https://recoiljs.org/)
+* [Jotai](https://jotai.org/)
 * [Slate](https://www.slatejs.org/)
 * [Dexie.js](https://dexie.org/)
 * [Bun](https://bun.sh/)
@@ -99,28 +99,21 @@ pnpm run dev:web
 ```
 #### 启动后端项目 （非必需）
 
-如果是初次启动，需要配置本地的数据库环境，
-
-```bash
-docker compose -f packages/api/compose/docker-compose.yaml up -d
-```
-
 在 packages/apis/.env.local 中配置相关环境变量信息，写入如下内容
 
 ```
 PORT=9000
-DATABASE_URL="mongodb://root:prisma@localhost:27017/fake-world?authSource=admin&retryWrites=true&w=majority"
-API_URL=http://localhost:9000
 OPENAI_baseURL=
 OPENAI_apiKey=
+OPENAI_model=
 ```
-OPENAI 相关的环境变量可以不配置，如果需要调试相关 AI 功能，请自行填入
+这些环境变量都不是必需的，PORT 是后端服务占用的端口号，默认为 9000，OPENAI 相关的环境变量如果需要调试相关 AI 功能，可以自行填入。
 
 
 然后在项目根目录执行
 ```bash
 pnpm run dev:api 
-# or in packages/api do
+# 或者在 packages/api 执行
 pnpm run dev
 ```
 
@@ -131,7 +124,6 @@ liangniangbaby@gmail.com
 ### 版权说明
 
 该项目签署了 GPL v3.0 授权许可，详情请参阅 [LICENSE][license-url]
-
 
 
 [stars-shield]: https://img.shields.io/github/stars/LiangNiang/fake-world?style=flat-square

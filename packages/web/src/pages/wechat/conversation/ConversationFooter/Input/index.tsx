@@ -1,14 +1,12 @@
-import { type Dispatch, type SetStateAction, memo, useEffect } from "react";
-import { isMobileOnly } from "react-device-detect";
-import { useSetRecoilState } from "recoil";
-import { Editable, ReactEditor, Slate } from "slate-react";
-
 import { canBeDetected } from "@/components/NodeDetected";
-import { conversationInputValueState } from "@/state/conversationState";
-import { MetaDataType } from "@/state/detectedNode";
+import { inputterValueAtom } from "@/stateV2/conversation";
+import { EMetaDataType } from "@/stateV2/detectedNode";
 import Element from "@/wechatComponents/SlateText/Element";
 import { SLATE_INITIAL_VALUE } from "@/wechatComponents/SlateText/utils";
-
+import { useSetAtom } from "jotai";
+import { type Dispatch, type SetStateAction, memo, useEffect } from "react";
+import { isMobileOnly } from "react-device-detect";
+import { Editable, ReactEditor, Slate } from "slate-react";
 import { useConversationAPI } from "../../context";
 import { focusFix } from "./utils";
 
@@ -25,7 +23,7 @@ const Input = ({ showEmojiPanel, setShowEmojiPanel }: Props) => {
 		mobileInputMode,
 		previousMobileInputMode,
 	} = useConversationAPI();
-	const setInputValue = useSetRecoilState(conversationInputValueState);
+	const setInputValue = useSetAtom(inputterValueAtom);
 
 	useEffect(() => {
 		if (isMobileOnly && mobileInputMode === "text" && previousMobileInputMode === "none") {
@@ -39,7 +37,7 @@ const Input = ({ showEmojiPanel, setShowEmojiPanel }: Props) => {
 			className="min-w-0 flex-1"
 			metaData={{
 				treeItemDisplayName: (data) => `发送消息（发送人：${data.sendRole}）`,
-				type: MetaDataType.ConversationInput,
+				type: EMetaDataType.ConversationInput,
 			}}
 		>
 			<Slate

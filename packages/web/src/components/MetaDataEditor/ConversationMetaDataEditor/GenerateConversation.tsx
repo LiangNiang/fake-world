@@ -3,30 +3,30 @@ import {
 	EConversationType,
 	type TConversationItem,
 	type TConversationRole,
-	conversationState,
-} from "@/state/conversationState";
-import { type IProfile, friendState } from "@/state/profile";
+	conversationListAtom,
+	getConversationListValueSnapshot,
+} from "@/stateV2/conversation";
+import { type IStateProfile, getProfileValueSnapshot } from "@/stateV2/profile";
 import { OpenAIOutlined } from "@ant-design/icons";
 import { useUnmount } from "ahooks";
 import { experimental_useObject as useObject } from "ai/react";
 import { Button, Form, Input, type InputRef, message } from "antd";
 import dayjs from "dayjs";
+import { useSetAtom } from "jotai";
 import { isEmpty } from "lodash-es";
 import { nanoid } from "nanoid";
 import { memo, useEffect, useRef } from "react";
-import { useSetRecoilState } from "recoil";
-import { getRecoil } from "recoil-nexus";
 import { z } from "zod";
 
 type Props = {
-	friendId: IProfile["id"];
+	friendId: IStateProfile["id"];
 	scrollToBtm: () => void;
 };
 
 const GenerateConversation = ({ friendId, scrollToBtm }: Props) => {
 	const topicRef = useRef<InputRef>(null);
 	const oldPrevConversationRef = useRef<TConversationItem[] | null>(null);
-	const setConversationList = useSetRecoilState(conversationState(friendId));
+	const setConversationList = useSetAtom(conversationListAtom(friendId));
 	const { submit, isLoading, object, stop, error } = useObject<
 		{ messages: Array<{ role: TConversationRole; content: string }> },
 		{ remark: string; topic: string }
@@ -88,7 +88,7 @@ const GenerateConversation = ({ friendId, scrollToBtm }: Props) => {
 	}, [error]);
 
 	const handleSubmit = async () => {
-		const { remark: friendRemark, nickname } = getRecoil(friendState(friendId));
+		const { remark: friendRemark, nickname } = getProfileValueSnapshot(friendId)!;
 		let remark = "";
 		if (friendRemark) {
 			remark = `我给这个好友的备注是${friendRemark}`;
@@ -100,7 +100,7 @@ const GenerateConversation = ({ friendId, scrollToBtm }: Props) => {
 			? "随意，但只能专注一个主题，可以贴合好友的基本信息"
 			: inputValue!;
 		submit({ remark, topic });
-		oldPrevConversationRef.current = getRecoil(conversationState(friendId));
+		oldPrevConversationRef.current = getConversationListValueSnapshot(friendId);
 	};
 
 	return (

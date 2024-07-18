@@ -1,21 +1,18 @@
-import { CommentOutlined, SelectOutlined, UserOutlined } from "@ant-design/icons";
-import { Modal, Tooltip } from "antd";
-import { memo, useCallback, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { setRecoil } from "recoil-nexus";
-import { twJoin, twMerge } from "tailwind-merge";
-
 import { canBeDetected } from "@/components/NodeDetected";
 import TopOperations from "@/components/TopOperations";
 import useModeNavigate from "@/components/useModeNavigate";
 import { generateInitFeedComment } from "@/faker/wechat/moments";
 import { MYSELF_ID } from "@/faker/wechat/user";
-import { MetaDataType } from "@/state/detectedNode";
-import { type IFeedBase, allFeedsState, feedState } from "@/state/moments";
-import { friendState } from "@/state/profile";
+import { EMetaDataType } from "@/stateV2/detectedNode";
+import { type IStateFeed, feedAtom, feedListAtom } from "@/stateV2/moments";
+import { profileAtom } from "@/stateV2/profile";
 import UserAvatar from "@/wechatComponents/User/UserAvatar";
-
+import { CommentOutlined, SelectOutlined, UserOutlined } from "@ant-design/icons";
+import { Modal, Tooltip } from "antd";
+import { useAtomValue, useSetAtom } from "jotai";
+import { memo, useCallback, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
+import { twJoin, twMerge } from "tailwind-merge";
 import Comments from "./Comments";
 import FeedContent from "./Content";
 import LikeList from "./Likes";
@@ -29,9 +26,15 @@ type Props = {
 	fromDetail?: boolean;
 };
 
-const Feed = ({ id, userId, classNames, fromDetail }: Omit<IFeedBase, "sendTimestamp"> & Props) => {
-	const { nickname, remark } = useRecoilValue(friendState(userId));
-	const setAllFeeds = useSetRecoilState(allFeedsState);
+const Feed = ({
+	id,
+	userId,
+	classNames,
+	fromDetail,
+}: Omit<IStateFeed, "sendTimestamp" | "content"> & Props) => {
+	const { nickname, remark } = useAtomValue(profileAtom(userId))!;
+	const setFeedList = useSetAtom(feedListAtom);
+	const setFeed = useSetAtom(feedAtom(id));
 	const originalNavigate = useNavigate();
 	const navigate = useModeNavigate({ silence: true });
 
@@ -50,7 +53,7 @@ const Feed = ({ id, userId, classNames, fromDetail }: Omit<IFeedBase, "sendTimes
 		Modal.confirm({
 			title: "是否删除该条朋友圈？",
 			onOk: () => {
-				setAllFeeds((v) => v.filter((v) => v.id !== id));
+				setFeedList((v) => v.filter((v) => v.id !== id));
 			},
 		});
 	};
@@ -72,7 +75,7 @@ const Feed = ({ id, userId, classNames, fromDetail }: Omit<IFeedBase, "sendTimes
 		},
 		{
 			onClick: () => {
-				setRecoil(feedState(id), (prev) => ({
+				setFeed((prev) => ({
 					...prev,
 					comments: [...(prev.comments ?? []), generateInitFeedComment()],
 				}));
@@ -115,19 +118,19 @@ const Feed = ({ id, userId, classNames, fromDetail }: Omit<IFeedBase, "sendTimes
 			className={twMerge("flex flex-col border-black/5 border-b px-5 py-3", classNames?.container)}
 			metaData={[
 				{
-					type: MetaDataType.MomentsFeed,
+					type: EMetaDataType.MomentsFeed,
 					index: id,
 					operations,
 					label: "朋友圈",
 				},
 				userId === MYSELF_ID
 					? {
-							type: MetaDataType.MyProfile,
+							type: EMetaDataType.MyProfile,
 							treeItemDisplayName: (data) => `${data.nickname}的朋友圈`,
 							label: "用户信息",
 						}
 					: {
-							type: MetaDataType.FirendProfile,
+							type: EMetaDataType.FirendProfile,
 							index: userId,
 							treeItemDisplayName: (data) => `${data.nickname}的朋友圈`,
 							label: "用户信息",

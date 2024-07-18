@@ -1,9 +1,8 @@
-import { type MouseEvent, useMemo } from "react";
-import { useRecoilValue } from "recoil";
-import { twJoin } from "tailwind-merge";
-
-import { recentUseEmojiState } from "@/state/conversationState";
+import { recentUsedEmojiAtom } from "@/stateV2/conversation";
 import { EMOJI_ARRAY } from "@/wechatComponents/SlateText/utils";
+import { useAtomValue } from "jotai";
+import { type MouseEvent, useMemo } from "react";
+import { twJoin } from "tailwind-merge";
 
 type Props = {
 	onEmojiClick: (ev: MouseEvent) => void;
@@ -11,15 +10,15 @@ type Props = {
 };
 
 const EmojiList = ({ onEmojiClick, className }: Props) => {
-	const recentUseEmoji = useRecoilValue(recentUseEmojiState);
+	const recentUsedEmoji = useAtomValue(recentUsedEmojiAtom);
 
 	const recentUseEmojiContent = useMemo(() => {
-		if (recentUseEmoji.length === 0) return null;
+		if (recentUsedEmoji.length === 0) return null;
 		return (
 			<div className="flex flex-col">
 				<div className="mb-4 text-xs">最近使用</div>
 				<div className="flex justify-between" onClick={onEmojiClick}>
-					{recentUseEmoji.map((item) => {
+					{recentUsedEmoji.map((item) => {
 						const [y, x] = item.split("-").map((i) => Number.parseInt(i));
 						return (
 							<div
@@ -34,13 +33,13 @@ const EmojiList = ({ onEmojiClick, className }: Props) => {
 							/>
 						);
 					})}
-					{new Array(8 - recentUseEmoji.length).fill(0).map((_, i) => (
+					{new Array(8 - recentUsedEmoji.length).fill(0).map((_, i) => (
 						<div key={`empty-${i}`} className="h-6 w-6" />
 					))}
 				</div>
 			</div>
 		);
-	}, [recentUseEmoji]);
+	}, [recentUsedEmoji]);
 
 	return (
 		<div className={twJoin("flex flex-col overflow-auto bg-[#ECECEC] px-4 pb-8", className)}>

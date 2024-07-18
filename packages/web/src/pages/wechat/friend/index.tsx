@@ -1,11 +1,3 @@
-import dayjs from "dayjs";
-import { isEmpty, isString } from "lodash-es";
-import { nanoid } from "nanoid";
-import { useTranslation } from "react-i18next";
-import { useParams } from "react-router-dom";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { twJoin } from "tailwind-merge";
-
 import ArrowOutlinedSVG from "@/assets/arrow-outlined.svg?react";
 import BackFilledSVG from "@/assets/back-filled.svg?react";
 import FemaleIMG from "@/assets/female.png";
@@ -17,10 +9,16 @@ import { h } from "@/components/HashAssets";
 import { canBeDetected } from "@/components/NodeDetected";
 import useModeNavigate from "@/components/useModeNavigate";
 import { MYSELF_ID } from "@/faker/wechat/user";
-import { MetaDataType } from "@/state/detectedNode";
-import type { StaticMetaData } from "@/state/detectedNode/typing";
-import { dialogueListState } from "@/state/dialogueState";
-import { type IProfile, PRIVACY_TEXT_MAP, friendState } from "@/state/profile";
+import { EMetaDataType, type StaticMetaData } from "@/stateV2/detectedNode";
+import { dialogueListAtom } from "@/stateV2/dialogueList";
+import { type IStateProfile, PRIVACY_TEXT_MAP, profileAtom } from "@/stateV2/profile";
+import dayjs from "dayjs";
+import { useAtomValue, useSetAtom } from "jotai";
+import { isEmpty, isString } from "lodash-es";
+import { nanoid } from "nanoid";
+import { useTranslation } from "react-i18next";
+import { useParams } from "react-router-dom";
+import { twJoin } from "tailwind-merge";
 
 const GENDER_IMAGES = {
 	male: MaleIMG,
@@ -29,7 +27,15 @@ const GENDER_IMAGES = {
 
 const Friend = () => {
 	const { id: userId } = useParams<{ id: string }>();
-	const setDialogueListState = useSetRecoilState(dialogueListState);
+	const setDialogueList = useSetAtom(dialogueListAtom);
+	const profile = useAtomValue(profileAtom(userId ?? ""));
+	const navigate = useModeNavigate();
+	const { t } = useTranslation();
+
+	const isMyself = userId === MYSELF_ID;
+
+	if (!profile) return <></>;
+
 	const {
 		avatarInfo,
 		gender,
@@ -44,23 +50,19 @@ const Friend = () => {
 		thumbnailInfo,
 		hideThumbnail,
 		description,
-	} = useRecoilValue(friendState(userId ?? ""));
-	const navigate = useModeNavigate();
-	const { t } = useTranslation();
-
-	const isMyself = userId === MYSELF_ID;
+	} = profile;
 
 	const getMetaData = (): StaticMetaData.InjectMetaData => {
-		const treeItemDisplayName = (data: IProfile) => `信息编辑（${data.nickname}）`;
+		const treeItemDisplayName = (data: IStateProfile) => `信息编辑（${data.nickname}）`;
 
 		if (isMyself) {
 			return {
-				type: MetaDataType.MyProfile,
+				type: EMetaDataType.MyProfile,
 				treeItemDisplayName,
 			};
 		}
 		return {
-			type: MetaDataType.FirendProfile,
+			type: EMetaDataType.FirendProfile,
 			index: userId!,
 			treeItemDisplayName,
 		};
@@ -206,7 +208,7 @@ const Friend = () => {
 							onClick={() => {
 								if (userId) {
 									navigate(`/wechat/conversation/${userId}`);
-									setDialogueListState((prev) => {
+									setDialogueList((prev) => {
 										if (prev.some((v) => v.friendId === userId)) return prev;
 										return [
 											{

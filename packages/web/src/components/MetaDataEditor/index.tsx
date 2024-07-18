@@ -1,17 +1,14 @@
+import {
+	EMetaDataType,
+	type StaticMetaData,
+	activatedNodeAtom,
+	getNodeFreshDataValueSnapshot,
+	nodeInjectMetaDataAtom,
+} from "@/stateV2/detectedNode";
 import { Global, css } from "@emotion/react";
 import { App, Tabs } from "antd";
-import { useCallback } from "react";
-import { useRecoilValue } from "recoil";
-import { getRecoil } from "recoil-nexus";
-
-import {
-	MetaDataType,
-	activatedNodeState,
-	nodeFreshDataState,
-	nodeInjectMetaState,
-} from "@/state/detectedNode";
-import type { StaticMetaData } from "@/state/detectedNode/typing";
-
+import { useAtomValue } from "jotai";
+import { memo, useCallback } from "react";
 import useMode from "../useMode";
 import AllFeedsMetaDataEditor from "./AllFeedsMetaDataEditor";
 import ConversationInputMetaDataEditor from "./ConversationInputMetaDataEditor";
@@ -28,8 +25,8 @@ import FeedMetaDataEditor from "./FeedMetaDataEditor";
 import MultipleDeviceLoginEditor from "./MultipleDeviceLoginEditor";
 import NavigationBarMetaDataEditor from "./NavigationBarMetaDataEditor";
 import StatusBarMetaDataEditor from "./StatusBarMetaDataEditor";
-import TotalUnreadMetaDataEditor from "./TotalUnreadMetaDataEditor";
 import TransactionRecordMetaDataEditor from "./TransactionRecordMetaDataEditor";
+import UnreadMetaDataEditor from "./UnreadMetaDataEditor";
 import {
 	FriendProfileMetaDataEditor,
 	FriendsTotlaMetaDataEditor,
@@ -39,37 +36,37 @@ import {
 import WalletMetaDataEditor from "./WalletMetaDataEditor";
 
 const TYPE_MAP_COMPONENT = {
-	[MetaDataType.DialogueItem]: DialogueItemMetaDataEditor,
-	[MetaDataType.NavigationBar]: NavigationBarMetaDataEditor,
-	[MetaDataType.DialogueList]: DialogueListMetaDataEditor,
-	[MetaDataType.TotalUnreadCount]: TotalUnreadMetaDataEditor,
-	[MetaDataType.ConversationInput]: ConversationInputMetaDataEditor,
-	[MetaDataType.ConversationList]: ConversationListMetaDataEditor,
-	[MetaDataType.ConversationItem]: ConversationItemMetaDataEditor,
-	[MetaDataType.StatusBar]: StatusBarMetaDataEditor,
-	[MetaDataType.MyProfile]: MyProfileMetaDataEditor,
-	[MetaDataType.FirendProfile]: FriendProfileMetaDataEditor,
-	[MetaDataType.Wallet]: WalletMetaDataEditor,
-	[MetaDataType.MomentsFeed]: FeedMetaDataEditor,
-	[MetaDataType.AllFeeds]: AllFeedsMetaDataEditor,
-	[MetaDataType.FeedLikes]: FeedLikeMetaDataEditor,
-	[MetaDataType.FeedCommentsItem]: FeedCommentItemMetaDataEditor,
-	[MetaDataType.FeedCommentsList]: FeedCommentsListMetaDataEditor,
-	[MetaDataType.UserAllFeeds]: AllFeedsMetaDataEditor,
-	[MetaDataType.TransactionRecord]: TransactionRecordMetaDataEditor,
-	[MetaDataType.ContactsContainer]: NewUserMetaDataEditor,
-	[MetaDataType.FriendsTotalCount]: FriendsTotlaMetaDataEditor,
-	[MetaDataType.MultipleDeviceLogin]: MultipleDeviceLoginEditor,
+	[EMetaDataType.DialogueItem]: DialogueItemMetaDataEditor,
+	[EMetaDataType.NavigationBar]: NavigationBarMetaDataEditor,
+	[EMetaDataType.DialogueList]: DialogueListMetaDataEditor,
+	[EMetaDataType.UnreadCount]: UnreadMetaDataEditor,
+	[EMetaDataType.ConversationInput]: ConversationInputMetaDataEditor,
+	[EMetaDataType.ConversationList]: ConversationListMetaDataEditor,
+	[EMetaDataType.ConversationItem]: ConversationItemMetaDataEditor,
+	[EMetaDataType.StatusBar]: StatusBarMetaDataEditor,
+	[EMetaDataType.MyProfile]: MyProfileMetaDataEditor,
+	[EMetaDataType.FirendProfile]: FriendProfileMetaDataEditor,
+	[EMetaDataType.Wallet]: WalletMetaDataEditor,
+	[EMetaDataType.MomentsFeed]: FeedMetaDataEditor,
+	[EMetaDataType.AllFeeds]: AllFeedsMetaDataEditor,
+	[EMetaDataType.FeedLikes]: FeedLikeMetaDataEditor,
+	[EMetaDataType.FeedCommentsItem]: FeedCommentItemMetaDataEditor,
+	[EMetaDataType.FeedCommentsList]: FeedCommentsListMetaDataEditor,
+	[EMetaDataType.UserAllFeeds]: AllFeedsMetaDataEditor,
+	[EMetaDataType.TransactionRecord]: TransactionRecordMetaDataEditor,
+	[EMetaDataType.ContactsContainer]: NewUserMetaDataEditor,
+	[EMetaDataType.FriendsTotalCount]: FriendsTotlaMetaDataEditor,
+	[EMetaDataType.MultipleDeviceLogin]: MultipleDeviceLoginEditor,
 };
 
-export const MetaDataEditor = () => {
+const MetaDataEditor = () => {
 	const { isPreview } = useMode();
-	const activatedNode = useRecoilValue(activatedNodeState);
-	const metaData = useRecoilValue(nodeInjectMetaState(activatedNode ?? ""));
+	const activatedNode = useAtomValue(activatedNodeAtom);
+	const metaData = useAtomValue(nodeInjectMetaDataAtom(activatedNode ?? ""));
 
 	const renderMetaDataEditorBySingleMetaData = useCallback(
 		(metaData?: StaticMetaData.InjectMetaData, freshDataIndex?: number) => {
-			const nodeData = getRecoil(nodeFreshDataState(activatedNode ?? ""));
+			const nodeData = getNodeFreshDataValueSnapshot(activatedNode ?? "");
 			if (!metaData || !metaData.type) {
 				return <>该节点没有配置 metadata</>;
 			}
@@ -133,3 +130,5 @@ export const MetaDataEditor = () => {
 		</App>
 	);
 };
+
+export default memo(MetaDataEditor);

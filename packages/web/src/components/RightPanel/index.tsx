@@ -1,6 +1,5 @@
 import { memo } from "react";
-
-import { MetaDataEditor } from "../MetaDataEditor";
+import MetaDataEditor from "../MetaDataEditor";
 
 const RightPanel = () => {
 	return (

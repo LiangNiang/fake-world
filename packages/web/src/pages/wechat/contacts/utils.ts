@@ -1,4 +1,4 @@
-import { NOT_SHOW_ANCHOR, type TNeedGroupDataItem, starS } from "@/state/profile";
+import { NOT_SHOW_ANCHOR, type TNeedGroupDataItem, starS } from "@/stateV2/profile";
 
 type TRenderAnchor = {
 	type: "anchor";

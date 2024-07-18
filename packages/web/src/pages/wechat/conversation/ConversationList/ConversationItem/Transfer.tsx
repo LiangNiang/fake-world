@@ -1,21 +1,19 @@
-import { get, isEmpty } from "lodash-es";
-import { type ComponentType, type SVGProps, memo } from "react";
-import { twJoin } from "tailwind-merge";
-
 import Done2SVG from "@/assets/done2-outlined.svg?react";
 import ErrorSVG from "@/assets/error-outlined.svg?react";
 import Previous2SVG from "@/assets/previous2-outlined.svg?react";
 import Transfer2SVG from "@/assets/transfer2-outlined.svg?react";
-import type { IConversationTypeTransfer } from "@/state/conversationState";
-import type { IProfile } from "@/state/profile";
-
+import type { IConversationTypeTransfer } from "@/stateV2/conversation";
+import type { IStateProfile } from "@/stateV2/profile";
+import { get, isEmpty } from "lodash-es";
+import { type ComponentType, type SVGProps, memo } from "react";
+import { twJoin } from "tailwind-merge";
 import { TRANSFER_TEXT_NOTE_MAP } from "../consts";
 import CommonBlock from "./CommonBlock";
 
 type Props = {
 	role: IConversationTypeTransfer["role"];
 	upperText: IConversationTypeTransfer["upperText"];
-	senderId: IProfile["id"];
+	senderId: IStateProfile["id"];
 	transferStatus: IConversationTypeTransfer["transferStatus"];
 	amount: IConversationTypeTransfer["amount"];
 	note: IConversationTypeTransfer["note"];

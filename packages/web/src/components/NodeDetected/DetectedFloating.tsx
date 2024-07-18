@@ -1,3 +1,5 @@
+import TopOperations from "@/components/TopOperations";
+import { activatedNodeAtom, hoveredNodeAtom } from "@/stateV2/detectedNode";
 import {
 	FloatingOverlay,
 	FloatingPortal,
@@ -7,12 +9,9 @@ import {
 	size,
 	useFloating,
 } from "@floating-ui/react";
+import { useAtomValue } from "jotai";
 import { useMemo } from "react";
-import { useRecoilValue } from "recoil";
 import { twJoin } from "tailwind-merge";
-
-import TopOperations from "@/components/TopOperations";
-import { activatedNodeState, hoverdNodeState } from "@/state/detectedNode";
 
 type ActivatedBorderProps = {
 	element: Element;
@@ -111,8 +110,8 @@ const DetectedOverlay = ({ element, type, nodeId }: ActivatedBorderProps) => {
 };
 
 const DetectedOverall = () => {
-	const activatedNode = useRecoilValue(activatedNodeState);
-	const hoverdNode = useRecoilValue(hoverdNodeState);
+	const activatedNode = useAtomValue(activatedNodeAtom);
+	const hoveredNode = useAtomValue(hoveredNodeAtom);
 
 	const activatedBorder = useMemo(() => {
 		if (activatedNode) {
@@ -123,12 +122,12 @@ const DetectedOverall = () => {
 	}, [activatedNode]);
 
 	const hoverdBorder = useMemo(() => {
-		if (hoverdNode && hoverdNode !== activatedNode) {
-			const element = document.getElementById(hoverdNode);
+		if (hoveredNode && hoveredNode !== activatedNode) {
+			const element = document.getElementById(hoveredNode);
 			if (!element) return null;
-			return <DetectedOverlay type="hover" element={element} nodeId={hoverdNode} />;
+			return <DetectedOverlay type="hover" element={element} nodeId={hoveredNode} />;
 		}
-	}, [hoverdNode]);
+	}, [hoveredNode]);
 
 	return (
 		<>

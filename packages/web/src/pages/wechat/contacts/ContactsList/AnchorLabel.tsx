@@ -1,9 +1,8 @@
+import { otherS, starS } from "@/stateV2/profile";
 import { isSymbol } from "lodash-es";
 import { forwardRef, memo } from "react";
 import { useTranslation } from "react-i18next";
 import { twJoin } from "tailwind-merge";
-
-import { otherS, starS } from "@/state/profile";
 
 type Props = {
 	labelKey: string;

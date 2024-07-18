@@ -1,10 +1,8 @@
+import { IMAGES_CACHE } from "@/db";
+import { isMD5 } from "@/utils";
 import { Image, type ImageProps } from "antd";
 import { omit } from "lodash-es";
 import { type AllHTMLAttributes, type ComponentType, memo } from "react";
-
-import { ImageDBManager } from "@/dataSource";
-import { isMD5 } from "@/utils";
-
 import { useAsyncAssetsCache } from "../useAssetsCache";
 
 const whiteImageUrl =
@@ -26,9 +24,7 @@ const HashAssets = (props: Props) => {
 	const { src, useAntdImageComponent, component: Component = "img", ...rest } = props;
 	useAsyncAssetsCache(isMD5(src));
 
-	const usedSrc = isMD5(src)
-		? ImageDBManager.IMAGES_CACHE.get(src!) || whiteImageUrl
-		: src || whiteImageUrl;
+	const usedSrc = isMD5(src) ? IMAGES_CACHE.get(src!) || whiteImageUrl : src || whiteImageUrl;
 	if (useAntdImageComponent && Component === "img") {
 		return <AntdImage {...(rest as ImageProps)} src={usedSrc} />;
 	}

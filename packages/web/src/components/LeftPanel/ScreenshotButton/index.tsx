@@ -1,14 +1,12 @@
+import useDeviceConfig from "@/components/useDeviceConfig";
+import { modeAtom } from "@/stateV2/mode";
+import { sleep } from "@/utils";
 import { CameraOutlined } from "@ant-design/icons";
 import { App, Button, type ButtonProps } from "antd";
 import { saveAs } from "file-saver";
+import { useSetAtom } from "jotai";
 import { noop } from "lodash-es";
 import { browserName, browserVersion } from "react-device-detect";
-import { setRecoil } from "recoil-nexus";
-
-import useDeviceConfig from "@/components/useDeviceConfig";
-import { ModeState, modeState } from "@/state/modeState";
-import { sleep } from "@/utils";
-
 import { checkCanDirectCreateScreenshot, drawToCanvas } from "./utils";
 
 type Props = {
@@ -18,9 +16,10 @@ type Props = {
 const ScreenshotButton = ({ buttonProps }: Props) => {
 	const { message } = App.useApp();
 	const { screenSize } = useDeviceConfig();
+	const setMode = useSetAtom(modeAtom);
 
 	const handleCreateScreenshot = async () => {
-		setRecoil(modeState, ModeState.PREVIEW);
+		setMode("preview");
 		try {
 			checkCanDirectCreateScreenshot({
 				browserName,

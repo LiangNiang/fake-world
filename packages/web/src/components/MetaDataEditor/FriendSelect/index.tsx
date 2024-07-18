@@ -1,14 +1,13 @@
+import { MYSELF_ID, addFakeUser, quickAddFakeUser } from "@/faker/wechat/user";
+import { dialogueListAtom } from "@/stateV2/dialogueList";
+import { type IStateProfile, allProfilesIdsAtom, profileAtom } from "@/stateV2/profile";
 import { PlusCircleOutlined } from "@ant-design/icons";
 import { Button, Divider, Input, Select } from "antd";
 import type { DefaultOptionType, SelectProps } from "antd/es/select";
+import { useAtomValue } from "jotai";
 import { useState } from "react";
-import { useRecoilValue } from "recoil";
 
-import { MYSELF_ID, addFakeUser, quickAddFakeUser } from "@/faker/wechat/user";
-import { dialogueListState } from "@/state/dialogueState";
-import { type IProfile, friendState, friendsIdsState } from "@/state/profile";
-
-type Props = SelectProps<IProfile["id"] | IProfile["id"][]> & {
+type Props = SelectProps<IStateProfile["id"] | IStateProfile["id"][]> & {
 	/** 是否过滤对话列表已经存在的对话 */
 	filterExisting?: boolean;
 	/** 是否在下拉菜单显示快速新建好友菜单 */
@@ -17,8 +16,8 @@ type Props = SelectProps<IProfile["id"] | IProfile["id"][]> & {
 	withMyself?: boolean;
 };
 
-export const FriendItem = ({ id, className }: { id: IProfile["id"]; className?: string }) => {
-	const { nickname, wechat, remark } = useRecoilValue(friendState(id));
+export const FriendItem = ({ id, className }: { id: IStateProfile["id"]; className?: string }) => {
+	const { nickname, wechat, remark } = useAtomValue(profileAtom(id))!;
 	return <div className={className}>{`${remark ?? nickname}（${wechat}）`}</div>;
 };
 
@@ -31,16 +30,17 @@ const FriendSelect = ({
 	...rest
 }: Props) => {
 	const [quickAddNickname, setQuickAddNickname] = useState("");
-	const friendIds = useRecoilValue(friendsIdsState);
-	const usedIds = [...friendIds];
+	const allProfilesIds = useAtomValue(allProfilesIdsAtom);
+	const usedIds = [...allProfilesIds];
 	if (!withMyself) {
-		usedIds.splice(friendIds.indexOf(MYSELF_ID), 1);
+		usedIds.splice(allProfilesIds.indexOf(MYSELF_ID), 1);
 	}
-	const existingFriends = useRecoilValue(dialogueListState).map((v) => v.friendId);
+	const dialogueList = useAtomValue(dialogueListAtom);
+	const existingFriendIds = dialogueList.map((v) => v.friendId);
 	const selectOptions: DefaultOptionType[] = usedIds.map((friend) => ({
 		label: <FriendItem id={friend} />,
 		value: friend,
-		disabled: filterExisting && existingFriends.includes(friend),
+		disabled: filterExisting && existingFriendIds.includes(friend),
 	}));
 
 	const quickAddFriend = () => {

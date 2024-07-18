@@ -1,5 +1,11 @@
+import { h } from "@/components/HashAssets";
+import useModeNavigate from "@/components/useModeNavigate";
+import type { IConversationItemBase } from "@/stateV2/conversation";
+import { getModeValueSnapshot } from "@/stateV2/mode";
+import { type IStateProfile, profileAtom } from "@/stateV2/profile";
 import { css } from "@emotion/react";
 import { useDebounceFn } from "ahooks";
+import { useAtomValue } from "jotai";
 import type {
 	CSSProperties,
 	ComponentType,
@@ -7,21 +13,12 @@ import type {
 	PropsWithChildren,
 	ReactNode,
 } from "react";
-import { useRecoilValue } from "recoil";
-import { getRecoil } from "recoil-nexus";
 import { twJoin, twMerge } from "tailwind-merge";
-
-import { h } from "@/components/HashAssets";
-import useModeNavigate from "@/components/useModeNavigate";
-import type { IConversationItemBase } from "@/state/conversationState";
-import { ModeState, modeState } from "@/state/modeState";
-import { type IProfile, friendState } from "@/state/profile";
-
 import { useConversationAPI } from "../../context";
 
 interface Props<P = AnyObject> {
 	upperText: IConversationItemBase["upperText"];
-	senderId: IProfile["id"];
+	senderId: IStateProfile["id"];
 	innerBlockClassName?: string;
 	blockClassName?: string;
 	blockStyle?: CSSProperties;
@@ -45,7 +42,7 @@ const CommonBlock = <P extends AnyObject>({
 	innerBlockProps,
 	onClick,
 }: PropsWithChildren<Props<P>>) => {
-	const { avatarInfo } = useRecoilValue(friendState(senderId));
+	const { avatarInfo } = useAtomValue(profileAtom(senderId))!;
 	const navigate = useModeNavigate({ silence: true });
 	const { sendTickleText } = useConversationAPI();
 
@@ -59,7 +56,7 @@ const CommonBlock = <P extends AnyObject>({
 	};
 
 	const handleDoubliClick = () => {
-		if (getRecoil(modeState) === ModeState.EDIT) return;
+		if (getModeValueSnapshot() === "edit") return;
 		sendTickleText(senderId);
 	};
 
@@ -91,7 +88,7 @@ const CommonBlock = <P extends AnyObject>({
             }
           `}
 					className={twMerge(
-						"group-[.friend]:before:-left-[1px] group-[.mine]:before:-right-[1px] group-[.mine]:before:-rotate-[135deg] relative max-w-[85%] break-words rounded p-[10px] before:absolute before:top-[6px] before:h-7 before:w-7 group-[.friend]:before:rotate-45 before:rounded-sm",
+						"group-[.friend]:before:-left-[1px] group-[.mine]:before:-right-[1px] group-[.mine]:before:-rotate-[135deg] relative max-w-[85%] break-words rounded p-[10px] before:absolute before:top-[6px] before:h-7 before:w-7 before:rounded-sm group-[.friend]:before:rotate-45",
 						innerBlockClassName,
 					)}
 					{...(innerBlockProps as P)}

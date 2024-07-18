@@ -1,10 +1,3 @@
-import { mapValues } from "lodash-es";
-import { useEffect } from "react";
-import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { twJoin } from "tailwind-merge";
-
 import AddressBookFilledSVG from "@/assets/address-book-filled.svg?react";
 import AddressBookOutlinedSVG from "@/assets/address-book-outlined.svg?react";
 import DiscoverFilledSVG from "@/assets/discover-filled.svg?react";
@@ -15,8 +8,14 @@ import WechatSVG from "@/assets/wechat.svg?react";
 import Badge from "@/components/Badge";
 import { canBeDetected } from "@/components/NodeDetected";
 import TopOperations from "@/components/TopOperations";
-import btmNavbarsState, { BottomNavBars } from "@/state/btmNavbarsState";
-import { MetaDataType } from "@/state/detectedNode";
+import { EBottomNavBars, bottomNavbarsAtom } from "@/stateV2/bottomNavbars";
+import { EMetaDataType } from "@/stateV2/detectedNode";
+import { useAtomValue, useSetAtom } from "jotai";
+import { mapValues } from "lodash-es";
+import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import { twJoin } from "tailwind-merge";
 
 const commonOperations = [
 	{
@@ -25,8 +24,8 @@ const commonOperations = [
 	},
 ];
 
-export const useToggleNavbarActivated = (index: BottomNavBars) => {
-	const setBottomNavbars = useSetRecoilState(btmNavbarsState);
+export const useToggleNavbarActivated = (index: EBottomNavBars) => {
+	const setBottomNavbars = useSetAtom(bottomNavbarsAtom);
 
 	useEffect(() => {
 		setBottomNavbars((prev) => mapValues(prev, (v, k) => ({ ...v, activated: k === index })));
@@ -34,7 +33,7 @@ export const useToggleNavbarActivated = (index: BottomNavBars) => {
 };
 
 const BottomNavbar = () => {
-	const bottomNavbars = useRecoilValue(btmNavbarsState);
+	const bottomNavbars = useAtomValue(bottomNavbarsAtom);
 	const { WECHAT, ADDRESS_BOOK, DISCOVER, MY } = bottomNavbars;
 	const navigate = useNavigate();
 	const { t } = useTranslation();
@@ -47,8 +46,8 @@ const BottomNavbar = () => {
 			<canBeDetected.div
 				className="flex cursor-pointer flex-col items-center justify-center space-y-1 py-2"
 				metaData={{
-					type: MetaDataType.NavigationBar,
-					index: BottomNavBars.WECHAT,
+					type: EMetaDataType.NavigationBar,
+					index: EBottomNavBars.WECHAT,
 					treeItemDisplayName: "微信",
 					operations: commonOperations,
 				}}
@@ -75,8 +74,8 @@ const BottomNavbar = () => {
 			<canBeDetected.div
 				className="flex cursor-pointer flex-col items-center justify-center space-y-1 py-2"
 				metaData={{
-					type: MetaDataType.NavigationBar,
-					index: BottomNavBars.ADDRESS_BOOK,
+					type: EMetaDataType.NavigationBar,
+					index: EBottomNavBars.ADDRESS_BOOK,
 					treeItemDisplayName: "通讯录",
 					operations: commonOperations,
 				}}
@@ -103,8 +102,8 @@ const BottomNavbar = () => {
 			<canBeDetected.div
 				className="flex cursor-pointer flex-col items-center justify-center space-y-1 py-2"
 				metaData={{
-					type: MetaDataType.NavigationBar,
-					index: BottomNavBars.DISCOVER,
+					type: EMetaDataType.NavigationBar,
+					index: EBottomNavBars.DISCOVER,
 					treeItemDisplayName: "发现",
 					operations: commonOperations,
 				}}
@@ -131,8 +130,8 @@ const BottomNavbar = () => {
 			<canBeDetected.div
 				className="flex cursor-pointer flex-col items-center justify-center space-y-1 py-2"
 				metaData={{
-					type: MetaDataType.NavigationBar,
-					index: BottomNavBars.MY,
+					type: EMetaDataType.NavigationBar,
+					index: EBottomNavBars.MY,
 					treeItemDisplayName: "我",
 					operations: commonOperations,
 				}}

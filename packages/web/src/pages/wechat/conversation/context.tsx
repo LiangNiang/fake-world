@@ -1,5 +1,26 @@
+import { MYSELF_ID } from "@/faker/wechat/user";
+import {
+	EConversationType,
+	type IConversationTypeRedPacket,
+	type IConversationTypeTransfer,
+	type TConversationItem,
+	fromLastGenerateUpperText,
+	getInputterConfigValueSnapshot,
+	getInputterValueSnapshot,
+	recentUsedEmojiAtom,
+	setConversationListValue,
+} from "@/stateV2/conversation";
+import {
+	type IStateProfile,
+	getMyProfileValueSnapshot,
+	getProfileValueSnapshot,
+} from "@/stateV2/profile";
+import { animateElement } from "@/utils";
+import type { CustomElementEmoji } from "@/vite-env";
+import { SLATE_INITIAL_VALUE, withInlines } from "@/wechatComponents/SlateText/utils";
 import { useCreation, usePrevious } from "ahooks";
 import dayjs from "dayjs";
+import { useSetAtom } from "jotai";
 import { isEqual, throttle } from "lodash-es";
 import { nanoid } from "nanoid";
 import {
@@ -16,39 +37,20 @@ import {
 	useState,
 } from "react";
 import { useParams } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
-import { getRecoil, setRecoil } from "recoil-nexus";
 import { type BaseEditor, Editor, Node, Transforms, createEditor } from "slate";
 import { withHistory } from "slate-history";
 import { type ReactEditor, withReact } from "slate-react";
 
-import { MYSELF_ID } from "@/faker/wechat/user";
-import {
-	EConversationType,
-	type IConversationTypeRedPacket,
-	type IConversationTypeTransfer,
-	type TConversationItem,
-	conversationInputState,
-	conversationInputValueState,
-	conversationState,
-	fromLastGenerateUpperText,
-	recentUseEmojiState,
-} from "@/state/conversationState";
-import { type IProfile, friendState, myProfileState } from "@/state/profile";
-import { animateElement } from "@/utils";
-import type { CustomElementEmoji } from "@/vite-env";
-import { SLATE_INITIAL_VALUE, withInlines } from "@/wechatComponents/SlateText/utils";
-
 type InputMode = HTMLAttributes<HTMLDivElement>["inputMode"];
 
 interface IConversationAPIContext {
-	conversationId: IProfile["id"];
+	conversationId: IStateProfile["id"];
 	listRef: RefObject<HTMLDivElement>;
 	scrollConversationListToBtm: () => void;
 	inputEditor: BaseEditor & ReactEditor;
 	insertEmojiNode: (emojiSymbol: string) => void;
 	sendTextMessage: () => void;
-	sendTickleText: (friendId: IProfile["id"]) => void;
+	sendTickleText: (friendId: IStateProfile["id"]) => void;
 	sendTransfer: (
 		data: Omit<IConversationTypeTransfer, "id" | "sendTimestamp" | "upperText" | "type">,
 	) => void;
@@ -66,7 +68,7 @@ export const ConversationAPIProvider = ({ children }: PropsWithChildren) => {
 	const listRef = useRef<HTMLDivElement>(null);
 	const inputEditor = useCreation(() => withInlines(withHistory(withReact(createEditor()))), []);
 	const { id: conversationId = "" } = useParams();
-	const setRecentUseEmoji = useSetRecoilState(recentUseEmojiState);
+	const setRecentUsedEmoji = useSetAtom(recentUsedEmojiAtom);
 	const [mobileInputMode, setMobileInputMode] = useState<InputMode>("text");
 	const previousMobileInputMode = usePrevious(mobileInputMode);
 
@@ -85,10 +87,10 @@ export const ConversationAPIProvider = ({ children }: PropsWithChildren) => {
 	}, []);
 
 	const sendTextMessage = useCallback(() => {
-		const { sendRole } = getRecoil(conversationInputState);
-		const value = getRecoil(conversationInputValueState);
+		const { sendRole } = getInputterConfigValueSnapshot();
+		const value = getInputterValueSnapshot();
 		if (isEqual(value, SLATE_INITIAL_VALUE)) return;
-		setRecoil(conversationState(conversationId), (prev) => {
+		setConversationListValue(conversationId, (prev) => {
 			return [
 				...prev,
 				{
@@ -109,7 +111,7 @@ export const ConversationAPIProvider = ({ children }: PropsWithChildren) => {
 				pickedEmoji.push(emojiSymbol);
 			}
 		}
-		setRecentUseEmoji((prev) => Array.from(new Set([...pickedEmoji, ...prev])).slice(0, 8));
+		setRecentUsedEmoji((prev) => Array.from(new Set([...pickedEmoji, ...prev])).slice(0, 8));
 		Transforms.delete(inputEditor, {
 			at: {
 				anchor: Editor.start(inputEditor, []),
@@ -121,9 +123,9 @@ export const ConversationAPIProvider = ({ children }: PropsWithChildren) => {
 
 	const sendTickleText = useCallback(
 		throttle(
-			(friendId: IProfile["id"]) => {
-				const friendProfile = getRecoil(friendState(friendId));
-				const myProfile = getRecoil(myProfileState);
+			(friendId: IStateProfile["id"]) => {
+				const friendProfile = getProfileValueSnapshot(friendId)!;
+				const myProfile = getMyProfileValueSnapshot()!;
 				let finalTickleText = "";
 				if (friendId === MYSELF_ID) {
 					finalTickleText = `我拍了拍自己${myProfile.tickleText ?? ""}`;
@@ -132,7 +134,7 @@ export const ConversationAPIProvider = ({ children }: PropsWithChildren) => {
 						friendProfile.tickleText ?? ""
 					}`;
 				}
-				setRecoil(conversationState(conversationId), (prev) => {
+				setConversationListValue(conversationId, (prev) => {
 					return [
 						...prev,
 						{
@@ -157,7 +159,7 @@ export const ConversationAPIProvider = ({ children }: PropsWithChildren) => {
 
 	const sendTransfer = useCallback(
 		(data: Parameters<IConversationAPIContext["sendTransfer"]>[0]) => {
-			setRecoil(conversationState(conversationId), (prev) => {
+			setConversationListValue(conversationId, (prev) => {
 				return [
 					...prev,
 					{
@@ -175,7 +177,7 @@ export const ConversationAPIProvider = ({ children }: PropsWithChildren) => {
 
 	const sendRedPacketAcceptedReply = useCallback(
 		(redPacketId: Parameters<IConversationAPIContext["sendRedPacketAcceptedReply"]>[0]) => {
-			setRecoil(conversationState(conversationId), (prev) => {
+			setConversationListValue(conversationId, (prev) => {
 				return [
 					...prev,
 					{

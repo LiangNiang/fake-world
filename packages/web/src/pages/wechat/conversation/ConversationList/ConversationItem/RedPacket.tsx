@@ -1,19 +1,17 @@
+import RedPacketCloseIMG from "@/assets/red-packet-close.png";
+import RedPacketOpenIMG from "@/assets/red-packet-open.png";
+import type { IConversationTypeRedPacket } from "@/stateV2/conversation";
+import type { IStateProfile } from "@/stateV2/profile";
 import { get, isEmpty } from "lodash-es";
 import { memo } from "react";
 import { twJoin } from "tailwind-merge";
-
-import RedPacketCloseIMG from "@/assets/red-packet-close.png";
-import RedPacketOpenIMG from "@/assets/red-packet-open.png";
-import type { IConversationTypeRedPacket } from "@/state/conversationState";
-import type { IProfile } from "@/state/profile";
-
 import { RED_PACKET_TEXT_NOTE_MAP } from "../consts";
 import CommonBlock from "./CommonBlock";
 
 type Props = {
 	role: IConversationTypeRedPacket["role"];
 	upperText: IConversationTypeRedPacket["upperText"];
-	senderId: IProfile["id"];
+	senderId: IStateProfile["id"];
 	redPacketStatus: IConversationTypeRedPacket["redPacketStatus"];
 	amount: IConversationTypeRedPacket["amount"];
 	note: IConversationTypeRedPacket["note"];

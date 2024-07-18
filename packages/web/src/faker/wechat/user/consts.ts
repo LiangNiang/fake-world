@@ -1,8 +1,8 @@
-import type { IProfile } from "@/state/profile";
+import type { IStateProfile, TStateAllProfiles } from "@/stateV2/profile";
 
 export const MYSELF_ID = "0";
 
-export const INIT_MY_PROFILE: IProfile = {
+export const INIT_MY_PROFILE: IStateProfile = {
 	id: MYSELF_ID,
 	nickname: "林克",
 	avatarInfo: "https://cdn-fakeworld.azureedge.net/fakeworld/ppf3dl.jpg",
@@ -17,7 +17,7 @@ export const INIT_MY_PROFILE: IProfile = {
 	signature: "Master Sword!!!!",
 };
 
-export const INIT_FRIENDS: IProfile[] = [
+export const INIT_FRIENDS: TStateAllProfiles = [
 	{
 		id: "1",
 		nickname: "塞尔达",

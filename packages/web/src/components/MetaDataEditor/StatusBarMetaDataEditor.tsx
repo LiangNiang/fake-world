@@ -1,7 +1,6 @@
+import { statusBarHideAtom } from "@/stateV2/statusBar";
 import { Form, Switch } from "antd";
-import { useSetRecoilState } from "recoil";
-
-import { statusBarHideState } from "@/state/statusBarState";
+import { useSetAtom } from "jotai";
 
 type FormValues = {
 	hidden: boolean;
@@ -9,7 +8,7 @@ type FormValues = {
 
 const StatusBarMetaDataEditor = ({ data }: EditorProps<boolean>) => {
 	const [form] = Form.useForm<FormValues>();
-	const setStatusBarHide = useSetRecoilState(statusBarHideState);
+	const setStatusBarHide = useSetAtom(statusBarHideAtom);
 
 	const initialValues: FormValues = {
 		hidden: data,

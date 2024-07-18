@@ -1,28 +1,26 @@
+import {
+	EMetaDataType,
+	activatedNodeAtom,
+	getNodeInjectMetaDataValueSnapshot,
+} from "@/stateV2/detectedNode";
+import { getNodesAtomsValueSnapshot } from "@/stateV2/detectedNode/nodeAtom";
 import { PlusOutlined } from "@ant-design/icons";
 import { Tooltip } from "antd";
+import { useSetAtom } from "jotai";
 import { isArray, keys } from "lodash-es";
-import { useSetRecoilState } from "recoil";
-import { getRecoil } from "recoil-nexus";
-
-import {
-	MetaDataType,
-	activatedNodeState,
-	allNodesState,
-	nodeInjectMetaState,
-} from "@/state/detectedNode";
 
 type Props = {
 	onSetActivatedNodeEnd?: () => void;
 };
 
 const TopOperationNew = ({ onSetActivatedNodeEnd }: Props) => {
-	const setActivatedNode = useSetRecoilState(activatedNodeState);
+	const setActivatedNode = useSetAtom(activatedNodeAtom);
 
 	const selectInput = () => {
-		const allNodes = getRecoil(allNodesState);
-		const inputEleId = keys(allNodes).find((id) => {
-			const metaData = getRecoil(nodeInjectMetaState(id));
-			return !isArray(metaData) && metaData?.type === MetaDataType.ConversationInput;
+		const nodesAtoms = getNodesAtomsValueSnapshot();
+		const inputEleId = keys(nodesAtoms).find((id) => {
+			const metaData = getNodeInjectMetaDataValueSnapshot(id);
+			return !isArray(metaData) && metaData?.type === EMetaDataType.ConversationInput;
 		});
 		if (inputEleId) {
 			setActivatedNode(inputEleId);

@@ -1,5 +1,4 @@
 import path from "node:path";
-
 import react from "@vitejs/plugin-react-swc";
 import { CodeInspectorPlugin } from "code-inspector-plugin";
 import { defineConfig } from "vite";
@@ -17,9 +16,6 @@ export default defineConfig({
 			bundler: "vite",
 		}),
 	],
-	server: {
-		host: "0.0.0.0",
-	},
 	resolve: {
 		alias: {
 			"@": path.resolve(__dirname, "./src"),
@@ -31,8 +27,8 @@ export default defineConfig({
 			output: {
 				manualChunks: {
 					react: ["react", "react-dom", "react-router-dom"],
-					antd: ["antd", "@ant-design/icons"],
-					dexie: ["dexie", "dexie-react-hooks", "dexie-export-import"],
+					antd: ["antd", "@ant-design/icons", "dayjs"],
+					dexie: ["dexie"],
 					slate: ["slate", "slate-history", "slate-react"],
 					faker: ["@faker-js/faker"],
 					i18n: [
@@ -41,6 +37,7 @@ export default defineConfig({
 						"i18next-http-backend",
 						"react-i18next",
 					],
+					"pinyin-pro": ["pinyin-pro"],
 				},
 			},
 		},

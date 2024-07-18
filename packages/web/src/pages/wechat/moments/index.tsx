@@ -1,22 +1,20 @@
-import { useMemo } from "react";
-import { ReactSortable } from "react-sortablejs";
-import { useRecoilState, useResetRecoilState } from "recoil";
-
 import { canBeDetected } from "@/components/NodeDetected";
 import useMode from "@/components/useMode";
-import { MetaDataType, allNodesTreeState } from "@/state/detectedNode";
-import { allFeedsState } from "@/state/moments";
-
+import { EMetaDataType, allNodesTreeAtom } from "@/stateV2/detectedNode";
+import { feedListAtom } from "@/stateV2/moments";
+import { useAtom, useSetAtom } from "jotai";
+import { useMemo } from "react";
+import { ReactSortable } from "react-sortablejs";
 import Feed from "./Feed";
 
 const MomentsIndex = () => {
-	const [allFeeds, setAllFeeds] = useRecoilState(allFeedsState);
+	const [feedList, setFeedList] = useAtom(feedListAtom);
 	const { isEdit } = useMode();
-	const resetTree = useResetRecoilState(allNodesTreeState);
+	const rebuildTree = useSetAtom(allNodesTreeAtom);
 
 	const mappedSortableListData = useMemo(() => {
-		return allFeeds.map((v) => ({ id: v.id }));
-	}, [allFeeds]);
+		return feedList.map((v) => ({ id: v.id }));
+	}, [feedList]);
 
 	const feedClassNames = useMemo(() => {
 		return {
@@ -28,7 +26,7 @@ const MomentsIndex = () => {
 		<canBeDetected.div
 			className="mt-12 flex flex-col"
 			metaData={{
-				type: MetaDataType.AllFeeds,
+				type: EMetaDataType.AllFeeds,
 				treeItemDisplayName: "所有朋友圈",
 				label: "新增朋友圈",
 			}}
@@ -39,16 +37,17 @@ const MomentsIndex = () => {
 				animation={400}
 				setList={(v, sortable) => {
 					if (isEdit && sortable) {
-						setAllFeeds(v.map((i) => allFeeds.find((d) => d.id === i.id)!));
+						const needUpdate = v.some((_, i) => v[i].id !== feedList[i].id);
+						if (needUpdate) {
+							setFeedList(v.map((i) => feedList.find((d) => d.id === i.id)!));
+						}
 					}
 				}}
 				onSort={() => {
-					setTimeout(() => {
-						resetTree();
-					});
+					rebuildTree();
 				}}
 			>
-				{allFeeds.map((feed) => (
+				{feedList.map((feed) => (
 					<Feed key={feed.id} id={feed.id} userId={feed.userId} classNames={feedClassNames} />
 				))}
 			</ReactSortable>

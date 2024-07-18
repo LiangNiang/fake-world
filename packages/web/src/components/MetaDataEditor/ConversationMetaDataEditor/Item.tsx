@@ -1,17 +1,15 @@
-import { Global, css } from "@emotion/react";
-import { useUpdateEffect } from "ahooks";
-import { Button, Form, Input, InputNumber, Radio, Select, Switch } from "antd";
-import dayjs from "dayjs";
-import { useRecoilState } from "recoil";
-
 import {
 	ConversationTypeLabel,
 	EConversationType,
 	type TConversationItem,
-	conversationState,
-} from "@/state/conversationState";
-import type { IProfile } from "@/state/profile";
-
+	conversationListAtom,
+} from "@/stateV2/conversation";
+import type { IStateProfile } from "@/stateV2/profile";
+import { Global, css } from "@emotion/react";
+import { useUpdateEffect } from "ahooks";
+import { Button, Form, Input, InputNumber, Radio, Select, Switch } from "antd";
+import dayjs from "dayjs";
+import { useAtom } from "jotai";
 import LocalImageUploadWithPreview from "../LocalImageUpload";
 import WrapSlateInput from "../SlateInput";
 import { CONVERSATION_TYPE_OPTIONS } from "./consts";
@@ -19,9 +17,9 @@ import { CONVERSATION_TYPE_OPTIONS } from "./consts";
 const ConversationItemMetaDataEditor = ({
 	data,
 	index,
-}: EditorProps<TConversationItem, [IProfile["id"], TConversationItem["id"]]>) => {
+}: EditorProps<TConversationItem, [IStateProfile["id"], TConversationItem["id"]]>) => {
 	const [form] = Form.useForm<TConversationItem>();
-	const [conversationList, setConversationList] = useRecoilState(conversationState(index[0]));
+	const [conversationList, setConversationList] = useAtom(conversationListAtom(index[0]));
 
 	const onFinish = (values: TConversationItem) => {
 		setConversationList((prev) =>

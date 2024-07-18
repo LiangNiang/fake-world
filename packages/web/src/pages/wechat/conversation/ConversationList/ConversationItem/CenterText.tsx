@@ -1,7 +1,6 @@
+import type { IConversationTypeSingleUpperText } from "@/stateV2/conversation";
 import { memo } from "react";
 import { twMerge } from "tailwind-merge";
-
-import type { IConversationTypeSingleUpperText } from "@/state/conversationState";
 
 type Props = {
 	extraClassName: IConversationTypeSingleUpperText["extraClassName"];
