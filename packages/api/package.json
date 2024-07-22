@@ -6,9 +6,9 @@
 		"start": "bun run src/index.ts"
 	},
 	"dependencies": {
-		"@ai-sdk/openai": "^0.0.36",
+		"@ai-sdk/openai": "^0.0.37",
 		"@elysiajs/cors": "^1.0.4",
-		"ai": "^3.2.19",
+		"ai": "^3.2.32",
 		"elysia": "^1.0.27",
 		"elysia-rate-limit": "^4.1.0",
 		"nanoid": "^5.0.5",

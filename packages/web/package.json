@@ -14,7 +14,7 @@
 		"@floating-ui/react": "^0.26.12",
 		"@microlink/react-json-view": "^1.23.1",
 		"ahooks": "^3.8.0",
-		"ai": "^3.2.19",
+		"ai": "^3.2.32",
 		"animate.css": "^4.1.1",
 		"antd": "5.18.3",
 		"axios": "^1.7.2",
