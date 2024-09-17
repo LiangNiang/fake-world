@@ -9,7 +9,7 @@ import {
 	allProfilesIdsAtom,
 	friendsTotalCountDisplayConfigAtom,
 } from "@/stateV2/profile";
-import { statusBarHideAtom } from "@/stateV2/statusBar";
+import { statusBarConfigAtom } from "@/stateV2/statusBar";
 import { type TTransactionData, type TTransactionType, USED_ATOM_MAP } from "@/stateV2/transaction";
 import { unreadCountAtom } from "@/stateV2/unreadCount";
 import { walletAtom } from "@/stateV2/wallet";
@@ -38,7 +38,7 @@ const handlerMap: HandlerMap = {
 			? get(conversationListAtom(index[0])).find((v) => v.id === index[1])
 			: undefined,
 	[EMetaDataType.ConversationInput]: (get) => get(inputterConfigAtom),
-	[EMetaDataType.StatusBar]: (get) => get(statusBarHideAtom),
+	[EMetaDataType.StatusBar]: (get) => get(statusBarConfigAtom),
 	[EMetaDataType.MyProfile]: (get) => get(allProfilesAtom).find((v) => v.id === MYSELF_ID),
 	[EMetaDataType.FirendProfile]: (get, index) => get(allProfilesAtom).find((v) => v.id === index),
 	[EMetaDataType.Wallet]: (get) => get(walletAtom),

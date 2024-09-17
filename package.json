@@ -19,9 +19,7 @@
 		"release-it": "^17.3.0",
 		"typescript": "^5.3.3"
 	},
-	"workspaces": [
-		"packages/*"
-	],
+	"workspaces": ["packages/*"],
 	"engines": {
 		"node": ">=18"
 	},

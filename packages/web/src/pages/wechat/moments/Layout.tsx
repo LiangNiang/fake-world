@@ -9,7 +9,7 @@ import {
 	type TStateStatusBar,
 	getStatusBarValueSnapshot,
 	setStatusBarValue,
-	statusBarHideAtom,
+	statusBarConfigAtom,
 	statusBarMountNodeAtom,
 } from "@/stateV2/statusBar";
 import { Global, css } from "@emotion/react";
@@ -57,7 +57,7 @@ const MomentsLayout = () => {
 	});
 	const [bgExpand, setBgExpand] = useState(false);
 	const navigate = useModeNavigate();
-	const hidden = useAtomValue(statusBarHideAtom);
+	const { hide } = useAtomValue(statusBarConfigAtom);
 	const { momentsBackgroundInfo } = useProfile();
 	const setStatusBarMountNode = useSetAtom(statusBarMountNodeAtom);
 	const scroll = useScroll(divWrapperRef);
@@ -186,7 +186,7 @@ const MomentsLayout = () => {
 			<div
 				className={twJoin(
 					"absolute z-20 grid w-full grid-cols-3 px-4 py-2 text-white",
-					!hidden && isDesktop && "mt-10",
+					!hide && isDesktop && "mt-10",
 					bgExpand && "transition-all duration-300",
 				)}
 				style={{

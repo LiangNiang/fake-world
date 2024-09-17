@@ -306,6 +306,20 @@ const ConversationListMetaDataEditor = ({ index }: EditorProps<unknown, IStatePr
 						>
 							重置当前对话聊天记录
 						</Button>
+						<Button
+							danger
+							htmlType="button"
+							onClick={() => {
+								modal.confirm({
+									title: "是否清空当前聊天内容？",
+									onOk: () => {
+										setConversationList(() => []);
+									},
+								});
+							}}
+						>
+							清空当前聊天内容
+						</Button>
 					</div>
 				</Form.Item>
 			</Form>

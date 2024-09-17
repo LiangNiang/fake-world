@@ -9,6 +9,7 @@ import type { TStateUnreadCount } from "@/stateV2/unreadCount";
 import type { TStateWallet } from "@/stateV2/wallet";
 import type { TFunction } from "i18next";
 import type { ReactNode } from "react";
+import type { TStateStatusBarConfig } from "../statusBar";
 import type { EMetaDataType } from "./consts";
 
 type MakeOptional<T, K extends keyof T> = {
@@ -76,8 +77,8 @@ declare namespace OverallMetaData {
 
 	interface IMetaDataStatusBar extends Base {
 		type: EMetaDataType.StatusBar;
-		data: boolean;
-		treeItemDisplayName: string | ((data: boolean) => string);
+		data: TStateStatusBarConfig;
+		treeItemDisplayName: string | ((data: TStateStatusBarConfig) => string);
 	}
 
 	interface IMetaDataMyProfile extends Base {

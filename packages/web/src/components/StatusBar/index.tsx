@@ -1,5 +1,5 @@
 import { EMetaDataType } from "@/stateV2/detectedNode";
-import { statusBarAtom, statusBarHideAtom, statusBarMountNodeAtom } from "@/stateV2/statusBar";
+import { statusBarAtom, statusBarConfigAtom, statusBarMountNodeAtom } from "@/stateV2/statusBar";
 import { ClockCircleOutlined } from "@ant-design/icons";
 import { useInterval, useUpdate } from "ahooks";
 import { Tooltip } from "antd";
@@ -9,16 +9,28 @@ import { useEffect, useMemo, useRef } from "react";
 import { createPortal } from "react-dom";
 import { twJoin } from "tailwind-merge";
 import { canBeDetected } from "../NodeDetected";
+import _5GSVG from "./assets/5G.svg?react";
 import BatterySVG from "./assets/battery.svg?react";
-import SingalSVG from "./assets/singal.svg?react";
+import ChargingSVG from "./assets/charging.svg?react";
+import ChargingDarkSVG from "./assets/chargingDark.svg?react";
+import LowSVG from "./assets/low.svg?react";
+import LowDarkSVG from "./assets/lowDark.svg?react";
+import SavingSVG from "./assets/saving.svg?react";
+import SavingDarkSVG from "./assets/savingDark.svg?react";
+import Signal2SVG from "./assets/signal-2.svg?react";
+import SignalSVG from "./assets/signal.svg?react";
+import SignalNoneSVG from "./assets/signalNone.svg?react";
 import WifiSVG from "./assets/wifi.svg?react";
 
 const StatusBar = () => {
 	const mountNode = useAtomValue(statusBarMountNodeAtom);
 	const [{ backgroundColor, theme }, setStatusBar] = useAtom(statusBarAtom);
-	const hidden = useAtomValue(statusBarHideAtom);
+	const { hide, signalIconType, batteryIconType, networkIconType } =
+		useAtomValue(statusBarConfigAtom);
 	const update = useUpdate();
 	const divRef = useRef<HTMLDivElement>(null);
+
+	const darkTheme = theme === "dark";
 
 	useInterval(() => {
 		update();
@@ -98,15 +110,46 @@ const StatusBar = () => {
 		[],
 	);
 
-	const renderContent = (isMount?: boolean) => {
-		const useWhiteColorText = theme === "dark";
+	const getBatteryIcon = () => {
+		switch (batteryIconType) {
+			case "charging":
+				return darkTheme ? <ChargingDarkSVG /> : <ChargingSVG />;
+			case "low":
+				return darkTheme ? <LowDarkSVG /> : <LowSVG />;
+			case "saving":
+				return darkTheme ? <SavingDarkSVG /> : <SavingSVG />;
+			default:
+				return <BatterySVG className={twJoin(darkTheme ? "text-white" : "text-black")} />;
+		}
+	};
 
+	const getNetworkIcon = () => {
+		switch (networkIconType) {
+			case "5G":
+				return <_5GSVG fill={darkTheme ? "white" : "black"} />;
+			default:
+				return <WifiSVG fill={darkTheme ? "white" : "black"} />;
+		}
+	};
+
+	const getSignalIcon = () => {
+		switch (signalIconType) {
+			case "double":
+				return <Signal2SVG fill={darkTheme ? "white" : "black"} />;
+			case "none":
+				return <SignalNoneSVG fill={darkTheme ? "white" : "black"} />;
+			default:
+				return <SignalSVG fill={darkTheme ? "white" : "black"} />;
+		}
+	};
+
+	const renderContent = (isMount?: boolean) => {
 		return (
 			<canBeDetected.div
 				innerRef={divRef}
 				className={twJoin(
 					"flex items-center justify-between py-2 pr-6 pl-10",
-					hidden && "hidden",
+					hide && "hidden",
 					isMount && "pointer-events-auto z-10",
 				)}
 				metaData={{
@@ -118,14 +161,13 @@ const StatusBar = () => {
 					backgroundColor,
 				}}
 			>
-				<div className={twJoin("font-semibold", useWhiteColorText && "text-white")}>
+				<div className={twJoin("font-semibold", darkTheme && "text-white")}>
 					{dayjs().format("HH:mm")}
 				</div>
 				<div className="flex items-center space-x-2">
-					<SingalSVG fill={useWhiteColorText ? "white" : "black"} />
-					<WifiSVG fill={useWhiteColorText ? "white" : "black"} />
-					{/* 这里svg每个path使用了currentcolor，不能设置为 fill 会导致样式异常 */}
-					<BatterySVG className={twJoin(useWhiteColorText ? "text-white" : "text-black")} />
+					{getSignalIcon()}
+					{getNetworkIcon()}
+					{getBatteryIcon()}
 				</div>
 			</canBeDetected.div>
 		);
