@@ -1,7 +1,7 @@
 {
 	"name": "fake-world-project",
 	"private": true,
-	"version": "2.0.0",
+	"version": "2.1.0",
 	"scripts": {
 		"dev:web": "pnpm -F @fake-world/web run dev",
 		"build:web": "pnpm -F @fake-world/web run build",
@@ -19,7 +19,9 @@
 		"release-it": "^17.3.0",
 		"typescript": "^5.3.3"
 	},
-	"workspaces": ["packages/*"],
+	"workspaces": [
+		"packages/*"
+	],
 	"engines": {
 		"node": ">=18"
 	},
