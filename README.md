@@ -3,6 +3,7 @@
 <!-- PROJECT SHIELDS -->
 
 [![Stargazers][stars-shield]][stars-url]
+[![Fork][forks-shield]][fork-url]
 [![GPL License][license-shield]][license-url]
 
 <br />
@@ -30,6 +31,7 @@
 ## 目录
 
 - [showcase](#showcase)
+- [推荐插件](#推荐插件)
 - [主要技术栈](#主要技术栈)
 - [用户数据声明](#用户数据声明)
 - [开发指南](#开发指南)
@@ -47,6 +49,12 @@
   <img src="showcase/case4.png" alt="showcase4" width="200" height="400">
   <img src="showcase/case5.png" alt="showcase5" width="200" height="400">
 </div>
+
+### 推荐插件
+
+Windows下可以使用一个 Chrome 插件来替换网页字体为苹方 [字体换成苹方](https://chromewebstore.google.com/detail/%E5%AD%97%E4%BD%93%E6%8D%A2%E6%88%90%E8%8B%B9%E6%96%B9/pogfdgfepibcifimpojbacaolamhbjde)
+
+还可以搭配 [mactype](https://github.com/snowie2000/mactype) 来实现更好的效果
 
 ### 主要技术栈
 
@@ -128,5 +136,7 @@ liangniangbaby@gmail.com
 
 [stars-shield]: https://img.shields.io/github/stars/LiangNiang/fake-world?style=flat-square
 [stars-url]: https://github.com/LiangNiang/fake-world/stargazers
+[forks-shield]: https://img.shields.io/github/forks/LiangNiang/fake-world?style=flat-square
+[fork-url]: https://github.com/LiangNiang/fake-world/forks
 [license-shield]: https://img.shields.io/github/license/LiangNiang/fake-world?style=flat-square
 [license-url]: https://github.com/LiangNiang/fake-world/blob/main/LICENSE

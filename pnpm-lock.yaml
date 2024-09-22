@@ -274,8 +274,8 @@ importers:
         specifier: ^10.4.17
         version: 10.4.17(postcss@8.4.33)
       code-inspector-plugin:
-        specifier: ^0.14.2
-        version: 0.14.2
+        specifier: ^0.16.1
+        version: 0.16.1
       postcss:
         specifier: ^8.4.33
         version: 8.4.33
@@ -484,11 +484,6 @@ packages:
 
   '@babel/parser@7.23.0':
     resolution: {integrity: sha512-vvPKKdMemU85V9WE/l5wZEmImpCtLqbnTvqDS2U1fJ96KrxoW7KrXhNsNCblQlg8Ck4b85yxdTyelsMUgFUXiw==}
-    engines: {node: '>=6.0.0'}
-    hasBin: true
-
-  '@babel/parser@7.23.6':
-    resolution: {integrity: sha512-Z2uID7YJ7oNvAI20O9X0bblw7Qqs8Q2hFy0R9tAfnfLkp5MW0UH9eUvnDSnFwKZ0AvgS1ucqR4KzvVHgnke1VQ==}
     engines: {node: '>=6.0.0'}
     hasBin: true
 
@@ -1449,14 +1444,8 @@ packages:
     peerDependencies:
       vite: ^4 || ^5
 
-  '@vue/compiler-core@3.3.13':
-    resolution: {integrity: sha512-bwi9HShGu7uaZLOErZgsH2+ojsEdsjerbf2cMXPwmvcgZfVPZ2BVZzCVnwZBxTAYd6Mzbmf6izcUNDkWnBBQ6A==}
-
   '@vue/compiler-core@3.4.31':
     resolution: {integrity: sha512-skOiodXWTV3DxfDhB4rOf3OGalpITLlgCeOwb+Y9GJpfQ8ErigdBUHomBzvG78JoVE8MJoQsb+qhZiHfKeNeEg==}
-
-  '@vue/compiler-dom@3.3.13':
-    resolution: {integrity: sha512-EYRDpbLadGtNL0Gph+HoKiYqXLqZ0xSSpR5Dvnu/Ep7ggaCbjRDIus1MMxTS2Qm0koXED4xSlvTZaTnI8cYAsw==}
 
   '@vue/compiler-dom@3.4.31':
     resolution: {integrity: sha512-wK424WMXsG1IGMyDGyLqB+TbmEBFM78hIsOJ9QwUVLGrcSk0ak6zYty7Pj8ftm7nEtdU/DGQxAXp0/lM/2cEpQ==}
@@ -1480,9 +1469,6 @@ packages:
     resolution: {integrity: sha512-D5BLbdvrlR9PE3by9GaUp1gQXlCNadIZytMIb8H2h3FMWJd4oUfkUTEH2wAr3qxoRz25uxbTcbqd3WKlm9EHQA==}
     peerDependencies:
       vue: 3.4.31
-
-  '@vue/shared@3.3.13':
-    resolution: {integrity: sha512-/zYUwiHD8j7gKx2argXEMCUXVST6q/21DFU0sTfNX0URJroCe3b1UF6vLJ3lQDfLNIiiRl2ONp7Nh5UVWS6QnA==}
 
   '@vue/shared@3.4.31':
     resolution: {integrity: sha512-Yp3wtJk//8cO4NItOPpi3QkLExAr/aLBGZMmTtW9WpdwBCJpRM6zj9WgWktXAl8IDIozwNMByT45JP3tO3ACWA==}
@@ -1839,11 +1825,11 @@ packages:
     resolution: {integrity: sha512-JQHZ2QMW6l3aH/j6xCqQThY/9OH4D/9ls34cgkUBiEeocRTU04tHfKPBsUK1PqZCUQM7GiA0IIXJSuXHI64Kbg==}
     engines: {node: '>=0.8'}
 
-  code-inspector-core@0.14.2:
-    resolution: {integrity: sha512-YnOxgiXDXPOXDYmqVB9hQVVa94/uDk65fxG33r5aRilWXW7EPINBiV6KEqWqKKZO/MWiyXbUPx/mmL6IrR2KQw==}
+  code-inspector-core@0.16.1:
+    resolution: {integrity: sha512-rZlgRy7hp98X3uX9EfLw/BudkcASiaeXQJbTnSmfNSgWyY3EntSmhr2Ek4DsSnDcOaD2405zFHBCP9dPPdh/ZQ==}
 
-  code-inspector-plugin@0.14.2:
-    resolution: {integrity: sha512-FQAeTzA5nI7Q3x2HVdgOlenQC1DPDfGCoaM1tuhdLlXgTe34XpdV9dXD/wy4NqI2fIANwcNro30Kfg7Q1GavrQ==}
+  code-inspector-plugin@0.16.1:
+    resolution: {integrity: sha512-/oV9RO2dij1s9pm6E6F9n0hwJjq9H+ATOi6YamjTFihaiP0Gp0sv8kJGeljqe9PAkue4lxwFghSR9tEtfZn1Ow==}
 
   code-red@1.0.4:
     resolution: {integrity: sha512-7qJWqItLA8/VPVlKJlFXU+NBlo/qyfs39aJcuMT/2ere32ZqvF5OSxgdM5xOfJJ7O429gg2HM47y8v9P+9wrNw==}
@@ -2162,6 +2148,9 @@ packages:
   es-to-primitive@1.2.1:
     resolution: {integrity: sha512-QCOllgZJtaUo9miYBcLChTUaHNjJF3PYs1VidD7AwiEj1kYxKeQTctLAezAOH5ZKRH0g2IgPn6KwB4IT8iRpvA==}
     engines: {node: '>= 0.4'}
+
+  esbuild-code-inspector-plugin@0.16.1:
+    resolution: {integrity: sha512-BgewNP7lWxkTW7snW0tr/L9wRECH3EqvCqxrCVpiCVbAOn9R468URhTXUi3sMZwbuk0D87VpUmLugOjbL4THtg==}
 
   esbuild@0.21.5:
     resolution: {integrity: sha512-mg3OPMV4hXywwpoDxu3Qda5xCKQi+vCTZq8S9J/EpkhB2HzKXq4SNFZE3+NK93JYxc8VMSep+lOUSC/RVKaBqw==}
@@ -4198,8 +4187,8 @@ packages:
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
-  vite-code-inspector-plugin@0.14.2:
-    resolution: {integrity: sha512-k04yeefaMSjvZQW+GvxbzVjJb8fw5BycSrH7oNw6y3M11AwUlyqDmmL8OcO8b07ljhkPZ0bYVotfBCftXkYRyQ==}
+  vite-code-inspector-plugin@0.16.1:
+    resolution: {integrity: sha512-SFV6UjWmgn9h3G4jzWuB1zEbBqC8Vuh+gTNCmVz2HsOB4keLjpEr/4+gAsNhVUyjYdRD1SoEVs5n0q260/si+g==}
 
   vite-plugin-svgr@4.2.0:
     resolution: {integrity: sha512-SC7+FfVtNQk7So0XMjrrtLAbEC8qjFPifyD7+fs/E6aaNdVde6umlVVh0QuwDLdOMu7vp5RiGFsB70nj5yo0XA==}
@@ -4256,8 +4245,8 @@ packages:
   webidl-conversions@3.0.1:
     resolution: {integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==}
 
-  webpack-code-inspector-plugin@0.14.2:
-    resolution: {integrity: sha512-WQoOFuckY1dQp4xCgNfyzddER+6OMvedpaa+UMGlvu9Zqb1aSxHm9ss8qJo9OeuLkw41qiOlHvg9FGvST877uA==}
+  webpack-code-inspector-plugin@0.16.1:
+    resolution: {integrity: sha512-KCZ9sx4ei3WledsrhPZQ1eN6A/ZhNv1DH06I6yoUEEFl9KstbHAZ6Zm5hjBagY7MXqGfqepdz+j3XYT3Ep/Wwg==}
 
   whatwg-url@5.0.0:
     resolution: {integrity: sha512-saE57nupxk6v3HY35+jzBwYa0rKSy0XR8JSxZPwgLr7ys0IBzhGviA1/TUGJLmSVqs8pb9AnvICXEuOHLprYTw==}
@@ -4584,10 +4573,6 @@ snapshots:
       js-tokens: 4.0.0
 
   '@babel/parser@7.23.0':
-    dependencies:
-      '@babel/types': 7.23.0
-
-  '@babel/parser@7.23.6':
     dependencies:
       '@babel/types': 7.23.0
 
@@ -5472,13 +5457,6 @@ snapshots:
     transitivePeerDependencies:
       - '@swc/helpers'
 
-  '@vue/compiler-core@3.3.13':
-    dependencies:
-      '@babel/parser': 7.23.6
-      '@vue/shared': 3.3.13
-      estree-walker: 2.0.2
-      source-map-js: 1.2.0
-
   '@vue/compiler-core@3.4.31':
     dependencies:
       '@babel/parser': 7.24.7
@@ -5486,11 +5464,6 @@ snapshots:
       entities: 4.5.0
       estree-walker: 2.0.2
       source-map-js: 1.2.0
-
-  '@vue/compiler-dom@3.3.13':
-    dependencies:
-      '@vue/compiler-core': 3.3.13
-      '@vue/shared': 3.3.13
 
   '@vue/compiler-dom@3.4.31':
     dependencies:
@@ -5535,8 +5508,6 @@ snapshots:
       '@vue/compiler-ssr': 3.4.31
       '@vue/shared': 3.4.31
       vue: 3.4.31(typescript@5.3.3)
-
-  '@vue/shared@3.3.13': {}
 
   '@vue/shared@3.4.31': {}
 
@@ -5995,20 +5966,21 @@ snapshots:
 
   clone@1.0.4: {}
 
-  code-inspector-core@0.14.2:
+  code-inspector-core@0.16.1:
     dependencies:
-      '@vue/compiler-dom': 3.3.13
+      '@vue/compiler-dom': 3.4.31
       chalk: 4.1.2
       portfinder: 1.0.32
     transitivePeerDependencies:
       - supports-color
 
-  code-inspector-plugin@0.14.2:
+  code-inspector-plugin@0.16.1:
     dependencies:
       chalk: 4.1.1
-      code-inspector-core: 0.14.2
-      vite-code-inspector-plugin: 0.14.2
-      webpack-code-inspector-plugin: 0.14.2
+      code-inspector-core: 0.16.1
+      esbuild-code-inspector-plugin: 0.16.1
+      vite-code-inspector-plugin: 0.16.1
+      webpack-code-inspector-plugin: 0.16.1
     transitivePeerDependencies:
       - supports-color
 
@@ -6379,6 +6351,12 @@ snapshots:
       is-callable: 1.2.7
       is-date-object: 1.0.5
       is-symbol: 1.0.4
+
+  esbuild-code-inspector-plugin@0.16.1:
+    dependencies:
+      code-inspector-core: 0.16.1
+    transitivePeerDependencies:
+      - supports-color
 
   esbuild@0.21.5:
     optionalDependencies:
@@ -8658,9 +8636,9 @@ snapshots:
 
   util-deprecate@1.0.2: {}
 
-  vite-code-inspector-plugin@0.14.2:
+  vite-code-inspector-plugin@0.16.1:
     dependencies:
-      code-inspector-core: 0.14.2
+      code-inspector-core: 0.16.1
     transitivePeerDependencies:
       - supports-color
 
@@ -8705,9 +8683,9 @@ snapshots:
 
   webidl-conversions@3.0.1: {}
 
-  webpack-code-inspector-plugin@0.14.2:
+  webpack-code-inspector-plugin@0.16.1:
     dependencies:
-      code-inspector-core: 0.14.2
+      code-inspector-core: 0.16.1
     transitivePeerDependencies:
       - supports-color
 
