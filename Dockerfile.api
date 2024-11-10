@@ -1,4 +1,4 @@
-FROM node:lts as installer
+FROM node:lts AS installer
 
 ENV NODE_ENV=production
 
