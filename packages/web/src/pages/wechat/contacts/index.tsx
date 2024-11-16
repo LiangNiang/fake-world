@@ -32,7 +32,7 @@ const Contacts = () => {
 					<AddFriendSVG height={20} width={20} fill="black" className="cursor-pointer" />
 				</div>
 			</div>
-			<  Suspense
+			<Suspense
 				fallback={
 					<div className="flex flex-1 items-center justify-center">
 						<Loading className="h-8 w-8 text-wechatBrand-2" />

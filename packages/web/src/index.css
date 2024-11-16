@@ -3,6 +3,6 @@
 @tailwind utilities;
 
 img {
-  @apply select-none;
-  -webkit-user-drag: none;
+	@apply select-none;
+	-webkit-user-drag: none;
 }

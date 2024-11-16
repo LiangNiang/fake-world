@@ -60,17 +60,15 @@ const DialogueItemMetaDataEditor = ({ data }: EditorProps<IDialogueItem, IDialog
 			>
 				<Input
 					suffix={
-						<>
-							<Button
-								onClick={() => {
-									const time = dayjs().format("HH:mm");
-									form.setFieldValue("lastMessageTime", time);
-									form.submit();
-								}}
-							>
-								当前时间
-							</Button>
-						</>
+						<Button
+							onClick={() => {
+								const time = dayjs().format("HH:mm");
+								form.setFieldValue("lastMessageTime", time);
+								form.submit();
+							}}
+						>
+							当前时间
+						</Button>
 					}
 				/>
 			</Form.Item>
