@@ -1,11 +1,12 @@
 import { HASH_ASSETS_DB_NAME, hashAssetsDB } from "@/db";
 import { touredAtom } from "@/stateV2/tour";
-import { InfoCircleOutlined } from "@ant-design/icons";
+import { InfoCircleOutlined, OpenAIOutlined } from "@ant-design/icons";
 import { App, Button, Dropdown, Tooltip } from "antd";
 import Dexie from "dexie";
 import { useSetAtom } from "jotai";
 import { useTranslation } from "react-i18next";
 import useAppInfo from "../useAppInfo";
+import GeneratePresetData from "./GeneratePresetData";
 import GenerateRandomUser from "./GenerateRandomUser";
 import ScreenDevicesSelect from "./ScreenDevicesSelect";
 import ScreenshotButton from "./ScreenshotButton";
@@ -43,6 +44,15 @@ const MainMenu = () => {
 				<div className="grid grid-cols-2 gap-1">
 					<div className="col-span-1">{t("menu.mainBlock.friends")}</div>
 					<GenerateRandomUser />
+				</div>
+
+				<div className="grid grid-cols-2 gap-1">
+					<div className="col-span-1 font-semibold text-orange-500 text-xl">
+						<OpenAIOutlined />
+						{t("menu.mainBlock.generatePresetData")}
+						<OpenAIOutlined />
+					</div>
+					<GeneratePresetData />
 				</div>
 
 				<div className="grid grid-cols-2 items-center gap-1">
