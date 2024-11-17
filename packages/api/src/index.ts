@@ -1,9 +1,8 @@
 import "./shim";
 import { cors } from "@elysiajs/cors";
-import { streamObject } from "ai";
+import { generateObject, streamObject } from "ai";
 import { env } from "bun";
 import { Elysia, t } from "elysia";
-import { rateLimit } from "elysia-rate-limit";
 import { z } from "zod";
 import { openai } from "./provider";
 
@@ -48,24 +47,27 @@ const app = new Elysia()
 						},
 					)
 					.post("/preset_data", async () => {
-						const res = await streamObject({
+						const { object } = await generateObject({
 							mode: "auto",
 							model: openai(env.OPENAI_model ?? "gpt-3.5-turbo"),
 							schema: z.object({
-								names: z
+								profiles: z
 									.array(
 										z.object({
-											username: z.string(),
+											wechat: z.string(),
 											nickname: z.string(),
+											signature: z.string(),
+											gender: z.enum(["male", "female"]),
 										}),
 									)
 									.length(5),
 							}),
-							prompt: "生成5个名字信息数组:names,每一项包含username(表示真实姓名,2-3个字),nickname(表示昵称),其中生成的第一个代表的是我本人,生成的数据语言是简体中文",
+							prompt:
+								"生成包含5个人的个人信息数组:profiles,wechat(表示微信id,英文),nickname(表示昵称),signature(个性签名),gender(性别,有male和female两个值),其中生成的第一个代表的是我本人,生成的数据语言是简体中文",
 							maxRetries: 5,
 							temperature: 0.8,
 						});
-						return res.toTextStreamResponse();
+						return object;
 					}),
 			)
 			.onError(async (err) => {
