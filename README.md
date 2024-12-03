@@ -1,5 +1,7 @@
 # Fake-World
 
+[English](./README.en.md) | 简体中文
+
 <!-- PROJECT SHIELDS -->
 
 [![Stargazers][stars-shield]][stars-url]
